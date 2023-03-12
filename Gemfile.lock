@@ -259,6 +259,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.2)
   rspec-rails
   sass-rails
+  sassc-rails
   selenium-webdriver
   sprockets-rails
   stimulus-rails
