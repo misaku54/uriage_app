@@ -9,24 +9,8 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
+    <%= render 'layouts/header' %>
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <%= link_to "せるまね", root_path, class: "navbar-brand" %>
-        <nav>
-          <ul class="nav navbar-nav">
-            <li><%= link_to "売上一覧",   '#' %></li>
-            <li><%= link_to "商品分類マスタ", '#' %></li>
-            <li><%= link_to "メーカーマスタ", '#' %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "新規登録",   '#' %></li>
-            <li><%= link_to "ログイン", '#' %></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
     <%= yield %>
   </body>
 </html>
