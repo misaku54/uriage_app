@@ -17,8 +17,8 @@
         <nav>
           <ul class="nav navbar-nav">
             <li><%= link_to "売上一覧",   '#' %></li>
-            <li><%= link_to "商品分類一覧", '#' %></li>
-            <li><%= link_to "メーカー一覧", '#' %></li>
+            <li><%= link_to "商品分類マスタ", '#' %></li>
+            <li><%= link_to "メーカーマスタ", '#' %></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to "新規登録",   '#' %></li>
@@ -27,8 +27,6 @@
         </nav>
       </div>
     </header>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </body>
 </html>

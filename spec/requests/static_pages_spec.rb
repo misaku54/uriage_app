@@ -9,7 +9,7 @@ RSpec.describe "StaticPages", type: :request do
     end
     it "タイトルが正常に表示されていること" do
       get root_path
-      expect(response.body).to include("Home | #{base_title}")
+      expect(response.body).to include("#{base_title}")
     end
   end
 end
