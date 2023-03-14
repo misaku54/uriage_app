@@ -4,13 +4,20 @@
     <nav>
       <ul class="nav navbar-nav">
         <li><%= link_to "売上一覧",   '#' %></li>
-        <li><%= link_to "商品分類マスタ", '#' %></li>
-        <li><%= link_to "メーカーマスタ", '#' %></li>
+        <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">運用管理 <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#">商品マスタ</a></li>
+						<li><a href="#">メーカーマスタ</a></li>
+					</ul>
+				</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "新規登録",   '#' %></li>
         <li><%= link_to "ログイン", '#' %></li>
       </ul>
+      
     </nav>
+    
   </div>
 </header>
