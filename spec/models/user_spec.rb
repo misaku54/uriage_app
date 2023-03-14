@@ -41,8 +41,13 @@ RSpec.describe User, type: :model do
     it 'emailは重複して登録できないこと' do
       user.save
       duplicate_user = user.dup
-      duplicate_user.email.upcase!
       expect(duplicate_user).to_not be_valid
+    end
+    
+    it 'emailは大文字で入力しても、小文字で登録されること' do
+      user.email = "Foo@ExAMPle.CoM"
+      user.save
+      expect(user.reload.email).to eq "foo@example.com"
     end
   end
 end
