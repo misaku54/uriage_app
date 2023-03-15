@@ -16,3 +16,10 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - chrome
+  chrome:
+    image: seleniarm/standalone-chromium
+    ports:
+      - "4444:4444"
+    # ref: https://github.com/seleniumhq-community/docker-seleniarm#--shm-size2g
+    shm_size: 2gb

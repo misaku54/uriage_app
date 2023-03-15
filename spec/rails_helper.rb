@@ -29,6 +29,33 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+# docker上でCapybaraを使うための設定
+Capybara.register_driver :remote_chrome do |app|
+  options = {
+    browser: :remote,
+    # remote browserが動作しているurlを指定
+    # 今回は`chrome`という名前で`docker-compose.yml`に登録したのでhost名は`chrome`
+    url: 'http://chrome:4444/wd/hub',
+    capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
+      # 各設定はここを参照: https://peter.sh/experiments/chromium-command-line-switches/
+      'goog:chromeOptions': {
+        args: %w[
+          headless
+          disable-gpu
+          window-size=1400,2000
+          no-sandbox
+        ]
+      }
+    )
+  }
+  Capybara::Selenium::Driver.new(app, options)
+end
+Capybara.javascript_driver = :remote_chrome
+Capybara.server_host = '0.0.0.0'
+Capybara.server_port = '9999'
+Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:#{Capybara.server_port}"
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
