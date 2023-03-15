@@ -32,31 +32,31 @@ end
 
 # docker上でCapybaraを使うための設定
 Capybara.register_driver :remote_chrome do |app|
-  options = {
-    browser: :remote,
-    # remote browserが動作しているurlを指定
-    # 今回は`chrome`という名前で`docker-compose.yml`に登録したのでhost名は`chrome`
-    url: 'http://chrome:4444/wd/hub',
-    capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
-      # 各設定はここを参照: https://peter.sh/experiments/chromium-command-line-switches/
-      'goog:chromeOptions': {
-        args: %w[
-          headless
-          disable-gpu
-          window-size=1400,2000
-          no-sandbox
-        ]
-      }
-    )
-  }
-  Capybara::Selenium::Driver.new(app, options)
+  url = "http://chrome:4444/wd/hub"
+  caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
+    "goog:chromeOptions" => {
+      "args" => [
+        "no-sandbox",
+        "headless",
+        "disable-gpu",
+        "window-size=1680,1050"
+      ]
+    }
+  )
+  Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
 end
-Capybara.javascript_driver = :remote_chrome
-Capybara.server_host = '0.0.0.0'
-Capybara.server_port = '9999'
-Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:#{Capybara.server_port}"
 
 RSpec.configure do |config|
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :remote_chrome
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    Capybara.server_port = 4444
+    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

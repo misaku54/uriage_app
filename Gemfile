@@ -76,4 +76,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem 'launchy' 
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
