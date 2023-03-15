@@ -49,5 +49,15 @@ RSpec.describe User, type: :model do
       user.save
       expect(user.reload.email).to eq "foo@example.com"
     end
+
+    it 'passwordがなければ無効になる' do
+      user.password = user.password_confirmation = " " * 6
+      expect(user).to_not be_valid
+    end
+
+    it 'passwordは6文字以上でなければ無効になる' do
+      user.password = user.password_confirmation = "a" * 5
+      expect(user).to_not be_valid
+    end
   end
 end
