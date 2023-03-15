@@ -1,0 +1,19 @@
+<h1>ユーザー情報</h1>
+<table class="table table-bordered">
+  <%# <thead>
+    <tr>
+      <th>ヘッダー</th>
+      <th>ヘッダー２</th>
+    </tr>
+  </thead> %>
+  <tbody>
+    <tr>
+      <th class="info"><%= User.human_attribute_name(:name) %></th>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <th class="info"><%= User.human_attribute_name(:email) %></th>
+      <td><%= @user.email %></td>
+    </tr>
+  </tbody>
+</table>
