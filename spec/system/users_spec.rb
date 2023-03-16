@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
+  before do
+    driven_by(:rack_test)
+  end
+  
   describe '#create' do
     context '無効な値の場合' do
       it 'エラーメッセージが表示されていること' do
