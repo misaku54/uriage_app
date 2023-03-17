@@ -13,7 +13,6 @@ RSpec.describe "Sessions", type: :system do
         fill_in 'パスワード', with: ''
         click_button 'ログイン'
         expect(page).to have_selector 'div.alert.alert-danger'
-
         visit root_path
         expect(page).to_not have_selector 'div.alert.alert-danger'
       end
@@ -21,21 +20,40 @@ RSpec.describe "Sessions", type: :system do
 
     context '有効な値でログインした場合' do
       let(:user) { FactoryBot.create(:user) }
-      it 'ヘッダーに適切な項目が表示されていること' do
+      before do
         visit login_path
         fill_in 'メールアドレス', with: user.email
         fill_in 'パスワード', with: user.password
         click_button 'ログイン'
-        # リンクに置き換える。
-        expect(page).to_not have_content 'ログイン'
-        expect(page).to have_content '売上一覧'
-        expect(page).to have_content '運用管理'
-        expect(page).to have_content '商品マスタ'
-        expect(page).to have_content 'メーカーマスタ'
-        expect(page).to have_content "#{user.name}"
-        expect(page).to have_content 'ユーザー情報'
-        expect(page).to have_content 'ユーザー編集'
-        expect(page).to have_content 'ログアウト'
+      end
+
+      it 'ヘッダーに適切な項目が表示されていること' do
+        aggregate_failures do
+          expect(page).to_not have_content 'ログイン'
+          expect(page).to have_content '売上一覧'
+          expect(page).to have_content '運用管理'
+          expect(page).to have_content '商品マスタ'
+          expect(page).to have_content 'メーカーマスタ'
+          expect(page).to have_content "#{user.name}"
+          expect(page).to have_content 'ユーザー情報'
+          expect(page).to have_content 'ユーザー編集'
+          expect(page).to have_content 'ログアウト'
+        end
+      end
+
+      it 'ログアウト後、ヘッダーに適切な項目が表示されていること' do
+        click_link 'ログアウト'
+        aggregate_failures do
+          expect(page).to have_content 'ログイン'
+          expect(page).to_not have_content '売上一覧'
+          expect(page).to_not have_content '運用管理'
+          expect(page).to_not have_content '商品マスタ'
+          expect(page).to_not have_content 'メーカーマスタ'
+          expect(page).to_not have_content "#{user.name}"
+          expect(page).to_not have_content 'ユーザー情報'
+          expect(page).to_not have_content 'ユーザー編集'
+          expect(page).to_not have_content 'ログアウト'
+        end
       end
     end
   end

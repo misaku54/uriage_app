@@ -14,9 +14,10 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード', with: 'foo'
         fill_in 'パスワード確認', with: 'bar'
         click_button 'ユーザー登録'
-  
-        expect(page).to have_selector 'div#error_explanation'
-        expect(page).to have_selector 'div.field_with_errors'
+        aggregate_failures do
+          expect(page).to have_selector 'div#error_explanation'
+          expect(page).to have_selector 'div.field_with_errors'
+        end
       end
     end
 
@@ -28,7 +29,6 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード', with: 'password'
         fill_in 'パスワード確認', with: 'password'
         click_button 'ユーザー登録'
-  
         expect(page).to have_selector 'div.alert.alert-success'
       end
     end
