@@ -3,7 +3,7 @@
     <%= link_to "せるまね", root_path, id: "logo" %>
     <nav>
       <% if logged_in? %>
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-right">
           <li><%= link_to "売上一覧",   '#' %></li>
           <li class="dropdown">
 			  		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">運用管理 <span class="caret"></span></a>
@@ -12,8 +12,6 @@
 			  			<li><a href="#">メーカーマスタ</a></li>
 			  		</ul>
 			  	</li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">アカウント <span class="caret"></span></a>
 			  		<ul class="dropdown-menu" role="menu">
