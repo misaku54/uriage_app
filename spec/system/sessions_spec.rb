@@ -5,8 +5,8 @@ RSpec.describe "Sessions", type: :system do
     driven_by(:rack_test)
   end
 
-  describe '#create' do
-    context '無効な値の場合' do
+  describe 'ログイン機能' do
+    context '無効な値でログインした場合' do
       it 'flashメッセージが表示されていること' do
         visit login_path
         fill_in 'メールアドレス', with: ''
@@ -16,6 +16,26 @@ RSpec.describe "Sessions", type: :system do
 
         visit root_path
         expect(page).to_not have_selector 'div.alert.alert-danger'
+      end
+    end
+
+    context '有効な値でログインした場合' do
+      let(:user) { FactoryBot.create(:user) }
+      it 'ヘッダーに適切な項目が表示されていること' do
+        visit login_path
+        fill_in 'メールアドレス', with: user.email
+        fill_in 'パスワード', with: user.password
+        click_button 'ログイン'
+        # リンクに置き換える。
+        expect(page).to_not have_content 'ログイン'
+        expect(page).to have_content '売上一覧'
+        expect(page).to have_content '運用管理'
+        expect(page).to have_content '商品マスタ'
+        expect(page).to have_content 'メーカーマスタ'
+        expect(page).to have_content "#{user.name}"
+        expect(page).to have_content 'ユーザー情報'
+        expect(page).to have_content 'ユーザー編集'
+        expect(page).to have_content 'ログアウト'
       end
     end
   end

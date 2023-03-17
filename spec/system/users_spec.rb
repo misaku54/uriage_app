@@ -4,9 +4,9 @@ RSpec.describe "Users", type: :system do
   before do
     driven_by(:rack_test)
   end
-  
-  describe '#create' do
-    context '無効な値の場合' do
+
+  describe '新規登録機能' do
+    context '無効な値で新規登録した場合' do
       it 'エラーメッセージが表示されていること' do
         visit signup_path
         fill_in '名前', with: ''
@@ -20,7 +20,7 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    context '有効な値の場合' do
+    context '有効な値で新規登録した場合' do
       it '成功用のフラッシュメッセージが表示されていること' do
         visit signup_path
         fill_in '名前', with: 'Example User'
