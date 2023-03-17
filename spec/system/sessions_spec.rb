@@ -27,7 +27,7 @@ RSpec.describe "Sessions", type: :system do
         click_button 'ログイン'
       end
 
-      it 'ヘッダーに適切な項目が表示されていること' do
+      it 'ページに適切な項目が表示されていること' do
         aggregate_failures do
           expect(page).to_not have_content 'ログイン'
           expect(page).to have_content '売上一覧'
@@ -41,7 +41,7 @@ RSpec.describe "Sessions", type: :system do
         end
       end
 
-      it 'ログアウト後、ヘッダーに適切な項目が表示されていること' do
+      it 'ログアウト後、ページに適切な項目が表示されていること' do
         click_link 'ログアウト'
         aggregate_failures do
           expect(page).to have_content 'ログイン'
