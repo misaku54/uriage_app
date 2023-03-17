@@ -100,6 +100,7 @@ input {
     color: $state-danger-text;
   }
 }
+
 /* miscellaneous */
 
 .debug_dump {
@@ -107,4 +108,10 @@ input {
   float: left;
   width: 100%;
   margin-top: 45px;
+}
+
+/* Dropdown menu */
+
+.dropdown-menu.active {
+  display: block;
 }
