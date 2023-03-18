@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(id: params[:id])
+  end
+
   private 
     # ストロングパラメーター
     def user_params
