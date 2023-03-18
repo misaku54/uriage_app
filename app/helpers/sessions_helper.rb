@@ -11,7 +11,7 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token
   end
 
-  # 現在のユーザーでログインする
+  # 記憶トークンcookieに対応するユーザーを返す
   def current_user
     # セッションがある場合、セッションでカレントユーザーを取得。クッキーがある場合、クッキーでカレントユーザーを取得。
     if (user_id =  session[:user_id])
@@ -30,9 +30,18 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  # 永続的セッションを破棄する
+  def forget(user)
+    user.forget
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+  end
+
   # 現在のユーザーをログアウトする
   def log_out
+    forget(current_user)
     reset_session
     @current_user = nil
   end
+
 end
