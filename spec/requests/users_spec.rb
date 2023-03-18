@@ -1,6 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
+  describe '#show' do
+    let(:user) { FactoryBot.create(:user) }
+
+    context '未ログインの場合' do
+      before do
+        get user_path(user)
+      end
+
+      it 'ログイン画面にリダイレクトされること' do
+        expect(response).to redirect_to login_path
+      end
+      
+      it 'flashが表示されていること' do
+        expect(flash).to be_any 
+      end
+    end
+
+    context 'ログインしている場合' do
+      it 'レスポンスが正常であること' do
+        log_in(user)
+        get user_path(user)
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+
   describe '#new' do
     it 'レスポンスが正常であること' do
       get signup_path
@@ -36,16 +62,47 @@ RSpec.describe 'Users', type: :request do
 
   describe '#edit' do
     let(:user) { FactoryBot.create(:user) }
-    it 'レスポンスが正常であること' do
-      log_in(user)
-      get user_path(user)
-      expect(response).to have_http_status(:success)
+
+    context '未ログインの場合' do
+      before do
+        get edit_user_path(user)
+      end
+
+      it 'ログイン画面にリダイレクトされること' do
+        expect(response).to redirect_to login_path 
+      end
+
+      it 'flashが表示されていること' do
+        expect(flash).to be_any 
+      end
+    end
+
+    context 'ログインしている場合' do
+      it 'レスポンスが正常であること' do
+        log_in(user)
+        get user_path(user)
+        expect(response).to have_http_status(:success)
+      end
     end
   end
 
   describe '#update' do
     let(:user) { FactoryBot.create(:user) }
-      
+
+    context '未ログインの場合' do
+      before do
+        patch user_path(user)
+      end
+
+      it 'ログイン画面にリダイレクトされること' do
+        expect(response).to redirect_to login_path 
+      end
+
+      it 'flashが表示されていること' do
+        expect(flash).to be_any 
+      end
+    end
+
     context 'ログインしている場合' do
       before do
         log_in(user)
@@ -56,6 +113,7 @@ RSpec.describe 'Users', type: :request do
           @user_params = FactoryBot.attributes_for(:invalid_user)
           patch user_path(user), params: { user: @user_params }
         end
+
         it '更新されないこと' do
           user.reload
           aggregate_failures do
@@ -65,6 +123,7 @@ RSpec.describe 'Users', type: :request do
             expect(user.password_confirmation).to_not eq @user_params[:password_confirmation]
           end
         end
+
         it '編集画面に遷移すること' do
           expect(response.body).to include('ユーザー編集')
         end
