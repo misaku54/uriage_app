@@ -8,7 +8,6 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  
   describe '#create' do
     context '無効な値の場合' do
       it '登録されないこと' do
@@ -34,4 +33,22 @@ RSpec.describe 'Users', type: :request do
       end
     end
   end
+
+  # describe '#update' do
+  #   let!(:user) { FactoryBot.create(:user) }
+
+  #   context '無効な値の場合' do
+  #     it '更新されないこと' do
+  #       user_params = FactoryBot.attributes_for(:invalid_user)
+  #       patch user_path(user), params: { user: user_params }
+  #       user.reload
+  #       aggregate_failures do
+  #         expect(user.name).to_not eq user_params[:name]
+  #         expect(user.email).to_not eq user_params[:email]
+  #         expect(user.password).to_not eq user_params[:password]
+  #         expect(user.password_confirmation).to_not eq user_params[:password_confirmation]
+  #       end
+  #     end
+  #   end
+  # end
 end
