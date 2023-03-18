@@ -60,4 +60,12 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
   end
+  
+  describe 'authenticated?' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'remember_digestがnilならfalseを返すこと' do
+      expect(user.authenticated?('token')).to be_falsy
+    end
+  end
 end
