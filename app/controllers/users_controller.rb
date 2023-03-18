@@ -24,6 +24,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = '編集に成功しました。'
+      redirect_to @user
+    else
+      render 'edit', status: :unprocessable_entity
+    end
+  end
   private 
     # ストロングパラメーター
     def user_params
