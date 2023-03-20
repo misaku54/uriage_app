@@ -54,6 +54,6 @@ class UsersController < ApplicationController
     # 遷移したページのidがログインユーザー本人でなければ、ホーム画面へリダイレクト
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url, status: :see_other) unless @user == current_user
+      redirect_to(root_url, status: :see_other) unless current_user?(@user)
     end
 end
