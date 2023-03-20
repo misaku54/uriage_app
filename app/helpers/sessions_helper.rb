@@ -15,8 +15,11 @@ module SessionsHelper
 
   # 記憶トークンcookieに対応するユーザーを返す
   def current_user
-    # 記憶トークンのcookieに対応するユーザーを返す
-    if (user_id =  session[:user_id])
+    # セッションIDがある
+    # ー＞　セッションIDで抽出したオブジェクトのトークンとセッショントークンが一致すればユーザーを返す。
+    # セッションIDがない
+    # ー＞　クッキーのユーザーIDで抽出したオブジェクトのダイジェストとクッキートークンが一致すればユーザーを返す。
+    if (user_id = session[:user_id])
       user = User.find_by(id: session[:user_id])
       if user && session[:session_token] == user.session_token
         @current_user = user
@@ -54,4 +57,8 @@ module SessionsHelper
     @current_user = nil
   end
 
+  # アクセスしようとしたURLを保存する
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
 end

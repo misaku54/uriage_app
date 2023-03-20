@@ -94,6 +94,13 @@ RSpec.describe 'Users', type: :request do
       it 'flashが表示されていること' do
         expect(flash).to be_any
       end
+
+      context 'ログイン画面にリダイレクト後、ログインした場合' do
+        it 'ユーザー編集画面へリダイレクトされること' do
+          log_in(user)
+          expect(response).to redirect_to edit_user_path(user)
+        end
+      end
     end
 
     context 'ログインしている場合' do
