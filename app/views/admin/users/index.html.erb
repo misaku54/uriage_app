@@ -1,5 +1,5 @@
-<% provide(:title, 'ユーザー一覧') %>
-<h1>ユーザー一覧</h1>
+<% provide(:title, 'ユーザー管理') %>
+<h1>ユーザー管理</h1>
 
 <table class="table table-bordered">
 	<thead>
@@ -8,15 +8,17 @@
 			<th class="info" ><%= User.human_attribute_name(:email) %></th>
 			<th class="info" ><%= User.human_attribute_name(:created_at) %></th>
 			<th class="info" ><%= User.human_attribute_name(:updated_at) %></th>
+			<th class="info" ></th>
 		</tr>
 	</thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
+        <td><%= link_to user.name, admin_user_path(user) %></td>
         <td><%= user.email %></td>
         <td><%= user.created_at %></td>
         <td><%= user.updated_at %></td>
+        <td><%= link_to '削除', '#' %></td>
       </tr>
     <% end %>
   </tbody>
