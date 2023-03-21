@@ -1,6 +1,7 @@
 <% provide(:title, 'ユーザー管理') %>
 <h1>ユーザー管理</h1>
 
+<%= link_to "ユーザー追加", admin_signup_path, class: "btn btn-lg btn-primary" %>
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -18,7 +19,7 @@
         <td><%= user.email %></td>
         <td><%= user.created_at %></td>
         <td><%= user.updated_at %></td>
-        <td><%= link_to '削除', '#' %></td>
+        <td><%= link_to '編集', '#' %> | <%= link_to '削除', '#' %></td>
       </tr>
     <% end %>
   </tbody>

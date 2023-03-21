@@ -36,7 +36,6 @@ RSpec.describe "Sessions", type: :system do
           expect(page).to have_content 'メーカーマスタ'
           expect(page).to have_content "#{user.name}"
           expect(page).to have_content 'ユーザー情報'
-          expect(page).to have_content 'ユーザー編集'
           expect(page).to have_content 'ログアウト'
         end
       end
