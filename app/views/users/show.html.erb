@@ -18,11 +18,11 @@
         </tr>
         <tr>
           <th class="info"><%= User.human_attribute_name(:created_at) %></th>
-          <td><%= @user.created_at %></td>
+          <td><%= @user.created_at.strftime('%Y/%m/%d %H:%M') %></td>
         </tr>
         <tr>
           <th class="info"><%= User.human_attribute_name(:updated_at) %></th>
-          <td><%= @user.updated_at %></td>
+          <td><%= @user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         </tr>
       </tbody>
     </table>
