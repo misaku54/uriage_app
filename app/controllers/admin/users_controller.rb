@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :logged_in_user
+  before_action :if_not_admin
 
   def index
     @users = User.all
@@ -43,4 +43,7 @@ class Admin::UsersController < ApplicationController
                                                         :password_confirmation)
   end
 
+  def if_not_admin
+    redirect_to root_path unless current_user&.admin?
+  end
 end

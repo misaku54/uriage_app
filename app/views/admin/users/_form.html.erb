@@ -10,6 +10,11 @@
     <%= f.label :email %>
     <%= f.email_field :email, class:"form-control" %>
   </div>
+
+  <%= f.label :admin, class: "checkbox inline" do %>
+    <%= f.check_box :admin %>
+    <span>管理者権限</span>
+  <% end %>
   
   <div class="form-group">
     <%= f.label :password %>

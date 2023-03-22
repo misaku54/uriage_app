@@ -9,6 +9,7 @@
 			<th class="info" ><%= User.human_attribute_name(:email) %></th>
 			<th class="info" ><%= User.human_attribute_name(:created_at) %></th>
 			<th class="info" ><%= User.human_attribute_name(:updated_at) %></th>
+      <th class="info" ><%= User.human_attribute_name(:admin) %></th>
 			<th class="info" ></th>
 		</tr>
 	</thead>
@@ -19,6 +20,7 @@
         <td><%= user.email %></td>
         <td><%= user.created_at %></td>
         <td><%= user.updated_at %></td>
+        <td><%= user.admin? ? '管理者' : '一般' %></td>
         <td><%= link_to '編集', '#' %> | <%= link_to '削除', '#' %></td>
       </tr>
     <% end %>
