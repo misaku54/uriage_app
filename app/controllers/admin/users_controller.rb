@@ -28,6 +28,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = '編集に成功しました。'
       redirect_to admin_user_path(@user)
