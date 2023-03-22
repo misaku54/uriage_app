@@ -1,5 +1,12 @@
 ---
 ja:
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
   activerecord:
     errors:
       messages:
@@ -14,7 +21,7 @@ ja:
         id: ユーザーID
         name: 名前
         email: メールアドレス
-        admin: 管理者権限
+        admin: 権限
         password: パスワード
         password_confirmation: パスワード（確認）
         created_at: 登録日時

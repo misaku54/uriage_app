@@ -9,6 +9,8 @@ gem "bcrypt"
 gem "bootstrap-sass"
 gem "sass-rails"
 gem 'jquery-rails'
+gem "faker",           "2.21.0"
+gem 'kaminari'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

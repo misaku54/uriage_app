@@ -21,8 +21,10 @@
         <td><%= user.created_at %></td>
         <td><%= user.updated_at %></td>
         <td><%= user.admin? ? '管理者' : '一般' %></td>
-        <td><%= link_to '編集', '#' %> | <%= link_to '削除', '#' %></td>
+        <td><%= link_to '編集', edit_admin_user_path(user) %> | <%= link_to '削除', '#' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @users %>

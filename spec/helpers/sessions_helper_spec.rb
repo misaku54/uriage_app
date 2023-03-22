@@ -24,6 +24,5 @@ RSpec.describe SessionsHelper, type: :helper do
         expect(logged_in?).to be_falsy
       end
     end
-
   end
 end
