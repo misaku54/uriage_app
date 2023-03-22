@@ -37,6 +37,12 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "ユーザーを削除しました。"
+    redirect_to admin_users_path, status: :see_other
+  end
+
   private 
   # ストロングパラメーター
   def user_params
@@ -45,6 +51,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def if_not_admin
-    redirect_to root_path unless current_user&.admin?
+    redirect_to(root_url, status: :see_other) unless current_user&.admin?
   end
 end

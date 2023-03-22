@@ -12,7 +12,7 @@ RSpec.describe "Sessions", type: :request do
     let(:user) { FactoryBot.create(:user) }
 
     describe 'ログイン機能' do
-      context 'ログイン時、パスワードが誤っていた場合' do
+      context 'ログインに失敗した場合（パスワード誤）' do
         it 'ログイン画面を再表示すること' do
           session_params = { email: user.email, password: 'invalid'}
           post login_path, params: { session: session_params }
@@ -21,16 +21,10 @@ RSpec.describe "Sessions", type: :request do
       end
 
       context 'ログインが成功した場合' do
-        before do
+        it 'ログイン状態になり、ユーザー情報にリダイレクトされること' do
           session_params = { email: user.email, password: user.password }
           post login_path, params: { session: session_params }
-        end
-
-        it 'ユーザー情報にリダイレクトされること' do
           expect(response).to redirect_to user
-        end
-
-        it 'ログイン状態になること' do
           expect(logged_in?).to be_truthy
         end
       end
@@ -58,18 +52,15 @@ RSpec.describe "Sessions", type: :request do
   describe '#destroy' do
     let(:user) { FactoryBot.create(:user) }
     describe 'ログアウト機能' do
-      context 'ログアウトが成功した場合' do
+      context 'ログアウト時' do
         before do
           session_params = { email: user.email, password: user.password }
           post login_path, params: { session: session_params }
           delete logout_path
         end
 
-        it 'ホーム画面へリダイレクトされること' do
+        it 'ログアウト状態になり、ホーム画面へリダイレクトされること' do
           expect(response).to redirect_to root_url
-        end
-
-        it 'ログアウト状態になること' do
           expect(logged_in?).to be_falsy
         end
 

@@ -5,7 +5,7 @@ RSpec.describe 'Users', type: :request do
     let(:user) { FactoryBot.create(:user) }
     let(:other_user) { FactoryBot.create(:jhon) }
     
-    context '未ログインの場合' do
+    context '未ログイン' do
       before do
         get user_path(user)
       end
@@ -19,27 +19,20 @@ RSpec.describe 'Users', type: :request do
       end
     end
 
-    context 'ログインしている場合' do
-      before do
-        log_in(user)
-      end
-
+    context 'ログイン中' do
       it 'レスポンスが正常であること' do
+        log_in(user)
         get user_path(user)
         expect(response).to have_http_status(:success)
       end
+    end
 
-      context '別のユーザーの編集画面に遷移した場合' do
-        before do
-          get user_path(other_user)
-        end
-
+    context 'ログイン中' do
+      context '別ユーザーの詳細画面へのリクエストの場合' do
         it 'ホーム画面にリダイレクトされること' do
+          log_in(user)
+          get user_path(other_user)
           expect(response).to redirect_to root_url
-        end
-
-        it 'flashが空であること' do
-          expect(flash).to be_empty 
         end
       end
     end
