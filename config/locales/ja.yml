@@ -15,7 +15,8 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
     models:
-      user: ユーザー 
+      user: ユーザー
+      maker: メーカー
     attributes:
       user:
         id: ユーザーID
@@ -24,6 +25,11 @@ ja:
         admin: 権限
         password: パスワード
         password_confirmation: パスワード（確認）
+        created_at: 登録日時
+        updated_at: 更新日時
+      maker:
+        id: メーカーID
+        name: メーカー名
         created_at: 登録日時
         updated_at: 更新日時
   date:
