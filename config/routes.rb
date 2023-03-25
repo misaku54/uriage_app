@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   resources :users do
     member do
-      resources :makers
+      resources :makers, except: :show
     end
   end
 end
