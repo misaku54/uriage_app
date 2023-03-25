@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:show]
 
   def index
-    @users = User.all.page(params[:page]).per(10)
+    @users = User.order("id DESC").page(params[:page]).per(10)
   end
 
   def show

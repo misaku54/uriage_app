@@ -1,6 +1,6 @@
 class MakersController < ApplicationController
   def index
-    @makers = Maker.all.page(params[:page]).per(10)
+    @makers = Maker.order("id DESC").page(params[:page]).per(10)
   end
 
   def new
