@@ -1,2 +1,38 @@
-<h1>Makers#index</h1>
-<p>Find me in app/views/makers/index.html.erb</p>
+<% provide(title, '商品マスタ')%>
+<h1>商品マスタ</h1>
+
+<%= link_to "追加", admin_signup_path, class: "btn btn-lg btn-primary" %>
+<div class="table-responsive">
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th class="info" ><%= Maker.human_attribute_name(:id) %></th>
+			<th class="info" ><%= Maker.human_attribute_name(:name) %></th>
+			<th class="info" ><%= Maker.human_attribute_name(:created_at) %></th>
+			<th class="info" ><%= Maker.human_attribute_name(:updated_at) %></th>
+			<th class="info" ></th>
+		</tr>
+	</thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, admin_user_path(user) %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+        <td><%= user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
+        <td><%= user.admin? ? '管理者' : '一般' %></td>
+        <td>
+          <%= link_to '編集', edit_admin_user_path(user) %> | 
+          <% if current_user.admin? && !current_user?(user) %>
+            <%= link_to "削除", admin_user_path(user), data: { "turbo-method": :delete,
+                                          turbo_confirm: "本当に削除しますか？" } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="text-center">
+  <%= paginate @makers %>
+</div>
