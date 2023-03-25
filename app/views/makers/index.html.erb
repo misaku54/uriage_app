@@ -1,7 +1,7 @@
-<% provide(title, '商品マスタ')%>
-<h1>商品マスタ</h1>
+<% provide(title, 'メーカーマスタ')%>
+<h1>メーカーマスタ</h1>
 
-<%= link_to "追加", admin_signup_path, class: "btn btn-lg btn-primary" %>
+<%= link_to "追加", '#', class: "btn btn-lg btn-primary" %>
 <div class="table-responsive">
 <table class="table table-bordered">
 	<thead>
@@ -14,12 +14,12 @@
 		</tr>
 	</thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @makers.each do |maker| %>
       <tr>
-        <td><%= link_to user.name, admin_user_path(user) %></td>
-        <td><%= user.email %></td>
-        <td><%= user.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
-        <td><%= user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
+        <td><%= link_to maker.name %></td>
+        <td><%= maker.email %></td>
+        <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+        <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         <td>
           <%= link_to '編集', '#' %> | <%= link_to "削除", '#' %>
         </td>
