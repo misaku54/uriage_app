@@ -4,6 +4,8 @@ class MakersController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
+    @maker = @user.makers.build
   end
 
   def edit
