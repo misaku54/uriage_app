@@ -6,7 +6,6 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th class="info" ><%= Maker.human_attribute_name(:id) %></th>
 			<th class="info" ><%= Maker.human_attribute_name(:name) %></th>
 			<th class="info" ><%= Maker.human_attribute_name(:created_at) %></th>
 			<th class="info" ><%= Maker.human_attribute_name(:updated_at) %></th>
@@ -16,8 +15,7 @@
   <tbody>
     <% @makers.each do |maker| %>
       <tr>
-        <td><%= link_to maker.name %></td>
-        <td><%= maker.email %></td>
+        <td><%= maker.name %></td>
         <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
         <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         <td>

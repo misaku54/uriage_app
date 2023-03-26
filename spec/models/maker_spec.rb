@@ -14,6 +14,11 @@ RSpec.describe Maker, type: :model do
       expect(maker).to_not be_valid
     end
 
+    it 'nameが31文字以上は無効になること' do
+      maker.name = "a" * 31
+      expect(maker).to_not be_valid
+    end
+
     it 'user_idがなければ無効になること' do
       maker.user_id = nil
       expect(maker).to_not be_valid
