@@ -10,8 +10,6 @@ Rails.application.routes.draw do
     get    '/signup',  to: 'users#new'
   end
   resources :users do
-    member do
-      resources :makers, except: :show
-    end
+    resources :makers, except: :show
   end
 end
