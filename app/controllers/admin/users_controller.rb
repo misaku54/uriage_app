@@ -50,6 +50,7 @@ class Admin::UsersController < ApplicationController
                                                         :password_confirmation)
   end
 
+  # 管理者かどうか確認
   def if_not_admin
     redirect_to(root_url, status: :see_other) unless current_user&.admin?
   end
