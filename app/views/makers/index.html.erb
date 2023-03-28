@@ -1,7 +1,7 @@
 <% provide(:title, 'メーカーマスタ')%>
 <h1>メーカーマスタ</h1>
 
-<%= link_to "追加", new_user_maker_path(current_user), class: "btn btn-lg btn-primary" %>
+<%= link_to "追加", new_user_maker_path(@user), class: "btn btn-lg btn-primary" %>
 <div class="table-responsive">
 <table class="table table-bordered">
 	<thead>
@@ -19,7 +19,8 @@
         <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
         <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         <td>
-          <%= link_to '編集', edit_user_maker_path(current_user,maker) %> | <%= link_to "削除", '#' %>
+          <%= link_to '編集', edit_user_maker_path(@user,maker) %> | 
+          <%= link_to "削除", user_maker_path(@user, maker), data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} %>
         </td>
       </tr>
     <% end %>

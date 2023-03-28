@@ -16,7 +16,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = 'ユーザー情報の登録に成功しました。'
+      flash[:success] = 'ユーザーの登録に成功しました。'
       redirect_to admin_user_path(@user)
     else
       render 'new', status: :unprocessable_entity

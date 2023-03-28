@@ -27,11 +27,17 @@ class MakersController < ApplicationController
   def update
     @maker = @user.makers.find(params[:id])
     if @maker.update(maker_params)
-      flash[:success] = 'メーカーの編集に成功しました。'
+      flash[:success] = '編集に成功しました。'
       redirect_to user_makers_path(@user)
     else
       render 'edit', status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @user.makers.find(params[:id]).destroy
+    flash[:success] = "メーカーを削除しました。"
+    redirect_to user_makers_path(@user), status: :see_other
   end
 
   private 
