@@ -3,17 +3,14 @@ class MakersController < ApplicationController
   before_action :correct_user,   only: [:index, :show, :new, :create]
 
   def index
-    # @user   = User.find(params[:user_id])
     @makers = @user.makers.order("id DESC").page(params[:page]).per(10)
   end
 
   def new
-    # @user  = User.find(params[:user_id])
     @maker = @user.makers.build
   end
 
   def create
-    # @user  = User.find(params[:user_id])
     @maker = @user.makers.build(maker_params)
     if @maker.save
       flash[:success] = 'メーカーの追加に成功しました。'
