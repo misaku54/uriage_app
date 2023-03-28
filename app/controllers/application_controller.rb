@@ -12,4 +12,14 @@ class ApplicationController < ActionController::Base
       redirect_to login_path, status: :see_other
     end
   end
+
+  # 遷移したページのidがログインユーザー本人でなければ、ホーム画面へリダイレクト
+  def correct_user
+    if params[:controller] == "makers"
+      @user = User.find(params[:user_id])
+    else
+      @user = User.find(params[:id])
+    end
+    redirect_to(root_url, status: :see_other) unless current_user?(@user)
+  end
 end
