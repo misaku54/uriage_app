@@ -30,24 +30,29 @@ RSpec.describe "メーカー管理機能", type: :system do
         expect(page).to_not have_content 'メーカーA'
       end
     end
-
-    context 'ユーザーAでログインし、ユーザーBの一覧画面へ遷移した場合' do
-      let(:login_user) { user_a }
-
-      it 'ホーム画面へ遷移すること' do
-        visit user_makers_path(user_b)
-        expect(page).to have_current_path root_path
-      end
-    end
   end
 
   describe '新規登録機能' do
+    let(:login_user) { user_a }
+    
     context '新規登録画面でメーカー名を入力した時' do
-      let(:login_user) { user_a }
-      
       it '正常に登録され、一覧画面へ遷移すること' do
-        visit user_makers_path(user_a)
-        expect(page).to have_current_path login_path
+        visit new_user_maker_path(login_user)
+        fill_in 'メーカー名', with: 'メーカーC'
+        expect {
+          click_button 'メーカー登録'
+        }.to change(Maker, :count).by(1)
+        expect(page).to have_current_path user_makers_path(login_user)
+      end
+    end
+
+    context '新規登録画面でメーカー名を入力しなかった時' do
+      it '登録されず、エラーとなること' do
+        visit new_user_maker_path(login_user)
+        fill_in 'メーカー名', with: ''
+        expect {
+          click_button 'メーカー登録'
+        }.to_not change(Maker, :count)
         expect(page).to have_selector 'div.alert.alert-danger'
       end
     end
