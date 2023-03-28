@@ -19,7 +19,7 @@
         <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
         <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         <td>
-          <%= link_to '編集', '#' %> | <%= link_to "削除", '#' %>
+          <%= link_to '編集', edit_user_maker_path(current_user,maker) %> | <%= link_to "削除", '#' %>
         </td>
       </tr>
     <% end %>

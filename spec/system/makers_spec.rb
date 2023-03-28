@@ -38,7 +38,7 @@ RSpec.describe "メーカー管理機能", type: :system do
     context '新規登録画面でメーカー名を入力した時' do
       it '正常に登録され、一覧画面へ遷移すること' do
         visit new_user_maker_path(login_user)
-        fill_in 'メーカー名', with: 'メーカーC'
+        fill_in 'メーカー名', with: 'createメーカー'
         expect {
           click_button 'メーカー登録'
         }.to change(Maker, :count).by(1)
@@ -53,6 +53,44 @@ RSpec.describe "メーカー管理機能", type: :system do
         expect {
           click_button 'メーカー登録'
         }.to_not change(Maker, :count)
+        expect(page).to have_selector 'div.alert.alert-danger'
+      end
+    end
+  end
+
+  describe '編集機能' do
+    let(:login_user) { user_a }
+
+    context '編集画面でメーカー名を変更して更新した場合' do
+      it '正常に更新され、一覧画面へ遷移すること' do
+        visit edit_user_maker_path(login_user, maker)
+        fill_in 'メーカー名', with: 'updateメーカー'
+        click_button 'メーカー修正'
+        maker.reload
+        expect(maker.name).to eq 'updateメーカー'
+        expect(page).to have_current_path user_makers_path(login_user)
+      end
+    end
+
+    context '編集画面でメーカー名を変更せずに更新した場合' do
+      it '更新されず、一覧画面へ遷移すること' do
+        maker_before = maker
+        visit edit_user_maker_path(login_user, maker)
+        click_button 'メーカー修正'
+        maker.reload
+        expect(maker).to be maker_before
+        expect(page).to have_current_path user_makers_path(login_user)
+      end
+    end
+
+    context '編集画面でメーカー名を空白で更新した場合' do
+      it '更新されず、エラーとなること' do
+        maker_before = maker
+        visit edit_user_maker_path(login_user, maker)
+        fill_in 'メーカー名', with: ''
+        click_button 'メーカー修正'
+        maker.reload
+        expect(maker).to be maker_before
         expect(page).to have_selector 'div.alert.alert-danger'
       end
     end
