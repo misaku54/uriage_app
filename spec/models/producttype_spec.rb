@@ -11,17 +11,17 @@ RSpec.describe Producttype, type: :model do
 
     it 'nameがなければ無効になること' do
       producttype.name = nil
-      expect(maker).to_not be_valid
+      expect(producttype).to_not be_valid
     end
 
     it 'nameが31文字以上は無効になること' do
       producttype.name = "a" * 31
-      expect(maker).to_not be_valid
+      expect(producttype).to_not be_valid
     end
 
     it 'user_idがなければ無効になること' do
       producttype.user_id = nil
-      expect(maker).to_not be_valid
+      expect(producttype).to_not be_valid
     end
   end
 end
