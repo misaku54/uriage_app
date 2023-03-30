@@ -23,5 +23,12 @@ RSpec.describe Maker, type: :model do
       maker.user_id = nil
       expect(maker).to_not be_valid
     end
+
+    it '紐づいているユーザーを削除すると、メーカーデータも削除されること' do
+      maker.save
+      expect {
+        user.destroy
+      }.to change(Maker, :count).by(-1)
+    end
   end
 end

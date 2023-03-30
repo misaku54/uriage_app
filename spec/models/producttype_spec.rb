@@ -23,5 +23,12 @@ RSpec.describe Producttype, type: :model do
       producttype.user_id = nil
       expect(producttype).to_not be_valid
     end
+
+    it '紐づいているユーザーを削除すると、商品データも削除されること' do
+      producttype.save
+      expect {
+        user.destroy
+      }.to change(Producttype, :count).by(-1)
+    end
   end
 end
