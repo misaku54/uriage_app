@@ -3,7 +3,7 @@ class ProducttypesController < ApplicationController
   before_action :correct_user
 
   def index
-    @producttype = @user.producttypes.order("id DESC").page(params[:page]).per(10)
+    @producttypes = @user.producttypes.order("id DESC").page(params[:page]).per(10)
   end
 
   def new

@@ -17,6 +17,7 @@ ja:
     models:
       user: ユーザー
       maker: メーカー
+      producttype: 商品
     attributes:
       user:
         id: ユーザーID
@@ -30,6 +31,11 @@ ja:
       maker:
         id: メーカーID
         name: メーカー名
+        created_at: 登録日時
+        updated_at: 更新日時
+      producttype:
+        id: 商品ID
+        name: 商品名
         created_at: 登録日時
         updated_at: 更新日時
   date:
