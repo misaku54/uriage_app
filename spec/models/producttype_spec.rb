@@ -19,6 +19,12 @@ RSpec.describe Producttype, type: :model do
       expect(producttype).to_not be_valid
     end
 
+    it '1ユーザーにつき、同じnameは設定できない' do
+      duplicate_producttype = producttype.dup
+      producttype.save
+      expect(duplicate_producttype).to_not be_valid
+    end
+
     it 'user_idがなければ無効になること' do
       producttype.user_id = nil
       expect(producttype).to_not be_valid

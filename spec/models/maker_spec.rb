@@ -19,6 +19,12 @@ RSpec.describe Maker, type: :model do
       expect(maker).to_not be_valid
     end
 
+    it '1ユーザーにつき、同じnameは設定できない' do
+      duplicate_maker = maker.dup
+      maker.save
+      expect(duplicate_maker).to_not be_valid
+    end
+
     it 'user_idがなければ無効になること' do
       maker.user_id = nil
       expect(maker).to_not be_valid

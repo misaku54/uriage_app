@@ -1,7 +1,7 @@
-<% provide(:title, 'メーカーマスタ')%>
-<h1>メーカーマスタ</h1>
+<% provide(:title, '商品マスタ')%>
+<h1>商品マスタ</h1>
 
-<%= link_to "追加", new_user_maker_path(@user), class: "btn btn-lg btn-primary" %>
+<%= link_to "追加", new_user_producttype_path(@user), class: "btn btn-lg btn-primary" %>
 <div class="table-responsive">
 <table class="table table-bordered">
 	<thead>
@@ -13,14 +13,14 @@
 		</tr>
 	</thead>
   <tbody>
-    <% @makers.each do |maker| %>
+    <% @producttypes.each do |producttype| %>
       <tr>
-        <td><%= maker.name %></td>
-        <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
-        <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
+        <td><%= producttype.name %></td>
+        <td><%= producttype.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+        <td><%= producttype.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         <td>
-          <%= link_to '編集', edit_user_maker_path(@user,maker) %> | 
-          <%= link_to "削除", user_maker_path(@user, maker), data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} %>
+          <%= link_to '編集', edit_user_producttype_path(@user, producttype) %> | 
+          <%= link_to "削除", user_producttype_path(@user, producttype), data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} %>
         </td>
       </tr>
     <% end %>
@@ -28,5 +28,5 @@
 </table>
 </div>
 <div class="text-center">
-  <%= paginate @makers %>
+  <%= paginate @producttypes %>
 </div>
