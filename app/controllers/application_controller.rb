@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   # 遷移したページのidがログインユーザー本人でなければ、ホーム画面へリダイレクト
   def correct_user
-    if params[:controller] == "makers"
+    if params[:controller] == "makers" || params[:controller] == "producttypes" 
       @user = User.find(params[:user_id])
     else
       @user = User.find(params[:id])
