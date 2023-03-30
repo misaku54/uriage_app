@@ -1,0 +1,32 @@
+<% provide(:title, 'メーカーマスタ')%>
+<h1>メーカーマスタ</h1>
+
+<%= link_to "追加", new_user_maker_path(@user), class: "btn btn-lg btn-primary" %>
+<div class="table-responsive">
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th class="info" ><%= Maker.human_attribute_name(:name) %></th>
+			<th class="info" ><%= Maker.human_attribute_name(:created_at) %></th>
+			<th class="info" ><%= Maker.human_attribute_name(:updated_at) %></th>
+			<th class="info" ></th>
+		</tr>
+	</thead>
+  <tbody>
+    <% @makers.each do |maker| %>
+      <tr>
+        <td><%= maker.name %></td>
+        <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+        <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
+        <td>
+          <%= link_to '編集', edit_user_maker_path(@user,maker) %> | 
+          <%= link_to "削除", user_maker_path(@user, maker), data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="text-center">
+  <%= paginate @makers %>
+</div>

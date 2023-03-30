@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :makers, except: :show
   end
+  resources :users do
+    resources :producttypes, except: :show
+  end
 end
