@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :if_not_admin
 
   def index
-    @users = User.order("id DESC").page(params[:page]).per(10)
+    @users = User.order("id").page(params[:page]).per(10)
   end
 
   def show

@@ -6,15 +6,17 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th class="info" ><%= Maker.human_attribute_name(:name) %></th>
-			<th class="info" ><%= Maker.human_attribute_name(:created_at) %></th>
-			<th class="info" ><%= Maker.human_attribute_name(:updated_at) %></th>
-			<th class="info" ></th>
+      <th class="info" >No.</th>
+			<th class="info col-md-6" ><%= Maker.human_attribute_name(:name) %></th>
+			<th class="info col-md-2" ><%= Maker.human_attribute_name(:created_at) %></th>
+			<th class="info col-md-2" ><%= Maker.human_attribute_name(:updated_at) %></th>
+			<th class="info col-md-2" ></th>
 		</tr>
 	</thead>
   <tbody>
-    <% @makers.each do |maker| %>
+    <% @makers.each.with_index(1) do |maker, index| %>
       <tr>
+        <td><%= index %></td>
         <td><%= maker.name %></td>
         <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
         <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>

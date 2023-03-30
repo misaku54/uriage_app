@@ -120,7 +120,7 @@ RSpec.describe "Admin::Users", type: :request do
           expect {
             post admin_users_path, params: { user: user_params }
           }.to_not change(User, :count)
-          expect(response.body).to include('新規登録')
+          expect(response.body).to include('ユーザー登録')
         end
       end
       

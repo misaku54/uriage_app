@@ -2,29 +2,29 @@
 <h1>ユーザー情報</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-<table class="table table-bordered">
-  <tbody>
-    <tr>
-      <th class="info"><%= User.human_attribute_name(:id) %></th>
-      <td><%= @user.id %></td>
-    </tr>
-    <tr>
-      <th class="info"><%= User.human_attribute_name(:name) %></th>
-      <td><%= @user.name %></td>
-    </tr>
-    <tr>
-      <th class="info"><%= User.human_attribute_name(:email) %></th>
-      <td><%= @user.email %></td>
-    </tr>
-    <tr>
-      <th class="info"><%= User.human_attribute_name(:created_at) %></th>
-      <td><%= @user.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-    </tr>
-    <tr>
-      <th class="info"><%= User.human_attribute_name(:updated_at) %></th>
-      <td><%= @user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th class="info"><%= User.human_attribute_name(:id) %></th>
+          <td><%= @user.id %></td>
+        </tr>
+        <tr>
+          <th class="info"><%= User.human_attribute_name(:name) %></th>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <th class="info"><%= User.human_attribute_name(:email) %></th>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th class="info"><%= User.human_attribute_name(:created_at) %></th>
+          <td><%= @user.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+        </tr>
+        <tr>
+          <th class="info"><%= User.human_attribute_name(:updated_at) %></th>
+          <td><%= @user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

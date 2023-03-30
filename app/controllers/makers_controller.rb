@@ -3,7 +3,7 @@ class MakersController < ApplicationController
   before_action :correct_user
 
   def index
-    @makers = @user.makers.order("id DESC").page(params[:page]).per(10)
+    @makers = @user.makers.order("id").page(params[:page]).per(10)
   end
 
   def new
