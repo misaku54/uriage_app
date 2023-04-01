@@ -25,10 +25,10 @@
         <td><%= user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         <td><%= user.admin? ? '管理者' : '一般' %></td>
         <td>
-          <%= link_to '編集', edit_admin_user_path(user) %> | 
+          <%= link_to '編集', edit_admin_user_path(user), class: "btn btn-primary btn-xs" %> 
           <% if current_user.admin? && !current_user?(user) %>
-            <%= link_to "削除", admin_user_path(user), data: { "turbo-method": :delete,
-                                          turbo_confirm: "本当に削除しますか？" } %>
+            <%= link_to "削除", admin_user_path(user), 
+            data: { "turbo-method": :delete, turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-xs"  %>
           <% end %>
         </td>
       </tr>

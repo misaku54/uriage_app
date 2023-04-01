@@ -21,8 +21,9 @@
         <td><%= producttype.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
         <td><%= producttype.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
         <td>
-          <%= link_to '編集', edit_user_producttype_path(@user, producttype) %> | 
-          <%= link_to "削除", user_producttype_path(@user, producttype), data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} %>
+          <%= link_to '編集', edit_user_producttype_path(@user, producttype), class: "btn btn-primary btn-xs" %>  
+          <%= link_to "削除", user_producttype_path(@user, producttype), 
+          data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
         </td>
       </tr>
     <% end %>
