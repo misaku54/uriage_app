@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'sales/index'
-  get 'sales/new'
-  get 'sales/edit'
   get    'sessions/new'
   root   'static_pages#home'
   get    '/login',   to: 'sessions#new'
@@ -17,5 +14,8 @@ Rails.application.routes.draw do
   end
   resources :users do
     resources :producttypes, except: :show
+  end
+  resources :users do
+    resources :sales, except: :show
   end
 end
