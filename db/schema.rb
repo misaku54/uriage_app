@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_30_092441) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_01_163203) do
   create_table "makers", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
@@ -29,6 +29,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_092441) do
     t.index ["user_id"], name: "index_producttypes_on_user_id"
   end
 
+  create_table "sales", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "amount_sold", null: false
+    t.text "remark"
+    t.bigint "user_id", null: false
+    t.bigint "maker_id", null: false
+    t.bigint "producttype_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["maker_id"], name: "index_sales_on_maker_id"
+    t.index ["producttype_id"], name: "index_sales_on_producttype_id"
+    t.index ["user_id"], name: "index_sales_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -42,4 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_092441) do
 
   add_foreign_key "makers", "users"
   add_foreign_key "producttypes", "users"
+  add_foreign_key "sales", "makers"
+  add_foreign_key "sales", "producttypes"
+  add_foreign_key "sales", "users"
 end
