@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :makers, dependent: :destroy
   has_many :producttypes, dependent: :destroy
+  has_many :sales, dependent: :destroy
   attr_accessor :remember_token
   # メールアドレスは小文字で登録
   before_save { email.downcase! }
