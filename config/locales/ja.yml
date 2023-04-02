@@ -18,6 +18,7 @@ ja:
       user: ユーザー
       maker: メーカー
       producttype: 商品
+      sale: 売上
     attributes:
       user:
         id: ユーザーID
@@ -36,6 +37,14 @@ ja:
       producttype:
         id: 商品ID
         name: 商品名
+        created_at: 登録日時
+        updated_at: 更新日時
+      sale:
+        id: 売上ID
+        amount_sold: 販売価格
+        remark: 備考
+        maker_id: メーカー名
+        producttype_id: 商品名
         created_at: 登録日時
         updated_at: 更新日時
   date:
