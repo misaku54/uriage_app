@@ -14,7 +14,7 @@ class MakersController < ApplicationController
     @maker = @user.makers.build(maker_params)
     if @maker.save
       flash[:success] = 'メーカーの追加に成功しました。'
-      redirect_to user_makers_path(@user)
+      redirect_to user_makers_path(@user), status: :see_other
     else
       render 'new', status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class MakersController < ApplicationController
     @maker = @user.makers.find(params[:id])
     if @maker.update(maker_params)
       flash[:success] = '編集に成功しました。'
-      redirect_to user_makers_path(@user)
+      redirect_to user_makers_path(@user), status: :see_other
     else
       render 'edit', status: :unprocessable_entity
     end
