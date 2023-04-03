@@ -1,9 +1,9 @@
 class SalesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
-  before_action :set_makers_producttypes, only: [:new, :create]
 
   def index
+    @sales = @user.sales.order("id").page(params[:page]).per(10)
   end
 
   def new
@@ -29,10 +29,5 @@ class SalesController < ApplicationController
   # ストロングパラメータ
   def sale_params
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id)
-  end
-
-  def set_makers_producttypes
-    @makers = @user.makers
-    @producttypes = @user.producttypes
   end
 end
