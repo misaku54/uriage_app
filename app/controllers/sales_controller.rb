@@ -15,7 +15,7 @@ class SalesController < ApplicationController
 
     if @sale.save
       flash[:success] = '売上登録に成功しました。'
-      # redirect_to user_sales_path(@user), status: :see_other
+      redirect_to user_sales_path(@user), status: :see_other
     else
       render 'new', status: :unprocessable_entity
     end

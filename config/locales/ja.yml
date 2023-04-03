@@ -43,7 +43,9 @@ ja:
         id: 売上ID
         amount_sold: 販売価格
         remark: 備考
+        maker: メーカー名
         maker_id: メーカー名
+        producttype: 商品名
         producttype_id: 商品名
         created_at: 登録日時
         updated_at: 更新日時
