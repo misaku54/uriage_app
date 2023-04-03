@@ -1,9 +1,11 @@
 class SalesController < ApplicationController
+  before_action :logged_in_user
+  before_action :correct_user
+
   def index
   end
 
   def new
-    @user   = User.find(params[:user_id])
     @makers = @user.makers
     @producttypes = @user.producttypes
     @sale   = @user.sales.build

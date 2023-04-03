@@ -8,4 +8,7 @@ class Sale < ApplicationRecord
     validates :maker_id
     validates :producttype_id
   end
+  # 販売価格は数値のみで1円以上
+  validates :amount_sold, numericality: { greater_than_or_equal_to: 1 }
+  validates :remark, presence: true, length: { maximum: 1000 }
 end
