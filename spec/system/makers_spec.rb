@@ -73,6 +73,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           }.to change(Maker, :count).by(1)
           expect(page).to have_current_path user_makers_path(login_user)
           expect(page).to have_selector 'div.alert.alert-success'
+          expect(page).to have_content 'createメーカー'
         end
       end
 
@@ -99,6 +100,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           maker.reload
           expect(maker.name).to eq 'updateメーカー'
           expect(page).to have_current_path user_makers_path(login_user)
+          expect(page).to have_content 'updateメーカー'
         end
       end
 

@@ -37,9 +37,10 @@ RSpec.describe "売上管理機能", type: :system do
 
         it 'ユーザーAが登録した売上情報が表示されていること' do
           visit user_sales_path(login_user)
-          expect(page).to have_content '期間限定商品'
           expect(page).to have_content 'テスト会社'
           expect(page).to have_content 'カバン'
+          expect(page).to have_content '10000'
+          expect(page).to have_content '期間限定商品'
         end
       end
 
@@ -48,9 +49,10 @@ RSpec.describe "売上管理機能", type: :system do
 
         it 'ユーザーAが登録した売上情報が表示されていないこと' do
           visit user_sales_path(login_user)
-          expect(page).to_not have_content '期間限定商品'
           expect(page).to_not have_content 'テスト会社'
           expect(page).to_not have_content 'カバン'
+          expect(page).to_not have_content '10000'
+          expect(page).to_not have_content '期間限定商品'
         end
       end
     end
@@ -60,11 +62,20 @@ RSpec.describe "売上管理機能", type: :system do
       
       context '売上情報を有効な値で登録した場合' do
         it '正常に登録され、一覧画面へ遷移後、フラッシュが表示されること' do
-          visit new_user_sales_path(login_user)
+          visit new_user_sale_path(login_user)
           select 'テスト会社', from: 'sale[maker_id]'
           select 'カバン', from: 'sale[producttype_id]'
           fill_in '販売価格', with: 50000
           fill_in '備考', with: 'セール価格'
+          expect {
+            click_button '売上登録'
+          }.to change(Sale, :count).by(1)
+          expect(page).to have_current_path user_sales_path(login_user)
+          expect(page).to have_selector 'div.alert.alert-success'
+          expect(page).to have_content 'テスト会社'
+          expect(page).to have_content 'カバン'
+          expect(page).to have_content '50000'
+          expect(page).to have_content 'セール価格'
         end
       end
     end

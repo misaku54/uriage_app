@@ -70,6 +70,7 @@ RSpec.describe "商品管理機能", type: :system do
           }.to change(Producttype, :count).by(1)
           expect(page).to have_current_path user_producttypes_path(login_user)
           expect(page).to have_selector 'div.alert.alert-success'
+          expect(page).to have_content 'create商品'
         end
       end
 
@@ -96,6 +97,7 @@ RSpec.describe "商品管理機能", type: :system do
           producttype.reload
           expect(producttype.name).to eq 'update商品'
           expect(page).to have_current_path user_producttypes_path(login_user)
+          expect(page).to have_content 'update商品'
         end
       end
 
