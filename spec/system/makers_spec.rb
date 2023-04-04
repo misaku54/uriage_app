@@ -78,7 +78,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           # 登録したメーカーが表示されていること
           expect(page).to have_content 'createメーカー'
 
-          # 売上登録画面へ遷移
+          # 売上登録画面のセレクトボックスにメーカー名が反映されていること
           visit new_user_sale_path(login_user)
           expect(page).to have_content 'createメーカー'
         end
