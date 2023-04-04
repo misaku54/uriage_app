@@ -8,7 +8,7 @@ RSpec.describe "メーカー管理機能", type: :system do
   describe '未ログイン' do
     describe 'ページ遷移確認' do
       context 'メーカーの一覧画面へアクセス' do
-        it 'ログイン画面へリダイレクトし、フラッシュが表示されること' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
           visit user_makers_path(user_a)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -16,7 +16,7 @@ RSpec.describe "メーカー管理機能", type: :system do
       end
 
       context 'メーカーの新規登録画面へアクセス' do
-        it 'ログイン画面へリダイレクトし、フラッシュが表示されること' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
           visit new_user_maker_path(user_a)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -24,7 +24,7 @@ RSpec.describe "メーカー管理機能", type: :system do
       end
 
       context 'メーカーの編集画面へアクセス' do
-        it 'ログイン画面へリダイレクトし、フラッシュが表示されること' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
           visit edit_user_maker_path(user_a, maker)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -65,13 +65,14 @@ RSpec.describe "メーカー管理機能", type: :system do
       let(:login_user) { user_a }
 
       context 'メーカー名を有効な値で登録した場合' do
-        it '正常に登録され、一覧画面へ遷移すること' do
+        it '正常に登録され、一覧画面へ遷移後、フラッシュが表示されること' do
           visit new_user_maker_path(login_user)
           fill_in 'メーカー名', with: 'createメーカー'
           expect {
             click_button 'メーカー登録'
           }.to change(Maker, :count).by(1)
           expect(page).to have_current_path user_makers_path(login_user)
+          expect(page).to have_selector 'div.alert.alert-success'
         end
       end
 

@@ -8,7 +8,7 @@ RSpec.describe "商品管理機能", type: :system do
   describe '未ログイン' do
     describe 'ページ遷移確認' do
       context '商品の一覧画面へアクセス' do
-        it 'ログイン画面へリダイレクトし、フラッシュが表示されること' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
           visit user_producttypes_path(user_a)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -16,7 +16,7 @@ RSpec.describe "商品管理機能", type: :system do
       end
 
       context '商品の新規登録画面へアクセス' do
-        it 'ログイン画面へリダイレクトし、フラッシュが表示されること' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
           visit new_user_producttype_path(user_a)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -24,7 +24,7 @@ RSpec.describe "商品管理機能", type: :system do
       end
 
       context '商品の編集画面へアクセス' do
-        it 'ログイン画面へリダイレクトし、フラッシュが表示されること' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
           visit edit_user_producttype_path(user_a, producttype)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -35,10 +35,7 @@ RSpec.describe "商品管理機能", type: :system do
 
   describe 'ログイン中' do
     before do
-      visit login_path
-      fill_in 'メールアドレス', with: login_user.email
-      fill_in 'パスワード', with: login_user.password
-      click_button 'ログイン'
+      log_in(login_user)
     end
 
     describe '一覧表示機能' do
@@ -65,13 +62,14 @@ RSpec.describe "商品管理機能", type: :system do
       let(:login_user) { user_a }
 
       context '商品名を有効な値で登録した場合' do
-        it '正常に登録され、一覧画面へ遷移すること' do
+        it '正常に登録され、一覧画面へ遷移後、フラッシュが表示されること' do
           visit new_user_producttype_path(login_user)
           fill_in '商品名', with: 'create商品'
           expect {
             click_button '商品登録'
           }.to change(Producttype, :count).by(1)
           expect(page).to have_current_path user_producttypes_path(login_user)
+          expect(page).to have_selector 'div.alert.alert-success'
         end
       end
 

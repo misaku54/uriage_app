@@ -20,11 +20,9 @@ RSpec.describe "Sessions", type: :system do
 
     context '有効な値でログインした場合' do
       let(:user) { FactoryBot.create(:user) }
+      
       before do
-        visit login_path
-        fill_in 'メールアドレス', with: user.email
-        fill_in 'パスワード', with: user.password
-        click_button 'ログイン'
+        log_in(user)
       end
 
       it 'ページに適切な項目が表示されていること' do
