@@ -89,7 +89,7 @@ RSpec.describe "商品管理機能", type: :system do
           expect {
             click_button '商品登録'
           }.to_not change(Producttype, :count)
-          # 失敗時のフラッシュが表示されていること
+          # エラーメッセージが表示されていること
           expect(page).to have_selector 'div.alert.alert-danger'
         end
       end
@@ -127,7 +127,7 @@ RSpec.describe "商品管理機能", type: :system do
           producttype.reload
           # 更新前と値が変わっていないこと
           expect(producttype).to be producttype_before
-          # 失敗時のフラッシュが表示されること
+          # エラーメッセージが表示されること
           expect(page).to have_selector 'div.alert.alert-danger'
         end
       end

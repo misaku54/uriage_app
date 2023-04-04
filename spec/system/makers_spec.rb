@@ -92,7 +92,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           expect {
             click_button 'メーカー登録'
           }.to_not change(Maker, :count)
-          # 失敗時のフラッシュが表示されていること
+          # エラーメッセージが表示されていること
           expect(page).to have_selector 'div.alert.alert-danger'
         end
       end
@@ -130,7 +130,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           maker.reload
           # 更新前と値が変わっていないこと
           expect(maker).to be maker_before
-          # 失敗時のフラッシュが表示されること
+          # エラーメッセージが表示されること
           expect(page).to have_selector 'div.alert.alert-danger'
         end
       end
@@ -148,6 +148,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           }.to change(Maker, :count).by(-1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_makers_path(login_user)
+          # 削除したメーカーが表示されていないこと
           expect(page).to_not have_content 'メーカーA'
 
           # 売上登録画面のセレクトボックスからメーカー名が削除されていること
