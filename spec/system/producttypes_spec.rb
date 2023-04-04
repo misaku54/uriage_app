@@ -45,7 +45,7 @@ RSpec.describe "商品管理機能", type: :system do
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
 
-        it 'ユーザーAが作成した商品が表示されていること' do
+        it 'ユーザーAが登録した商品が表示されていること' do
           visit user_producttypes_path(login_user)
           expect(page).to have_content '商品A'
         end
@@ -54,7 +54,7 @@ RSpec.describe "商品管理機能", type: :system do
       context 'ユーザーBでログインしている場合' do
         let(:login_user) { user_b }
 
-        it 'ユーザーAが作成した商品が表示されていないこと' do
+        it 'ユーザーAが登録した商品が表示されていないこと' do
           visit user_producttypes_path(login_user)
           expect(page).to_not have_content '商品A'
         end
