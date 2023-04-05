@@ -34,6 +34,11 @@ class SalesController < ApplicationController
     end
   end
 
+  def destroy
+    @user.sales.find(params[:id]).destroy
+    flash[:success] = "売上情報を削除しました。"
+    redirect_to user_sales_path(@user), status: :see_other
+  end
 
   private
   # ストロングパラメータ
