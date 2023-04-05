@@ -15,12 +15,17 @@ class Sale < ApplicationRecord
   private 
 
   def maker_id_should_be_registered
-    select_maker = Maker.find_by(id: maker_id, user_id: user_id)
-    errors.add(:maker_id, 'の値が不正です') unless select_maker
+    # 空白やnilの場合はこのバリデーションをスキップする。
+    unless maker_id.blank?
+      select_maker = Maker.find_by(id: maker_id, user_id: user_id)
+      errors.add(:maker_id, 'は不正な値です') unless select_maker
+    end
   end
 
   def producttype_id_should_be_registered
-    select_producttype = Producttype.find_by(id: producttype_id, user_id: user_id)
-    errors.add(:producttype_id, 'の値が不正です') unless select_producttype
+    unless producttype_id.blank?
+      select_producttype = Producttype.find_by(id: producttype_id, user_id: user_id)
+      errors.add(:producttype_id, 'は不正な値です', allow_blank: true) unless select_producttype
+    end
   end
 end
