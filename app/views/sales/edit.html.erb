@@ -1,2 +1,32 @@
-<h1>Sales#edit</h1>
-<p>Find me in app/views/sales/edit.html.erb</p>
+<% provide(:title, '売上編集' ) %>
+<% provide(:button_text, '売上修正' ) %>
+<h1>売上編集</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(model: [@user, @sale]) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="form-group">
+        <%= f.label :maker_id %>
+        <%= f.select :maker_id, @user.makers.map{ |maker| [maker.name, maker.id]}, 
+                                { include_blank: "選択してください" }, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :producttype_id %>
+        <%= f.select :producttype_id, @user.producttypes.map { |producttype| [producttype.name, producttype.id]}, 
+                                { include_blank: "選択してください" }, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :amount_sold %>
+        <%= f.number_field :amount_sold, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :remark %>
+        <%= f.text_area :remark, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
