@@ -16,9 +16,17 @@ RSpec.describe "売上管理機能", type: :system do
         end
       end
 
-      context '売上の新規登録画面へアクセス' do
+      context '売上新規登録画面へアクセス' do
         it 'ログイン画面へ遷移し、フラッシュが表示されること' do
           visit user_sales_path(user_a)
+          expect(page).to have_current_path login_path
+          expect(page).to have_selector 'div.alert.alert-danger'
+        end
+      end
+
+      context '売上編集画面へアクセス' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
+          visit edit_user_sale_path(user_a, sale)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
         end
@@ -46,7 +54,6 @@ RSpec.describe "売上管理機能", type: :system do
 
       context 'ユーザーBでログインしている場合' do
         let(:login_user) { user_b }
-
         it 'ユーザーAが登録した売上情報が表示されていないこと' do
           visit user_sales_path(login_user)
           expect(page).to_not have_content 'テスト会社'
