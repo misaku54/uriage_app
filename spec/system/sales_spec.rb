@@ -87,16 +87,82 @@ RSpec.describe "売上管理機能", type: :system do
       context '売上情報を無効な値で登録した場合' do
         it '登録に失敗する' do
           visit new_user_sale_path(login_user)
-          select 'テスト会社', from: 'sale[maker_id]'
-          select 'カバン', from: 'sale[producttype_id]'
+          select '選択してください', from: 'sale[maker_id]'
+          select '選択してください', from: 'sale[producttype_id]'
           fill_in '販売価格', with: 0
-          fill_in '備考', with: ''
           # DB上に登録されていないこと
           expect {
             click_button '売上登録'
           }.to_not change(Sale, :count)
           # エラーメッセージが表示されていること
           expect(page).to have_selector 'div.alert.alert-danger'
+        end
+      end
+    end
+
+    describe '編集機能' do
+      let(:login_user) { user_a }
+      let!(:maker) { FactoryBot.create(:maker, name: 'メーカーA', user: login_user) }
+      let!(:producttype) { FactoryBot.create(:producttype, name:'商品A', user: login_user) }
+
+      context '売上情報を有効な値で更新した場合' do
+        it '更新に成功する' do
+          visit edit_user_sale_path(login_user, sale)
+          select 'メーカーA', from: 'sale[maker_id]'
+          select '商品A', from: 'sale[producttype_id]'
+          fill_in '販売価格', with: 20000
+          fill_in '備考', with: '３０％オフ'
+          click_button '売上修正'
+
+          # 正しい値に更新されているか
+          sale.reload
+          expect(sale.maker_id).to eq maker.id
+          expect(sale.producttype_id).to eq producttype.id
+          expect(sale.amount_sold).to eq 20000
+          expect(sale.remark).to eq '３０％オフ'
+          # 一覧画面へ遷移していること
+          expect(page).to have_current_path user_sales_path(login_user)
+          # 成功時のフラッシュが表示されていること
+          expect(page).to have_selector 'div.alert.alert-success'
+          # 更新したメーカーが表示されていること
+          expect(page).to have_content 'メーカーA'
+          expect(page).to have_content '商品A'
+          expect(page).to have_content 20000
+          expect(page).to have_content '３０％オフ'
+        end
+      end
+      context '売上情報を無効な値で更新した場合' do
+        it '更新に失敗する' do
+          sale_before = sale
+          visit edit_user_sale_path(login_user, sale)
+          select '選択してください', from: 'sale[maker_id]'
+          select '選択してください', from: 'sale[producttype_id]'
+          fill_in '販売価格', with: 0
+          click_button '売上修正'
+          sale.reload
+          # 更新前と値が変わっていないこと
+          expect(sale).to be sale_before
+          # エラーメッセージが表示されること
+          expect(page).to have_selector 'div.alert.alert-danger'
+        end
+      end
+    end
+
+    describe '削除機能' do
+      let(:login_user) { user_a }
+
+      context '一覧画面で削除ボタンをクリックした場合' do
+        it '削除に成功する' do
+          visit user_sales_path(login_user)
+          # DB上で削除されていること
+          expect {
+            click_link '削除'
+          }.to change(Sale, :count).by(-1)
+          # 一覧画面へ遷移していること
+          expect(page).to have_current_path user_sales_path(login_user)
+          # 削除した売上情報が表示されていないこと
+          expect(page).to_not have_content 'テスト会社'
+          expect(page).to_not have_content 'カバン'
         end
       end
     end
