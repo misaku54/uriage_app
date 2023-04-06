@@ -8,4 +8,9 @@ module ApplicationHelper
       "#{page_title} | #{base_title}"
     end
   end
+
+  # 円に変換
+  def add_en_sold(amount_sold = 0)
+    "#{amount_sold}円"
+  end
 end

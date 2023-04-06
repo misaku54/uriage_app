@@ -106,6 +106,8 @@ RSpec.describe "メーカー管理機能", type: :system do
           visit edit_user_maker_path(login_user, maker)
           fill_in 'メーカー名', with: 'updateメーカー'
           click_button 'メーカー修正'
+
+          # 正しい値に更新されているか
           maker.reload
           expect(maker.name).to eq 'updateメーカー'
           # 一覧画面へ遷移していること
