@@ -11,11 +11,9 @@ Rails.application.routes.draw do
   end
   resources :users do
     resources :makers, except: :show
-  end
-  resources :users do
     resources :producttypes, except: :show
-  end
-  resources :users do
     resources :sales, except: :show
+    get '/aggregate', to: 'sales#aggregate_result'
   end
+
 end

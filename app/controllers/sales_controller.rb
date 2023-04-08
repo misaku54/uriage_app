@@ -40,6 +40,13 @@ class SalesController < ApplicationController
     redirect_to user_sales_path(@user), status: :see_other
   end
 
+  # 集計画面のアクション
+  def aggregate_result
+    # メーカーと商品テーブルを結合し、メーカー名と商品名の組み合わせで販売額の合計を求める。
+    @aggregate = @user.sales.joins(:maker,:producttype).group('makers.name','producttypes.name').order('sum_sales_amount_sold DESC').sum('sales.amount_sold')
+  end
+
+
   private
   # ストロングパラメータ
   def sale_params
