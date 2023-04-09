@@ -52,4 +52,8 @@ class SalesController < ApplicationController
   def sale_params
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id)
   end
+
+  def aggregate_month
+    params.permit(:month)
+  end
 end
