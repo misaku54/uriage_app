@@ -25,6 +25,24 @@
         <%= f.text_area :remark, class:"form-control" %>
       </div>
       <div class="form-group">
+        <%= f.label :created_at %>
+        <div>
+          <%= raw sprintf(
+            f.datetime_select(
+              :created_at,
+              { 
+                use_month_numbers: true,
+                end_year: Time.current.year,
+                date_separator: '%s',
+                datetime_separator: '%s',
+                time_separator: '%s'
+              },
+              { class:"form-control form_date_select" }
+            ),
+            '年 ', '月 ', '日 ', '時 ') + '分' %>
+        </div>
+      </div>
+      <div class="form-group">
         <%= f.submit yield(:button_text), class: "btn btn-primary" %>
       </div>
     <% end %>

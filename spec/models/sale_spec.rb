@@ -60,5 +60,10 @@ RSpec.describe Sale, type: :model do
       sale.user_id = nil
       expect(sale).to_not be_valid
     end
+
+    it 'created_atがなければ無効になること' do
+      sale.created_at = nil
+      expect(sale).to_not be_valid
+    end
   end
 end

@@ -3,8 +3,6 @@
 
 <%= link_to "追加", new_user_sale_path(@user), class: "btn btn-lg btn-primary" %>
 <%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
-  <%# <%= render 'shared/error_messages', object: f.object %> %>
-  
   <div class="form-group">
     <%= f.month_field :month %>
   </div>
