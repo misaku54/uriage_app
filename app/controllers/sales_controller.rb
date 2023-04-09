@@ -43,7 +43,16 @@ class SalesController < ApplicationController
   # 集計画面のアクション
   def aggregate_result
     # メーカーと商品テーブルを結合し、メーカー名と商品名の組み合わせで販売額の合計を求める。
-    @aggregate = @user.sales.joins(:maker,:producttype).group('makers.name','producttypes.name').order('sum_sales_amount_sold DESC').sum('sales.amount_sold')
+    # ３種類の集計結果を用意してそれらをテンプレートに表示する。
+    date = "#{params[:month]}-01"
+    # デバッグ用
+    # puts "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■#{date}■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
+
+    @sales = @user.sales.where(created_at: date.in_time_zone.all_month)
+
+    @aggregate_of_maker_and_producttype = @sales.joins(:maker,:producttype).group('makers.name','producttypes.name').order('sum_sales_amount_sold DESC').sum('sales.amount_sold')
+    @aggregate_of_maker                 = @sales.joins(:maker).group('makers.name').order('sum_sales_amount_sold DESC').sum('sales.amount_sold')
+    @aggregate_of_producttype           = @sales.joins(:producttype).group('producttypes.name').order('sum_sales_amount_sold DESC').sum('sales.amount_sold') 
   end
 
 
@@ -53,7 +62,4 @@ class SalesController < ApplicationController
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id)
   end
 
-  def aggregate_month
-    params.permit(:month)
-  end
 end
