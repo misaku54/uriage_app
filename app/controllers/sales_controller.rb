@@ -42,21 +42,20 @@ class SalesController < ApplicationController
 
   # 集計画面のアクション
   def aggregate_result
-    # メーカーと商品テーブルを結合し、メーカー名と商品名の組み合わせで販売額の合計を求める。
-    # ３種類の集計結果を用意してそれらをテンプレートに表示する。
+    # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
     date = "#{params[:month]}-01"
     # デバッグ用
     # puts "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■#{date}■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
 
     sales = @user.sales.where(created_at: date.in_time_zone.all_month)
-    @aggregate_of_maker_producttype = sales.joins(:maker, :producttype).select( 'makers.name as maker_name,
+    @aggregates_of_maker_producttype = sales.joins(:maker, :producttype).select( 'makers.name as maker_name,
                                                                                   producttypes.name as producttype_name,
                                                                                   sum(sales.amount_sold) as sum_amount_sold,
                                                                                   count(*) as quantity_sold' ).group('maker_name, producttype_name').order('sum_amount_sold DESC')
-    @aggregate_of_maker             = sales.joins(:maker).select( 'makers.name as name,
+    @aggregates_of_maker             = sales.joins(:maker).select( 'makers.name as name,
                                                                     sum(sales.amount_sold) as sum_amount_sold,
                                                                     count(*) as quantity_sold').group('name').order('sum_amount_sold DESC')
-    @aggregate_of_producttype       = sales.joins(:producttype).select( 'producttypes.name as name,
+    @aggregates_of_producttype       = sales.joins(:producttype).select( 'producttypes.name as name,
                                                                           sum(sales.amount_sold) as sum_amount_sold,
                                                                           count(*) as quantity_sold' ).group('name').order('sum_amount_sold DESC')
   end
