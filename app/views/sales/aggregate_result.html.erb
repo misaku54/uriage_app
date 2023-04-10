@@ -1,14 +1,34 @@
-<% provide(:title, '売上集計') %>
-<% provide(:button_text, '売上修正' ) %>
+<% provide(:title, '集計結果') %>
 
-<h1>売上集計</h1>
+<h1>集計結果</h1>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4>集計結果（メーカー、商品別）</h4>
   </div>
   <div class="panel-body">
-    
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="info">No.</th>
+            <th class="info"><%= Sale.human_attribute_name(:maker_id) %></th>
+            <th class="info"><%= Sale.human_attribute_name(:producttype_id) %></th>
+            <th class="info">純売上</th>
+            <th class="info">販売数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @aggregates_of_maker_producttype.each.with_index(1) do |aggregates_of_maker_producttype, index| %>
+            <tr>
+              <td><%= index %></td>
+              <td><%= aggregates_of_maker_producttype.maker_name %></td>
+              <td><%= aggregates_of_maker_producttype.producttype_name %></td>
+              <td class="text-right"><%= add_en_sold(aggregates_of_maker_producttype.sum_amount_sold) %></td>
+              <td class="text-right"><%= aggregates_of_maker_producttype.quantity_sold %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-<%# <p><%= @aggregate_of_maker_producttype[0].maker_name %></p>%>

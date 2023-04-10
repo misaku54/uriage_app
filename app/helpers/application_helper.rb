@@ -13,4 +13,9 @@ module ApplicationHelper
   def add_en_sold(amount_sold = 0)
     "#{amount_sold}円"
   end
+  
+  # 個数に変換
+  def add_ko_sold(quantity_sold = 0)
+    "#{quantity_sold}個"
+  end 
 end

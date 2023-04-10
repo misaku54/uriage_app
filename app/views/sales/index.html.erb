@@ -11,36 +11,36 @@
   </div>
 <% end %>
 <div class="table-responsive">
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th class="info" >No.</th>
-			<th class="info col-md-3" ><%= Sale.human_attribute_name(:maker_id) %></th>
-			<th class="info col-md-3" ><%= Sale.human_attribute_name(:producttype_id) %></th>
-			<th class="info col-md-1" ><%= Sale.human_attribute_name(:amount_sold) %></th>
-			<th class="info col-md-1" ><%= Sale.human_attribute_name(:remark) %></th>
-      <th class="info col-md-2" ><%= Sale.human_attribute_name(:created_at) %></th>
-			<th class="info col-md-2" ></th>
-		</tr>
-	</thead>
-  <tbody>
-    <% @sales.each.with_index(1) do |sale, index| %>
-      <tr>
-        <td><%= index %></td>
-        <td><%= sale.maker&.name %></td>
-        <td><%= sale.producttype&.name %></td>
-        <td class="text-right"><%= add_en_sold(sale.amount_sold) %></td>
-        <td><%= sale.remark %></td>
-        <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
-        <td>
-          <%= link_to '編集', edit_user_sale_path(@user, sale), class: "btn btn-primary btn-xs" %>  
-          <%= link_to "削除", user_sale_path(@user, sale), 
-          data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="table table-bordered">
+  	<thead>
+  		<tr>
+  			<th class="info" >No.</th>
+  			<th class="info col-md-3" ><%= Sale.human_attribute_name(:maker_id) %></th>
+  			<th class="info col-md-3" ><%= Sale.human_attribute_name(:producttype_id) %></th>
+  			<th class="info col-md-1" ><%= Sale.human_attribute_name(:amount_sold) %></th>
+  			<th class="info col-md-1" ><%= Sale.human_attribute_name(:remark) %></th>
+        <th class="info col-md-2" ><%= Sale.human_attribute_name(:created_at) %></th>
+  			<th class="info col-md-2" ></th>
+  		</tr>
+  	</thead>
+    <tbody>
+      <% @sales.each.with_index(1) do |sale, index| %>
+        <tr>
+          <td><%= index %></td>
+          <td><%= sale.maker&.name %></td>
+          <td><%= sale.producttype&.name %></td>
+          <td class="text-right"><%= add_en_sold(sale.amount_sold) %></td>
+          <td><%= sale.remark %></td>
+          <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+          <td>
+            <%= link_to '編集', edit_user_sale_path(@user, sale), class: "btn btn-primary btn-xs" %>  
+            <%= link_to "削除", user_sale_path(@user, sale), 
+            data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 <div class="text-center">
   <%= paginate @sales %>

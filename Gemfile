@@ -11,6 +11,7 @@ gem "sass-rails"
 gem 'jquery-rails'
 gem "faker",           "2.21.0"
 gem 'kaminari'
+gem "chartkick"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
