@@ -2,4 +2,15 @@
 <% provide(:button_text, '売上修正' ) %>
 
 <h1>売上集計</h1>
-<%= @aggregate_of_maker_and_producttype.keys %>
+<p><%= @aggregate_of_maker_producttype[0].maker_name %></p>
+<p><%= @aggregate_of_maker_producttype[0].producttype_name %></p>
+<p><%= @aggregate_of_maker_producttype[0].sum_amount_sold %></p>
+<p><%= @aggregate_of_maker_producttype[0].quantity_sold %></p>
+<p><%= @aggregate_of_maker_producttype[1].maker_name %></p>
+<p><%= @aggregate_of_maker_producttype[1].producttype_name %></p>
+<p><%= @aggregate_of_maker_producttype[1].sum_amount_sold %></p>
+<p><%= @aggregate_of_maker_producttype[1].quantity_sold %></p>
+<p><%= @aggregate_of_maker_producttype[2].maker_name %></p>
+<p><%= @aggregate_of_maker_producttype[2].producttype_name %></p>
+<p><%= @aggregate_of_maker_producttype[2].sum_amount_sold %></p>
+<p><%= @aggregate_of_maker_producttype[2].quantity_sold %></p>
