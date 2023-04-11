@@ -1,0 +1,65 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% if card_pattern == "maker_producttype" %>
+      <h4>集計結果（メーカー、商品別の販売額の合計）</h4>
+    <% elsif card_pattern == "maker" %>
+      <h4>集計結果（メーカー別の販売額の合計）</h4>
+    <% else %>
+      <h4>集計結果（商品別の販売額の合計）</h4>
+    <% end %>
+  </div>
+  <div class="panel-body">
+    <!-- タブ・メニュー -->
+    <ul class="nav nav-tabs">
+      <li><a href="#pie_chart_<%= card_pattern %>" data-toggle="tab">円グラフ</a></li>
+      <li class="active"><a href="#column_chart_<%= card_pattern %>" data-toggle="tab">棒グラフ</a></li>
+    </ul>
+    <!-- タブ内容 -->
+    <div class="tab-content">
+      <div class="tab-pane" id="pie_chart_<%= card_pattern %>">
+        <p>
+          <%= pie_chart convert_array(aggregates, card_pattern), legend: "right", suffix: "円" %>
+        </p>
+      </div>
+      <div class="tab-pane active" id="column_chart_<%= card_pattern %>">
+        <p>
+          <%= column_chart convert_array(aggregates, card_pattern) %>
+        </p>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="info">No.</th>
+            <% if card_pattern == "maker_producttype" %>
+              <th class="info"><%= Sale.human_attribute_name(:maker_id) %></th>
+              <th class="info"><%= Sale.human_attribute_name(:producttype_id) %></th>
+            <% elsif card_pattern == "maker" %>
+              <th class="info"><%= Sale.human_attribute_name(:maker_id) %></th>
+            <% else %>
+              <th class="info"><%= Sale.human_attribute_name(:producttype_id) %></th>
+            <% end %>
+            <th class="info">純売上</th>
+            <th class="info">販売数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% aggregates.each.with_index(1) do |aggregate, index| %>
+            <tr>
+              <td><%= index %></td>
+              <% if card_pattern == "maker_producttype" %>
+                <td><%= aggregate.maker_name %></td>
+                <td><%= aggregate.producttype_name %></td>
+              <% else %>
+                <td><%= aggregate.name %></td>
+              <% end %>
+              <td class="text-right"><%= add_en_sold(aggregate.sum_amount_sold) %></td>
+              <td class="text-right"><%= aggregate.quantity_sold %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

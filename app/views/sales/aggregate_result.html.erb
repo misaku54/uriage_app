@@ -1,52 +1,6 @@
 <% provide(:title, '集計結果') %>
 
 <h1>集計結果</h1>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4>集計結果（メーカー、商品別の販売額の合計）</h4>
-  </div>
-  <div class="panel-body">
-    <!-- タブ・メニュー -->
-    <ul class="nav nav-tabs">
-      <li><a href="#pie_chartA" data-toggle="tab">円グラフ</a></li>
-      <li class="active"><a href="#column_chartA" data-toggle="tab">棒グラフ</a></li>
-    </ul>
-    <!-- タブ内容 -->
-    <div class="tab-content">
-      <div class="tab-pane" id="pie_chartA">
-        <p>
-          <%= pie_chart convert_array(@aggregates_of_maker_producttype), legend: "right", suffix: "円" %>
-        </p>
-      </div>
-      <div class="tab-pane active" id="column_chartA">
-        <p>
-          <%= column_chart convert_array(@aggregates_of_maker_producttype) %>
-        </p>
-      </div>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th class="info">No.</th>
-            <th class="info"><%= Sale.human_attribute_name(:maker_id) %></th>
-            <th class="info"><%= Sale.human_attribute_name(:producttype_id) %></th>
-            <th class="info">純売上</th>
-            <th class="info">販売数量</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @aggregates_of_maker_producttype.each.with_index(1) do |aggregate_of_maker_producttype, index| %>
-            <tr>
-              <td><%= index %></td>
-              <td><%= aggregate_of_maker_producttype.maker_name %></td>
-              <td><%= aggregate_of_maker_producttype.producttype_name %></td>
-              <td class="text-right"><%= add_en_sold(aggregate_of_maker_producttype.sum_amount_sold) %></td>
-              <td class="text-right"><%= aggregate_of_maker_producttype.quantity_sold %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+<%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
+<%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+<%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
