@@ -18,4 +18,8 @@ module ApplicationHelper
   def add_ko_sold(quantity_sold = 0)
     "#{quantity_sold}個"
   end 
+
+  def html_safe_newline(str)
+    h(str).gsub(/\n|\r|\r\n/, "<br>").html_safe
+  end
 end

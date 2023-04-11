@@ -47,15 +47,15 @@ class SalesController < ApplicationController
     # デバッグ用
     # puts "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■#{date}■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
 
-    sales = @user.sales.where(created_at: date.in_time_zone.all_month)
-    @aggregates_of_maker_producttype = sales.joins(:maker, :producttype).select( 'makers.name as maker_name,
+    @sales = @user.sales.where(created_at: date.in_time_zone.all_month)
+    @aggregates_of_maker_producttype = @sales.joins(:maker, :producttype).select('makers.name as maker_name,
                                                                                   producttypes.name as producttype_name,
                                                                                   sum(sales.amount_sold) as sum_amount_sold,
                                                                                   count(*) as quantity_sold' ).group('maker_name, producttype_name').order('sum_amount_sold DESC')
-    @aggregates_of_maker             = sales.joins(:maker).select( 'makers.name as name,
+    @aggregates_of_maker             = @sales.joins(:maker).select('makers.name as name,
                                                                     sum(sales.amount_sold) as sum_amount_sold,
                                                                     count(*) as quantity_sold').group('name').order('sum_amount_sold DESC')
-    @aggregates_of_producttype       = sales.joins(:producttype).select( 'producttypes.name as name,
+    @aggregates_of_producttype       = @sales.joins(:producttype).select('producttypes.name as name,
                                                                           sum(sales.amount_sold) as sum_amount_sold,
                                                                           count(*) as quantity_sold' ).group('name').order('sum_amount_sold DESC')
   end
