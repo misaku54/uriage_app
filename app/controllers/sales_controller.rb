@@ -58,6 +58,7 @@ class SalesController < ApplicationController
     @aggregates_of_producttype       = @sales.joins(:producttype).select('producttypes.name as name,
                                                                           sum(sales.amount_sold) as sum_amount_sold,
                                                                           count(*) as quantity_sold' ).group('name').order('sum_amount_sold DESC')
+    @aggregates_of_sales             = @sales.group_by_day(:created_at).sum(:amount_sold)
   end
 
 

@@ -6,12 +6,17 @@ User.create!(name:  "Example User",
   password_confirmation: "foobar")
 
 # 追加のユーザーをまとめて生成する
-99.times do |n|
+19.times do |n|
 name  = Faker::Name.name
-email = "example-#{n+1}@railstutorial.org"
+email = "example-#{n+1}@sample.org"
 password = "password"
 User.create!(name:  name,
     email: email,
     password:              password,
     password_confirmation: password)
 end
+# users = User.order(:created_at).take(5)
+# 50.times do
+#   maker_name = Faker::Company.name(word_count: 5)
+#   users.each { |user| user.makers.create!(name: maker_name) }
+# end

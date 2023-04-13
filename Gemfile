@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem "faker",           "2.21.0"
 gem 'kaminari'
 gem "chartkick"
+gem 'groupdate'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

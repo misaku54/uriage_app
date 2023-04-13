@@ -1,6 +1,15 @@
 <% provide(:title, '集計結果') %>
 
 <h1>集計結果</h1>
+<%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
+  <div class="form-group">
+    <%= f.month_field :month %>
+  </div>
+  <div class="form-group">
+    <%= f.submit '集計する', class: "btn btn-info" %>
+  </div>
+<% end %>
 <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
 <%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
 <%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
+<%= line_chart @aggregates_of_sales %>
