@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     resources :makers, except: :show
     resources :producttypes, except: :show
     resources :sales, except: :show
-    get '/aggregate', to: 'sales#aggregate_result'
+    get '/aggregate_result', to: 'sales#aggregate_result'
+    get '/aggregate', to: 'sales#aggregate'
   end
 
 end

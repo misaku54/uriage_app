@@ -41,19 +41,28 @@ class SalesController < ApplicationController
   end
 
   def aggregate_result
-    # デバッグ用
-    # puts "#{date}"
+    @date = AggregateForm.new
+  end
 
+  def aggregate
     # 入力した月をもとに売上情報を抽出。
-    date = "#{params[:month]}-01"
-    @sales = @user.sales.where(created_at: date.in_time_zone.all_month)
+    @date = AggregateForm.new(month: params[:month])
 
-    # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
-    @aggregates_of_maker_producttype = @sales.maker_producttype_sum_amount_sold.sorted
-    @aggregates_of_maker             = @sales.maker_sum_amount_sold.sorted
-    @aggregates_of_producttype       = @sales.producttype_sum_amount_sold.sorted
-
-    @aggregates_of_sales             = @sales.group_by_day(:created_at).sum(:amount_sold)
+    if @date.valid?
+      @sales = @user.sales.where(created_at: "#{@date.month}-01".in_time_zone.all_month)
+      if !@sales.blank?
+        # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
+        @aggregates_of_maker_producttype = @sales.maker_producttype_sum_amount_sold.sorted
+        @aggregates_of_maker             = @sales.maker_sum_amount_sold.sorted
+        @aggregates_of_producttype       = @sales.producttype_sum_amount_sold.sorted
+        @aggregates_of_sales             = @sales.group_by_day(:created_at).sum(:amount_sold)
+      else
+        flash.now[:danger]= '対象月のデータはありません。'
+      end
+      render 'aggregate_result'
+    else
+      render 'aggregate_result'
+    end
   end
 
 

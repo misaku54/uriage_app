@@ -1,7 +1,10 @@
 <% provide(:title, '集計結果') %>
+<% if !@date.month.blank? %>
+  <h1><%= @date.month %>月の集計結果</h1>
+<% end %>
 
-<h1>集計結果</h1>
 <%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
+  <%= render 'shared/error_messages', object: @date %>
   <div class="form-group">
     <%= f.month_field :month %>
   </div>
@@ -9,7 +12,15 @@
     <%= f.submit '集計する', class: "btn btn-info" %>
   </div>
 <% end %>
-<%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-<%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-<%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
-<%= line_chart @aggregates_of_sales, suffix: "円", thousands: "," %>
+<% if @aggregates_of_maker_producttype.present? %>
+  <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
+<% end %>
+<% if @aggregates_of_maker.present? %>
+  <%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+<% end %>
+<% if @aggregates_of_producttype.present? %>
+  <%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
+<% end %>
+<% if @aggregates_of_sales.present? %>
+  <%= line_chart @aggregates_of_sales, suffix: "円", thousands: "," %>
+<% end %>
