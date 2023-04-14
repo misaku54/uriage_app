@@ -9,8 +9,9 @@ module ApplicationHelper
     end
   end
 
-  # 円に変換
-  def add_en_sold(amount_sold = 0)
+  # カンマ区切り円に変換
+  def add_en(price = 0)
+    amount_sold = price.to_s.chars.reverse.each_slice(3).map(&:join).join(',').reverse
     "#{amount_sold}円"
   end
   

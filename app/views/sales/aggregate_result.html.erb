@@ -1,4 +1,4 @@
-<% provide(:title, '集計結果') %>
+<% provide(:title, '集計画面') %>
 <% if !@date.month.blank? %>
   <h1><%= @date.month %>月の集計結果</h1>
 <% end %>
@@ -12,6 +12,27 @@
     <%= f.submit '集計する', class: "btn btn-info" %>
   </div>
 <% end %>
+
+<% if @month_sum_amount_sold.present? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4>純売上</h4>
+    </div>
+    <div class="panel-body">
+      <h4><%= add_en(@month_sum_amount_sold) %></h4>
+    </div>
+  </div>
+<% end %>
+<% if @daily_sum_amount_sold.present? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4>売上推移</h4>
+    </div>
+    <div class="panel-body">
+      <%= line_chart @daily_sum_amount_sold , suffix: "円", thousands: "," %>
+    </div>
+  </div>
+<% end %>
 <% if @aggregates_of_maker_producttype.present? %>
   <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
 <% end %>
@@ -20,7 +41,4 @@
 <% end %>
 <% if @aggregates_of_producttype.present? %>
   <%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
-<% end %>
-<% if @aggregates_of_sales.present? %>
-  <%= line_chart @aggregates_of_sales, suffix: "円", thousands: "," %>
 <% end %>
