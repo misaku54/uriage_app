@@ -47,7 +47,7 @@ RSpec.describe "売上管理機能", type: :system do
           visit user_sales_path(login_user)
           expect(page).to have_content 'テスト会社'
           expect(page).to have_content 'カバン'
-          expect(page).to have_content '10000'
+          expect(page).to have_content '10,000円'
           expect(page).to have_content '期間限定商品'
         end
       end
@@ -58,7 +58,7 @@ RSpec.describe "売上管理機能", type: :system do
           visit user_sales_path(login_user)
           expect(page).to_not have_content 'テスト会社'
           expect(page).to_not have_content 'カバン'
-          expect(page).to_not have_content '10000'
+          expect(page).to_not have_content '10,000円'
           expect(page).to_not have_content '期間限定商品'
         end
       end
@@ -86,7 +86,7 @@ RSpec.describe "売上管理機能", type: :system do
           # 一覧画面に、登録した売上情報が反映されていること
           expect(page).to have_content 'テスト会社'
           expect(page).to have_content 'カバン'
-          expect(page).to have_content '50000'
+          expect(page).to have_content '50,000円'
           expect(page).to have_content 'セール価格'
         end
       end
@@ -134,7 +134,7 @@ RSpec.describe "売上管理機能", type: :system do
           # 更新したメーカーが表示されていること
           expect(page).to have_content 'メーカーA'
           expect(page).to have_content '商品A'
-          expect(page).to have_content 20000
+          expect(page).to have_content '20,000円'
           expect(page).to have_content '３０％オフ'
         end
       end

@@ -4,20 +4,19 @@
 <%= link_to "追加", new_user_sale_path(@user), class: "btn btn-lg btn-primary" %>
 <%= link_to "集計", user_aggregate_result_path(@user), class: "btn btn-lg btn-primary" %>
 
-
 <div class="table-responsive">
   <table class="table table-bordered">
-  	<thead>
-  		<tr>
-  			<th class="info" >No.</th>
-  			<th class="info col-md-3" ><%= Sale.human_attribute_name(:maker_id) %></th>
-  			<th class="info col-md-3" ><%= Sale.human_attribute_name(:producttype_id) %></th>
-  			<th class="info col-md-1" ><%= Sale.human_attribute_name(:amount_sold) %></th>
-  			<th class="info col-md-1" ><%= Sale.human_attribute_name(:remark) %></th>
+    <thead>
+      <tr>
+        <th class="info" >No.</th>
+        <th class="info col-md-3" ><%= Sale.human_attribute_name(:maker_id) %></th>
+        <th class="info col-md-3" ><%= Sale.human_attribute_name(:producttype_id) %></th>
+        <th class="info col-md-1" ><%= Sale.human_attribute_name(:amount_sold) %></th>
+        <th class="info col-md-1" ><%= Sale.human_attribute_name(:remark) %></th>
         <th class="info col-md-2" ><%= Sale.human_attribute_name(:created_at) %></th>
-  			<th class="info col-md-2" ></th>
-  		</tr>
-  	</thead>
+        <th class="info col-md-2" ></th>
+      </tr>
+    </thead>
     <tbody>
       <% @sales.each.with_index(1) do |sale, index| %>
         <tr>
