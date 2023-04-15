@@ -2,16 +2,27 @@
 
 <%= render 'shared/error_messages', object: @date %>
 <div class="well">
-<p>月で集計</p>
-<%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
-  <div class="form-group">
-    <%= f.month_field :month %>
-  </div>
-  <div class="form-group">
-    <%= f.submit '集計する', class: "btn btn-info" %>
-  </div>
-<% end %>
+  <p>月次集計</p>
+  <%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
+    <div class="form-group">
+      <%= f.month_field :month %>
+    </div>
+    <div class="form-group">
+      <%= f.submit '集計する', class: "btn btn-info" %>
+    </div>
+  <% end %>
+  
+  <p>年次集計</p>
+  <%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
+    <div class="form-group">
+      <%= f.number_field :year, maxlength: 4 %>
+    </div>
+    <div class="form-group">
+      <%= f.submit '集計する', class: "btn btn-info" %>
+    </div>
+  <% end %>
 </div>
+
 <% if !@date.month.blank? %>
   <h1><%= @date.month %>月の集計結果</h1>
 <% end %>
