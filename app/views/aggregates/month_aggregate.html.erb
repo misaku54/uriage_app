@@ -1,21 +1,22 @@
 <% provide(:title, '月別売上集計') %>
 
+<%= render 'shared/error_messages', object: @date %>
+
 <div class="well">
   <p>月別売上集計</p>
   <%= form_with(url: user_month_search_path(@user), method: "get", class: "form-inline") do |f| %>
     <div class="form-group">
-      <%= f.month_field :month %>
+      <%= f.label :month, '集計月', class: 'control-label' %>
+      <%= f.month_field :month , class: 'form-control'%>
     </div>
     <div class="form-group">
       <%= f.submit '集計する', class: "btn btn-info" %>
     </div>
   <% end %>
-  <% if !@date.month.blank? %>
-    <p><%= @date.month %>月の集計結果</p>
-  <% end %>
-  <%= render 'shared/error_messages', object: @date %>
 </div>
-
+<% if !@date.month.blank? %>
+  <p><%= @date.month %>月の集計結果</p>
+<% end %>
 <% if @month_sum_amount_sold.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">

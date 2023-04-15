@@ -1,4 +1,4 @@
-<% provide(:title, '月別売上集計') %>
+<% provide(:title, '年別売上集計') %>
 
 <div class="well">
   <p>年別売上集計</p>
@@ -16,13 +16,13 @@
   <%= render 'shared/error_messages', object: @date %>
 </div>
 
-<% if @year_sum_amount_sold.present? %>
+<% if @month_sum_amount_sold.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4>純売上</h4>
     </div>
     <div class="panel-body">
-      <h4><%= add_en(@year_sum_amount_sold) %></h4>
+      <h4><%= add_en(@month_sum_amount_sold) %></h4>
     </div>
   </div>
 <% end %>
