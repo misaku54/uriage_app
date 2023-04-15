@@ -39,34 +39,7 @@ class SalesController < ApplicationController
     flash[:success] = "売上情報を削除しました。"
     redirect_to user_sales_path(@user), status: :see_other
   end
-
-  def aggregate_result
-    @date = AggregateForm.new
-  end
-
-  def aggregate
-    # 入力した月をもとに売上情報を抽出。
-    @date = AggregateForm.new(month: params[:month])
-
-    if @date.valid?
-      @sales = @user.sales.where(created_at: "#{@date.month}-01".in_time_zone.all_month)
-      if !@sales.blank?
-        # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
-        @aggregates_of_maker_producttype = @sales.maker_producttype_sum_amount_sold.sorted
-        @aggregates_of_maker             = @sales.maker_sum_amount_sold.sorted
-        @aggregates_of_producttype       = @sales.producttype_sum_amount_sold.sorted
-        # 日別の月別の販売合計額を集計する
-        @daily_sum_amount_sold           = @sales.group_by_day(:created_at).sum(:amount_sold)
-        @month_sum_amount_sold           = @sales.sum(:amount_sold)
-      else
-        flash.now[:danger]= '対象月のデータはありません。'
-      end
-      render 'aggregate_result'
-    else
-      render 'aggregate_result'
-    end
-  end
-
+  
 
   private
   # ストロングパラメータ

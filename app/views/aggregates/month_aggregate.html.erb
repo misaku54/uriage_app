@@ -1,0 +1,47 @@
+<% provide(:title, '月別売上集計') %>
+
+<div class="well">
+  <p>月別売上集計</p>
+  <%= form_with(url: user_month_search_path(@user), method: "get", class: "form-inline") do |f| %>
+    <div class="form-group">
+      <%= f.month_field :month %>
+    </div>
+    <div class="form-group">
+      <%= f.submit '集計する', class: "btn btn-info" %>
+    </div>
+  <% end %>
+  <% if !@date.month.blank? %>
+    <p><%= @date.month %>月の集計結果</p>
+  <% end %>
+  <%= render 'shared/error_messages', object: @date %>
+</div>
+
+<% if @month_sum_amount_sold.present? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4>純売上</h4>
+    </div>
+    <div class="panel-body">
+      <h4><%= add_en(@month_sum_amount_sold) %></h4>
+    </div>
+  </div>
+<% end %>
+<% if @daily_sum_amount_sold.present? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4>売上推移</h4>
+    </div>
+    <div class="panel-body">
+      <%= line_chart @daily_sum_amount_sold , suffix: "円", thousands: "," %>
+    </div>
+  </div>
+<% end %>
+<% if @aggregates_of_maker_producttype.present? %>
+  <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
+<% end %>
+<% if @aggregates_of_maker.present? %>
+  <%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+<% end %>
+<% if @aggregates_of_producttype.present? %>
+  <%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
+<% end %>

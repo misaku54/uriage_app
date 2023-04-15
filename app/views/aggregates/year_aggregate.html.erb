@@ -1,39 +1,28 @@
-<% provide(:title, '集計画面') %>
+<% provide(:title, '月別売上集計') %>
 
-<%= render 'shared/error_messages', object: @date %>
 <div class="well">
-  <p>月次集計</p>
-  <%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
+  <p>年別売上集計</p>
+  <%= form_with(url: user_year_search_path(@user), method: "get", class: "form-inline") do |f| %>
     <div class="form-group">
-      <%= f.month_field :month %>
+      <%= f.number_field :year %>
     </div>
     <div class="form-group">
       <%= f.submit '集計する', class: "btn btn-info" %>
     </div>
   <% end %>
-  
-  <p>年次集計</p>
-  <%= form_with(url: user_aggregate_path(@user), method: "get", class: "form-inline") do |f| %>
-    <div class="form-group">
-      <%= f.number_field :year, maxlength: 4 %>
-    </div>
-    <div class="form-group">
-      <%= f.submit '集計する', class: "btn btn-info" %>
-    </div>
+  <% if !@date.year.blank? %>
+    <p><%= @date.year %>年の集計結果</p>
   <% end %>
+  <%= render 'shared/error_messages', object: @date %>
 </div>
 
-<% if !@date.month.blank? %>
-  <h1><%= @date.month %>月の集計結果</h1>
-<% end %>
-
-<% if @month_sum_amount_sold.present? %>
+<% if @year_sum_amount_sold.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4>純売上</h4>
     </div>
     <div class="panel-body">
-      <h4><%= add_en(@month_sum_amount_sold) %></h4>
+      <h4><%= add_en(@year_sum_amount_sold) %></h4>
     </div>
   </div>
 <% end %>
