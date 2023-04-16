@@ -3,18 +3,16 @@ class AggregatesController < ApplicationController
   before_action :correct_user
 
   # 月別集計画面
-  def month_aggregate
-    @date = SearchMonth.new
+  def monthly_aggregate
+    @search_params = SearchForm.new
   end
 
   # 月別集計画面での検索アクション
-  def month_search
+  def monthly_search
     # 入力した月をもとに売上情報を抽出。
-    @date = SearchMonth.new(month: params[:month])
-
-    if @date.valid?
-      @sales = @user.sales.where(created_at: "#{@date.month}-01".in_time_zone.all_month)
-
+    @search_params = SearchForm.new(search_params)
+    if @search_params.valid?
+      @sales = @user.sales.where(created_at: @search_params.date.in_time_zone.all_month)
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?
         # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
@@ -25,11 +23,11 @@ class AggregatesController < ApplicationController
         @daily_sum_amount_sold           = @sales.group_by_day(:created_at).sum(:amount_sold)
         @month_sum_amount_sold           = @sales.sum(:amount_sold)
       else
-        @date.errors.add(:month, 'のデータがありません。')
+        @search_params.errors.add(:date, 'に該当するデータがありません。')
       end
-      render 'month_aggregate'
+      render 'monthly_aggregate'
     else
-      render 'month_aggregate'
+      render 'monthly_aggregate'
     end
   end
 
@@ -65,4 +63,8 @@ class AggregatesController < ApplicationController
     end
   end
 
+
+  def search_params
+    params.permit(:date)
+  end
 end
