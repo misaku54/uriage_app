@@ -19,9 +19,10 @@ class AggregatesController < ApplicationController
         @aggregates_of_maker_producttype = @sales.maker_producttype_sum_amount_sold.sorted
         @aggregates_of_maker             = @sales.maker_sum_amount_sold.sorted
         @aggregates_of_producttype       = @sales.producttype_sum_amount_sold.sorted
-        # 日別の月別の販売合計額を集計する
-        @daily_sum_amount_sold           = @sales.group_by_day(:created_at).sum(:amount_sold)
-        @month_sum_amount_sold           = @sales.sum(:amount_sold)
+        # 売上推移の取得
+        @sales_trend                     = @sales.group_by_day(:created_at).sum(:amount_sold)
+        # 売上合計額の取得
+        @sales_total_amount              = @sales.sum(:amount_sold)
       else
         @search_params.errors.add(:date, 'に該当するデータがありません。')
       end
@@ -64,6 +65,9 @@ class AggregatesController < ApplicationController
   end
 
 
+  private
+
+  # ストロングパラメータ
   def search_params
     params.permit(:date)
   end

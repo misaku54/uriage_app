@@ -1,40 +1,39 @@
 <% provide(:title, '月別売上集計') %>
 
 <%= render 'shared/error_messages', object: @search_params %>
-
 <div class="well">
   <p>月別売上集計</p>
   <%= form_with(url: user_monthly_search_path(@user), method: "get", class: "form-inline") do |f| %>
     <div class="form-group">
       <%= f.label :date, '集計月', class: 'control-label' %>
       <%== sprintf(f.date_select(:date, {  use_month_numbers: true, start_year: Time.now.year, 
-                                    end_year: 2022, discard_day: true, date_separator: '%s' , selected: Date.today}, class:'form-control'),'年') + '月'%>
+                                    end_year: 2022, discard_day: true, date_separator: '%s', selected: Date.today}, class:'form-control'),'年') + '月'%>
     </div>
     <div class="form-group">
       <%= f.submit '集計する', class: "btn btn-info" %>
     </div>
   <% end %>
 </div>
-<% if !@search_params.date.blank? %>
-  <p><%= @search_params.date %>月の集計結果</p>
-<% end %>
-<% if @month_sum_amount_sold.present? %>
+
+  <p><%= search_result_title(@search_params) %></p>
+
+<% if @sales_total_amount.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h4>純売上</h4>
+      <h4>合計純売上</h4>
     </div>
     <div class="panel-body">
-      <h4><%= add_en(@month_sum_amount_sold) %></h4>
+      <h4><%= add_en(@sales_total_amount) %></h4>
     </div>
   </div>
 <% end %>
-<% if @daily_sum_amount_sold.present? %>
+<% if @sales_trend.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4>売上推移</h4>
     </div>
     <div class="panel-body">
-      <%= line_chart @daily_sum_amount_sold , suffix: "円", thousands: "," %>
+      <%= line_chart @sales_trend , suffix: "円", thousands: "," %>
     </div>
   </div>
 <% end %>
