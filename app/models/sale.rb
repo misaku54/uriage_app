@@ -38,19 +38,21 @@ class Sale < ApplicationRecord
   # 販売額の合計を降順で並び替え
   scope :sorted, -> { order('sum_amount_sold DESC') }
     
-    
-    
-    scope :published, ->{ where("status <> ?", "draft") } #下書き以外の記事
-    scope :full, ->(member) { where("status <> ? OR member_id = ?", "draft", member.id) } #下書き以外の記事または、本人の下書き
-    scope :readable_for, ->(member) { member ? full(member) : common } #ログインしているかでスコープを分岐させる。
+  def aggregate
+    return @search_params.errors.add(:date, 'に該当するデータがありません。') if sales.blank?
 
-
-
-
+    # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
+    @aggregates_of_maker_producttype = self.maker_producttype_sum_amount_sold.sorted
+    @aggregates_of_maker             = self.maker_sum_amount_sold.sorted
+    @aggregates_of_producttype       = self.producttype_sum_amount_sold.sorted
+    # 売上推移の取得
+    @sales_trend                     = self.group_by_day(:created_at).sum(:amount_sold)
+    # 売上合計額の取得
+    @sales_total_amount              = self.sum(:amount_sold)
+  end
   private 
 
   # バリデーションメソッド
-
   def maker_id_should_be_registered
     # 空白やnilの場合はこのバリデーションをスキップする。
     unless maker_id.blank?

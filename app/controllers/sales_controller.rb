@@ -3,7 +3,7 @@ class SalesController < ApplicationController
   before_action :correct_user
 
   def index
-    @sales = @user.sales.order("id").page(params[:page]).per(10)
+    @sales = @user.sales.order("created_at").page(params[:page]).per(10)
   end
 
   def new
