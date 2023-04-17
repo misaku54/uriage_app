@@ -15,8 +15,8 @@ Rails.application.routes.draw do
     resources :sales, except: :show
     get '/monthly_aggregate', to: 'aggregates#monthly_aggregate'
     get '/monthly_search', to: 'aggregates#monthly_search'
-    get '/year_aggregate', to: 'aggregates#year_aggregate'
-    get '/year_search', to: 'aggregates#year_search'
+    get '/yearly_aggregate', to: 'aggregates#yearly_aggregate'
+    get '/yearly_search', to: 'aggregates#yearly_search'
   end
 
 end

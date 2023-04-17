@@ -33,18 +33,19 @@ class AggregatesController < ApplicationController
   end
 
   # 年別集計画面
-  def year_aggregate
-    @date = SearchYear.new
+  def yearly_aggregate
+    @search_params  = SearchForm.new
   end
 
   # 年別集計画面での検索アクション
-  def year_search
+  def yearly_search
     # 入力した年をもとに売上情報を抽出
-    @date = SearchYear.new(year: params[:year])
+    @search_params  = SearchForm.new(search_params)
+    puts "#{@search_params}.date"
 
     # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
-    if @date.valid?
-      @sales = @user.sales.where(created_at: "#{@date.year}-01-01".in_time_zone.all_year)
+    if @search_params .valid?
+      @sales = @user.sales.where(created_at: @search_params.date.in_time_zone.all_year)
 
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?
@@ -52,15 +53,16 @@ class AggregatesController < ApplicationController
         @aggregates_of_maker_producttype = @sales.maker_producttype_sum_amount_sold.sorted
         @aggregates_of_maker             = @sales.maker_sum_amount_sold.sorted
         @aggregates_of_producttype       = @sales.producttype_sum_amount_sold.sorted
-        # 日別の月別の販売合計額を集計する
-        @daily_sum_amount_sold           = @sales.group_by_month(:created_at).sum(:amount_sold)
-        @month_sum_amount_sold           = @sales.sum(:amount_sold)
+        # 売上推移の取得
+        @sales_trend                     = @sales.group_by_month(:created_at).sum(:amount_sold)
+        # 売上合計額の取得
+        @sales_total_amount              = @sales.sum(:amount_sold)
       else
-        @date.errors.add(:year, 'のデータがありません。')
+        @search_params .errors.add(:date, 'に該当するデータがありません。')
       end
-      render 'year_aggregate'
+      render 'yearly_aggregate'
     else
-      render 'year_aggregate'
+      render 'yearly_aggregate'
     end
   end
 
