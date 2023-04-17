@@ -12,7 +12,7 @@ class AggregatesController < ApplicationController
     # 入力した月をもとに売上情報を抽出。
     @search_params = SearchForm.new(search_params)
     if @search_params.valid?
-      @sales = @user.sales.where(created_at: @search_params.in_time_zone_all('month'))
+      @sales = @user.sales.where(created_at: @search_params.in_time_zone_all('monthly'))
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?
         # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
@@ -43,7 +43,7 @@ class AggregatesController < ApplicationController
     @search_params  = SearchForm.new(search_params)
     # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
     if @search_params.valid?
-      @sales = @user.sales.where(created_at: @search_params.in_time_zone_all('year'))
+      @sales = @user.sales.where(created_at: @search_params.in_time_zone_all('yearly'))
 
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?

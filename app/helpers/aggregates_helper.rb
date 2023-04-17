@@ -31,9 +31,9 @@ module AggregatesHelper
   # 検索結果のタイトルを求める。
   def search_result_title(params, period)
     if !params.date.blank?
-      if period == 'year'
+      if period == 'yearly'
         "#{params.date.year}年の集計結果"
-      elsif period == 'month'
+      elsif period == 'monthly'
         "#{params.date.year}年 #{params.date.month}月の集計結果"
       end
     end

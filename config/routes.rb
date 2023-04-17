@@ -18,5 +18,4 @@ Rails.application.routes.draw do
     get '/yearly_aggregate', to: 'aggregates#yearly_aggregate'
     get '/yearly_search', to: 'aggregates#yearly_search'
   end
-
 end

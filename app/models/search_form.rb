@@ -17,9 +17,9 @@ class SearchForm
 
   # 集計条件で指定された期間を抽出
   def in_time_zone_all(period)
-    if period == 'year'
+    if period == 'yearly'
       date.in_time_zone.all_year
-    elsif period == 'month'
+    elsif period == 'monthly'
       date.in_time_zone.all_month
     end
   end
