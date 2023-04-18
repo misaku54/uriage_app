@@ -49,6 +49,14 @@ ja:
         producttype_id: 商品名
         created_at: 登録日時
         updated_at: 更新日時
+  activemodel:
+    attributes:
+      search_form:
+        date: 入力した日付
+      search_daily:
+        start_date: 開始日
+        end_date: 終了日
+        date: 入力した期間
   date:
     abbr_day_names:
     - 日
