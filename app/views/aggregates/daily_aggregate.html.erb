@@ -6,7 +6,7 @@
   <%= form_with(url: user_daily_search_path(@user), method: "get", class: "form-inline") do |f| %>
     <div class="form-group">
       <%= f.date_field :start_date, class:'form-control' %>
-    </div> --
+    </div> 〜
     <div class="form-group">
       <%= f.date_field :end_date, class:'form-control' %>
     </div>
@@ -16,7 +16,7 @@
   <% end %>
 </div>
 
-<%# <p><%= search_result_title(@search_params, "monthly") %></p> %>
+<p><%= search_result_title(@search_params, "daily") %></p>
 <% if @sales_total_amount.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">

@@ -12,8 +12,6 @@ module AggregatesHelper
           [aggregate.name, aggregate.sum_amount_sold] 
         end
       end
-    else
-      return nil
     end
   end
 
@@ -30,12 +28,13 @@ module AggregatesHelper
 
   # 検索結果のタイトルを求める。
   def search_result_title(params, period)
-    if !params.date.blank?
-      if period == 'yearly'
-        "#{params.date.year}年の集計結果"
-      elsif period == 'monthly'
-        "#{params.date.year}年 #{params.date.month}月の集計結果"
-      end
+    if period == 'daily' && !params.start_date.blank? && !params.end_date.blank? 
+      "#{params.start_date.in_time_zone.year}年#{params.start_date.in_time_zone.month}月#{params.start_date.in_time_zone.day}日から
+      #{params.end_date.in_time_zone.year}年#{params.end_date.in_time_zone.month}月#{params.end_date.in_time_zone.day}までの集計結果"
+    elsif period == 'monthly' && !params.date.blank?
+      "#{params.date.year}年 #{params.date.month}月の集計結果"
+    elsif period == 'yearly' && !params.date.blank? 
+      "#{params.date.year}年の集計結果"
     end
   end
 end

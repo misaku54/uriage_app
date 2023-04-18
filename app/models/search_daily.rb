@@ -10,8 +10,10 @@ class SearchDaily
   private
 
   def date_check
-    if end_date < start_date
-      errors.add(:end_date, 'は開始日より前の日を設定することはできません。')
+    unless end_date.blank?
+      if end_date < start_date
+        errors.add(:end_date, 'は開始日より前の日を設定することはできません。')
+      end
     end
   end
 end
