@@ -7,10 +7,8 @@ class SearchForm
   # date_selectで分割されたパラメータをひとつのパラメータ（:date）にまとめる。
   def initialize(params = {})
     if params.is_a?(ActionController::Parameters)
-      [:date].each do |attribute|
-        date_parts = (1..3).map { |i| params.delete("#{attribute}(#{i}i)") }
-        params[attribute]= Time.zone.local(*date_parts) if date_parts.any?
-      end
+      date_parts = (1..3).map { |i| params.delete("#{:date}(#{i}i)") }
+      params[:date]= Time.zone.local(*date_parts) if date_parts.any?
     end
     super
   end

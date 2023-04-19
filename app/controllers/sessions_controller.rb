@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       reset_session
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       log_in user
+      flash[:success] = 'ログインしました。'
       redirect_to forwarding_url || user
     else
       flash.now[:danger] = 'メールアドレスまたはパスワードが違います。'

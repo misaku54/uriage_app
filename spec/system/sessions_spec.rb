@@ -27,7 +27,6 @@ RSpec.describe "Sessions", type: :system do
 
       it 'ページに適切な項目が表示されていること' do
         aggregate_failures do
-          expect(page).to_not have_content 'ログイン'
           expect(page).to have_content '売上一覧'
           expect(page).to have_content '運用管理'
           expect(page).to have_content '商品マスタ'

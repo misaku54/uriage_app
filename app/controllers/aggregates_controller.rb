@@ -9,8 +9,9 @@ class AggregatesController < ApplicationController
 
   # 月別集計画面での検索アクション
   def monthly_search
-    # 入力した月をもとに売上情報を抽出。
+    # 入力した年月パラメータでフォームオブジェクトを生成
     @search_params = SearchForm.new(search_params)
+    # 入力パラメータを検証し、成功の場合そのパラメータでリレーションオブジェクトを取得。失敗の場合、検証エラーを出力する。
     if @search_params.valid?
       @sales = @user.sales.where(created_at: @search_params.date.in_time_zone.all_month)
 
@@ -40,9 +41,9 @@ class AggregatesController < ApplicationController
 
   # 年別集計画面での検索アクション
   def yearly_search
-    # 入力した年をもとに売上情報を抽出
+    # 入力した年パラメータでフォームオブジェクトを生成
     @search_params  = SearchForm.new(search_params)
-    # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
+    # 入力パラメータを検証し、成功の場合そのパラメータでリレーションオブジェクトを取得。失敗の場合、検証エラーを出力する。
     if @search_params.valid?
       @sales = @user.sales.where(created_at: @search_params.date.in_time_zone.all_year)
 
@@ -72,10 +73,9 @@ class AggregatesController < ApplicationController
 
   # 日別集計画面での検索アクション
   def daily_search
-    # 入力した年をもとに売上情報を抽出
+    # 入力した開始日と終了日パラメータでフォームオブジェクトを生成
     @search_params  = SearchDaily.new(search_params)
-    puts "■■■■■■■■■■■■■■■■■■■■aaaa#{search_params}と#{@search_params.start_date}と#{@search_params.end_date}■■■■■■■■■■■■■■■■■■■■■■■"
-    # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
+    # 入力パラメータを検証し、成功の場合そのパラメータでリレーションオブジェクトを取得。失敗の場合、検証エラーを出力する。
     if @search_params.valid?
       @sales = @user.sales.where(created_at: [@search_params.start_date.in_time_zone..@search_params.end_date.in_time_zone.end_of_day])
 

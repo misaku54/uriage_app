@@ -4,12 +4,11 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  resources :users, only: [:show] 
   namespace :admin do
     resources :users
     get    '/signup',  to: 'users#new'
   end
-  resources :users do
+  resources :users, only: [:show]  do
     resources :makers, except: :show
     resources :producttypes, except: :show
     resources :sales, except: :show
