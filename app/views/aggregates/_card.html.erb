@@ -3,22 +3,7 @@
     <h4><%= make_aggregate_title(card_pattern) %></h4>
   </div>
   <div class="panel-body">
-    <ul class="nav nav-tabs">
-      <li><a href="#pie_chart_<%= card_pattern %>" data-toggle="tab">円グラフ</a></li>
-      <li class="active"><a href="#column_chart_<%= card_pattern %>" data-toggle="tab">棒グラフ</a></li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane" id="pie_chart_<%= card_pattern %>">
-        <p>
-          <%= pie_chart convert_array(aggregates, card_pattern), legend: "right", suffix: "円", thousands: "," %>
-        </p>
-      </div>
-      <div class="tab-pane active" id="column_chart_<%= card_pattern %>">
-        <p>
-          <%= column_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: ","  %>
-        </p>
-      </div>
-    </div>
+  
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -34,6 +19,8 @@
             <% end %>
             <th class="info">純売上</th>
             <th class="info">販売数量</th>
+            <th class="info">昨年の純売上</th>
+            <th class="info">昨年の販売数量</th>
           </tr>
         </thead>
         <tbody>
@@ -43,11 +30,15 @@
               <% if card_pattern == "maker_producttype" %>
                 <td><%= aggregate.maker_name %></td>
                 <td><%= aggregate.producttype_name %></td>
+              <% elsif card_pattern == "maker" %>
+                <td><%= aggregate.maker_name %></td>
               <% else %>
-                <td><%= aggregate.name %></td>
+                <td><%= aggregate.producttype_name %></td>
               <% end %>
-              <td class="text-right"><%= add_en(aggregate.sum_amount_sold) %></td>
-              <td class="text-right"><%= aggregate.quantity_sold %></td>
+              <td class="text-right"><%= add_en(aggregate.current_year_amount) %></td>
+              <td class="text-right"><%= aggregate.current_year_quantity %></td>
+              <td class="text-right"><%= add_en(aggregate.last_year_amount) %></td>
+              <td class="text-right"><%= aggregate.last_year_quantity %></td>
             </tr>
           <% end %>
         </tbody>

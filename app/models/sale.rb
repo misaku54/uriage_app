@@ -13,43 +13,87 @@ class Sale < ApplicationRecord
   validate :maker_id_should_be_registered
   validate :producttype_id_should_be_registered
 
+  # 集計用SQL
+  sql_1 = <<-EOS
+  SELECT k.maker_name, k.producttype_name, k.sum_amount_sold current_year_amount, k.quantity_sold current_year_quantity,
+  z.sum_amount_sold last_year_amount, z.quantity_sold last_year_quantity
+    FROM (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      FROM sales s
+      INNER JOIN makers m ON m.id = s.maker_id
+      INNER JOIN producttypes p ON p.id = s.producttype_id
+      WHERE s.user_id = :user_id AND s.created_at BETWEEN :current_year_start AND :current_year_end
+      GROUP BY maker_name, producttype_name) k
+    LEFT JOIN (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      FROM sales s
+      INNER JOIN makers m 
+      ON m.id = s.maker_id
+      INNER JOIN producttypes p 
+      ON p.id = s.producttype_id
+      WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start AND :last_year_end
+      GROUP BY maker_name, producttype_name) z
+    ON k.maker_name = z.maker_name AND k.producttype_name = z.producttype_name
+    ORDER BY current_year_amount DESC
+  EOS
+
+  sql_2 = <<-EOS
+  SELECT k.maker_name, k.sum_amount_sold current_year_amount, k.quantity_sold current_year_quantity,
+  z.sum_amount_sold last_year_amount, z.quantity_sold last_year_quantity
+    FROM (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      FROM sales s
+      INNER JOIN makers m 
+      ON m.id = s.maker_id
+      WHERE s.user_id = :user_id AND s.created_at BETWEEN :current_year_start AND :current_year_end
+      GROUP BY maker_name) k
+    LEFT JOIN (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      FROM sales s
+      INNER JOIN makers m 
+      ON m.id = s.maker_id
+      WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start AND :last_year_end
+      GROUP BY maker_name) z
+    ON k.maker_name = z.maker_name
+    ORDER BY current_year_amount DESC
+  EOS
+
+  sql_3 = <<-EOS
+  SELECT k.producttype_name, k.sum_amount_sold current_year_amount, k.quantity_sold current_year_quantity,
+  z.sum_amount_sold last_year_amount, z.quantity_sold last_year_quantity
+    FROM (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      FROM sales s
+      INNER JOIN producttypes p 
+      ON p.id = s.producttype_id
+      WHERE s.user_id = :user_id AND s.created_at BETWEEN :current_year_start AND :current_year_end
+      GROUP BY producttype_name) k
+    LEFT JOIN (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      FROM sales s
+      INNER JOIN producttypes p 
+      ON p.id = s.producttype_id
+      WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start AND :last_year_end
+      GROUP BY producttype_name) z
+    ON k.producttype_name = z.producttype_name
+    ORDER BY current_year_amount DESC
+  EOS
+
   # メーカー、商品別の合計販売額と販売数を集計する。
-  scope :maker_producttype_sum_amount_sold, -> { joins(:maker, :producttype)
-                                                  .select(
-                                                    'makers.name as maker_name,
-                                                    producttypes.name as producttype_name,
-                                                    sum(sales.amount_sold) as sum_amount_sold,
-                                                    count(*) as quantity_sold' )
-                                                  .group('maker_name, producttype_name') }
+  scope :maker_producttype_sum_amount_sold, -> (user, search_params) { find_by_sql([sql_1,{ user_id: user.id,
+                                                                                            current_year_start: search_params.date.in_time_zone.beginning_of_year,
+                                                                                            current_year_end: search_params.date.in_time_zone.end_of_year,
+                                                                                            last_year_start: search_params.date.in_time_zone.prev_year.beginning_of_year,
+                                                                                            last_year_end: search_params.date.in_time_zone.prev_year.end_of_year }]) }
   # メーカー別の合計販売額と販売数を集計する。
-  scope :maker_sum_amount_sold, -> { joins(:maker)
-                                      .select(
-                                        'makers.name as name,
-                                        sum(sales.amount_sold) as sum_amount_sold,
-                                        count(*) as quantity_sold')
-                                      .group('name') }
+  scope :maker_sum_amount_sold, -> (user, search_params) { find_by_sql([sql_2,{ user_id: user.id,
+                                                                                current_year_start: search_params.date.in_time_zone.beginning_of_year,
+                                                                                current_year_end: search_params.date.in_time_zone.end_of_year,
+                                                                                last_year_start: search_params.date.in_time_zone.prev_year.beginning_of_year,
+                                                                                last_year_end: search_params.date.in_time_zone.prev_year.end_of_year }]) }
   # 商品別の合計販売額と販売数を集計する。
-  scope :producttype_sum_amount_sold, -> { joins(:producttype)
-                                            .select(
-                                              'producttypes.name as name,
-                                              sum(sales.amount_sold) as sum_amount_sold,
-                                              count(*) as quantity_sold' )
-                                            .group('name') }
+  scope :producttype_sum_amount_sold, -> (user, search_params) { find_by_sql([sql_3,{ user_id: user.id,
+                                                                                      current_year_start: search_params.date.in_time_zone.beginning_of_year,
+                                                                                      current_year_end: search_params.date.in_time_zone.end_of_year,
+                                                                                      last_year_start: search_params.date.in_time_zone.prev_year.beginning_of_year,
+                                                                                      last_year_end: search_params.date.in_time_zone.prev_year.end_of_year }]) }
   # 販売額の合計を降順で並び替え
   scope :sorted, -> { order('sum_amount_sold DESC') }
     
-  def aggregate
-    return @search_params.errors.add(:date, 'に該当するデータがありません。') if sales.blank?
-
-    # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
-    @aggregates_of_maker_producttype = self.maker_producttype_sum_amount_sold.sorted
-    @aggregates_of_maker             = self.maker_sum_amount_sold.sorted
-    @aggregates_of_producttype       = self.producttype_sum_amount_sold.sorted
-    # 売上推移の取得
-    @sales_trend                     = self.group_by_day(:created_at).sum(:amount_sold)
-    # 売上合計額の取得
-    @sales_total_amount              = self.sum(:amount_sold)
-  end
   private 
 
   # バリデーションメソッド
