@@ -102,7 +102,7 @@ class AggregatesController < ApplicationController
 
   # ストロングパラメータ
   def search_params
-    params.permit(:date,:start_date,:end_date)
+    params.permit(:date, :start_date, :end_date)
   end
 
 end
