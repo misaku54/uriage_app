@@ -16,7 +16,7 @@ class Sale < ApplicationRecord
   # 集計用SQL
   sql_1 = <<-EOS
   SELECT k.maker_name, k.producttype_name, k.sum_amount_sold current_year_amount, k.quantity_sold current_year_quantity,
-  z.sum_amount_sold last_year_amount, z.quantity_sold last_year_quantity
+  COALESCE(z.sum_amount_sold, 0) last_year_amount, COALESCE(z.quantity_sold, 0) last_year_quantity
     FROM (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       INNER JOIN makers m ON m.id = s.maker_id
@@ -37,7 +37,7 @@ class Sale < ApplicationRecord
 
   sql_2 = <<-EOS
   SELECT k.maker_name, k.sum_amount_sold current_year_amount, k.quantity_sold current_year_quantity,
-  z.sum_amount_sold last_year_amount, z.quantity_sold last_year_quantity
+  COALESCE(z.sum_amount_sold, 0) last_year_amount, COALESCE(z.quantity_sold, 0) last_year_quantity
     FROM (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       INNER JOIN makers m 
@@ -56,7 +56,7 @@ class Sale < ApplicationRecord
 
   sql_3 = <<-EOS
   SELECT k.producttype_name, k.sum_amount_sold current_year_amount, k.quantity_sold current_year_quantity,
-  z.sum_amount_sold last_year_amount, z.quantity_sold last_year_quantity
+  COALESCE(z.sum_amount_sold, 0) last_year_amount, COALESCE(z.quantity_sold, 0) last_year_quantity
     FROM (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       INNER JOIN producttypes p 
