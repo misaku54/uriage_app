@@ -49,10 +49,10 @@ class AggregatesController < ApplicationController
 
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?
-        # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
-        @aggregates_of_maker_producttype = Sale.maker_producttype_sum_amount_sold(@user, @search_params)
-        @aggregates_of_maker             = Sale.maker_sum_amount_sold(@user, @search_params)
-        @aggregates_of_producttype       = Sale.producttype_sum_amount_sold(@user, @search_params)
+        # ①メーカー、商品別　②メーカー別　③商品別で合計販売額と合計販売数を集計する
+        @aggregates_of_maker_producttype = Sale.maker_id_and_producttype_id_each_total_sales(@user, @search_params)
+        @aggregates_of_maker             = Sale.maker_id_each_total_sales(@user, @search_params)
+        @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, @search_params)
         # 売上推移の取得
         @sales_trend                     = @sales.group_by_month(:created_at).sum(:amount_sold)
         # 売上合計額の取得

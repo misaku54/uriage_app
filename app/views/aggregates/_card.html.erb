@@ -3,7 +3,22 @@
     <h4><%= make_aggregate_title(card_pattern) %></h4>
   </div>
   <div class="panel-body">
-  
+    <ul class="nav nav-tabs">
+      <li><a href="#pie_chart_<%= card_pattern %>" data-toggle="tab">円グラフ</a></li>
+      <li class="active"><a href="#column_chart_<%= card_pattern %>" data-toggle="tab">棒グラフ</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane" id="pie_chart_<%= card_pattern %>">
+        <p>
+          <%= pie_chart convert_array(aggregates, card_pattern), legend: "right", suffix: "円", thousands: "," %>
+        </p>
+      </div>
+      <div class="tab-pane active" id="column_chart_<%= card_pattern %>">
+        <p>
+          <%= column_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: ","  %>
+        </p>
+      </div>
+    </div>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -14,7 +29,7 @@
               <th class="info"><%= Sale.human_attribute_name(:producttype_id) %></th>
             <% elsif card_pattern == "maker" %>
               <th class="info"><%= Sale.human_attribute_name(:maker_id) %></th>
-            <% else %>
+            <% elsif card_pattern == "producttype" %>
               <th class="info"><%= Sale.human_attribute_name(:producttype_id) %></th>
             <% end %>
             <th class="info">純売上</th>
@@ -32,13 +47,13 @@
                 <td><%= aggregate.producttype_name %></td>
               <% elsif card_pattern == "maker" %>
                 <td><%= aggregate.maker_name %></td>
-              <% else %>
+              <% elsif card_pattern == "producttype" %>
                 <td><%= aggregate.producttype_name %></td>
               <% end %>
-              <td class="text-right"><%= "#{number_with_delimiter(aggregate.current_year_amount)}円" %></td>
-              <td class="text-right"><%= aggregate.current_year_quantity %></td>
-              <td class="text-right"><%= "#{number_with_delimiter(aggregate.last_year_amount)}円" %></td>
-              <td class="text-right"><%= aggregate.last_year_quantity %></td>
+              <td class="text-right"><%= "#{number_with_delimiter(aggregate.sum_amount_sold)}円" %></td>
+              <td class="text-right"><%= aggregate.quantity_sold %></td>
+              <td class="text-right"><%= "#{number_with_delimiter(aggregate.last_year_sum_amount_sold)}円" %></td>
+              <td class="text-right"><%= aggregate.last_year_quantity_sold %></td>
             </tr>
           <% end %>
         </tbody>
