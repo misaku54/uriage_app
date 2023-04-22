@@ -16,7 +16,8 @@ class Sale < ApplicationRecord
   # scopeで使う集計用SQL
   sql_1 = <<-EOS
   SELECT COALESCE(k.maker_name, '未登録') maker_name, COALESCE(k.producttype_name, '未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
-  COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold
+  COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
+  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1) ELSE '-' END year_on_year
     FROM (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
@@ -39,7 +40,8 @@ class Sale < ApplicationRecord
 
   sql_2 = <<-EOS
   SELECT COALESCE(k.maker_name,'未登録') maker_name, k.sum_amount_sold, k.quantity_sold,
-  COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold
+  COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
+  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1) ELSE '-' END year_on_year
     FROM (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
@@ -58,7 +60,8 @@ class Sale < ApplicationRecord
 
   sql_3 = <<-EOS
   SELECT COALESCE(k.producttype_name,'未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
-  COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold
+  COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
+  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1) ELSE '-' END year_on_year
     FROM (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN producttypes p 
@@ -77,23 +80,23 @@ class Sale < ApplicationRecord
 
   # スコープ
   # メーカー、商品別の合計販売額と合計販売数を集計する。
-  scope :maker_id_and_producttype_id_each_total_sales, -> (user, search_params) { find_by_sql([sql_1,{ user_id: user.id,
-                                                                                                    start_date: search_params.date.in_time_zone.beginning_of_year,
-                                                                                                    end_date: search_params.date.in_time_zone.end_of_year,
-                                                                                                    last_year_start_date: search_params.date.in_time_zone.prev_year.beginning_of_year,
-                                                                                                    last_year_end_date: search_params.date.in_time_zone.prev_year.end_of_year }]) }
+  scope :maker_id_and_producttype_id_each_total_sales, -> (user, start_date, end_date, last_year_start_date, last_year_end_date) { find_by_sql([sql_1,{ user_id: user.id,
+                                                                                                    start_date: start_date,
+                                                                                                    end_date: end_date,
+                                                                                                    last_year_start_date: last_year_start_date,
+                                                                                                    last_year_end_date: last_year_end_date }]) }
   # メーカー別の合計販売額と合計販売数を集計する。
-  scope :maker_id_each_total_sales,                    -> (user, search_params) { find_by_sql([sql_2,{ user_id: user.id,
-                                                                                                    start_date: search_params.date.in_time_zone.beginning_of_year,
-                                                                                                    end_date: search_params.date.in_time_zone.end_of_year,
-                                                                                                    last_year_start_date: search_params.date.in_time_zone.prev_year.beginning_of_year,
-                                                                                                    last_year_end_date: search_params.date.in_time_zone.prev_year.end_of_year }]) }
+  scope :maker_id_each_total_sales,                    -> (user, start_date, end_date, last_year_start_date, last_year_end_date) { find_by_sql([sql_2,{ user_id: user.id,
+                                                                                                    start_date: start_date,
+                                                                                                    end_date: end_date,
+                                                                                                    last_year_start_date: last_year_start_date,
+                                                                                                    last_year_end_date: last_year_end_date }]) }
   # 商品別の合計販売額と合計販売数を集計する。
-  scope :producttype_id_each_total_sales,              -> (user, search_params) { find_by_sql([sql_3,{ user_id: user.id,
-                                                                                                    start_date: search_params.date.in_time_zone.beginning_of_year,
-                                                                                                    end_date: search_params.date.in_time_zone.end_of_year,
-                                                                                                    last_year_start_date: search_params.date.in_time_zone.prev_year.beginning_of_year,
-                                                                                                    last_year_end_date: search_params.date.in_time_zone.prev_year.end_of_year }]) }
+  scope :producttype_id_each_total_sales,              -> (user, start_date, end_date, last_year_start_date, last_year_end_date) { find_by_sql([sql_3,{ user_id: user.id,
+                                                                                                    start_date: start_date,
+                                                                                                    end_date: end_date,
+                                                                                                    last_year_start_date: last_year_start_date,
+                                                                                                    last_year_end_date: last_year_end_date }]) }
   # 販売額の合計を降順で並び替え
   scope :sorted, -> { order('sum_amount_sold DESC') }
   

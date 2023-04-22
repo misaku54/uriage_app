@@ -15,7 +15,7 @@
       </div>
       <div class="tab-pane active" id="column_chart_<%= card_pattern %>">
         <p>
-          <%= column_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: ","  %>
+          <%= bar_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: ","  %>
         </p>
       </div>
     </div>
@@ -36,6 +36,7 @@
             <th class="info">販売数量</th>
             <th class="info">昨年の純売上</th>
             <th class="info">昨年の販売数量</th>
+            <th class="info">売上成長率</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +55,7 @@
               <td class="text-right"><%= aggregate.quantity_sold %></td>
               <td class="text-right"><%= "#{number_with_delimiter(aggregate.last_year_sum_amount_sold)}円" %></td>
               <td class="text-right"><%= aggregate.last_year_quantity_sold %></td>
+              <td class="text-right"><%= aggregate.year_on_year %></td>
             </tr>
           <% end %>
         </tbody>

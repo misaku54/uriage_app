@@ -5,7 +5,7 @@
   <p>年別売上集計</p>
   <%= form_with(url: user_yearly_search_path(@user), method: "get", class: "form-inline") do |f| %>
     <div class="form-group">
-      <%= f.date_select(:date, { use_month_numbers: true, start_year: 2021, end_year: Time.now.year,
+      <%= f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,
                                   discard_month: true, discard_day: true }, class:'form-control') + '年' %>
     </div>
     <div class="form-group">

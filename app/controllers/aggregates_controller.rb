@@ -17,10 +17,16 @@ class AggregatesController < ApplicationController
 
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?
-        # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
-        @aggregates_of_maker_producttype = @sales.maker_producttype_sum_amount_sold.sorted
-        @aggregates_of_maker             = @sales.maker_sum_amount_sold.sorted
-        @aggregates_of_producttype       = @sales.producttype_sum_amount_sold.sorted
+        # 集計用SQLに渡すパラメータを設定
+        start_date                       = @search_params.date.beginning_of_month
+        end_date                         = @search_params.date.end_of_month
+        last_year_start_date             = @search_params.date.prev_year.beginning_of_month
+        last_year_end_date               = @search_params.date.prev_year.end_of_month
+
+        # ①メーカー、商品別　②メーカー別　③商品別で合計販売額と合計販売数を集計する
+        @aggregates_of_maker_producttype = Sale.maker_id_and_producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
+        @aggregates_of_maker             = Sale.maker_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
+        @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
         # 売上推移の取得
         @sales_trend                     = @sales.group_by_day(:created_at).sum(:amount_sold)
         # 売上合計額の取得
@@ -49,10 +55,16 @@ class AggregatesController < ApplicationController
 
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?
+        # 集計用SQLに渡すパラメータを設定
+        start_date                       = @search_params.date.beginning_of_year
+        end_date                         = @search_params.date.end_of_year
+        last_year_start_date             = @search_params.date.prev_year.beginning_of_year
+        last_year_end_date               = @search_params.date.prev_year.end_of_year
+
         # ①メーカー、商品別　②メーカー別　③商品別で合計販売額と合計販売数を集計する
-        @aggregates_of_maker_producttype = Sale.maker_id_and_producttype_id_each_total_sales(@user, @search_params)
-        @aggregates_of_maker             = Sale.maker_id_each_total_sales(@user, @search_params)
-        @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, @search_params)
+        @aggregates_of_maker_producttype = Sale.maker_id_and_producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
+        @aggregates_of_maker             = Sale.maker_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
+        @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
         # 売上推移の取得
         @sales_trend                     = @sales.group_by_month(:created_at).sum(:amount_sold)
         # 売上合計額の取得
@@ -81,10 +93,16 @@ class AggregatesController < ApplicationController
 
       # 取得したリレーションオブジェクトが空でなければ集計処理を実行する。
       if !@sales.blank?
-        # ①メーカー、商品別　②メーカー別　③商品別で販売合計額と販売数量を集計する
-        @aggregates_of_maker_producttype = @sales.maker_producttype_sum_amount_sold.sorted
-        @aggregates_of_maker             = @sales.maker_sum_amount_sold.sorted
-        @aggregates_of_producttype       = @sales.producttype_sum_amount_sold.sorted
+        # 集計用SQLに渡すパラメータを設定
+        start_date                       = @search_params.start_date.in_time_zone.beginning_of_day
+        end_date                         = @search_params.end_date.in_time_zone.end_of_day
+        last_year_start_date             = @search_params.start_date.in_time_zone.prev_year.beginning_of_day
+        last_year_end_date               = @search_params.end_date.in_time_zone.prev_year.end_of_day
+
+        # ①メーカー、商品別　②メーカー別　③商品別で合計販売額と合計販売数を集計する
+        @aggregates_of_maker_producttype = Sale.maker_id_and_producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
+        @aggregates_of_maker             = Sale.maker_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
+        @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
         # 売上推移の取得
         @sales_trend                     = @sales.group_by_day(:created_at).sum(:amount_sold)
         # 売上合計額の取得
