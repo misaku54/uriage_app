@@ -35,9 +35,9 @@
               <% else %>
                 <td><%= aggregate.producttype_name %></td>
               <% end %>
-              <td class="text-right"><%= add_en(aggregate.current_year_amount) %></td>
+              <td class="text-right"><%= "#{number_with_delimiter(aggregate.current_year_amount)}円" %></td>
               <td class="text-right"><%= aggregate.current_year_quantity %></td>
-              <td class="text-right"><%= add_en(aggregate.last_year_amount) %></td>
+              <td class="text-right"><%= "#{number_with_delimiter(aggregate.last_year_amount)}円" %></td>
               <td class="text-right"><%= aggregate.last_year_quantity %></td>
             </tr>
           <% end %>
