@@ -45,8 +45,6 @@ module AggregatesHelper
       "#{params.date.year}年 #{params.date.month}月の集計結果"
     elsif period == 'yearly' && !params.date.blank? 
       "#{params.date.year}年の集計結果"
-    else
-      raise
     end
   end
 end
