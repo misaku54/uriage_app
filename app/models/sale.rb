@@ -15,21 +15,21 @@ class Sale < ApplicationRecord
 
   # scopeで使う集計用SQL
   sql_1 = <<-EOS
-  SELECT k.maker_name, k.producttype_name, k.sum_amount_sold, k.quantity_sold,
+  SELECT COALESCE(k.maker_name, '未登録') maker_name, COALESCE(k.producttype_name, '未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold
     FROM (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
-      INNER JOIN makers m 
+      LEFT JOIN makers m 
       ON m.id = s.maker_id
-      INNER JOIN producttypes p 
+      LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :start_date AND :end_date
       GROUP BY maker_name, producttype_name) k
     LEFT JOIN (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
-      INNER JOIN makers m 
+      LEFT JOIN makers m 
       ON m.id = s.maker_id
-      INNER JOIN producttypes p 
+      LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start_date AND :last_year_end_date
       GROUP BY maker_name, producttype_name) z
@@ -38,17 +38,17 @@ class Sale < ApplicationRecord
   EOS
 
   sql_2 = <<-EOS
-  SELECT k.maker_name, k.sum_amount_sold, k.quantity_sold,
+  SELECT COALESCE(k.maker_name,'未登録') maker_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold
     FROM (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
-      INNER JOIN makers m 
+      LEFT JOIN makers m 
       ON m.id = s.maker_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :start_date AND :end_date
       GROUP BY maker_name) k
     LEFT JOIN (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
-      INNER JOIN makers m 
+      LEFT JOIN makers m 
       ON m.id = s.maker_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start_date AND :last_year_end_date
       GROUP BY maker_name) z
@@ -57,17 +57,17 @@ class Sale < ApplicationRecord
   EOS
 
   sql_3 = <<-EOS
-  SELECT k.producttype_name, k.sum_amount_sold, k.quantity_sold,
+  SELECT COALESCE(k.producttype_name,'未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold
     FROM (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
-      INNER JOIN producttypes p 
+      LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :start_date AND :end_date
       GROUP BY producttype_name) k
     LEFT JOIN (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
-      INNER JOIN producttypes p 
+      LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start_date AND :last_year_end_date
       GROUP BY producttype_name) z
