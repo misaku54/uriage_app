@@ -87,6 +87,7 @@ class AggregatesController < ApplicationController
   def daily_search
     # 入力した開始日と終了日パラメータでフォームオブジェクトを生成
     @search_params  = SearchDaily.new(search_params)
+    puts "#{@search_params.start_date.class},#{@search_params.start_date}"
     # 入力パラメータを検証し、成功の場合そのパラメータでリレーションオブジェクトを取得。失敗の場合、検証エラーを出力する。
     if @search_params.valid?
       @sales = @user.sales.where(created_at: [@search_params.start_date.in_time_zone..@search_params.end_date.in_time_zone.end_of_day])
