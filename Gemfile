@@ -13,6 +13,8 @@ gem "faker",           "2.21.0"
 gem 'kaminari'
 gem "chartkick"
 gem 'groupdate'
+gem 'rubocop'
+gem 'rubocop-rails'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

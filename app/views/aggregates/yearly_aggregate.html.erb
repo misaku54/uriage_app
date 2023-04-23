@@ -22,6 +22,7 @@
     </div>
     <div class="panel-body">
       <h4><%= "#{number_with_delimiter(@sales_total_amount)}円" %></h4>
+      <span><%= "成長率（前年比較）: #{@sales_growth_rate}"%></span>
     </div>
   </div>
 <% end %>

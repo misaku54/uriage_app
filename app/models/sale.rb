@@ -17,7 +17,7 @@ class Sale < ApplicationRecord
   sql_1 = <<-EOS
   SELECT COALESCE(k.maker_name, '未登録') maker_name, COALESCE(k.producttype_name, '未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
-  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1) ELSE '-' END year_on_year
+  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN CONCAT(TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1),'%') ELSE '-' END sales_growth_rate
     FROM (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
@@ -41,7 +41,7 @@ class Sale < ApplicationRecord
   sql_2 = <<-EOS
   SELECT COALESCE(k.maker_name,'未登録') maker_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
-  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1) ELSE '-' END year_on_year
+  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN CONCAT(TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1),'%') ELSE '-' END sales_growth_rate
     FROM (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
@@ -61,7 +61,7 @@ class Sale < ApplicationRecord
   sql_3 = <<-EOS
   SELECT COALESCE(k.producttype_name,'未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
-  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1) ELSE '-' END year_on_year
+  CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN CONCAT(TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1),'%') ELSE '-' END sales_growth_rate
     FROM (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN producttypes p 
@@ -97,9 +97,16 @@ class Sale < ApplicationRecord
                                                                                                     end_date: end_date,
                                                                                                     last_year_start_date: last_year_start_date,
                                                                                                     last_year_end_date: last_year_end_date }]) }
-  # 販売額の合計を降順で並び替え
-  scope :sorted, -> { order('sum_amount_sold DESC') }
-  
+
+  # 売上成長率を計算する。
+  def self.sales_growth_rate(sales_total_amount, last_year_sales_total_amount = 0)
+    if last_year_sales_total_amount > 0
+      # 売上成長率 = (今年売上 - 前年売上) ÷ 前年売上 × 100　
+      "#{((sales_total_amount - last_year_sales_total_amount) / last_year_sales_total_amount.to_f * 100).floor(1)}%"
+    else
+      "-"
+    end
+  end
 
   private 
 

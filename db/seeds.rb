@@ -1,9 +1,9 @@
 # メインのサンプルユーザーを1人作成する
-User.create!(name:  "Example User",
-  email: "example@railstutorial.org",
-  admin: true,
-  password:              "foobar",
-  password_confirmation: "foobar")
+User.create!( name:     "Example User",
+              email:    "example@railstutorial.org",
+              admin:    true,
+              password: "foobar",
+              password_confirmation: "foobar")
 
 # 追加のユーザーをまとめて生成する
 19.times do |n|
