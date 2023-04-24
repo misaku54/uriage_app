@@ -6,7 +6,8 @@ class Sale < ApplicationRecord
   belongs_to :producttype
 
   # バリデーション
-  validates :amount_sold, numericality: { greater_than_or_equal_to: 1 } #売上登録できる販売額は１円以上でなければならない。
+  validates :amount_sold, presence: true
+  validates :amount_sold, numericality: { greater_than_or_equal_to: 1 }, allow_nil: true #売上登録できる販売額は１円以上でなければならない。
   validates :remark, length: { maximum: 1000 }
   validates :created_at, presence: true
   # カスタムバリデーション
