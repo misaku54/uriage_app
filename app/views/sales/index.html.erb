@@ -1,12 +1,40 @@
 <% provide(:title, '売上一覧')%>
 <h1>売上一覧</h1>
 
+<%= search_form_for @q, url: user_sales_path(@user), class: "mb-5" do |f| %>
+  <div class="form_group row">
+    <%= f.label :maker_name_cont, 'メーカー名', class: "col-sm-2 col-form-label"%>
+    <div class="col-sm-10">
+      <%= f.search_field :maker_name_cont, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form_group row">
+    <%= f.label :producttype_name_cont, '商品名', class: "col-sm-2 col-form-label"%>
+    <div class="col-sm-10">
+      <%= f.search_field :producttype_name_cont, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form_group row">
+    <%= f.label :created_at_gteq, '開始日', class: "col-sm-2 col-form-label"%>
+    <div class="col-sm-10">
+      <%= f.date_field :created_at_gteq, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form_group row">
+    <%= f.label :created_at_lteq_end_of_day, '終了日', class: "col-sm-2 col-form-label"%>
+    <div class="col-sm-10">
+      <%= f.date_field :created_at_lteq_end_of_day, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form_group">
+    <%= f.submit '検索', class: "btn btn-outline-primary" %>
+  </div>
+<% end %>
+
 <%= link_to "追加", new_user_sale_path(@user), class: "btn btn-lg btn-primary" %>
 <%= link_to "月次集計", user_monthly_aggregate_path(@user), class: "btn btn-lg btn-primary" %>
 <%= link_to "年次集計", user_yearly_aggregate_path(@user), class: "btn btn-lg btn-primary" %>
 <%= link_to "日次集計", user_daily_aggregate_path(@user), class: "btn btn-lg btn-primary" %>
-
-
 
 <div class="table-responsive">
   <table class="table table-bordered">
@@ -17,7 +45,7 @@
         <th class="info col-md-3" ><%= Sale.human_attribute_name(:producttype_id) %></th>
         <th class="info col-md-1" ><%= Sale.human_attribute_name(:amount_sold) %></th>
         <th class="info col-md-1" ><%= Sale.human_attribute_name(:remark) %></th>
-        <th class="info col-md-2" ><%= Sale.human_attribute_name(:created_at) %></th>
+        <th class="info col-md-2" ><%= sort_link(@q, :created_at) %></th>
         <th class="info col-md-2" ></th>
       </tr>
     </thead>

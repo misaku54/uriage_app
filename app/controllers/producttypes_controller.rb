@@ -3,7 +3,9 @@ class ProducttypesController < ApplicationController
   before_action :correct_user
 
   def index
-    @producttypes = @user.producttypes.order("id").page(params[:page]).per(10)
+    @q = @user.producttypes.ransack(params[:q])
+    @q.sorts = 'created_at asc' if @q.sorts.empty?
+    @producttypes  = @q.result.page(params[:page]).per(10)
   end
 
   def new

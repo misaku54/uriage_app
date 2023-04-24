@@ -4,6 +4,9 @@ class SalesController < ApplicationController
 
   def index
     @sales = @user.sales.order("created_at").page(params[:page]).per(10)
+    @q = @user.sales.ransack(params[:q])
+    @q.sorts = 'created_at asc' if @q.sorts.empty?
+    @sales  = @q.result.page(params[:page]).per(10)
   end
 
   def new

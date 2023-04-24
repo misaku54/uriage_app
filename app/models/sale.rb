@@ -108,6 +108,14 @@ class Sale < ApplicationRecord
     end
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "maker_id", "producttype_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["maker", "producttype"]
+  end
+
   private 
 
   def maker_id_should_be_registered

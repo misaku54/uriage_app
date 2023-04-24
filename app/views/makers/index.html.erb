@@ -1,23 +1,6 @@
 <% provide(:title, 'メーカーマスタ')%>
 <h1>メーカーマスタ</h1>
-<%= search_form_for @q, url: user_makers_path(current_user), class: "mb-5" do |f| %>
-  <div class="form_group row">
-    <%= f.label :name_cont, 'メーカー名', class: "col-sm-2 col-form-label"%>
-    <div class="col-sm-10">
-      <%= f.search_field :name_cont, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form_group row">
-    <%= f.label :created_at, '登録日', class: "col-sm-2 col-form-label"%>
-    <div class="col-sm-10">
-      <%= f.date_field :created_at_gteq, class: "form-control"  %>
-      <%= f.date_field :created_at_lteq_end_of_day, class: "form-control"  %>
-    </div>
-  </div>
-  <div class="form_group">
-    <%= f.submit '検索', class: "btn btn-outline-primary" %>
-  </div>
-<% end %>
+<%= render 'shared/search', q: @q, url: user_makers_path(@user), label: 'メーカー名' %>
 <%= link_to "追加", new_user_maker_path(@user), class: "btn btn-lg btn-primary" %>
 <div class="table-responsive">
 <table class="table table-bordered">
@@ -25,7 +8,7 @@
 		<tr>
       <th class="info" >No.</th>
 			<th class="info col-md-6" ><%= Maker.human_attribute_name(:name) %></th>
-			<th class="info col-md-2" ><%= sort_link(@q, :created_at, default_order: :desc) %></th>
+			<th class="info col-md-2" ><%= sort_link(@q, :created_at) %></th>
 			<th class="info col-md-2" ><%= Maker.human_attribute_name(:updated_at) %></th>
 			<th class="info col-md-2" ></th>
 		</tr>
