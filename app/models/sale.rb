@@ -99,7 +99,7 @@ class Sale < ApplicationRecord
                                                                                                     last_year_end_date: last_year_end_date }]) }
 
   # 売上成長率を計算する。
-  def self.sales_growth_rate(sales_total_amount, last_year_sales_total_amount = 0)
+  def self.sales_growth_rate(sales_total_amount = 0, last_year_sales_total_amount = 0)
     if last_year_sales_total_amount > 0
       # 売上成長率 = (今年売上 - 前年売上) ÷ 前年売上 × 100　
       "#{((sales_total_amount - last_year_sales_total_amount) / last_year_sales_total_amount.to_f * 100).floor(1)}%"

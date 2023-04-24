@@ -17,6 +17,7 @@
 </div>
 
 <p><%= search_result_title(@search_params, "daily") %></p>
+<p><%= @no_result %></p>
 <% if @sales_total_amount.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -24,6 +25,7 @@
     </div>
     <div class="panel-body">
       <h4><%= "#{number_with_delimiter(@sales_total_amount)}円" %></h4>
+      <span><%= "成長率（前年比較）: #{@sales_growth_rate}"%></span>
     </div>
   </div>
 <% end %>
