@@ -15,6 +15,7 @@ gem "chartkick"
 gem 'groupdate'
 gem 'rubocop'
 gem 'rubocop-rails'
+gem 'ransack'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
