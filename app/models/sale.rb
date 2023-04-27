@@ -19,23 +19,23 @@ class Sale < ApplicationRecord
   SELECT COALESCE(k.maker_name, '未登録') maker_name, COALESCE(k.producttype_name, '未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
   CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN CONCAT(TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1),'%') ELSE '-' END sales_growth_rate
-    FROM (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+    FROM (SELECT s.maker_id, m.name maker_name, s.producttype_id, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
       ON m.id = s.maker_id
       LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :start_date AND :end_date
-      GROUP BY maker_name, producttype_name) k
-    LEFT JOIN (SELECT m.name maker_name, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      GROUP BY maker_id, producttype_id) k
+    LEFT JOIN (SELECT s.maker_id, m.name maker_name, s.producttype_id, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
       ON m.id = s.maker_id
       LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start_date AND :last_year_end_date
-      GROUP BY maker_name, producttype_name) z
-    ON k.maker_name = z.maker_name AND k.producttype_name = z.producttype_name
+      GROUP BY maker_id, producttype_id) z
+    ON k.maker_id = z.maker_id AND k.producttype_id = z.producttype_id
     ORDER BY k.sum_amount_sold DESC
   EOS
 
@@ -43,19 +43,19 @@ class Sale < ApplicationRecord
   SELECT COALESCE(k.maker_name,'未登録') maker_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
   CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN CONCAT(TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1),'%') ELSE '-' END sales_growth_rate
-    FROM (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+    FROM (SELECT s.maker_id, m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
       ON m.id = s.maker_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :start_date AND :end_date
-      GROUP BY maker_name) k
-    LEFT JOIN (SELECT m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      GROUP BY maker_id) k
+    LEFT JOIN (SELECT s.maker_id, m.name maker_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN makers m 
       ON m.id = s.maker_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start_date AND :last_year_end_date
-      GROUP BY maker_name) z
-    ON k.maker_name = z.maker_name
+      GROUP BY maker_id) z
+    ON k.maker_id = z.maker_id
     ORDER BY k.sum_amount_sold DESC
   EOS
 
@@ -63,19 +63,19 @@ class Sale < ApplicationRecord
   SELECT COALESCE(k.producttype_name,'未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
   CASE WHEN COALESCE(z.sum_amount_sold, 0) > 0 THEN CONCAT(TRUNCATE((k.sum_amount_sold - COALESCE(z.sum_amount_sold, 0)) / COALESCE(z.sum_amount_sold, 0) * 100, 1),'%') ELSE '-' END sales_growth_rate
-    FROM (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+    FROM (SELECT s.producttype_id, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :start_date AND :end_date
-      GROUP BY producttype_name) k
-    LEFT JOIN (SELECT p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
+      GROUP BY producttype_id) k
+    LEFT JOIN (SELECT s.producttype_id, p.name producttype_name, SUM(s.amount_sold) sum_amount_sold, COUNT(*) quantity_sold
       FROM sales s
       LEFT JOIN producttypes p 
       ON p.id = s.producttype_id
       WHERE s.user_id = :user_id AND s.created_at BETWEEN :last_year_start_date AND :last_year_end_date
-      GROUP BY producttype_name) z
-    ON k.producttype_name = z.producttype_name
+      GROUP BY producttype_id) z
+    ON k.producttype_id = z.producttype_id
     ORDER BY k.sum_amount_sold DESC
   EOS
 
