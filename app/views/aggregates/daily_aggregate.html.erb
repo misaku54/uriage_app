@@ -1,19 +1,26 @@
 <% provide(:title, '日別売上集計') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">日次集計</li>
+</ol>
+<h1>日次集計</h1>
 
-<%= render 'shared/error_messages', object: @search_params %>
-<div class="well">
-  <p>日別売上集計</p>
-  <%= form_with(url: user_daily_search_path(@user), method: "get", class: "form-inline") do |f| %>
-    <div class="form-group">
-      <%= f.date_field :start_date, class:'form-control' %>
-    </div> 〜
-    <div class="form-group">
-      <%= f.date_field :end_date, class:'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.submit '集計する', class: "btn btn-info" %>
-    </div>
-  <% end %>
+<div class="panel panel-default">
+  <div class="panel-heading">集計条件</div>
+  <div class="panel-body">
+    <%= form_with(url: user_daily_search_path(@user), method: "get", class: "form-inline") do |f| %>
+      <%= render 'shared/error_messages', object: @search_params %>
+      <div class="form-group">
+        <%= f.date_field :start_date, class:'form-control' %>
+      </div> 〜
+      <div class="form-group">
+        <%= f.date_field :end_date, class:'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit '集計する', class: "btn btn-info" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <p><%= search_result_title(@search_params, "daily") %></p>

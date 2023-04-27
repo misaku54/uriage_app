@@ -1,17 +1,24 @@
 <% provide(:title, '月別売上集計') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">月次集計</li>
+</ol>
+<h1>月次集計</h1>
 
-<%= render 'shared/error_messages', object: @search_params %>
-<div class="well">
-  <p>月別売上集計</p>
-  <%= form_with(url: user_monthly_search_path(@user), method: "get", class: "form-inline") do |f| %>
-    <div class="form-group">
-      <%== sprintf(f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,
-                                          discard_day: true, date_separator: '%s', selected: Date.today}, class:'form-control'),'年') + '月' %>
-    </div>
-    <div class="form-group">
-      <%= f.submit '集計する', class: "btn btn-info" %>
-    </div>
-  <% end %>
+<div class="panel panel-default">
+  <div class="panel-heading">集計条件</div>
+  <div class="panel-body">
+    <%= form_with(url: user_monthly_search_path(@user), method: "get", class: "form-inline") do |f| %>
+      <%= render 'shared/error_messages', object: @search_params %>
+      <div class="form-group">
+        <%== sprintf(f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,
+                                            discard_day: true, date_separator: '%s', selected: Date.today}, class:'form-control'),'年') + '月' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit '集計する', class: "btn btn-info" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <p><%= search_result_title(@search_params, "monthly") %></p>

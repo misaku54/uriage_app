@@ -3,7 +3,6 @@ class MakersController < ApplicationController
   before_action :correct_user
 
   def index
-    # @makers = @user.makers.order("id").page(params[:page]).per(10)
     @q = @user.makers.ransack(params[:q])
     @q.sorts = 'created_at asc' if @q.sorts.empty?
     @makers  = @q.result.page(params[:page]).per(10)

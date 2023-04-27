@@ -1,35 +1,36 @@
-<% provide(:title, 'メーカーマスタ')%>
+<% provide(:title, 'メーカーマスタ') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path%></li>
+  <li class="active">メーカーマスタ</li>
+</ol>
 <h1>メーカーマスタ</h1>
 <%= render 'shared/search', q: @q, url: user_makers_path(@user), label: 'メーカー名' %>
-<%= link_to "追加", new_user_maker_path(@user), class: "btn btn-lg btn-primary" %>
+<%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-success" %>
 <div class="table-responsive">
-<table class="table table-bordered">
-	<thead>
-		<tr>
-      <th class="info" >No.</th>
-			<th class="info col-md-6" ><%= Maker.human_attribute_name(:name) %></th>
-			<th class="info col-md-2" ><%= sort_link(@q, :created_at) %></th>
-			<th class="info col-md-2" ><%= Maker.human_attribute_name(:updated_at) %></th>
-			<th class="info col-md-2" ></th>
-		</tr>
-	</thead>
-  <tbody>
-    <% @makers.each.with_index(1) do |maker, index| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= index %></td>
-        <td><%= maker.name %></td>
-        <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
-        <td><%= maker.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
-        <td>
-          <%= link_to '編集', edit_user_maker_path(@user,maker), class: "btn btn-primary btn-xs" %> 
-          <%= link_to '削除', user_maker_path(@user, maker), 
-          data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
-        </td>
+        <th class="info" >No.</th>
+        <th class="info col-md-6" ><%= Maker.human_attribute_name(:name) %></th>
+        <th class="info col-md-2" ><%= sort_link(@q, :created_at) %></th>
+        <th class="info col-md-2" ></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-</div>
+    </thead>
+    <tbody>
+      <% @makers.each.with_index(1) do |maker, index| %>
+        <tr>
+          <td><%= index %></td>
+          <td><%= maker.name %></td>
+          <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+          <td>
+            <%= link_to '編集', edit_user_maker_path(@user,maker), class: "btn btn-primary btn-xs" %> 
+            <%= link_to '削除', user_maker_path(@user, maker), 
+            data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <div class="text-center">
   <%= paginate @makers %>
 </div>
