@@ -1,4 +1,9 @@
 <% provide(:title, '売上一覧')%>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">売上一覧</li>
+</ol>
+
 <h1>売上一覧</h1>
 <div class="well">
   <%= search_form_for @q, url: user_sales_path(@user), class: "mb-5" do |f| %>
