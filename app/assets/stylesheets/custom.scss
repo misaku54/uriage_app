@@ -53,6 +53,7 @@ p {
 
 /* ヘッダー */
 #logo {
+  font-family: "times";
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
@@ -158,4 +159,5 @@ input, textarea, select, .uneditable-input {
 /* メインコンテンツ */
 .main {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
