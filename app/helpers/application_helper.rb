@@ -10,9 +10,8 @@ module ApplicationHelper
   end
 
   # カンマ区切り円に変換
-  def add_en(price = 0)
-    amount_sold = price.to_s.chars.reverse.each_slice(3).map(&:join).join(',').reverse
-    "#{amount_sold}円"
+  def add_comma_en(amount_sold = 0)
+    "#{number_with_delimiter(amount_sold)}円"
   end
   
   # 個数に変換
@@ -20,6 +19,7 @@ module ApplicationHelper
     "#{quantity_sold}個"
   end 
 
+  # 不要。確認後に消す
   def html_safe_newline(str)
     h(str).gsub(/\n|\r|\r\n/, "<br>").html_safe
   end

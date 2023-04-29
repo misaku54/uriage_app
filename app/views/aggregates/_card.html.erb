@@ -51,9 +51,9 @@
               <% elsif card_pattern == "producttype" %>
                 <td><%= aggregate.producttype_name %></td>
               <% end %>
-              <td class="text-right"><%= "#{number_with_delimiter(aggregate.sum_amount_sold)}円" %></td>
+              <td class="text-right"><%= add_comma_en(aggregate.sum_amount_sold) %></td>
               <td class="text-right"><%= aggregate.quantity_sold %></td>
-              <td class="text-right"><%= "#{number_with_delimiter(aggregate.last_year_sum_amount_sold)}円" %></td>
+              <td class="text-right"><%= add_comma_en(aggregate.last_year_sum_amount_sold) %></td>
               <td class="text-right"><%= aggregate.last_year_quantity_sold %></td>
               <td class="text-right"><%= aggregate.sales_growth_rate %></td>
             </tr>
