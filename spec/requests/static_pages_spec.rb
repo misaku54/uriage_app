@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "StaticPages", type: :request do
-  let(:base_title) { 'せるまね' }
+  let(:base_title) { 'LiLy' }
   describe "#home" do
     before do
       get root_path

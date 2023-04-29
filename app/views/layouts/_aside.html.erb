@@ -1,4 +1,5 @@
 <div class="col-sm-3 col-md-2 sidebar">
+  <% if logged_in? %>
   <p>マスター</p>
   <ul class="nav nav-sidebar">
     <li><%= link_to 'メーカーマスター', user_makers_path(current_user) %></li>
@@ -14,4 +15,5 @@
     <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user)%></li>
     <li><%= link_to '日次集計', user_daily_aggregate_path(current_user)%></li>
   </ul>
+  <% end %>
 </div>

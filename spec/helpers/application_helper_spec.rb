@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
   describe 'full_title' do
-    let(:base_title) { 'せるまね' }
+    let(:base_title) { 'LiLy' }
     context '引数を渡した場合' do
       it '引数の文字列とベースタイトルが返ること' do
         expect(full_title('Page Title')).to eq "Page Title | #{base_title}"
