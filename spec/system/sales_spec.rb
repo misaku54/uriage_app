@@ -76,7 +76,7 @@ RSpec.describe "売上管理機能", type: :system do
           fill_in '備考', with: 'セール価格'
           # DB上に登録されていること
           expect {
-            click_button '売上登録'
+            click_button '登録'
           }.to change(Sale, :count).by(1)
 
           # 一覧画面へ遷移していること
@@ -99,7 +99,7 @@ RSpec.describe "売上管理機能", type: :system do
           fill_in '販売価格', with: 0
           # DB上に登録されていないこと
           expect {
-            click_button '売上登録'
+            click_button '登録'
           }.to_not change(Sale, :count)
           # エラーメッセージが表示されていること
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -119,7 +119,7 @@ RSpec.describe "売上管理機能", type: :system do
           select '商品A', from: 'sale[producttype_id]'
           fill_in '販売価格', with: 20000
           fill_in '備考', with: '３０％オフ'
-          click_button '売上修正'
+          click_button '更新'
 
           # 正しい値に更新されているか
           sale.reload
@@ -145,7 +145,7 @@ RSpec.describe "売上管理機能", type: :system do
           select '選択してください', from: 'sale[maker_id]'
           select '選択してください', from: 'sale[producttype_id]'
           fill_in '販売価格', with: 0
-          click_button '売上修正'
+          click_button '更新'
           sale.reload
           # 更新前と値が変わっていないこと
           expect(sale).to be sale_before

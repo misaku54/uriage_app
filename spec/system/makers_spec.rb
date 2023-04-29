@@ -69,7 +69,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           visit new_user_maker_path(login_user)
           fill_in 'メーカー名', with: 'createメーカー'
           expect {
-            click_button 'メーカー登録'
+            click_button '登録'
           }.to change(Maker, :count).by(1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_makers_path(login_user)
@@ -90,7 +90,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           fill_in 'メーカー名', with: ''
           # DB上に登録されていないこと
           expect {
-            click_button 'メーカー登録'
+            click_button '登録'
           }.to_not change(Maker, :count)
           # エラーメッセージが表示されていること
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -105,7 +105,7 @@ RSpec.describe "メーカー管理機能", type: :system do
         it '更新に成功する' do
           visit edit_user_maker_path(login_user, maker)
           fill_in 'メーカー名', with: 'updateメーカー'
-          click_button 'メーカー修正'
+          click_button '更新'
 
           # 正しい値に更新されているか
           maker.reload
@@ -128,7 +128,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           maker_before = maker
           visit edit_user_maker_path(login_user, maker)
           fill_in 'メーカー名', with: ''
-          click_button 'メーカー修正'
+          click_button '更新'
           maker.reload
           # 更新前と値が変わっていないこと
           expect(maker).to be maker_before

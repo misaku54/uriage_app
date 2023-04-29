@@ -66,7 +66,7 @@ RSpec.describe "商品管理機能", type: :system do
           visit new_user_producttype_path(login_user)
           fill_in '商品名', with: 'create商品'
           expect {
-            click_button '商品登録'
+            click_button '登録'
           }.to change(Producttype, :count).by(1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_producttypes_path(login_user)
@@ -87,7 +87,7 @@ RSpec.describe "商品管理機能", type: :system do
           fill_in '商品名', with: ''
           # DB上に登録されていないこと
           expect {
-            click_button '商品登録'
+            click_button '登録'
           }.to_not change(Producttype, :count)
           # エラーメッセージが表示されていること
           expect(page).to have_selector 'div.alert.alert-danger'
@@ -102,7 +102,7 @@ RSpec.describe "商品管理機能", type: :system do
         it '更新に成功する' do
           visit edit_user_producttype_path(login_user, producttype)
           fill_in '商品名', with: 'update商品'
-          click_button '商品修正'
+          click_button '更新'
           producttype.reload
           expect(producttype.name).to eq 'update商品'
           # 一覧画面へ遷移していること
@@ -123,7 +123,7 @@ RSpec.describe "商品管理機能", type: :system do
           producttype_before = producttype
           visit edit_user_producttype_path(login_user, producttype)
           fill_in '商品名', with: ''
-          click_button '商品修正'
+          click_button '更新'
           producttype.reload
           # 更新前と値が変わっていないこと
           expect(producttype).to be producttype_before
