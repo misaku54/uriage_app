@@ -61,10 +61,10 @@ RSpec.describe "商品管理機能", type: :system do
     describe '新規登録機能' do
       let(:login_user) { user_a }
 
-      context '商品名を有効な値で登録した場合' do
+      context '商品分類名を有効な値で登録した場合' do
         it '登録に成功する' do
           visit new_user_producttype_path(login_user)
-          fill_in '商品名', with: 'create商品'
+          fill_in '商品分類名', with: 'create商品'
           expect {
             click_button '登録'
           }.to change(Producttype, :count).by(1)
@@ -72,19 +72,19 @@ RSpec.describe "商品管理機能", type: :system do
           expect(page).to have_current_path user_producttypes_path(login_user)
           # 成功時のフラッシュが表示されていること
           expect(page).to have_selector 'div.alert.alert-success'
-          # 登録した商品名が表示されていること
+          # 登録した商品分類名が表示されていること
           expect(page).to have_content 'create商品'
 
-          # 売上登録画面のセレクトボックスに商品名が反映されていること
+          # 売上登録画面のセレクトボックスに商品分類名が反映されていること
           visit new_user_sale_path(login_user)
           expect(page).to have_content 'create商品'
         end
       end
 
-      context '商品名を無効な値で登録した場合' do
+      context '商品分類名を無効な値で登録した場合' do
         it '登録に失敗する' do
           visit new_user_producttype_path(login_user)
-          fill_in '商品名', with: ''
+          fill_in '商品分類名', with: ''
           # DB上に登録されていないこと
           expect {
             click_button '登録'
@@ -98,10 +98,10 @@ RSpec.describe "商品管理機能", type: :system do
     describe '編集機能' do
       let(:login_user) { user_a }
 
-      context '商品名を有効な値で更新した場合' do
+      context '商品分類名を有効な値で更新した場合' do
         it '更新に成功する' do
           visit edit_user_producttype_path(login_user, producttype)
-          fill_in '商品名', with: 'update商品'
+          fill_in '商品分類名', with: 'update商品'
           click_button '更新'
           producttype.reload
           expect(producttype.name).to eq 'update商品'
@@ -109,20 +109,20 @@ RSpec.describe "商品管理機能", type: :system do
           expect(page).to have_current_path user_producttypes_path(login_user)
           # 成功時のフラッシュが表示されていること
           expect(page).to have_selector 'div.alert.alert-success'
-          # 更新した商品名が表示されていること
+          # 更新した商品が表示されていること
           expect(page).to have_content 'update商品'
 
-          # 売上登録画面のセレクトボックスに商品名が反映されていること
+          # 売上登録画面のセレクトボックスに商品分類が反映されていること
           visit new_user_sale_path(login_user)
           expect(page).to have_content 'update商品'
         end
       end
 
-      context '商品名を無効な値で更新した場合' do
+      context '商品分類名を無効な値で更新した場合' do
         it '更新に失敗する' do
           producttype_before = producttype
           visit edit_user_producttype_path(login_user, producttype)
-          fill_in '商品名', with: ''
+          fill_in '商品分類名', with: ''
           click_button '更新'
           producttype.reload
           # 更新前と値が変わっていないこと
@@ -144,10 +144,10 @@ RSpec.describe "商品管理機能", type: :system do
           }.to change(Producttype, :count).by(-1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_producttypes_path(login_user)
-          # 削除した商品名が表示されていないこと
+          # 削除した商品分類名が表示されていないこと
           expect(page).to_not have_content '商品A'
 
-          # 売上登録画面のセレクトボックスから商品名が削除されていること
+          # 売上登録画面のセレクトボックスから商品分類名が削除されていること
           visit new_user_sale_path(login_user)
           expect(page).to_not have_content '商品A'
         end
