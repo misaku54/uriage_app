@@ -28,27 +28,8 @@
   <p><%= @no_result %></p>
 <% end %>
 
-<% if @sales_total_amount.present? %>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h4>合計純売上</h4>
-    </div>
-    <div class="panel-body">
-      <h4><%= add_comma_en(@sales_total_amount) %></h4>
-      <span><%= "成長率（前年比較）: #{@sales_growth_rate}"%></span>
-    </div>
-  </div>
-<% end %>
-<% if @sales_trend.present? %>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h4>売上推移</h4>
-    </div>
-    <div class="panel-body">
-      <%= line_chart @sales_trend , suffix: "円", thousands: "," %>
-    </div>
-  </div>
-<% end %>
+<%= render 'total_card' %>
+<%= render 'trend_card' %>
 
 <div class = "row">
   <div class="col-sm-4">
