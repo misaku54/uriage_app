@@ -1,0 +1,63 @@
+<% if aggregates.present? %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h5><%= make_ranking_title(aggregates.first) %></h5>
+    </div>
+    <div class="panel-body ranking-item">
+      <div class="text-yellow">
+        <span class="font-bold text-lg">1</span>
+        <span>位</span>
+      </div>
+      <div>
+        <div><%= make_ranking_name(aggregates.first) %></div>
+        <div><%= add_comma_en(aggregates.first.sum_amount_sold) %></div>
+      </div>
+    </div>
+    <% if aggregates.second.present? %>
+      <div class="panel-body ranking-item">
+        <div class="text-gray">
+          <span class="font-bold text-lg">2</span>
+          <span>位</span>
+        </div>
+        <div>
+          <div><%= make_ranking_name(aggregates.second) %></div>
+          <div><%= add_comma_en(aggregates.second.sum_amount_sold) %></div>
+        </div>
+      </div>
+    <% else %>
+      <div class="panel-body ranking-item">
+        <div>
+          <span class="font-bold text-lg"></span>
+          <span>ー</span>
+        </div>
+        <div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    <% end %>
+    <% if aggregates.third.present? %>
+      <div class="panel-body ranking-item">
+        <div class="text-brown">
+          <span class="font-bold text-lg">3</span>
+          <span>位</span>
+        </div>
+        <div>
+          <div><%= make_ranking_name(aggregates.third) %></div>
+          <div><%= add_comma_en(aggregates.third.sum_amount_sold) %></div>
+        </div>
+      </div>
+    <% else %>
+        <div class="panel-body ranking-item">
+        <div>
+          <span class="font-bold text-lg"></span>
+          <span>ー</span>
+        </div>
+        <div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

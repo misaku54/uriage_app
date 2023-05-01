@@ -8,15 +8,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">集計条件</div>
   <div class="panel-body">
-    <%= form_with(url: user_yearly_search_path(@user), method: "get", class: "form-inline") do |f| %>
+    <%= form_with(url: user_yearly_search_path(@user), method: "get") do |f| %>
       <%= render 'shared/error_messages', object: @search_params %>
-      <div class="form-group">
-        <%= f.date_select(:date, { use_month_numbers: true, start_year: 2020, end_year: Time.now.year,
-                                    discard_month: true, discard_day: true }, class:'form-control') + '年' %>
-      </div>
-      <div class="form-group">
-        <%= f.submit '集計する', class: "btn btn-info" %>
-      </div>
+      <div><%= f.label :date, '集計年度'%></div>
+      <%= f.date_select(:date, { use_month_numbers: true, start_year: 2018, end_year: Time.now.year,
+                                discard_month: true, discard_day: true }) + '年'%>
+      <%= f.submit '集計' %>
     <% end %>
   </div>
 </div>
@@ -25,6 +22,7 @@
 <% if @no_result.present? %>
   <p><%= @no_result %></p>
 <% end %>
+
 <% if @sales_total_amount.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -36,6 +34,7 @@
     </div>
   </div>
 <% end %>
+
 <% if @sales_trend.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -46,12 +45,19 @@
     </div>
   </div>
 <% end %>
-<% if @aggregates_of_maker_producttype.present? %>
-  <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-<% end %>
-<% if @aggregates_of_maker.present? %>
-  <%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-<% end %>
-<% if @aggregates_of_producttype.present? %>
-  <%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
-<% end %>
+
+<div class = "row">
+  <div class="col-sm-4">
+    <%= render 'ranking_card', aggregates: @aggregates_of_maker_producttype %>
+  </div>
+  <div class="col-sm-4">
+    <%= render 'ranking_card', aggregates: @aggregates_of_maker %>
+  </div>
+  <div class="col-sm-4">
+    <%= render 'ranking_card', aggregates: @aggregates_of_producttype %>
+  </div>
+</div>
+
+<%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
+<%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+<%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>

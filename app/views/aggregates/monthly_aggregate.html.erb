@@ -25,6 +25,7 @@
 <% if @no_result.present? %>
   <p><%= @no_result %></p>
 <% end %>
+
 <% if @sales_total_amount.present? %>
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -46,12 +47,19 @@
     </div>
   </div>
 <% end %>
-<% if @aggregates_of_maker_producttype.present? %>
-  <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-<% end %>
-<% if @aggregates_of_maker.present? %>
-  <%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-<% end %>
-<% if @aggregates_of_producttype.present? %>
-  <%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
-<% end %>
+
+<div class = "row">
+  <div class="col-sm-4">
+    <%= render 'ranking_card', aggregates: @aggregates_of_maker_producttype %>
+  </div>
+  <div class="col-sm-4">
+    <%= render 'ranking_card', aggregates: @aggregates_of_maker %>
+  </div>
+  <div class="col-sm-4">
+    <%= render 'ranking_card', aggregates: @aggregates_of_producttype %>
+  </div>
+</div>
+
+<%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
+<%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+<%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>

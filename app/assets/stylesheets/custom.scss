@@ -12,6 +12,11 @@ $gray-medium-light: #eaeaea;
 }
 
 // 共通部分
+
+html {
+  font-size: 10px;
+}
+
 body {
   padding-top: 50px;
 }
@@ -44,11 +49,6 @@ h2 {
   text-align: center;
   font-weight: normal;
   color: #777;
-}
-
-p {
-  font-size: 1.1em;
-  line-height: 1.7em;
 }
 
 /* ヘッダー */
@@ -101,7 +101,7 @@ input, textarea, select, .uneditable-input {
 
 .form_date_select {
 	display: inline-block;
-	width: auto;
+	max-width: auto;
 }
 
 /* miscellaneous */
@@ -160,4 +160,33 @@ input, textarea, select, .uneditable-input {
 .main {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.font-bold{
+  font-weight: bold;
+}
+
+.text-lg {
+  font-size: 2.0rem;
+  line-height: 4.0rem;
+}
+
+.text-yellow {
+  color: rgb(250, 204, 21);
+}
+
+.text-gray {
+  color: rgb(156, 163, 175);
+}
+
+.text-brown {
+  color: rgb(161, 98, 7);
+}
+
+.ranking-item {
+  display: flex;
+}
+
+.text-yellow,.text-gray,.text-brown{
+  margin-right: 1.5rem;
 }

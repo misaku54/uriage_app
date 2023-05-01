@@ -25,12 +25,44 @@ module AggregatesHelper
       raise
     end
   end
+  
+  # ランキングのタイトルを求める。
+  def make_ranking_title(aggregate)
+    if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')
+      return '売上ランキング（メーカー、商品分類別）'
+    end
+
+    if aggregate.respond_to?('maker_name')
+      return '売上ランキング（メーカー別）'
+    end
+    
+    if aggregate.respond_to?('producttype_name')
+      return '売上ランキング（商品分類別）' 
+    end
+    raise
+  end
+
+  # ランクインした名前を求める。
+  def make_ranking_name(aggregate)
+    if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')
+      return "#{aggregate.maker_name}の#{aggregate.producttype_name}"  
+    end
+
+    if aggregate.respond_to?('maker_name')
+      return aggregate.maker_name
+    end
+    
+    if aggregate.respond_to?('producttype_name')
+      return aggregate.producttype_name  
+    end
+    raise
+  end
 
   # 集計結果のタイトルを求める。
   def make_aggregate_title(pattern)
-    return aggregate_title = '集計結果（メーカー、商品別の販売額の合計）'   if pattern == 'maker_producttype'
-    return aggregate_title = '集計結果（メーカー別の販売額の合計）'        if pattern == 'maker'
-    return aggregate_title = '集計結果（商品別の販売額の合計）'           if pattern == 'producttype'
+    return '集計結果（メーカー、商品分類別の販売額の合計）'   if pattern == 'maker_producttype'
+    return '集計結果（メーカー別の販売額の合計）'           if pattern == 'maker'
+    return '集計結果（商品分類別の販売額の合計）'           if pattern == 'producttype'
     raise
   end
 
