@@ -5,6 +5,7 @@
 </ol>
 <h1>商品分類マスタ</h1>
 <%= render 'shared/search', q: @q, url: user_producttypes_path(@user), label: '商品名' %>
+<%= current_page_number(@producttypes) %>
 <%= link_to " + 追加", new_user_producttype_path(@user), class: "btn btn-success" %>
 <div class="table-responsive">
 <table class="table table">

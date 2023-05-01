@@ -5,6 +5,7 @@
 </ol>
 <h1>メーカーマスタ</h1>
 <%= render 'shared/search', q: @q, url: user_makers_path(@user), label: 'メーカー名' %>
+<%= current_page_number(@makers) %>
 <%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-success" %>
 <div class="table-responsive">
   <table class="table">

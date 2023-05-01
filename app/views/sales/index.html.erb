@@ -36,9 +36,8 @@
     </div>
   <% end %>
 </div>
-
+<%= current_page_number(@sales) %>
 <%= link_to " + 追加", new_user_sale_path(@user), class: "btn btn-success"  %>
-
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
