@@ -162,6 +162,17 @@ input, textarea, select, .uneditable-input {
   padding-bottom: 20px;
 }
 
+/* カードレイアウト共通　*/
+.panel-default > .panel-heading-custom {
+  background: #2e2d2d !important;
+  color: #fff !important;
+}
+
+.panel-default {
+  border-radius: 0px !important;
+}
+
+/* ランキングカード */
 .font-bold{
   font-weight: bold;
 }
