@@ -6,6 +6,7 @@ class MakersController < ApplicationController
     @q = @user.makers.ransack(params[:q])
     @q.sorts = 'created_at asc' if @q.sorts.empty?
     @makers  = @q.result.page(params[:page]).per(10)
+    @maker   = @user.makers.build
   end
 
   def new
@@ -13,12 +14,15 @@ class MakersController < ApplicationController
   end
 
   def create
+    @q = @user.makers.ransack(params[:q])
+    @q.sorts = 'created_at asc' if @q.sorts.empty?
+    @makers  = @q.result.page(params[:page]).per(10)
     @maker = @user.makers.build(maker_params)
     if @maker.save
       flash[:success] = 'メーカーの追加に成功しました。'
-      redirect_to user_makers_path(@user), status: :see_other
-    else
-      render 'new', status: :unprocessable_entity
+      # redirect_to user_makers_path(@user), status: :see_other
+    # else
+    #   render 'index', status: :unprocessable_entity
     end
   end
 

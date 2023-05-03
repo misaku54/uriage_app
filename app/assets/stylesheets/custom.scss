@@ -206,3 +206,46 @@ input, textarea, select, .uneditable-input {
 	display: inline-block;
 	width: auto;
 }
+
+
+/* モーダル設定　*/ 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  visibility:hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.overlay_isOpen {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-window {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5000;
+  margin: auto;
+  max-width: 400px;
+  max-height: 200px;
+  padding: 32px;
+  color: #070606;
+  background-color: #ffffff;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.modal_isOpen {
+  visibility: visible;
+  opacity: 1;
+}

@@ -35,3 +35,18 @@
 <div class="text-center">
   <%= paginate @makers %>
 </div>
+<div class="overlay"></div>
+
+<div class="modal-window">
+  <%= form_with(model: [@user, @maker],local: false) do |f| %>
+    <%# <%= render 'shared/error_messages', object: f.object %>
+    <div id="createMakerErrors"></div>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class:"form-control" %>
+    </div>
+    <%= f.submit '送信', class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<button class="modal-btn">モーダルボタン</button>
