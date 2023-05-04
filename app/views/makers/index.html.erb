@@ -5,48 +5,24 @@
 </ol>
 <h1>メーカーマスタ</h1>
 <%= render 'shared/search', q: @q, url: user_makers_path(@user), label: 'メーカー名' %>
-<%= current_page_number(@makers) %>
-<%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-success" %>
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="info" >No.</th>
-        <th class="info col-md-6" ><%= Maker.human_attribute_name(:name) %></th>
-        <th class="info col-md-2" ><%= sort_link(@q, :created_at) %></th>
-        <th class="info col-md-2" ></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @makers.each.with_index(1) do |maker, index| %>
+<%= turbo_frame_tag "makers-list" do %>
+  <%= current_page_number(@makers) %>
+  <p class="btn btn-success" id="add-maker"> + 追加</p>
+  <%# <%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-success", id: "add-maker" %>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
         <tr>
-          <td><%= index %></td>
-          <td><%= maker.name %></td>
-          <td><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
-          <td>
-            <%= link_to '編集', edit_user_maker_path(@user,maker), class: "btn btn-primary btn-xs" %> 
-            <%= link_to '削除', user_maker_path(@user, maker), 
-            data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
-          </td>
+          <th class="info col-md-4" ><%= Maker.human_attribute_name(:name) %></th>
+          <th class="info col-md-4" ><%= sort_link(@q, :created_at) %></th>
+          <th class="info col-md-4" ></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<div class="text-center">
-  <%= paginate @makers %>
-</div>
-<div class="overlay"></div>
-
-<div class="modal-window">
-  <%= form_with(model: [@user, @maker],local: false) do |f| %>
-    <%# <%= render 'shared/error_messages', object: f.object %>
-    <div id="createMakerErrors"></div>
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class:"form-control" %>
-    </div>
-    <%= f.submit '送信', class: "btn btn-primary" %>
-  <% end %>
-</div>
-
-<button class="modal-btn">モーダルボタン</button>
+      </thead>
+      <tbody>
+        <%= render @makers %>
+      </tbody>
+    </table>
+  <div class="text-right">
+    <%= paginate @makers %>
+  </div>
+<% end %>

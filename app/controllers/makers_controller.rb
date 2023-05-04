@@ -20,9 +20,12 @@ class MakersController < ApplicationController
     @maker = @user.makers.build(maker_params)
     if @maker.save
       flash[:success] = 'メーカーの追加に成功しました。'
-      # redirect_to user_makers_path(@user), status: :see_other
-    # else
-    #   render 'index', status: :unprocessable_entity
+      redirect_to user_makers_path(@user), status: :see_other
+    else
+      respond_to do |format|
+        format.html { render 'new', status: :unprocessable_entity }
+        format.turbo_stream
+      end
     end
   end
 
