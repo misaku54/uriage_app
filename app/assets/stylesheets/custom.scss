@@ -1,4 +1,3 @@
-// @import "bootstrap-sprockets";
 @import "bootstrap";
 
 /* mixins, variables, etc. */
@@ -15,7 +14,7 @@ $gray-medium-light: #eaeaea;
 
 html {
   // font-size: 10px;
-  // overflow:auto
+  overflow:auto;
 }
 
 body {

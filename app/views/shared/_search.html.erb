@@ -1,12 +1,19 @@
-<div class="panel panel-default">
-  <div class="panel-heading">検索条件</div>
-    <div class="panel-body">
-      <%= search_form_for q, url: url, class: "form-inline", html: { data: { turbo_frame: "cats-list" } } do |f| %>
-        <div class="form-group">
+<div class="card shadow mt-3">
+  <div class="card-header">
+    検索条件
+  </div>
+  <div class="card-body">
+    <%= search_form_for q, url: url, class: "form-inline", html: { data: { turbo_frame: "cats-list" } } do |f| %>
+      <div class="row g3 mb-3">
+        <div class="col-6 col-xl-2">
           <%= f.label :name %>
           <%= f.search_field :name_cont, class:"form-control" %>
         </div>
-        <%= f.submit '検索',class:"form-control btn btn-primary" %>
-      <% end %>
-    </div>
+        <div class="col-6 d-flex align-items-end">
+          <%= f.submit '検索',class:"btn btn-primary me-1" %>
+          <%= link_to "クリア", url, class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
