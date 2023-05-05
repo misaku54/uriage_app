@@ -1,47 +1,50 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <%= link_to "LiLy", root_path, id: "logo" %>
-    <nav>
-      <div class="navbar-header">
-        <button id="hamburger" type="button" class="navbar-toggle collapsed">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <ul id="navbar-menu"
-          class="nav navbar-nav navbar-right collapse navbar-collapse">
+    <%= link_to "LiLy", root_path, class: "navbar-brand"%>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
         <% if logged_in? %>
           <% if current_user.admin? %>
-            <li class="dropdown">
-				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">管理者 <span class="caret"></span></a>
-				    	<ul class="dropdown-menu" role="menu">
-				    		<li><%= link_to "ユーザー管理", admin_users_path %></li>
-				    	</ul>
-				    </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                管理者
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><%= link_to "ユーザー管理", admin_users_path, class: "dropdown-item" %></li>
+              </ul>
+            </li>
           <% else %>
-            <li><%= link_to "売上一覧", user_sales_path(current_user) %></li>
-            <li class="dropdown">
-				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">運用管理 <span class="caret"></span></a>
-				    	<ul class="dropdown-menu" role="menu">
-				    		<li><%= link_to '商品マスタ', user_producttypes_path(current_user) %></li>
-				    		<li><%= link_to 'メーカーマスタ', user_makers_path(current_user) %></li>
-				    	</ul>
-				    </li>
+            <li class="nav-item">
+              <%= link_to "売上一覧", user_sales_path(current_user),class: "nav-link" %>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                運用管理
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><%= link_to '商品マスタ', user_producttypes_path(current_user), class: "dropdown-item" %></li>
+                <li><%= link_to 'メーカーマスタ', user_makers_path(current_user), class: "dropdown-item" %></li>
+              </ul>
+            </li>
           <% end %>
-          <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><%= current_user.name %>さん<span class="caret"></span></a>
-				  	<ul class="dropdown-menu" role="menu">
-				  		<li><%= link_to "ユーザー情報", current_user %></li>				  		
-              <li class="divider"></li>
-				  		<li><%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete, turbo_confirm: 'ログアウトしますか？' } %></li>
-				  	</ul>
-				  </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= current_user.name %>さん<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><%= link_to "ユーザー情報", current_user, class: "dropdown-item" %></li>
+              <li><%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete, turbo_confirm: 'ログアウトしますか？' }, class: "dropdown-item" %></li>
+            </ul>
+          </li>
         <% else %>
-          <li><%= link_to "ログイン", login_path %></li>
+          <li class="nav-item">
+            <%= link_to "ログイン", login_path, class: "nav-link" %>
+          </li>
         <% end %>
-      </ul>      
-    </nav>
+      </ul>
+    </div>
   </div>
 </header>
