@@ -9,20 +9,20 @@
   <%= current_page_number(@makers) %>
   <p class="btn btn-success" id="add-maker"> + 追加</p>
   <%# <%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-success", id: "add-maker" %>
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="info col-md-4" ><%= Maker.human_attribute_name(:name) %></th>
-          <th class="info col-md-4" ><%= sort_link(@q, :created_at) %></th>
-          <th class="info col-md-4" ></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @makers %>
-      </tbody>
-    </table>
-  <div class="text-right">
-    <%= paginate @makers %>
+  <div class="panel panel-default">
+	  <div class="panel-heading">
+	  	一覧
+	  </div>
+	  <div class="panel-body">
+      <div class="row">
+        <div class="info col-md-4" ><%= Maker.human_attribute_name(:name) %></div>
+        <div class="info col-md-4" ><%= sort_link(@q, :created_at) %></div>
+        <div class="info col-md-4" ></div>
+      </div>
+      <%= render @makers %>
+    </div>
+    <div class="text-right">
+      <%= paginate @makers %>
+    </div>
   </div>
 <% end %>

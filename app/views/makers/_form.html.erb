@@ -1,0 +1,14 @@
+  <%= form_with(model: [@user, maker]) do |f| %>
+    <tr>
+      <td><%= f.text_field :name, class:"form-control" %></td>
+      <td></td>
+      <td>
+        <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+      </td>
+    </tr>
+  <% end %>
+
+
+
+
+
