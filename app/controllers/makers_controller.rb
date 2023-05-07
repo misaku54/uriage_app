@@ -18,9 +18,6 @@ class MakersController < ApplicationController
   end
 
   def create
-    @q = @user.makers.ransack(params[:q])
-    @q.sorts = 'created_at asc' if @q.sorts.empty?
-    @makers  = @q.result.page(params[:page]).per(10)
     @maker = @user.makers.build(maker_params)
     if @maker.save
       flash[:success] = 'メーカーの追加に成功しました。'
@@ -41,7 +38,7 @@ class MakersController < ApplicationController
     @maker = @user.makers.find(params[:id])
     if @maker.update(maker_params)
       # flash[:success] = '編集しました。'
-      redirect_to user_maker_path(@user), status: :see_other
+      # redirect_to user_maker_path(@user), status: :see_other
     else
       render 'edit', status: :unprocessable_entity
     end
