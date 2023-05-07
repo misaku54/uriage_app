@@ -1,9 +1,10 @@
 <% provide(:title, '売上一覧')%>
-<ol class="breadcrumb">
-  <li><%= link_to 'ホーム', root_path %></li>
-  <li class="active">売上一覧</li>
-</ol>
-
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item active" aria-current="page">売上一覧</li>
+  </ol>
+</nav>
 <h1>売上一覧</h1>
 <div class="well">
   <%= search_form_for @q, url: user_sales_path(@user), class: "mb-5" do |f| %>

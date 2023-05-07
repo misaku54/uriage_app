@@ -1,7 +1,13 @@
 <% provide(:title, '売上編集' ) %>
 <% provide(:button_text, '更新' ) %>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item"><%= link_to '売上一覧', user_sales_path(@user) %></li>
+    <li class="breadcrumb-item active" aria-current="page">売上編集</li>
+  </ol>
+</nav>
 <h1>売上編集</h1>
-
 <div class="row">
   <div class="col">
     <%= form_with(model: [@user, @sale]) do |f| %>

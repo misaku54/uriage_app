@@ -1,5 +1,11 @@
 <% provide(:title, 'メーカー編集' ) %>
 <% provide(:button_text, '更新' ) %>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item"><%= link_to 'メーカーマスタ', user_makers_path(@user) %></li>
+    <li class="breadcrumb-item active" aria-current="page">メーカー編集</li>
+  </ol>
+</nav>
 <h1>メーカー編集</h1>
-
 <%= render 'shared/form', obj: @maker %>

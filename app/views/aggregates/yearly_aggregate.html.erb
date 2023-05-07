@@ -1,8 +1,10 @@
 <% provide(:title, '年別売上集計') %>
-<ol class="breadcrumb">
-  <li><%= link_to 'ホーム', root_path %></li>
-  <li class="active">年次集計</li>
-</ol>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item active" aria-current="page">年別売上集計</li>
+  </ol>
+</nav>
 <h1>年次集計</h1>
 
 <div class="panel panel-default">

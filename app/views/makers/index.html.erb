@@ -1,8 +1,8 @@
 <% provide(:title, 'メーカーマスタ') %>
-<nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
-    <li class="breadcrumb-item active" aria-current="page">メーカーマスタ</li>
+    <li class="breadcrumb-item active" aria-current="page"><%= link_to 'メーカーマスタ', user_makers_path(@user) %></li>
   </ol>
 </nav>
 <h1>メーカーマスタ</h1>

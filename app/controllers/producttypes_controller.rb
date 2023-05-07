@@ -15,7 +15,7 @@ class ProducttypesController < ApplicationController
   def create
     @producttype = @user.producttypes.build(producttype_params)
     if @producttype.save
-      flash[:success] = '追加しました。'
+      flash[:success] = '登録しました。'
       redirect_to user_producttypes_path(@user)
     else
       render 'new', status: :unprocessable_entity

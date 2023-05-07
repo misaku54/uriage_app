@@ -16,7 +16,7 @@ class SalesController < ApplicationController
   def create
     @sale = @user.sales.build(sale_params)
     if @sale.save
-      flash[:success] = '売上登録に成功しました。'
+      flash[:success] = '登録しました。'
       redirect_to user_sales_path(@user), status: :see_other
     else
       render 'new', status: :unprocessable_entity
@@ -30,7 +30,7 @@ class SalesController < ApplicationController
   def update
     @sale = @user.sales.find(params[:id])
     if @sale.update(sale_params)
-      flash[:success] = '編集に成功しました。'
+      flash[:success] = '更新しました。'
       redirect_to user_sales_path(@user)
     else
       render 'edit', status: :unprocessable_entity
