@@ -2,10 +2,6 @@
 @import "rails_bootstrap_forms";
 
 /* mixins, variables, etc. */
-label.required:after {
-  content:" *";
-  color: red;
-}
 $gray-medium-light: #eaeaea;
 
 @mixin box_sizing {
@@ -88,6 +84,11 @@ input, textarea, select, .uneditable-input {
   .form-control {
     color: red;
   }
+}
+
+label.required:after {
+  content:" *";
+  color: red;
 }
 
 .checkbox {

@@ -34,4 +34,9 @@ module ApplicationHelper
       return "#{page_obj.count}/#{page_obj.total_count}件"
     end
   end
+
+  # turbo_streamでフラッシュを表示する際に使うヘルパー
+  def turbo_stream_flash
+    turbo_stream.update "flash", partial: "layouts/flash"
+  end
 end

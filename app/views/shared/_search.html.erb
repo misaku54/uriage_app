@@ -3,7 +3,7 @@
     検索条件
   </div>
   <div class="card-body">
-    <%= search_form_for q, url: url, class: "form-inline", html: { data: { turbo_frame: "#{list_name}-list" } } do |f| %>
+    <%= search_form_for q, url: url, class: "form-inline" do |f| %>
       <div class="row g3 mb-3">
         <div class="col-6 col-xl-2">
           <%= f.label :name %>

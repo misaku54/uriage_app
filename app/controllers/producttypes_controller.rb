@@ -15,7 +15,7 @@ class ProducttypesController < ApplicationController
   def create
     @producttype = @user.producttypes.build(producttype_params)
     if @producttype.save
-      flash[:success] = '商品の追加に成功しました。'
+      flash[:success] = '追加しました。'
       redirect_to user_producttypes_path(@user)
     else
       render 'new', status: :unprocessable_entity
@@ -29,7 +29,7 @@ class ProducttypesController < ApplicationController
   def update
     @producttype = @user.producttypes.find(params[:id])
     if @producttype.update(producttype_params)
-      flash[:success] = '編集に成功しました。'
+      flash[:success] = '更新しました。'
       redirect_to user_producttypes_path(@user)
     else
       render 'edit', status: :unprocessable_entity
@@ -38,7 +38,7 @@ class ProducttypesController < ApplicationController
 
   def destroy
     @user.producttypes.find(params[:id]).destroy
-    flash[:success] = "商品を削除しました。"
+    flash[:success] = "削除しました。"
     redirect_to user_producttypes_path(@user), status: :see_other
   end
 

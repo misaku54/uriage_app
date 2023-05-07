@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get    '/signup',  to: 'users#new'
   end
   resources :users, only: [:show]  do
-    resources :makers
+    resources :makers, except: :show
     resources :producttypes, except: :show
     resources :sales, except: :show
     get '/monthly_aggregate', to: 'aggregates#monthly_aggregate'
