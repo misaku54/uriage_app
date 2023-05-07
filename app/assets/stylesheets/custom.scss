@@ -1,7 +1,11 @@
 @import "bootstrap";
+@import "rails_bootstrap_forms";
 
 /* mixins, variables, etc. */
-
+label.required:after {
+  content:" *";
+  color: red;
+}
 $gray-medium-light: #eaeaea;
 
 @mixin box_sizing {

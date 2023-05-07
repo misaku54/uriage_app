@@ -9,6 +9,10 @@ class MakersController < ApplicationController
     @maker   = @user.makers.build
   end
 
+  def show
+    @maker = @user.makers.find(params[:id])
+  end
+
   def new
     @maker = @user.makers.build
   end
@@ -36,8 +40,8 @@ class MakersController < ApplicationController
   def update
     @maker = @user.makers.find(params[:id])
     if @maker.update(maker_params)
-      # flash[:success] = '編集に成功しました。'
-      redirect_to user_makers_path(@user), status: :see_other
+      # flash[:success] = '編集しました。'
+      redirect_to user_maker_path(@user), status: :see_other
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -48,6 +52,7 @@ class MakersController < ApplicationController
     flash[:success] = "メーカーを削除しました。"
     redirect_to user_makers_path(@user), status: :see_other
   end
+
 
   private 
   # ストロングパラメータ

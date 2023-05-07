@@ -16,6 +16,7 @@ gem 'rubocop'
 gem 'rubocop-rails'
 gem 'ransack'
 gem 'bootstrap', '~> 5.0.2'
+gem "bootstrap_form"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

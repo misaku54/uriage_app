@@ -1,7 +1,11 @@
 <%= turbo_frame_tag maker do %>
   <div class="row py-2 border-top">
-    <div class="col-4 my-auto" ><%= maker.name %></div>
-    <div class="col-4 my-auto" ><%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %></div>
+    <div class="col-4 my-auto" >
+      <%= maker.name %>
+    </div>
+    <div class="col-4 my-auto" >
+      <%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %>
+    </div>
     <div class="col-4">
       <div class="d-flex justify-content-end">
         <%= link_to '編集', edit_user_maker_path(@user, maker), class: "btn btn-primary btn-xs" %> 
