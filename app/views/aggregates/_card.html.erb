@@ -1,9 +1,9 @@
 <% if aggregates.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading panel-heading-custom">
-      <h4><%= make_aggregate_title(card_pattern) %></h4>
+  <div class="card shadow mt-3">
+    <div class="card-header">
+      <%= make_aggregate_title(card_pattern) %>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <ul class="nav nav-tabs">
         <li><a href="#pie_chart_<%= card_pattern %>" data-toggle="tab">円グラフ</a></li>
         <li class="active"><a href="#column_chart_<%= card_pattern %>" data-toggle="tab">棒グラフ</a></li>

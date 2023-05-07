@@ -7,9 +7,11 @@
 </nav>
 <h1>年次集計</h1>
 
-<div class="panel panel-default">
-  <div class="panel-heading">集計条件</div>
-  <div class="panel-body">
+<div class="card shadow mt-3">
+  <div class="card-header">
+    集計条件
+  </div>
+  <div class="card-body">
     <%= form_with(url: user_yearly_search_path(@user), method: "get") do |f| %>
       <%= render 'shared/error_messages', object: @search_params %>
       <div><%= f.label :date, '集計年度'%></div>

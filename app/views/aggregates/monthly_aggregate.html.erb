@@ -7,9 +7,11 @@
 </nav>
 <h1>月次集計</h1>
 
-<div class="panel panel-default">
-  <div class="panel-heading">集計条件</div>
-  <div class="panel-body">
+<div class="card shadow mt-3">
+  <div class="card-header">
+    集計条件
+  </div>
+  <div class="card-body">
     <%= form_with(url: user_monthly_search_path(@user), method: "get", class: "form-inline") do |f| %>
       <%= render 'shared/error_messages', object: @search_params %>
       <div class="form-group">

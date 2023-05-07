@@ -1,9 +1,9 @@
 <% if @sales_total_amount.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading panel-heading-custom">
-      <h4>合計純売上</h4>
+  <div class="card shadow mt-3">
+    <div class="card-header">
+      合計純売上
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <h4><%= add_comma_en(@sales_total_amount) %></h4>
       <span><%= "成長率（前年比較）: #{@sales_growth_rate}"%></span>
     </div>
