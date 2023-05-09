@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :logged_in_check, only: [:new, :create]
+
   def new
   end
 
@@ -20,5 +22,15 @@ class SessionsController < ApplicationController
   def destroy
     log_out if logged_in?
     redirect_to root_url, status: :see_other
+  end
+
+
+  private 
+  
+  def logged_in_check
+    if logged_in?
+      flash[:danger] = 'すでにログインしています。'
+      redirect_to root_url, status: :see_other
+    end
   end
 end
