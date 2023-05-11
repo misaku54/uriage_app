@@ -10,9 +10,10 @@ class AggregatesController < ApplicationController
   # 月別集計画面での検索アクション
   def monthly_search
     @search_params = SearchForm.new(search_params)
-    # 入力パラメータチェックとデータの存在確認
+    # 入力パラメータチェック
     if @search_params.valid?
       sales = @user.sales.where(created_at: @search_params.date.all_month)
+      # 入力パラメータの期間でデータがあれば集計処理をする、なければメッセージを通知
       if sales.present?
         # 集計用SQLに渡すパラメータを設定
         start_date                       = @search_params.date.beginning_of_month
@@ -28,7 +29,7 @@ class AggregatesController < ApplicationController
         @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
 
         # 売上推移の取得
-        @sales_trend                     = sales.group_by_day(:created_at).sum(:amount_sold)
+        @sales_trend                     = sales.group_by_day(:created_at, range: start_date..end_date).sum(:amount_sold)
         # 売上合計額の取得
         @sales_total_amount              = sales.sum(:amount_sold)
         # 前年との売上成長率の取得
@@ -52,9 +53,10 @@ class AggregatesController < ApplicationController
   # 年別集計画面での検索アクション
   def yearly_search
     @search_params  = SearchForm.new(search_params)
-    # 入力パラメータチェックとデータの存在確認
+    # 入力パラメータチェック
     if @search_params.valid?
       sales = @user.sales.where(created_at: @search_params.date.all_year)
+      # 入力パラメータの期間でデータがあれば集計処理をする、なければメッセージを通知
       if sales.present?
         # 集計用SQLに渡すパラメータを設定
         start_date                       = @search_params.date.beginning_of_year
@@ -70,7 +72,7 @@ class AggregatesController < ApplicationController
         @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
     
         # 売上推移の取得
-        @sales_trend                     = sales.group_by_month(:created_at).sum(:amount_sold)
+        @sales_trend                     = sales.group_by_month(:created_at, range: start_date..end_date).sum(:amount_sold)
         # 売上合計額の取得
         @sales_total_amount              = sales.sum(:amount_sold)
         # 前年との売上成長率の取得
@@ -94,9 +96,10 @@ class AggregatesController < ApplicationController
   # 日別集計画面での検索アクション
   def daily_search
     @search_params  = SearchDaily.new(search_params)
-    # 入力パラメータチェックとデータの存在確認
+    # 入力パラメータチェック
     if @search_params.valid?
       sales = @user.sales.where(created_at: [@search_params.start_date.in_time_zone.beginning_of_day..@search_params.end_date.in_time_zone.end_of_day])
+      # 入力パラメータの期間でデータがあれば集計処理をする、なければメッセージを通知
       if sales.present?
         # 集計用SQLに渡すパラメータを設定
         start_date                       = @search_params.start_date.in_time_zone.beginning_of_day
@@ -112,7 +115,7 @@ class AggregatesController < ApplicationController
         @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
         
         # 売上推移の取得
-        @sales_trend                     = sales.group_by_day(:created_at).sum(:amount_sold)
+        @sales_trend                     = sales.group_by_day(:created_at, range: start_date..end_date).sum(:amount_sold)
         # 売上合計額の取得
         @sales_total_amount              = sales.sum(:amount_sold)
         # 前年との売上成長率の取得
@@ -129,7 +132,13 @@ class AggregatesController < ApplicationController
   end
 
   def today_aggregate
-
+    sales = @user.sales.where(created_at: Time.zone.now.all_day)
+    if sales.present?
+      # 売上推移の取得
+      @sales_trend        = sales.group_by_hour(:created_at, range: Time.zone.now.all_day).sum(:amount_sold)
+      # 売上合計額の取得
+      @sales_total_amount = sales.sum(:amount_sold)
+    end
   end
 
 
