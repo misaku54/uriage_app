@@ -1,6 +1,8 @@
 class SearchForm
   include ActiveModel::Model
   include ActiveRecord::AttributeAssignment
+  
+  # バリデーション
   attr_accessor :date
   validates :date, presence: true
 

@@ -13,9 +13,10 @@
           <p><%= pie_chart convert_array(aggregates, card_pattern), legend: "right", suffix: "円", thousands: "," %></p>
         </div>
         <div class="tab-pane active" id="column_chart_<%= card_pattern %>">
-          <p><%= bar_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: ","  %></p>
+          <p><%= bar_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: "," %></p>
         </div>
       </div>
+      <div class="border-top"></div>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
