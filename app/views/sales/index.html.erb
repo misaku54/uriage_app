@@ -6,7 +6,11 @@
   </ol>
 </nav>
 <h1>売上一覧</h1>
-<div class="well">
+<div class="card shadow mt-3">
+  <div class="card-header">
+    検索条件
+  </div>
+  <div class="card-body mx-3">
   <%= search_form_for @q, url: user_sales_path(@user), class: "mb-5" do |f| %>
     <div class="form_group row">
       <%= f.label :maker_name_cont, 'メーカー名', class: "col-sm-2 col-form-label"%>
@@ -36,6 +40,7 @@
       <%= f.submit '検索', class: "btn btn-primary" %>
     </div>
   <% end %>
+  </div>
 </div>
 <%= current_page_number(@sales) %>
 <%= link_to " + 追加", new_user_sale_path(@user), class: "btn btn-success"  %>
