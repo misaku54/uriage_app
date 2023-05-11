@@ -128,6 +128,11 @@ class AggregatesController < ApplicationController
     end
   end
 
+  def today_aggregate
+
+  end
+
+
   private
 
   # ストロングパラメータ
