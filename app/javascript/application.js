@@ -8,3 +8,5 @@ import "custom/menu"
 import "chartkick"
 import "Chart.bundle"
 import "custom/modal"
+import Rails from '@rails/ujs';
+Rails.start();

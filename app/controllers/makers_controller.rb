@@ -36,7 +36,11 @@ class MakersController < ApplicationController
       flash[:success] = '更新しました。'
       redirect_to user_makers_path(@user), status: :see_other
     else
-      render 'edit', status: :unprocessable_entity
+      # render 'edit', status: :unprocessable_entity
+      respond_to do |format|
+        # format.html { redirect_to @user, status: :see_other }
+        format.js
+      end
     end
   end
 
