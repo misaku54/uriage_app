@@ -32,16 +32,17 @@ class MakersController < ApplicationController
 
   def update
     @maker = @user.makers.find(params[:id])
-    if @maker.update(maker_params)
-      flash[:success] = '更新しました。'
-      redirect_to user_makers_path(@user), status: :see_other
-    else
-      # render 'edit', status: :unprocessable_entity
-      respond_to do |format|
-        # format.html { redirect_to @user, status: :see_other }
-        format.js
+    
+      if @maker.update(maker_params)
+        flash[:success] = '更新しました。'
+        redirect_to user_makers_path(@user)
+      else
+        respond_to do |format|
+        # render 'edit', status: :unprocessable_entity
+        format.js{ render 'errors' }
+        end
       end
-    end
+    
   end
 
   def destroy
