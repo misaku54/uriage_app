@@ -42,40 +42,50 @@
   <% end %>
   </div>
 </div>
-<%= current_page_number(@sales) %>
-<%= link_to " + 追加", new_user_sale_path(@user), class: "btn btn-success"  %>
-<div class="table-responsive">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="info" >No.</th>
-        <th class="info col-md-3" ><%= Sale.human_attribute_name(:maker_id) %></th>
-        <th class="info col-md-3" ><%= Sale.human_attribute_name(:producttype_id) %></th>
-        <th class="info col-md-1" ><%= Sale.human_attribute_name(:amount_sold) %></th>
-        <th class="info col-md-1" ><%= Sale.human_attribute_name(:remark) %></th>
-        <th class="info col-md-2" ><%= sort_link(@q, :created_at) %></th>
-        <th class="info col-md-2" ></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @sales.each.with_index(1) do |sale, index| %>
-        <tr>
-          <td><%= index %></td>
-          <td><%= sale.maker.present? ? sale.maker.name : '未登録' %></td>
-          <td><%= sale.producttype.present? ? sale.producttype.name : "未登録" %></td>
-          <td class="text-right"><%= add_comma_en(sale.amount_sold) %></td>
-          <td><%= sale.remark %></td>
-          <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
-          <td>
-            <%= link_to '編集', edit_user_sale_path(@user, sale), class: "btn btn-primary btn-xs" %>  
-            <%= link_to "削除", user_sale_path(@user, sale), 
-            data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<div class="text-center">
-  <%= paginate @sales %>
+<div class="card mt-3">
+  <div class="card-header">
+    一覧
+  </div>
+  <div class="card-body">
+    <div><%= current_page_number(@sales) %></div>
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><%= Sale.human_attribute_name(:maker_id) %></th>
+            <th><%= Sale.human_attribute_name(:producttype_id) %></th>
+            <th><%= Sale.human_attribute_name(:amount_sold) %></th>
+            <th><%= Sale.human_attribute_name(:remark) %></th>
+            <th><%= sort_link(@q, :created_at) %></th>
+            <th>
+              <div class="d-flex justify-content-end" >
+                <%= link_to " + 追加", new_user_sale_path(@user), class: "btn btn-outline-primary" %>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sales.each.with_index(1) do |sale, index| %>
+            <tr>
+              <td><%= sale.maker.present? ? sale.maker.name : '未登録' %></td>
+              <td><%= sale.producttype.present? ? sale.producttype.name : "未登録" %></td>
+              <td class="text-right"><%= add_comma_en(sale.amount_sold) %></td>
+              <td><%= sale.remark %></td>
+              <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+              <td>
+                <div class="d-flex justify-content-end">
+                  <%= link_to '編集', edit_user_sale_path(@user, sale), class: "btn btn-primary btn-xs" %>  
+                  <%= link_to "削除", user_sale_path(@user, sale), 
+                  data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-end mt-">
+      <%= paginate @sales %>
+    </div>
+  </div>
 </div>
