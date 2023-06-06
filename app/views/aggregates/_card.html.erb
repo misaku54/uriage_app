@@ -4,17 +4,8 @@
       <%= make_aggregate_title(card_pattern) %>
     </div>
     <div class="card-body">
-      <ul class="nav nav-tabs">
-        <li><a href="#pie_chart_<%= card_pattern %>" data-toggle="tab">円グラフ</a></li>
-        <li class="active"><a href="#column_chart_<%= card_pattern %>" data-toggle="tab">棒グラフ</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane" id="pie_chart_<%= card_pattern %>">
-          <p><%= pie_chart convert_array(aggregates, card_pattern), legend: "right", suffix: "円", thousands: "," %></p>
-        </div>
-        <div class="tab-pane active" id="column_chart_<%= card_pattern %>">
-          <p><%= bar_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: "," %></p>
-        </div>
+      <div>
+        <p><%= bar_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: "," %></p>
       </div>
       <div class="border-top"></div>
       <div class="table-responsive">
