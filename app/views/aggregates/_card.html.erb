@@ -1,5 +1,5 @@
 <% if aggregates.present? %>
-  <div class="card shadow mt-3">
+  <div class="card mt-3">
     <div class="card-header">
       <%= make_aggregate_title(card_pattern) %>
     </div>
@@ -8,8 +8,8 @@
         <p><%= bar_chart convert_array(aggregates, card_pattern), suffix: "円", thousands: "," %></p>
       </div>
       <div class="border-top"></div>
-      <div class="table-responsive">
-        <table class="table table-striped">
+      <div class="table-responsive text-nowrap">
+        <table class="table">
           <thead>
             <tr>
               <th class="info">No.</th>
