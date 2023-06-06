@@ -1,4 +1,8 @@
-<div class="center jumbotron">
+<% if logged_in? %>
+  <%= render 'shared/today_aggregate' %>
+<% else %>
+  <div class="center jumbotron">
     <h1>LiLy</h1>
     <p>売上集計アプリケーションです。</p>
-</div>
+  </div>
+<% end %>

@@ -1,0 +1,31 @@
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+  </ol>
+</nav>
+<h1>本日の売上</h1>
+
+<% if @no_result.present? %>
+  <p><%= @no_result %></p>
+<% end %>
+
+<% if @sales_total_amount.present? %>
+  <div class="card mt-3">
+    <div class="card-header">
+      合計純売上
+    </div>
+    <div class="card-body">
+      <h4><%= add_comma_en(@sales_total_amount) %></h4>
+    </div>
+  </div>
+<% end %>
+<% if @sales_trend.present? %>
+  <div class="card mt-3">
+    <div class="card-header">
+      売上推移
+    </div>
+    <div class="card-body">
+      <%= line_chart @sales_trend , suffix: "円", thousands: "," %>
+    </div>
+  </div>
+<% end %>
