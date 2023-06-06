@@ -1,4 +1,10 @@
 <% provide(:title, "ユーザー情報") %>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item active" aria-current="page">ユーザー情報</li>
+  </ol>
+</nav>
 <h1>ユーザー情報</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
