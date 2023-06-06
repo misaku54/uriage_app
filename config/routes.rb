@@ -18,6 +18,5 @@ Rails.application.routes.draw do
     get '/yearly_search', to: 'aggregates#yearly_search'
     get '/daily_aggregate', to: 'aggregates#daily_aggregate'
     get '/daily_search', to: 'aggregates#daily_search'
-    get '/today_aggregate', to: 'aggregates#today_aggregate'
   end
 end
