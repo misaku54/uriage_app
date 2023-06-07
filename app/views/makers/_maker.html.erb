@@ -1,11 +1,11 @@
-<div class="row py-2 border-top">
-  <div class="col-4 my-auto" >
+<tr>
+  <td>
     <%= maker.name %>
-  </div>
-  <div class="col-4 my-auto" >
+  </td>
+  <td>
     <%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %>
-  </div>
-  <div class="col-4">
+  </td>
+  <td>
     <div class="d-flex justify-content-end">
       <%# <%= link_to '編集', edit_user_maker_path(@user, maker), class: "btn btn-primary btn-xs" %>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop-<%= maker.id %>">
@@ -14,31 +14,5 @@
       <%= link_to '削除', user_maker_path(@user, maker), 
       data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
     </div>
-  </div>
-</div>
-
-<div class="modal fade" id="staticBackdrop-<%= maker.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">編集</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-      </div>
-      <%= form_with(model: [@user, maker], local: false) do |f| %>
-        <div class="modal-body">
-          <div id="add-errors-<%= maker.id %>"></div>
-          <div class="row">
-            <div class="col">
-              <%= f.label :name %>
-              <%= f.text_field :name, control_class: "form-control" %>  
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-          <%= f.submit '更新', class: "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
+  </td>
+</tr>

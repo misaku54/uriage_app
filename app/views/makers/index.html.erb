@@ -2,34 +2,41 @@
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
-    <li class="breadcrumb-item active" aria-current="page"><%= link_to 'メーカーマスタ', user_makers_path(@user) %></li>
+    <li class="breadcrumb-item active" aria-current="page">メーカーマスタ</li>
   </ol>
 </nav>
 <h1>メーカーマスタ</h1>
 <%= render 'shared/search', q: @q, url: user_makers_path(@user), label: 'メーカー名' %>
-  <%# <%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-success", id: "add-maker" %>
-<div class="card shadow mt-3">
+<div class="card mt-3">
   <div class="card-header">
     一覧
   </div>
-  <div class="card-body mx-3">
-
-      <div class="row py-2">
-        <div class="col mt-auto" >
-          <%= sort_link(@q, :name) %>
-        </div>
-        <div class="col mt-auto" >
-          <%= sort_link(@q, :created_at) %>
-        </div>
-        <div class="col d-flex justify-content-end" >
-          <div><%= current_page_number(@makers) %></div>
-          <%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-outline-primary" %>
-        </div>
-      </div>
-      <%= render @makers %>
-      <div class="d-flex justify-content-end mt-3">
-        <%= paginate @makers %>
-      </div>
-
+  <div class="card-body">
+    <div><%= current_page_number(@makers) %></div>
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <%= sort_link(@q, :name) %>
+            </th>
+            <th>
+              <%= sort_link(@q, :created_at) %>
+            </th>
+            <th>
+              <div class="d-flex justify-content-end" >
+                <%= link_to " + 追加", new_user_maker_path(@user), class: "btn btn-outline-primary" %>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @makers %>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+      <%= paginate @makers %>
+    </div>
   </div>
 </div>

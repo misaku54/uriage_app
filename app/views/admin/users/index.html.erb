@@ -3,38 +3,38 @@
 
 <%= link_to "ユーザー追加", admin_signup_path, class: "btn btn-lg btn-primary" %>
 <div class="table-responsive">
-<table class="table table-bordered">
-	<thead>
-		<tr>
-      <th class="info" >No.</th>
-			<th class="info col-md-2" ><%= User.human_attribute_name(:name) %></th>
-			<th class="info col-md-3" ><%= User.human_attribute_name(:email) %></th>
-			<th class="info col-md-2" ><%= User.human_attribute_name(:created_at) %></th>
-			<th class="info col-md-2" ><%= User.human_attribute_name(:updated_at) %></th>
-      <th class="info col-md-1" ><%= User.human_attribute_name(:admin) %></th>
-			<th class="info col-md-3" ></th>
-		</tr>
-	</thead>
-  <tbody>
-    <% @users.each.with_index(1) do |user, index| %>
-      <tr>
-        <td><%= index %></td>
-        <td><%= link_to user.name, admin_user_path(user) %></td>
-        <td><%= user.email %></td>
-        <td><%= user.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
-        <td><%= user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
-        <td><%= user.admin? ? '管理者' : '一般' %></td>
-        <td>
-          <%= link_to '編集', edit_admin_user_path(user), class: "btn btn-primary btn-xs" %> 
-          <% if current_user.admin? && !current_user?(user) %>
-            <%= link_to "削除", admin_user_path(user), 
-            data: { "turbo-method": :delete, turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-xs"  %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="table table-bordered">
+  	<thead>
+  		<tr>
+        <th class="info" >No.</th>
+  			<th class="info col-md-2" ><%= User.human_attribute_name(:name) %></th>
+  			<th class="info col-md-3" ><%= User.human_attribute_name(:email) %></th>
+  			<th class="info col-md-2" ><%= User.human_attribute_name(:created_at) %></th>
+  			<th class="info col-md-2" ><%= User.human_attribute_name(:updated_at) %></th>
+        <th class="info col-md-1" ><%= User.human_attribute_name(:admin) %></th>
+  			<th class="info col-md-3" ></th>
+  		</tr>
+  	</thead>
+    <tbody>
+      <% @users.each.with_index(1) do |user, index| %>
+        <tr>
+          <td><%= index %></td>
+          <td><%= link_to user.name, admin_user_path(user) %></td>
+          <td><%= user.email %></td>
+          <td><%= user.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
+          <td><%= user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
+          <td><%= user.admin? ? '管理者' : '一般' %></td>
+          <td>
+            <%= link_to '編集', edit_admin_user_path(user), class: "btn btn-primary btn-xs" %> 
+            <% if current_user.admin? && !current_user?(user) %>
+              <%= link_to "削除", admin_user_path(user), 
+              data: { "turbo-method": :delete, turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-xs"  %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 <div class="text-center">
   <%= paginate @users %>
