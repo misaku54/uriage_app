@@ -19,10 +19,7 @@ class MakersController < ApplicationController
       flash[:success] = '登録しました。'
       redirect_to user_makers_path(@user), status: :see_other
     else
-      respond_to do |format|
-        format.html { render 'new', status: :unprocessable_entity }
-        format.turbo_stream
-      end
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -32,17 +29,12 @@ class MakersController < ApplicationController
 
   def update
     @maker = @user.makers.find(params[:id])
-    
-      if @maker.update(maker_params)
-        flash[:success] = '更新しました。'
-        redirect_to user_makers_path(@user)
-      else
-        respond_to do |format|
-        # render 'edit', status: :unprocessable_entity
-        format.js{ render 'errors' }
-        end
-      end
-    
+    if @maker.update(maker_params)
+      flash[:success] = '更新しました。'
+      redirect_to user_makers_path(@user)
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy

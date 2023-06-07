@@ -7,10 +7,7 @@
   </td>
   <td>
     <div class="d-flex justify-content-end">
-      <%# <%= link_to '編集', edit_user_maker_path(@user, maker), class: "btn btn-primary btn-xs" %>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop-<%= maker.id %>">
-        編集
-      </button>
+      <%= link_to '編集', edit_user_maker_path(@user, maker), class: "btn btn-primary btn-xs" %>
       <%= link_to '削除', user_maker_path(@user, maker), 
       data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
     </div>
