@@ -22,7 +22,7 @@ module AggregatesHelper
           [aggregate.producttype_name, aggregate.sum_amount_sold] 
         end
       end
-      raise
+      raise ArgmentError.new("無効な引数が渡されました。#{pettern}")
     end
   end
   
@@ -39,7 +39,7 @@ module AggregatesHelper
     if aggregate.respond_to?('producttype_name')
       return '売上ランキング（商品分類別）' 
     end
-    raise
+    raise ArgmentError.new("無効な引数が渡されました。#{aggregate}")
   end
 
   # ランクインした名前を求める。
@@ -55,15 +55,23 @@ module AggregatesHelper
     if aggregate.respond_to?('producttype_name')
       return aggregate.producttype_name  
     end
-    raise
+    raise ArgmentError.new("無効な引数が渡されました。#{aggregate}")
   end
 
   # 集計結果のタイトルを求める。
   def make_aggregate_title(pattern)
-    return '集計結果（メーカー、商品分類別の販売額の合計）'   if pattern == 'maker_producttype'
-    return '集計結果（メーカー別の販売額の合計）'           if pattern == 'maker'
-    return '集計結果（商品分類別の販売額の合計）'           if pattern == 'producttype'
-    raise
+    if pattern == 'maker_producttype'
+      return '集計結果（メーカー、商品分類別の販売額の合計）'   
+    end
+    
+    if pattern == 'maker'
+      return '集計結果（メーカー別の販売額の合計）' 
+    end
+
+    if pattern == 'producttype'
+      return '集計結果（商品分類別の販売額の合計）'           
+    end
+    raise ArgmentError.new("無効な引数が渡されました。#{pettern}")
   end
 
   # 検索結果のタイトルを求める。
@@ -80,5 +88,6 @@ module AggregatesHelper
     if period == 'yearly' && params.date.present? 
       return "#{params.date.year}年の集計結果"
     end
+    nil
   end
 end
