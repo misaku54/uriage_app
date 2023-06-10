@@ -12,7 +12,7 @@
     集計条件
   </div>
   <div class="card-body">
-    <%= form_with(url: user_daily_search_path(@user), method: "get", class: "form-inline") do |f| %>
+    <%= form_with(url: user_daily_search_path(@user), scope: :search_daily, method: "get", class: "form-inline") do |f| %>
       <%= render 'shared/error_messages', object: @search_params %>
       <div class="form-group">
         <%= f.date_field :start_date, class:'form-control' %>

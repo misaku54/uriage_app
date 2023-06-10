@@ -9,7 +9,7 @@ class AggregatesController < ApplicationController
 
   # 月別集計画面での検索アクション
   def monthly_search
-    @search_params = SearchForm.new(search_params)
+    @search_params = SearchForm.new(search_form_params)
     # 入力パラメータチェック
     if @search_params.valid?
       start_date                       = @search_params.date.beginning_of_month
@@ -47,7 +47,7 @@ class AggregatesController < ApplicationController
 
   # 年別集計画面での検索アクション
   def yearly_search
-    @search_params  = SearchForm.new(search_params)
+    @search_params  = SearchForm.new(search_form_params)
     # 入力パラメータチェック
     if @search_params.valid?
       start_date                       = @search_params.date.beginning_of_year
@@ -85,7 +85,7 @@ class AggregatesController < ApplicationController
 
   # 日別集計画面での検索アクション
   def daily_search
-    @search_params  = SearchDaily.new(search_params)
+    @search_params  = SearchDaily.new(search_daily_params)
     # 入力パラメータチェック
     if @search_params.valid?
       start_date                       = @search_params.start_date.in_time_zone.beginning_of_day
@@ -120,8 +120,13 @@ class AggregatesController < ApplicationController
   private
 
   # ストロングパラメータ
-  def search_params
-    params.permit(:date, :start_date, :end_date)
+  # 日次と年次月次で検索フォームで渡す値の形式が異なるため、バリデーション用のフォームオブジェクトを２つ用意し、ストロングパラメータも二つ用意している。
+  def search_form_params
+    params.require(:search_form).permit(:date)
+  end
+
+  def search_daily_params
+    params.require(:search_daily).permit(:start_date, :end_date)
   end
 
 end

@@ -12,7 +12,7 @@
     集計条件
   </div>
   <div class="card-body">
-    <%= form_with(url: user_yearly_search_path(@user), method: "get") do |f| %>
+    <%= form_with(url: user_yearly_search_path(@user), scope: :search_form, method: "get") do |f| %>
       <%= render 'shared/error_messages', object: @search_params %>
       <div><%= f.label :date, '集計年度'%></div>
       <%= f.date_select(:date, { use_month_numbers: true, start_year: 2018, end_year: Time.now.year,
