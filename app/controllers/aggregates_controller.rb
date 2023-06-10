@@ -25,8 +25,7 @@ class AggregatesController < ApplicationController
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
-        render 'monthly_aggregate'
-        return
+        render 'monthly_aggregate' and return
       end
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
@@ -63,8 +62,7 @@ class AggregatesController < ApplicationController
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
-        render 'yearly_aggregate' 
-        return
+        render 'yearly_aggregate' and return
       end 
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
@@ -101,8 +99,7 @@ class AggregatesController < ApplicationController
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
-        render 'daily_aggregate'
-        return
+        render 'daily_aggregate' and return
       end
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
