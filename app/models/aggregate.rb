@@ -21,7 +21,7 @@ class Aggregate
   def call
     set_sales
     # ①メーカー、商品別　②メーカー別　③商品別で
-    # 合計販売額、合計販売数、前年合計販売額、合計販売数、売上成長率をそれぞれ集計する
+    # 合計販売額、合計販売数、前年合計販売額、合計販売数、売上成長率を集計した結果を取得する。
     # ①〜③の集計だけ、クエリインターフェースでの実装が難しかったので、生SQLで実行している。
     set_aggregates_of_maker_producttype
     set_aggregates_of_maker
@@ -58,14 +58,12 @@ class Aggregate
 
   def set_grouth_rate
     last_year_sales_total_amount     = @user.sales.where(created_at: [@last_year_start_date..@last_year_end_date]).sum(:amount_sold)
-    @sales_growth_rate                = Sale.sales_growth_rate(@sales_total_amount, last_year_sales_total_amount)        
+    @sales_growth_rate               = Sale.sales_growth_rate(@sales_total_amount, last_year_sales_total_amount)        
   end
 
   def set_sales_trend
     case @type
-    when 'day'
-      @sales_trend = @sales.group_by_day(:created_at, range: @start_date..@end_date).sum(:amount_sold)
-    when 'month'
+    when 'day', 'month'
       @sales_trend = @sales.group_by_day(:created_at, range: @start_date..@end_date).sum(:amount_sold)
     when 'year'
       @sales_trend = @sales.group_by_month(:created_at, range: @start_date..@end_date).sum(:amount_sold)
