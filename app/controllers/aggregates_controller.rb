@@ -54,17 +54,18 @@ class AggregatesController < ApplicationController
   def yearly_search
     @search_params  = SearchForm.new(search_params)
     # 入力パラメータチェック
-    # binding.irb
     if @search_params.valid?
       start_date                       = @search_params.date.beginning_of_year
       end_date                         = @search_params.date.end_of_year
       last_year_start_date             = @search_params.date.prev_year.beginning_of_year
       last_year_end_date               = @search_params.date.prev_year.end_of_year
-      # binding.irb
-      test = Test.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'year')
+      
+      # 集計処理はロジックモデルで行う。
+      test = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'year')
       test.call
       sales = test.sales
-      # binding.irb
+
+      # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = "集計期間に該当する売上データがありません。"
         render 'yearly_aggregate' 
@@ -76,36 +77,6 @@ class AggregatesController < ApplicationController
       @sales_trend                     = test.sales_trend
       @sales_total_amount              = test.sales_total_amount
       @sales_growth_rate               = test.sales_growth_rate
-
-
-
-      # sales = @user.sales.where(created_at: @search_params.date.all_year)
-      # 入力パラメータの期間でデータがあれば集計処理をする、なければメッセージを通知
-      # if sales.present?
-        # 集計用SQLに渡すパラメータを設定
-        # start_date                       = @search_params.date.beginning_of_year
-        # end_date                         = @search_params.date.end_of_year
-        # last_year_start_date             = @search_params.date.prev_year.beginning_of_year
-        # last_year_end_date               = @search_params.date.prev_year.end_of_year
-
-        # ①メーカー、商品別　②メーカー別　③商品別で
-        # 合計販売額、合計販売数、前年合計販売額、合計販売数、売上成長率をそれぞれ集計する
-        # 上記の３つの集計だけ、クエリインターフェースでの実装が難しかったので、生SQLで実行している。
-        # @aggregates_of_maker_producttype = Sale.maker_id_and_producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
-        # @aggregates_of_maker             = Sale.maker_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
-        # @aggregates_of_producttype       = Sale.producttype_id_each_total_sales(@user, start_date, end_date, last_year_start_date, last_year_end_date)
-    
-        # 売上推移の取得
-        # @sales_trend                     = sales.group_by_month(:created_at, range: start_date..end_date).sum(:amount_sold)
-        # 売上合計額の取得
-        # @sales_total_amount              = sales.sum(:amount_sold)
-        # 前年との売上成長率の取得
-      #   last_year_sales                  = @user.sales.where(created_at: @search_params.date.prev_year.all_year)
-      #   last_year_sales_total_amount     = last_year_sales.sum(:amount_sold)
-      #   @sales_growth_rate               = Sale.sales_growth_rate(@sales_total_amount, last_year_sales_total_amount)
-      # else
-      #   @no_result = "集計期間に該当する売上データがありません。"
-      # end
       render 'yearly_aggregate'
     else
       render 'yearly_aggregate'

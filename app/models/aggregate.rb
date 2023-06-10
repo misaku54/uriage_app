@@ -1,8 +1,7 @@
 # 集計処理ロジックモデル
-class Test
+class Aggregate
   attr_reader :sales, :aggregates_of_maker_producttype, :aggregates_of_maker, :aggregates_of_producttype, :sales_trend, :sales_total_amount, :sales_growth_rate
 
-  # コントローラーのロジックを書く
   def initialize(start_date:, end_date:, last_year_start_date:, last_year_end_date:, user:, type: )
     @start_date = start_date
     @end_date   = end_date
@@ -21,11 +20,17 @@ class Test
 
   def call
     set_sales
+    # ①メーカー、商品別　②メーカー別　③商品別で
+    # 合計販売額、合計販売数、前年合計販売額、合計販売数、売上成長率をそれぞれ集計する
+    # ①〜③の集計だけ、クエリインターフェースでの実装が難しかったので、生SQLで実行している。
     set_aggregates_of_maker_producttype
     set_aggregates_of_maker
     set_aggregates_of_producttype
+    # 売上合計額の取得
     set_sales_total_amount
+    # 前年との売上成長率の取得
     set_grouth_rate
+    # 売上推移の取得
     set_sales_trend
   end
 
