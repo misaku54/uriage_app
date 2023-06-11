@@ -5,7 +5,6 @@ RSpec.describe "売上管理機能", type: :system do
   let(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
   let!(:sale) { FactoryBot.create(:sale, user: user_a) }
 
-
   describe '未ログイン' do
     describe 'ページ遷移確認' do
       context '売上一覧画面へアクセス' do
