@@ -6,9 +6,9 @@ RSpec.describe "Admin::Users", type: :request do
     let!(:admin_user) { FactoryBot.create(:admin_user) } 
     
     context '未ログイン' do
-      it 'ホーム画面にリダイレクトされること' do
+      it 'ログイン画面にリダイレクトされること' do
         get admin_user_path(user)
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to login_path
       end
     end
 
@@ -34,9 +34,9 @@ RSpec.describe "Admin::Users", type: :request do
     let!(:admin_user) { FactoryBot.create(:admin_user) } 
 
     context '未ログイン' do
-      it 'ホーム画面にリダイレクトされること' do
+      it 'ログイン画面にリダイレクトされること' do
         get new_admin_user_path
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to login_path
       end
     end
 
@@ -63,22 +63,22 @@ RSpec.describe "Admin::Users", type: :request do
 
     context '未ログイン' do
       context '無効なパラメーターの場合' do
-        it '登録されずに、ホーム画面へリダイレクトされること' do
+        it '登録されずに、ログイン画面へリダイレクトされること' do
           user_params = FactoryBot.attributes_for(:invalid_user)
           expect {
             post admin_users_path, params: { user: user_params }
           }.to_not change(User, :count)
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to login_path
         end
       end
 
       context '有効なパラメーターの場合' do
-        it '登録されずに、ホーム画面へリダイレクトされること' do
+        it '登録されずに、ログイン画面へリダイレクトされること' do
           user_params = FactoryBot.attributes_for(:valid_user)
           expect {
             post admin_users_path, params: { user: user_params }
           }.to_not change(User, :count)
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to login_path
         end
       end
     end
@@ -145,9 +145,9 @@ RSpec.describe "Admin::Users", type: :request do
     let!(:admin_user) { FactoryBot.create(:admin_user) } 
 
     context '未ログイン' do
-      it 'ホーム画面にリダイレクトされること' do
+      it 'ログイン画面にリダイレクトされること' do
         get edit_admin_user_path(user)
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to login_path
       end
     end
 
@@ -185,7 +185,7 @@ RSpec.describe "Admin::Users", type: :request do
 
     context '未ログイン' do
       context '無効なパラメータの場合' do
-        it '更新されずに、ホーム画面へリダイレクトされること' do
+        it '更新されずに、ログイン画面へリダイレクトされること' do
           @user_params = FactoryBot.attributes_for(:invalid_user)
           patch admin_user_path(user), params: { user: @user_params }
 
@@ -194,12 +194,12 @@ RSpec.describe "Admin::Users", type: :request do
           expect(user.email).to_not eq @user_params[:email]
           expect(user.password).to_not eq @user_params[:password]
           expect(user.password_confirmation).to_not eq @user_params[:password_confirmation]
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to login_path
         end
       end
 
       context '有効なパラメータの場合' do
-        it '更新されずに、ホーム画面へリダイレクトされること' do
+        it '更新されずに、ログイン画面へリダイレクトされること' do
           name  = 'Foo Bar'
           email = 'foo@bar.com'
           patch admin_user_path(user), params: { user: {  name:  name,
@@ -209,12 +209,12 @@ RSpec.describe "Admin::Users", type: :request do
           user.reload
           expect(user.name).to_not eq @name
           expect(user.email).to_not eq @email
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to login_path
         end
       end
 
       context '有効なパラメータで、別のユーザーを更新しようとした場合' do
-        it '更新されずに、ホーム画面へリダイレクトされること' do
+        it '更新されずに、ログイン画面へリダイレクトされること' do
           patch admin_user_path(other_user), params: { user: {  name:  'Foo Bar',
                                                                 email: 'foo@bar.com',
                                                                 password:              "",
@@ -224,7 +224,7 @@ RSpec.describe "Admin::Users", type: :request do
           expect(other_user.email).to eq 'jhon@example.com'
           expect(other_user.password).to eq 'password'
           expect(other_user.password_confirmation).to eq 'password'
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to login_path
         end
       end
     end
@@ -324,11 +324,11 @@ RSpec.describe "Admin::Users", type: :request do
     let!(:admin_user) { FactoryBot.create(:admin_user) } 
 
     context '未ログイン' do
-      it '削除されずに、ホーム画面へリダイレクトされること' do
+      it '削除されずに、ログイン画面へリダイレクトされること' do
         expect {
           delete admin_user_path(other_user)
         }.to_not change(User, :count)
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to login_path
       end
     end
 
