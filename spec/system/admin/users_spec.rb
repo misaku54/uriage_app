@@ -53,12 +53,27 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
       context '管理者でログインしている場合' do
         let(:login_user) { admin_user }
 
-        it 'ユーザーAの情報が表示されていること' do
+        it 'ユーザーA、ユーザーBの情報が表示されていること' do
           visit admin_users_path
           expect(page).to have_content 'ユーザーA'
           expect(page).to have_content 'a@example.com'
+          expect(page).to have_content 'ユーザーB'
+          expect(page).to have_content 'b@example.com'
         end
       end
+
+      context '一般ユーザーでログインしている場合' do
+        let(:login_user) { user_a }
+
+        it 'ホーム画面へリダイレクト遷移すること' do
+          visit admin_users_path
+          expect(page).to have_current_path root_path
+        end
+      end
+    end
+
+    describe '編集機能' do
+      
     end
   end
 end
