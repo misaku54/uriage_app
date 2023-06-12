@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "ユーザー管理機能（管理者）", type: :system do
-  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let!(:admin_user) { FactoryBot.create(:admin_user) }
   let!(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') }
   let!(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') }
   
@@ -177,7 +177,44 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
     end
 
     describe '編集機能' do
+      context '管理者でログイン時' do
+        let(:login_user) { admin_user }
+        before do
+          visit edit_admin_user_path(user_a)
+        end
 
+        context 'ユーザーAを有効な値で更新した場合' do
+          it '更新に成功する' do
+            fill_in '名前', with: 'ユーザーD'
+            fill_in 'メールアドレス', with: 'd@example.com'
+            fill_in 'パスワード', with: 'validpassword'
+            fill_in 'パスワード確認', with: 'validpassword'
+            click_button 'ユーザー更新'
+
+            # 正しい値に更新されているか
+            user_a.reload
+            expect(user_a.name).to eq 'ユーザーD'
+            expect(user_a.email).to eq 'd@example.com'
+            expect(user_a.authenticate('validpassword')).to be_truthy
+          end
+        end
+
+        context 'ユーザーAを無効な値で更新した場合' do
+          it '更新に失敗する' do
+            user_before = user_a
+            fill_in '名前', with: ''
+            fill_in 'メールアドレス', with: 'user@invalid'
+            fill_in 'パスワード', with: 'foo'
+            fill_in 'パスワード確認', with: 'bar'
+            click_button 'ユーザー更新'
+            user_a.reload
+            # 更新前と値が変わっていないこと
+            expect(user_a).to be user_before
+            # エラーメッセージが表示されること
+            expect(page).to have_selector 'div.alert.alert-danger'
+          end
+        end
+      end
     end
   end
 end
