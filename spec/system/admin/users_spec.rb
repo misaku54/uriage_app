@@ -114,6 +114,20 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
         end
       end 
     end
+    describe '詳細表示機能' do
+      context '管理者でログイン時' do
+        let(:login_user) { admin_user }
+
+        context 'ユーザーAの詳細画面へアクセス' do
+          it 'ユーザーAの情報が表示されていること' do
+            visit admin_user_path(user_a)
+            expect(page).to have_selector 'td', text: user_a.id
+            expect(page).to have_selector 'td', text: user_a.name
+            expect(page).to have_selector 'td', text: user_a.email
+          end
+        end
+      end
+    end
 
     describe '一覧表示機能' do
       context '管理者でログイン時' do
@@ -126,6 +140,13 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           expect(page).to have_content 'a@example.com'
           expect(page).to have_content 'ユーザーB'
           expect(page).to have_content 'b@example.com'
+        end
+
+        it 'ユーザーA、ユーザーBの編集ボタンと削除ボタンが表示されていること' do
+          expect(page).to have_link '編集', href: "/admin/users/#{user_a.id}/edit"
+          expect(page).to have_link '削除', href: "/admin/users/#{user_a.id}"
+          expect(page).to have_link '編集', href: "/admin/users/#{user_b.id}/edit"
+          expect(page).to have_link '削除', href: "/admin/users/#{user_b.id}"
         end
 
         it '自分（管理者）のアカウントには編集ボタンと削除ボタンが表示されていないこと' do
@@ -206,6 +227,16 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           end
         end
 
+        context 'ユーザーAに管理者権限を付与して更新した場合' do
+          it '管理者権限が付与されていること' do
+            check '管理者権限'
+            click_button 'ユーザー更新'
+            
+            user_a.reload
+            expect(user_a.admin).to be_truthy
+          end
+        end
+
         context 'ユーザーAを無効な値で更新した場合' do
           it '更新に失敗する' do
             user_before = user_a
@@ -220,6 +251,24 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
             # エラーメッセージが表示されること
             expect(page).to have_selector 'div.alert.alert-danger'
           end
+        end
+      end
+    end
+    
+    describe '削除機能' do
+      let(:login_user) { admin_user }
+
+      context '一覧画面で削除ボタンをクリックした場合' do
+        it '削除に成功する' do
+          visit admin_users_path
+          # DB上で削除されていること
+          expect {
+            click_link '削除', href: "/admin/users/#{user_a.id}"
+          }.to change(User, :count).by(-1)
+          # 一覧画面へ遷移していること
+          expect(page).to have_current_path admin_users_path
+          # 削除したメーカーが表示されていないこと
+          expect(page).to_not have_content 'ユーザーA'
         end
       end
     end
