@@ -69,7 +69,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
         context 'ユーザー登録画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
-            visit new_admin_user_path(user_a)
+            visit admin_signup_path
             expect(page).to have_current_path root_path
           end
         end
@@ -101,8 +101,8 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
         context 'ユーザー登録画面へアクセス' do
           it '正常に遷移すること' do
-            visit new_admin_user_path(admin_user)
-            expect(page).to have_current_path new_admin_user_path(admin_user)
+            visit admin_signup_path
+            expect(page).to have_current_path admin_signup_path
           end
         end
 
@@ -130,7 +130,22 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
     end
 
     describe 'ユーザー登録機能' do
-      
+      context '管理者でログイン時' do
+        let(:login_user) { admin_user }
+
+        before do
+          visit admin_signup_path
+        end
+        context 'ユーザー名を有効な値で登録した場合' do
+          it '登録に成功する' do
+            
+          end
+        end
+
+        context 'ユーザー名を無効な値で登録した場合' do
+          it '登録に失敗する'
+        end
+      end
     end
 
     describe '編集機能' do

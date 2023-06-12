@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   namespace :admin do
-    resources :users
+    resources :users, expect: :new
     get    '/signup',  to: 'users#new'
   end
   resources :users, only: [:show]  do
