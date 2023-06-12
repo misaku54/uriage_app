@@ -129,21 +129,49 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
       end
     end
 
-    describe 'ユーザー登録機能' do
+    describe '新規登録機能' do
       context '管理者でログイン時' do
         let(:login_user) { admin_user }
-
         before do
           visit admin_signup_path
         end
+
         context 'ユーザー名を有効な値で登録した場合' do
           it '登録に成功する' do
-            
+            fill_in '名前', with: 'ユーザーC'
+            fill_in 'メールアドレス', with: 'c@example.com'
+            fill_in 'パスワード', with: 'password'
+            fill_in 'パスワード確認', with: 'password'
+            # DB上に登録されていること
+            expect {
+              click_button 'ユーザー登録'
+            }.to change(User, :count).by(1)
+            create_user = User.last
+            # 登録したユーザーの詳細画面へ遷移していること
+            expect(page).to have_current_path admin_user_path(create_user)
+            # 成功時のフラッシュが表示されていること
+            expect(page).to have_selector 'div.alert.alert-success'
+            # 登録したユーザーが表示されていること
+            expect(page).to have_content 'ユーザーC'
+            expect(page).to have_content 'c@example.com'
           end
         end
 
         context 'ユーザー名を無効な値で登録した場合' do
-          it '登録に失敗する'
+          it '登録に失敗する' do
+            fill_in '名前', with: ''
+            fill_in 'メールアドレス', with: 'user@invalid'
+            fill_in 'パスワード', with: 'foo'
+            fill_in 'パスワード確認', with: 'bar'
+            # DB上に登録されていないこと
+            expect {
+              click_button 'ユーザー登録'
+            }.to_not change(User, :count)
+            # エラーメッセージが表示されていること
+            # renderの挙動を確認する方法がわからなかったため、have_selectorを使用
+            expect(page).to have_selector 'h1', text: 'ユーザー登録'
+            expect(page).to have_selector 'div.alert.alert-danger'
+          end
         end
       end
     end

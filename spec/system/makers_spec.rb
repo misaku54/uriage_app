@@ -68,6 +68,7 @@ RSpec.describe "メーカー管理機能", type: :system do
         it '登録に成功する' do
           visit new_user_maker_path(login_user)
           fill_in 'メーカー名', with: 'createメーカー'
+          # DB上に登録されていること
           expect {
             click_button '登録'
           }.to change(Maker, :count).by(1)
