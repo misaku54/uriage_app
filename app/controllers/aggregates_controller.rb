@@ -27,6 +27,8 @@ class AggregatesController < ApplicationController
         @no_result = '集計期間に該当する売上データがありません。'
         render 'monthly_aggregate' and return
       end
+
+      # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
       @aggregates_of_producttype       = aggregate.aggregates_of_producttype
@@ -64,6 +66,8 @@ class AggregatesController < ApplicationController
         @no_result = '集計期間に該当する売上データがありません。'
         render 'yearly_aggregate' and return
       end 
+
+      # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
       @aggregates_of_producttype       = aggregate.aggregates_of_producttype
@@ -101,6 +105,8 @@ class AggregatesController < ApplicationController
         @no_result = '集計期間に該当する売上データがありません。'
         render 'daily_aggregate' and return
       end
+
+      # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
       @aggregates_of_producttype       = aggregate.aggregates_of_producttype
