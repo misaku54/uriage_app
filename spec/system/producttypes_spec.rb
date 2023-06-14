@@ -57,7 +57,9 @@ RSpec.describe "商品管理機能", type: :system do
         let(:login_user) { user_b }
 
         it 'ユーザーAが登録した商品が表示されていないこと' do
-          expect(page).to_not have_content '商品A'
+          expect(page).to have_no_content '商品A'
+          expect(page).to have_no_link '編集', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
+          expect(page).to have_no_link '削除', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
         end
       end
     end
@@ -149,11 +151,11 @@ RSpec.describe "商品管理機能", type: :system do
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_producttypes_path(login_user)
           # 削除した商品分類名が表示されていないこと
-          expect(page).to_not have_content '商品A'
+          expect(page).to have_no_content '商品A'
 
           # 売上登録画面のセレクトボックスから商品分類名が削除されていること
           visit new_user_sale_path(login_user)
-          expect(page).to_not have_content '商品A'
+          expect(page).to have_no_content '商品A'
         end
       end
     end

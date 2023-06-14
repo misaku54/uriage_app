@@ -57,7 +57,9 @@ RSpec.describe "メーカー管理機能", type: :system do
         let(:login_user) { user_b }
 
         it 'ユーザーAが作成したメーカーが表示されていないこと' do
-          expect(page).to_not have_content 'メーカーA'
+          expect(page).to have_no_content 'メーカーA'
+          expect(page).to have_no_link '編集', href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
+          expect(page).to have_no_link '削除', href: "/users/#{maker.user.id}/makers/#{maker.id}"
         end
       end
     end
@@ -153,11 +155,11 @@ RSpec.describe "メーカー管理機能", type: :system do
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_makers_path(login_user)
           # 削除したメーカーが表示されていないこと
-          expect(page).to_not have_content 'メーカーA'
+          expect(page).to have_no_content 'メーカーA'
 
           # 売上登録画面のセレクトボックスからメーカー名が削除されていること
           visit new_user_sale_path(login_user)
-          expect(page).to_not have_content 'メーカーA'
+          expect(page).to have_no_content 'メーカーA'
         end
       end
     end

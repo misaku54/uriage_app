@@ -202,6 +202,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
     describe '編集機能' do
       context '管理者でログイン時' do
         let(:login_user) { admin_user }
+        
         before do
           visit edit_admin_user_path(user_a)
         end
@@ -263,7 +264,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           # 一覧画面へ遷移していること
           expect(page).to have_current_path admin_users_path
           # 削除したメーカーが表示されていないこと
-          expect(page).to_not have_content 'ユーザーA'
+          expect(page).to have_no_content 'ユーザーA'
         end
       end
     end
