@@ -38,6 +38,56 @@ RSpec.describe "メーカー管理機能", type: :system do
       log_in(login_user)
     end
 
+    describe 'ページ遷移確認' do
+      context 'ユーザーAでログインしている場合' do
+        let(:login_user) { user_a }
+
+        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+          it '正常に遷移すること' do
+            visit user_makers_path(login_user)
+            expect(page).to have_current_path user_makers_path(login_user)
+          end
+        end
+
+        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+          it '正常に遷移すること' do
+            visit new_user_maker_path(login_user)
+            expect(page).to have_current_path new_user_maker_path(login_user)
+          end
+        end
+
+        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+          it '正常に遷移すること' do
+            visit edit_user_maker_path(login_user, maker)
+            expect(page).to have_current_path edit_user_maker_path(login_user, maker)
+          end
+        end
+      end
+
+      context 'ユーザーBでログインしている場合' do
+        let(:login_user) { user_b }
+
+        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+          it 'ホーム画面へ遷移すること' do
+            visit user_makers_path(user_a)
+            expect(page).to have_current_path root_path
+          end
+        end
+        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+          it 'ホーム画面へ遷移すること' do
+            visit new_user_maker_path(user_a)
+            expect(page).to have_current_path root_path
+          end
+        end
+        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+          it 'ホーム画面へ遷移すること' do
+            visit edit_user_maker_path(user_a, maker)
+            expect(page).to have_current_path root_path
+          end
+        end
+      end
+    end
+
     describe '一覧表示機能' do
       before do
         visit user_makers_path(login_user)

@@ -5,7 +5,7 @@ RSpec.describe "集計機能", type: :system do
   describe '未ログイン' do
     context '年次集計画面へアクセス' do
       it 'ログイン画面へ遷移し、フラッシュが表示されること' do
-        
+
       end
     end
 
@@ -28,7 +28,13 @@ RSpec.describe "集計機能", type: :system do
     end
 
     describe '年次集計機能' do
-      
+      context 'ユーザーAでログインしている場合' do
+
+      end
+
+      context 'ユーザーBでログインしている場合' do
+        it 'ユーザーAの画面の'
+      end
     end
     
     describe '月次集計機能' do

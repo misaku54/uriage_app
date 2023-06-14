@@ -38,6 +38,56 @@ RSpec.describe "売上管理機能", type: :system do
       log_in(login_user)
     end
   
+    describe 'ページ遷移確認' do
+      context 'ユーザーAでログインしている場合' do
+        let(:login_user) { user_a }
+
+        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+          it '正常に遷移すること' do
+            visit user_sales_path(login_user)
+            expect(page).to have_current_path user_sales_path(login_user)
+          end
+        end
+
+        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+          it '正常に遷移すること' do
+            visit new_user_sale_path(login_user)
+            expect(page).to have_current_path new_user_sale_path(login_user)
+          end
+        end
+
+        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+          it '正常に遷移すること' do
+            visit edit_user_sale_path(login_user, sale)
+            expect(page).to have_current_path edit_user_sale_path(login_user, sale)
+          end
+        end
+      end
+
+      context 'ユーザーBでログインしている場合' do
+        let(:login_user) { user_b }
+
+        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+          it 'ホーム画面へ遷移すること' do
+            visit user_sales_path(user_a)
+            expect(page).to have_current_path root_path
+          end
+        end
+        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+          it 'ホーム画面へ遷移すること' do
+            visit new_user_sale_path(user_a)
+            expect(page).to have_current_path root_path
+          end
+        end
+        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+          it 'ホーム画面へ遷移すること' do
+            visit edit_user_sale_path(user_a, sale)
+            expect(page).to have_current_path root_path
+          end
+        end
+      end
+    end
+
     describe '一覧表示機能' do
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
