@@ -109,6 +109,8 @@ RSpec.describe "商品管理機能", type: :system do
           visit edit_user_producttype_path(login_user, producttype)
           fill_in '商品分類名', with: 'update商品'
           click_button '更新'
+
+          # 正しい値に更新されているか
           producttype.reload
           expect(producttype.name).to eq 'update商品'
           # 一覧画面へ遷移していること
