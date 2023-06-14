@@ -21,6 +21,29 @@ RSpec.describe "ユーザー管理機能（一般）", type: :system do
       log_in(login_user)
     end
 
+    describe 'ページ遷移確認' do
+      context 'ユーザーAでログインしている場合' do
+        let(:login_user) { user_a }
+
+        context 'ユーザーAに紐づくユーザー詳細画面へアクセス' do
+          it '正常に遷移すること' do
+            visit user_path(login_user)
+            expect(page).to have_current_path user_path(login_user)
+          end
+        end
+      end
+
+      context 'ユーザーBでログインしている場合' do
+        let(:login_user) { user_b }
+
+        context 'ユーザーAに紐づくユーザー詳細画面へアクセス' do
+          it 'ホーム画面へ遷移すること' do
+            visit user_path(user_a)
+            expect(page).to have_current_path root_path
+          end
+        end
+      end
+    end
     describe '詳細表示機能' do
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
