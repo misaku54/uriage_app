@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "集計機能", type: :system do
-
+  let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
+  let(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
+  
   describe '未ログイン' do
     describe 'ページ遷移確認' do
       context '年次集計画面へアクセス' do
@@ -33,19 +35,19 @@ RSpec.describe "集計機能", type: :system do
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
 
-        context 'ユーザーAに紐づく年次集計画面へアクセス' 
+        context 'ユーザーAに紐づく年次集計画面へアクセス' do
           it '正常に遷移すること' do
             
           end
         end
 
-        context 'ユーザーAに紐づく月次集計画面へアクセス' 
+        context 'ユーザーAに紐づく月次集計画面へアクセス' do
           it '正常に遷移すること' do
             
           end
         end
         
-        context 'ユーザーAに紐づく日次集計画面へアクセス' 
+        context 'ユーザーAに紐づく日次集計画面へアクセス' do
           it '正常に遷移すること' do
             
           end
@@ -55,19 +57,19 @@ RSpec.describe "集計機能", type: :system do
       context 'ユーザーBでログインしている場合' do
         let(:login_user) { user_b }
         
-        context 'ユーザーAに紐づく年次集計画面へアクセス' 
+        context 'ユーザーAに紐づく年次集計画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             
           end
         end
 
-        context 'ユーザーAに紐づく月次集計画面へアクセス' 
+        context 'ユーザーAに紐づく月次集計画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             
           end
         end
         
-        context 'ユーザーAに紐づく日次集計画面へアクセス' 
+        context 'ユーザーAに紐づく日次集計画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             
           end
@@ -76,7 +78,7 @@ RSpec.describe "集計機能", type: :system do
     end
     
     describe '年次集計機能' do
-      
+
     end
     
     describe '月次集計機能' do
