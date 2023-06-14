@@ -35,17 +35,14 @@ RSpec.describe "メーカー管理機能", type: :system do
 
   describe 'ログイン中' do
     before do
-      visit login_path
-      fill_in 'メールアドレス', with: login_user.email
-      fill_in 'パスワード', with: login_user.password
-      click_button 'ログイン'
+      log_in(login_user)
     end
 
     describe '一覧表示機能' do
       before do
         visit user_makers_path(login_user)
       end
-      
+
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
 
