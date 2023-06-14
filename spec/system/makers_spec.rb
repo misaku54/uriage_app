@@ -45,14 +45,12 @@ RSpec.describe "メーカー管理機能", type: :system do
       before do
         visit user_makers_path(login_user)
       end
+      
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
 
         it 'ユーザーAが作成したメーカーが表示されていること' do
           expect(page).to have_content 'メーカーA'
-        end
-
-        it 'ユーザーAが作成したメーカーの編集ボタンと削除ボタンが表示されていること' do
           expect(page).to have_link '編集', href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
           expect(page).to have_link '削除', href: "/users/#{maker.user.id}/makers/#{maker.id}"
         end

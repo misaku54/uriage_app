@@ -129,17 +129,16 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
     describe '一覧表示機能' do
       context '管理者でログイン時' do
         let(:login_user) { admin_user }
+
         before do
           visit admin_users_path
         end
+
         it 'ユーザーA、ユーザーBの情報が表示されていること' do
           expect(page).to have_content 'ユーザーA'
           expect(page).to have_content 'a@example.com'
           expect(page).to have_content 'ユーザーB'
           expect(page).to have_content 'b@example.com'
-        end
-
-        it 'ユーザーA、ユーザーBの編集ボタンと削除ボタンが表示されていること' do
           expect(page).to have_link '編集', href: "/admin/users/#{user_a.id}/edit"
           expect(page).to have_link '削除', href: "/admin/users/#{user_a.id}"
           expect(page).to have_link '編集', href: "/admin/users/#{user_b.id}/edit"
@@ -147,7 +146,6 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
         end
 
         it '自分（管理者）のアカウントには編集ボタンと削除ボタンが表示されていないこと' do
-          #リンクがないとき
           expect(page).to have_no_link '編集', href: "/admin/users/#{login_user.id}/edit"
           expect(page).to have_no_link '削除', href: "/admin/users/#{login_user.id}"
         end
