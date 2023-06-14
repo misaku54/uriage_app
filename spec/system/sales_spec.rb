@@ -55,10 +55,10 @@ RSpec.describe "売上管理機能", type: :system do
         let(:login_user) { user_b }
         it 'ユーザーAが登録した売上情報が表示されていないこと' do
           visit user_sales_path(login_user)
-          expect(page).to_not have_content 'テスト会社'
-          expect(page).to_not have_content 'カバン'
-          expect(page).to_not have_content '10,000円'
-          expect(page).to_not have_content '期間限定商品'
+          expect(page).to have_no_content 'テスト会社'
+          expect(page).to have_no_content 'カバン'
+          expect(page).to have_no_content '10,000円'
+          expect(page).to have_no_content '期間限定商品'
         end
       end
     end
@@ -167,8 +167,8 @@ RSpec.describe "売上管理機能", type: :system do
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_sales_path(login_user)
           # 削除した売上情報が表示されていないこと
-          expect(page).to_not have_content 'テスト会社'
-          expect(page).to_not have_content 'カバン'
+          expect(page).to have_no_content 'テスト会社'
+          expect(page).to have_no_content 'カバン'
         end
       end
     end

@@ -18,10 +18,7 @@ RSpec.describe "ユーザー管理機能（一般）", type: :system do
 
   describe 'ログイン中' do
     before do
-      visit login_path
-      fill_in 'メールアドレス', with: login_user.email
-      fill_in 'パスワード', with: login_user.password
-      click_button 'ログイン'
+      log_in(login_user)
     end
 
     describe '詳細表示機能' do
@@ -38,7 +35,7 @@ RSpec.describe "ユーザー管理機能（一般）", type: :system do
       context 'ユーザーBでログインしている場合' do
         let(:login_user) { user_b }
       
-        it 'ユーザーAの詳細画面に遷移するとホーム画面へ遷移すること' do
+        it 'ユーザーAの詳細画面にアクセスするとホーム画面へ遷移すること' do
           visit user_path(user_a)
           expect(page).to have_current_path root_path
         end
