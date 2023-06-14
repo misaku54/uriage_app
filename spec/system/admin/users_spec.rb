@@ -43,10 +43,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
   describe 'ログイン中' do
     before do
-      visit login_path
-      fill_in 'メールアドレス', with: login_user.email
-      fill_in 'パスワード', with: login_user.password
-      click_button 'ログイン'
+      log_in(login_user)
     end
 
     describe 'ページ遷移確認' do
