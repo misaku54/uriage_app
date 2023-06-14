@@ -48,6 +48,8 @@ RSpec.describe "商品管理機能", type: :system do
 
         it 'ユーザーAが登録した商品が表示されていること' do
           expect(page).to have_content '商品A'
+          expect(page).to have_link '編集', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
+          expect(page).to have_link '削除', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
         end
       end
 
