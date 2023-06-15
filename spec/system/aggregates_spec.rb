@@ -3,14 +3,8 @@ require 'rails_helper'
 RSpec.describe "集計機能", type: :system do
   let!(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
   let!(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
-
   let!(:producttype_a) { FactoryBot.create(:producttype, name:'商品A', user: user_a) }
-  let!(:producttype_b) { FactoryBot.create(:producttype, name:'商品B', user: user_a) }
-  let!(:producttype_c) { FactoryBot.create(:producttype, name:'商品C', user: user_a) }
   let!(:maker_a) { FactoryBot.create(:maker, name:'メーカーA', user: user_a) }
-  let!(:maker_b) { FactoryBot.create(:maker, name:'メーカーB', user: user_a) }
-  let!(:maker_c) { FactoryBot.create(:maker, name:'メーカーC', user: user_a) }
-
 
   describe '未ログイン' do
     describe 'ページ遷移確認' do
@@ -133,6 +127,7 @@ RSpec.describe "集計機能", type: :system do
           expect(page).to have_no_content '集計結果（メーカー、商品分類別の販売額の合計）'
           expect(page).to have_no_content '集計結果（メーカー別の販売額の合計）'
           expect(page).to have_no_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_content '集計期間に該当する売上データがありません。'
         end
       end
     end
@@ -174,6 +169,7 @@ RSpec.describe "集計機能", type: :system do
           expect(page).to have_no_content '集計結果（メーカー、商品分類別の販売額の合計）'
           expect(page).to have_no_content '集計結果（メーカー別の販売額の合計）'
           expect(page).to have_no_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_content '集計期間に該当する売上データがありません。'
         end
       end
     end
@@ -215,6 +211,7 @@ RSpec.describe "集計機能", type: :system do
           expect(page).to have_no_content '集計結果（メーカー、商品分類別の販売額の合計）'
           expect(page).to have_no_content '集計結果（メーカー別の販売額の合計）'
           expect(page).to have_no_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_content '集計期間に該当する売上データがありません。'
         end
       end
     end
