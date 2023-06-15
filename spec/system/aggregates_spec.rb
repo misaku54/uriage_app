@@ -179,7 +179,44 @@ RSpec.describe "集計機能", type: :system do
     end
 
     describe '日次集計機能' do
-      
+      let(:login_user) { user_a }
+      let!(:daily_aggregate_sale) {FactoryBot.create_list(:daily_aggregate_sale, 15, user: user_a, maker: maker_a, producttype: producttype_a)}
+
+      before do
+        visit user_daily_aggregate_path(login_user)
+      end
+
+      context '2022年12月で集計ボタンを押下した場合' do
+        it '集計結果が表示されること' do
+          fill_in 'search_daily[start_date]' , with: '002022-12-01'
+          fill_in 'search_daily[end_date]' , with: '002022-12-31'
+          click_button '集計する'
+          expect(page).to have_content '合計純売上'
+          expect(page).to have_content '売上推移'
+          expect(page).to have_content '売上ランキング（メーカー、商品分類別）'
+          expect(page).to have_content '売上ランキング（メーカー別）'
+          expect(page).to have_content '売上ランキング（商品分類別）'
+          expect(page).to have_content '集計結果（メーカー、商品分類別の販売額の合計）'
+          expect(page).to have_content '集計結果（メーカー別の販売額の合計）'
+          expect(page).to have_content '集計結果（商品分類別の販売額の合計）'
+        end
+      end
+
+      context 'データのない年月で集計ボタンを押下した場合' do
+        it '集計結果が表示されないこと' do
+          fill_in 'search_daily[start_date]' , with: '002022-10-01'
+          fill_in 'search_daily[end_date]' , with: '002022-10-31'
+          click_button '集計する'
+          expect(page).to have_no_content '合計純売上'
+          expect(page).to have_no_content '売上推移'
+          expect(page).to have_no_content '売上ランキング（メーカー、商品分類別）'
+          expect(page).to have_no_content '売上ランキング（メーカー別）'
+          expect(page).to have_no_content '売上ランキング（商品分類別）'
+          expect(page).to have_no_content '集計結果（メーカー、商品分類別の販売額の合計）'
+          expect(page).to have_no_content '集計結果（メーカー別の販売額の合計）'
+          expect(page).to have_no_content '集計結果（商品分類別の販売額の合計）'
+        end
+      end
     end
   end
 end

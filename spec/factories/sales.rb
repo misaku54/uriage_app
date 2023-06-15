@@ -8,6 +8,7 @@ FactoryBot.define do
     producttype { FactoryBot.create(:producttype,user: user) } 
   end
 
+  # システムスペック用のテストデータ--------------------------------------------
   # 年次集計用
   factory :yearly_aggregate_sale, class: Sale do
     sequence(:amount_sold) { 1000 }
@@ -22,8 +23,20 @@ FactoryBot.define do
   # 月次集計用
   factory :monthly_aggregate_sale, class: Sale do
     sequence(:amount_sold) { 1000 }
-    sequence(:remark) { |n| "Test daily_aggregate #{n}" }
+    sequence(:remark) { |n| "Test monthly_aggregate #{n}" }
+    # 2022年の12月の売り上げデータを生成
     sequence(:created_at) { |n| Time.local(2023, 1, 1).prev_day(n)  } 
+    user 
+    maker
+    producttype
+  end 
+
+  # 日次集計用
+  factory :daily_aggregate_sale, class: Sale do
+    sequence(:amount_sold) { 1000 }
+    sequence(:remark) { |n| "Test daily_aggregate #{n}" }
+    # 2022年の12月の売り上げデータを生成
+    sequence(:created_at) { |n| Time.local(2023, 1, 1).prev_day(n) } 
     user 
     maker
     producttype
