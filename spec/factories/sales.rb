@@ -14,7 +14,7 @@ FactoryBot.define do
     sequence(:amount_sold) { 1000 }
     sequence(:remark) { |n| "Test yearly_aggregate #{n}" }
     # 2022年の1月〜12月の売り上げデータを月毎に１件ずつ生成
-    sequence(:created_at) { |n| Time.local(2023, 1, 1).prev_month(n) } 
+    sequence(:created_at) { |n| Time.zone.local(2021, 12, 1).next_month(n) } 
     user 
     maker
     producttype
@@ -24,8 +24,8 @@ FactoryBot.define do
   factory :monthly_aggregate_sale, class: Sale do
     sequence(:amount_sold) { 1000 }
     sequence(:remark) { |n| "Test monthly_aggregate #{n}" }
-    # 2022年の12月の売り上げデータを生成
-    sequence(:created_at) { |n| Time.local(2023, 1, 1).prev_day(n)  } 
+    # 2022年の1月から売り上げデータを生成していく
+    sequence(:created_at) { |n| Time.zone.local(2021, 12, 31).next_day(n)  } 
     user 
     maker
     producttype
@@ -36,7 +36,7 @@ FactoryBot.define do
     sequence(:amount_sold) { 1000 }
     sequence(:remark) { |n| "Test daily_aggregate #{n}" }
     # 2022年の12月の売り上げデータを生成
-    sequence(:created_at) { |n| Time.local(2023, 1, 1).prev_day(n) } 
+    sequence(:created_at) { |n| Time.zone.local(2021, 12, 31).next_day(n) } 
     user 
     maker
     producttype

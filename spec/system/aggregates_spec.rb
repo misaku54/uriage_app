@@ -144,7 +144,7 @@ RSpec.describe "集計機能", type: :system do
       context '2022年12月で集計ボタンを押下した場合' do
         it '集計結果が表示されること' do
           select '2022', from: 'search_form[date(1i)]'
-          select '12', from: 'search_form[date(2i)]'
+          select '1', from: 'search_form[date(2i)]'
           click_button '集計する'
           expect(page).to have_content '合計純売上'
           expect(page).to have_content '売上推移'
@@ -160,7 +160,7 @@ RSpec.describe "集計機能", type: :system do
       context 'データのない年月で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
           select '2022', from: 'search_form[date(1i)]'
-          select '11', from: 'search_form[date(2i)]'
+          select '2', from: 'search_form[date(2i)]'
           click_button '集計する'
           expect(page).to have_no_content '合計純売上'
           expect(page).to have_no_content '売上推移'
@@ -185,8 +185,8 @@ RSpec.describe "集計機能", type: :system do
 
       context '2022年12月で集計ボタンを押下した場合' do
         it '集計結果が表示されること' do
-          fill_in 'search_daily[start_date]' , with: '002022-12-01'
-          fill_in 'search_daily[end_date]' , with: '002022-12-31'
+          fill_in 'search_daily[start_date]' , with: '002022-01-01'
+          fill_in 'search_daily[end_date]' , with: '002022-01-31'
           click_button '集計する'
           expect(page).to have_content '合計純売上'
           expect(page).to have_content '売上推移'
@@ -201,8 +201,8 @@ RSpec.describe "集計機能", type: :system do
 
       context 'データのない年月で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
-          fill_in 'search_daily[start_date]' , with: '002022-11-01'
-          fill_in 'search_daily[end_date]' , with: '002022-11-31'
+          fill_in 'search_daily[start_date]' , with: '002022-02-01'
+          fill_in 'search_daily[end_date]' , with: '002022-02-28'
           click_button '集計する'
           expect(page).to have_no_content '合計純売上'
           expect(page).to have_no_content '売上推移'
