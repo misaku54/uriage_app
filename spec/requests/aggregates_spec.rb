@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Aggregates", type: :request do
   let!(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
+  let!(:producttype_a) { FactoryBot.create(:producttype, name:'商品A', user: user_a) }
+  let!(:maker_a) { FactoryBot.create(:maker, name:'メーカーA', user: user_a) }
 
   describe 'ログイン中' do
     before do
@@ -10,7 +12,7 @@ RSpec.describe "Aggregates", type: :request do
 
     describe "#monthly_search" do
       let(:login_user) { user_a }
-      
+      let!(:monthly_aggregate_sale) {FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_a)}
       # before do
       #   get user_monthly_search_path(login_user), params: { search_form: { date: "2022-01-12" } }
       # end
@@ -25,7 +27,7 @@ RSpec.describe "Aggregates", type: :request do
             it "集計した値がインスタンス変数に入ること" do
               is_expected.to have_http_status(:success)
               is_expected.to render_template("monthly_aggregate") 
-              expect
+              @aggregates_of_maker_producttype
             end
           end
           context "売上データがない場合" do
