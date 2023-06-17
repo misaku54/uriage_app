@@ -11,15 +11,21 @@ RSpec.describe "Aggregates", type: :request do
     describe "#monthly_search" do
       let(:login_user) { user_a }
       
-      before do
-        get user_monthly_search_path(login_user), params: { search_form: { date: "2022-01-12" } }
-      end
+      # before do
+      #   get user_monthly_search_path(login_user), params: { search_form: { date: "2022-01-12" } }
+      # end
+
+      subject { get user_monthly_search_path(login_user), params: params; response } 
 
       context "パラメータのバリデーションが" do
         context "成功した場合" do
+          let(:params) { { search_form: { date: "2022-01-12" } } }
+
           context "売上データがある場合" do
             it "集計した値がインスタンス変数に入ること" do
-
+              is_expected.to have_http_status(:success)
+              is_expected.to render_template("monthly_aggregate") 
+              expect
             end
           end
           context "売上データがない場合" do
