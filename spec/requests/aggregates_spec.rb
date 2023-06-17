@@ -46,7 +46,7 @@ RSpec.describe "Aggregates", type: :request do
               expect(@sales_trend).to be_present
               expect(@sales_total_amount).to be_present
               expect(@sales_growth_rate).to be_present
-              # 正しい値がはいっているか
+              # インスタンス変数の中身の整合性チェック
               aggregates_of_maker_producttype_1st = @aggregates_of_maker_producttype.first 
               aggregates_of_maker_producttype_2nd = @aggregates_of_maker_producttype.second 
               aggregates_of_maker_producttype_3rd = @aggregates_of_maker_producttype.third 
@@ -56,8 +56,6 @@ RSpec.describe "Aggregates", type: :request do
               expect(aggregates_of_maker_producttype_1st.producttype_name).to eq '商品A'
               expect(aggregates_of_maker_producttype_2nd.producttype_name).to eq '商品B'
               expect(aggregates_of_maker_producttype_3rd.producttype_name).to eq '商品C'
-              p aggregates_of_maker_producttype_1st.quantity_sold
-              p aggregates_of_maker_producttype_1st.sum_amount_sold
             end
           end
           context "売上データがない場合" do

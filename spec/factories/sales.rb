@@ -18,6 +18,12 @@ FactoryBot.define do
     user 
     maker
     producttype
+
+    # 去年の売上データを登録する用
+    trait :last_year do
+      amount_sold { 500 }
+      sequence(:created_at) { |n| Time.zone.local(2020, 12, 1).next_month(n)  } 
+    end
   end 
 
   # 月次集計用
@@ -29,6 +35,12 @@ FactoryBot.define do
     user 
     maker
     producttype
+    
+    # 去年の売上データを登録する用
+    trait :last_year do
+      amount_sold { 500 }
+      sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n)  } 
+    end
   end 
 
   # 日次集計用
@@ -40,5 +52,11 @@ FactoryBot.define do
     user 
     maker
     producttype
+
+    # 去年の売上データを登録する用
+    trait :last_year do
+      amount_sold { 500 }
+      sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n)  } 
+    end
   end 
 end
