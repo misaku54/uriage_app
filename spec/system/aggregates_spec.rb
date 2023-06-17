@@ -93,7 +93,9 @@ RSpec.describe "集計機能", type: :system do
     
     describe '年次集計機能' do
       let(:login_user) { user_a }
-      let!(:yearly_aggregate_sale) {FactoryBot.create_list(:yearly_aggregate_sale, 12, user: user_a, maker: maker_a, producttype: producttype_a)}
+          
+      let!(:yearly_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:yearly_aggregate_sale, 12, user: user_a, maker: maker_a, producttype: producttype_a)}
+      
 
       before do
         visit user_yearly_aggregate_path(login_user)
@@ -116,8 +118,7 @@ RSpec.describe "集計機能", type: :system do
 
       context 'データのない年度で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
-          # ２週目の時にでsequencenの値が継続しているため、2021年のデータが作成されてしまう。そのため、テスト対象の年度を2020とした。
-          select '2020', from: 'search_form[date(1i)]'
+          select '2021', from: 'search_form[date(1i)]'
           click_button '集計'
           expect(page).to have_no_content '合計純売上'
           expect(page).to have_no_content '売上推移'
@@ -134,7 +135,7 @@ RSpec.describe "集計機能", type: :system do
     
     describe '月次集計機能' do
       let(:login_user) { user_a }
-      let!(:monthly_aggregate_sale) {FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_a)}
+      let!(:monthly_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_a)}
 
       before do
         visit user_monthly_aggregate_path(login_user)
@@ -159,7 +160,7 @@ RSpec.describe "集計機能", type: :system do
       context 'データのない年月で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
           select '2022', from: 'search_form[date(1i)]'
-          select '9', from: 'search_form[date(2i)]'
+          select '11', from: 'search_form[date(2i)]'
           click_button '集計する'
           expect(page).to have_no_content '合計純売上'
           expect(page).to have_no_content '売上推移'
@@ -176,7 +177,7 @@ RSpec.describe "集計機能", type: :system do
 
     describe '日次集計機能' do
       let(:login_user) { user_a }
-      let!(:daily_aggregate_sale) {FactoryBot.create_list(:daily_aggregate_sale, 15, user: user_a, maker: maker_a, producttype: producttype_a)}
+      let!(:daily_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:daily_aggregate_sale, 15, user: user_a, maker: maker_a, producttype: producttype_a)}
 
       before do
         visit user_daily_aggregate_path(login_user)
@@ -200,8 +201,8 @@ RSpec.describe "集計機能", type: :system do
 
       context 'データのない年月で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
-          fill_in 'search_daily[start_date]' , with: '002022-10-01'
-          fill_in 'search_daily[end_date]' , with: '002022-10-31'
+          fill_in 'search_daily[start_date]' , with: '002022-11-01'
+          fill_in 'search_daily[end_date]' , with: '002022-11-31'
           click_button '集計する'
           expect(page).to have_no_content '合計純売上'
           expect(page).to have_no_content '売上推移'
