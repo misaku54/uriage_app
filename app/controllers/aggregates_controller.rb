@@ -12,10 +12,10 @@ class AggregatesController < ApplicationController
     @search_params = SearchForm.new(search_form_params)
     # 入力パラメータチェック
     if @search_params.valid?
-      start_date                       = @search_params.date.beginning_of_month
-      end_date                         = @search_params.date.end_of_month
-      last_year_start_date             = @search_params.date.prev_year.beginning_of_month
-      last_year_end_date               = @search_params.date.prev_year.end_of_month
+      start_date                       = @search_params.date.in_time_zone.beginning_of_month
+      end_date                         = @search_params.date.in_time_zone.end_of_month
+      last_year_start_date             = @search_params.date.in_time_zone.prev_year.beginning_of_month
+      last_year_end_date               = @search_params.date.in_time_zone.prev_year.end_of_month
 
       # 集計処理はロジックモデルで行う。
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'month')
@@ -50,11 +50,11 @@ class AggregatesController < ApplicationController
   def yearly_search
     @search_params  = SearchForm.new(search_form_params)
     # 入力パラメータチェック
-    if @search_params.valid?
-      start_date                       = @search_params.date.beginning_of_year
-      end_date                         = @search_params.date.end_of_year
-      last_year_start_date             = @search_params.date.prev_year.beginning_of_year
-      last_year_end_date               = @search_params.date.prev_year.end_of_year
+    if @search_params.valid?      
+      start_date                       = @search_params.date.in_time_zone.beginning_of_year
+      end_date                         = @search_params.date.in_time_zone.end_of_year
+      last_year_start_date             = @search_params.date.in_time_zone.prev_year.beginning_of_year
+      last_year_end_date               = @search_params.date.in_time_zone.prev_year.end_of_year
       
       # 集計処理はロジックモデルで行う。
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'year')

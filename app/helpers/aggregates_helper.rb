@@ -82,11 +82,11 @@ module AggregatesHelper
     end
 
     if period == 'monthly' && params.date.present?
-      return "#{params.date.year}年 #{params.date.month}月の集計結果"
+      return "#{params.date.in_time_zone.year}年 #{params.date.in_time_zone.month}月の集計結果"
     end  
     
     if period == 'yearly' && params.date.present? 
-      return "#{params.date.year}年の集計結果"
+      return "#{params.date.in_time_zone.year}年の集計結果"
     end
     nil
   end

@@ -12,7 +12,7 @@ RSpec.describe "Aggregates", type: :request do
       let(:login_user) { user_a }
       
       before do
-        # get user_monthly_search_path(login_user), params: { search_form: { date: Time.current } }
+        get user_monthly_search_path(login_user), params: { search_form: { date: "2022-01-12" } }
       end
 
       context "パラメータのバリデーションが" do
