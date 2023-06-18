@@ -5,6 +5,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "custom/menu"
+import "custom/accordion"
 import "chartkick"
 import "Chart.bundle"
 import Rails from '@rails/ujs';

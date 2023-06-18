@@ -56,19 +56,6 @@ h2 {
 }
 
 /* ヘッダー */
-#logo {
-  font-family: "times";
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: #fff;
-  letter-spacing: -0.1px;
-  padding-top: 9px;
-}
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
-}
 
 /* フォーム */
 input, textarea, select, .uneditable-input {
@@ -134,7 +121,7 @@ label.required:after {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 56px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -196,26 +183,25 @@ label.required:after {
 .acordion {
   &__ttl {
     cursor: pointer;
+    // border: 2px;
     padding: 5px;
     transition: background-color 0.3s;
     &:hover {
-      background-color: #c1baba;
+      background-color: black;
+      color: white;
     }
-    &.is-active {
-      background-color: #ff0000;
-    }
+    // &.is-active {
+    //   background-color: ;
+    // }
   }
   &__cnt {
     margin: 0;
     height: 0;
     overflow: hidden;
     transition: 0.2s ease height;
-    background-color: #ff0000;
+    // background-color: #ff0000;
     li {
       padding: 5px;
     }
-  }
-  &__inner{
-    padding:20px;
   }
 }
