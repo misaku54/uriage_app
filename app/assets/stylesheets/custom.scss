@@ -139,10 +139,10 @@ label.required:after {
     left: 0;
     z-index: 1000;
     display: block;
-    padding: 20px;
+    // padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* ビューポートがコンテンツより短い場合、スクロール可能なコンテンツ */
-    background-color: #f9f7f8;
+    // background-color: #f9f7f8;
     border-right: 1px solid #eee;
   }
 }
