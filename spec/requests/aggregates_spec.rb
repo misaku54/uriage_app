@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Aggregates", type: :request do
+RSpec.describe 'Aggregates', type: :request do
   let!(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
   let!(:producttype_a) { FactoryBot.create(:producttype, name:'商品A', user: user_a) }
   let!(:producttype_b) { FactoryBot.create(:producttype, name:'商品B', user: user_a) }
@@ -14,7 +14,7 @@ RSpec.describe "Aggregates", type: :request do
       log_in(login_user)
     end
 
-    describe "#monthly_search" do
+    describe '#monthly_search' do
       let(:login_user) { user_a }
       # メーカAと商品Aの組み合わせの売上データを３０件、メーカBと商品Bの組み合わせの売上データを２０件、メーカCと商品Cの組み合わせの売上データを１０件登録
       let!(:monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_a)}
@@ -23,30 +23,40 @@ RSpec.describe "Aggregates", type: :request do
 
       subject { get user_monthly_search_path(login_user), params: params; response } 
 
-      context "パラメータのバリデーションが" do
-        context "成功した場合" do
-          let(:params) { { search_form: { date: "2022-1-1" } } }
+      context 'パラメータのバリデーションが' do
+        context '成功した場合' do
+          let(:params) { { search_form: { date: '2022-1-1' } } }
 
-          context "売上データがある場合" do
-            it "集計した値がインスタンス変数に入ること" do
-              is_expected.to render_template("monthly_aggregate") 
-              expect(response).to have_http_status(:success)
-
+          context '売上データがある場合' do
+            before do
+              subject
               # コントローラーよりインスタンス変数を取得
               @aggregates_of_maker_producttype = controller.instance_variable_get('@aggregates_of_maker_producttype')
               @aggregates_of_maker             = controller.instance_variable_get('@aggregates_of_maker')
               @aggregates_of_producttype       = controller.instance_variable_get('@aggregates_of_producttype')
               @sales_trend                     = controller.instance_variable_get('@sales_trend')
               @sales_total_amount              = controller.instance_variable_get('@sales_total_amount')
-              @sales_growth_rate               = controller.instance_variable_get('@sales_growth_rate')
-              # インスタンス変数に値がセットされているか
+              @sales_growth_rate               = controller.instance_variable_get('@sales_growth_rate')            
+            end
+
+            it 'レスポンスが正常であること' do
+              expect(response).to have_http_status(:success)
+            end
+
+            it '意図した画面に遷移すること' do
+              expect(response).to render_template('monthly_aggregate')
+            end
+
+            it "集計した値がインスタンス変数に入ること" do
               expect(@aggregates_of_maker_producttype).to be_present
               expect(@aggregates_of_maker).to be_present
               expect(@aggregates_of_producttype).to be_present
               expect(@sales_trend).to be_present
               expect(@sales_total_amount).to be_present
               expect(@sales_growth_rate).to be_present
-              # インスタンス変数の中身の整合性チェック
+            end
+
+            it 'インスタンス変数の中身の整合性チェック' do
               aggregates_of_maker_producttype_1st = @aggregates_of_maker_producttype.first 
               aggregates_of_maker_producttype_2nd = @aggregates_of_maker_producttype.second 
               aggregates_of_maker_producttype_3rd = @aggregates_of_maker_producttype.third 
@@ -58,11 +68,12 @@ RSpec.describe "Aggregates", type: :request do
               expect(aggregates_of_maker_producttype_3rd.producttype_name).to eq '商品C'
             end
           end
-          context "売上データがない場合" do
-            let(:params) { { search_form: { date: "2022-11-1" } } }
+
+          context '売上データがない場合' do
+            let(:params) { { search_form: { date: '2022-11-1' } } }
             
-            it "集計期間に該当する売上データがない旨のメッセージが返ってくること" do
-              is_expected.to render_template("monthly_aggregate") 
+            it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
+              is_expected.to render_template('monthly_aggregate') 
               expect(response).to have_http_status(:success)
 
               # コントローラーよりインスタンス変数を取得
@@ -73,8 +84,8 @@ RSpec.describe "Aggregates", type: :request do
           end
         end
 
-        context "失敗した場合" do
-          it "インスタンス変数に値が入らないこと" do
+        context '失敗した場合' do
+          it 'インスタンス変数に値が入らないこと' do
 
           end
         end

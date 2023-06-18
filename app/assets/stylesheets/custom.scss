@@ -192,3 +192,30 @@ label.required:after {
   padding-right: 0px !important;
 }
 
+// アコーディオン
+.acordion {
+  &__ttl {
+    cursor: pointer;
+    padding: 5px;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #c1baba;
+    }
+    &.is-active {
+      background-color: #ff0000;
+    }
+  }
+  &__cnt {
+    margin: 0;
+    height: 0;
+    overflow: hidden;
+    transition: 0.2s ease height;
+    background-color: #ff0000;
+    li {
+      padding: 5px;
+    }
+  }
+  &__inner{
+    padding:20px;
+  }
+}
