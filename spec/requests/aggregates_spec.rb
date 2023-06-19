@@ -16,10 +16,14 @@ RSpec.describe 'Aggregates', type: :request do
 
     describe '#monthly_search' do
       let(:login_user) { user_a }
-      # メーカAと商品Aの組み合わせの売上データを３０件、メーカBと商品Bの組み合わせの売上データを２０件、メーカCと商品Cの組み合わせの売上データを１０件登録
+      # 2022年1月の登録日時で、メーカAと商品Aの組み合わせの売上データを３０件、メーカBと商品Bの組み合わせの売上データを２０件、メーカCと商品Cの組み合わせの売上データを１０件作成する。
       let!(:monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_a)}
       let!(:monthly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 20, user: user_a, maker: maker_b, producttype: producttype_b)}
       let!(:monthly_aggregate_sale_c) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 10, user: user_a, maker: maker_c, producttype: producttype_c)}
+      # 2021年1月の登録日時で、メーカAと商品Aの組み合わせの売上データを３０件、メーカBと商品Bの組み合わせの売上データを２０件、メーカCと商品Cの組み合わせの売上データを１０件作成する。
+      let!(:last_year_monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, :last_year, user: user_a, maker: maker_a, producttype: producttype_a)}
+      let!(:last_year_monthly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 20, :last_year, user: user_a, maker: maker_b, producttype: producttype_b)}
+      let!(:last_year_monthly_aggregate_sale_c) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 10, :last_year, user: user_a, maker: maker_c, producttype: producttype_c)}
 
       subject { get user_monthly_search_path(login_user), params: params; response } 
 
@@ -56,7 +60,7 @@ RSpec.describe 'Aggregates', type: :request do
               expect(@sales_growth_rate).to be_present
             end
 
-            it 'インスタンス変数の中身の整合性チェック' do
+            it 'インスタンス変数の中身の整合性チェック(@aggregates_of_maker_producttype)' do
               aggregates_of_maker_producttype_1st = @aggregates_of_maker_producttype.first 
               aggregates_of_maker_producttype_2nd = @aggregates_of_maker_producttype.second 
               aggregates_of_maker_producttype_3rd = @aggregates_of_maker_producttype.third 
@@ -66,6 +70,9 @@ RSpec.describe 'Aggregates', type: :request do
               expect(aggregates_of_maker_producttype_1st.producttype_name).to eq '商品A'
               expect(aggregates_of_maker_producttype_2nd.producttype_name).to eq '商品B'
               expect(aggregates_of_maker_producttype_3rd.producttype_name).to eq '商品C'
+              expect(aggregates_of_maker_producttype_1st.sum_amount_sold).to eq 30000
+              expect(aggregates_of_maker_producttype_2nd.sum_amount_sold).to eq 20000
+              expect(aggregates_of_maker_producttype_3rd.sum_amount_sold).to eq 10000
             end
           end
 
