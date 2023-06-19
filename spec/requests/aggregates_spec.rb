@@ -16,14 +16,14 @@ RSpec.describe 'Aggregates', type: :request do
 
     describe '#monthly_search' do
       let(:login_user) { user_a }
-      # 2022年1月の登録日時で、メーカAと商品Aの組み合わせの売上データを３０件、メーカBと商品Bの組み合わせの売上データを２０件、メーカCと商品Cの組み合わせの売上データを１０件作成する。
-      let!(:monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_a)}
-      let!(:monthly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 20, user: user_a, maker: maker_b, producttype: producttype_b)}
-      let!(:monthly_aggregate_sale_c) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 10, user: user_a, maker: maker_c, producttype: producttype_c)}
-      # 2021年1月の登録日時で、メーカAと商品Aの組み合わせの売上データを３０件、メーカBと商品Bの組み合わせの売上データを２０件、メーカCと商品Cの組み合わせの売上データを１０件作成する。
-      let!(:last_year_monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, :last_year, user: user_a, maker: maker_a, producttype: producttype_a)}
-      let!(:last_year_monthly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 20, :last_year, user: user_a, maker: maker_b, producttype: producttype_b)}
-      let!(:last_year_monthly_aggregate_sale_c) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 10, :last_year, user: user_a, maker: maker_c, producttype: producttype_c)}
+      # 2022年1月の登録日時で、メーカAと商品Cの組み合わせの売上データを３０件、メーカBと商品Aの組み合わせの売上データを２０件、メーカCと商品Bの組み合わせの売上データを１０件作成する。
+      let!(:monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_c)}
+      let!(:monthly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 20, user: user_a, maker: maker_b, producttype: producttype_a)}
+      let!(:monthly_aggregate_sale_c) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 10, user: user_a, maker: maker_c, producttype: producttype_b)}
+      # 2021年1月の登録日時で、メーカAと商品Cの組み合わせの売上データを３０件、メーカBと商品Aの組み合わせの売上データを２０件、メーカCと商品Bの組み合わせの売上データを１０件作成する。
+      let!(:last_year_monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, :last_year, user: user_a, maker: maker_a, producttype: producttype_c)}
+      let!(:last_year_monthly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 20, :last_year, user: user_a, maker: maker_b, producttype: producttype_a)}
+      let!(:last_year_monthly_aggregate_sale_c) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 10, :last_year, user: user_a, maker: maker_c, producttype: producttype_b)}
 
       subject { get user_monthly_search_path(login_user), params: params; response } 
 
@@ -69,9 +69,9 @@ RSpec.describe 'Aggregates', type: :request do
               expect(aggregates_of_maker_producttype_2nd.maker_name).to eq 'メーカーB'
               expect(aggregates_of_maker_producttype_3rd.maker_name).to eq 'メーカーC'
               # １位、２位、３位のインスタンスにセットされている商品分類名が正しい値か
-              expect(aggregates_of_maker_producttype_1st.producttype_name).to eq '商品A'
-              expect(aggregates_of_maker_producttype_2nd.producttype_name).to eq '商品B'
-              expect(aggregates_of_maker_producttype_3rd.producttype_name).to eq '商品C'
+              expect(aggregates_of_maker_producttype_1st.producttype_name).to eq '商品C'
+              expect(aggregates_of_maker_producttype_2nd.producttype_name).to eq '商品A'
+              expect(aggregates_of_maker_producttype_3rd.producttype_name).to eq '商品B'
               # １位、２位、３位のインスタンスにセットされている合計売上額が正しい値か
               expect(aggregates_of_maker_producttype_1st.sum_amount_sold).to eq 30000
               expect(aggregates_of_maker_producttype_2nd.sum_amount_sold).to eq 20000
@@ -102,30 +102,69 @@ RSpec.describe 'Aggregates', type: :request do
               expect(aggregates_of_maker_1st.maker_name).to eq 'メーカーA'
               expect(aggregates_of_maker_2nd.maker_name).to eq 'メーカーB'
               expect(aggregates_of_maker_3rd.maker_name).to eq 'メーカーC'
-              # １位、２位、３位のインスタンスにセットされている商品分類名が正しい値か
-              expect(aggregates_of_maker_producttype_1st.producttype_name).to eq '商品A'
-              expect(aggregates_of_maker_producttype_2nd.producttype_name).to eq '商品B'
-              expect(aggregates_of_maker_producttype_3rd.producttype_name).to eq '商品C'
               # １位、２位、３位のインスタンスにセットされている合計売上額が正しい値か
-              expect(aggregates_of_maker_producttype_1st.sum_amount_sold).to eq 30000
-              expect(aggregates_of_maker_producttype_2nd.sum_amount_sold).to eq 20000
-              expect(aggregates_of_maker_producttype_3rd.sum_amount_sold).to eq 10000
+              expect(aggregates_of_maker_1st.sum_amount_sold).to eq 30000
+              expect(aggregates_of_maker_2nd.sum_amount_sold).to eq 20000
+              expect(aggregates_of_maker_3rd.sum_amount_sold).to eq 10000
               # １位、２位、３位のインスタンスにセットされている合計販売数量が正しい値か
-              expect(aggregates_of_maker_producttype_1st.quantity_sold).to eq 30
-              expect(aggregates_of_maker_producttype_2nd.quantity_sold).to eq 20
-              expect(aggregates_of_maker_producttype_3rd.quantity_sold).to eq 10
+              expect(aggregates_of_maker_1st.quantity_sold).to eq 30
+              expect(aggregates_of_maker_2nd.quantity_sold).to eq 20
+              expect(aggregates_of_maker_3rd.quantity_sold).to eq 10
               # １位、２位、３位のインスタンスにセットされている去年の合計売上額が正しい値か
-              expect(aggregates_of_maker_producttype_1st.last_year_sum_amount_sold).to eq 15000
-              expect(aggregates_of_maker_producttype_2nd.last_year_sum_amount_sold).to eq 10000
-              expect(aggregates_of_maker_producttype_3rd.last_year_sum_amount_sold).to eq 5000
+              expect(aggregates_of_maker_1st.last_year_sum_amount_sold).to eq 15000
+              expect(aggregates_of_maker_2nd.last_year_sum_amount_sold).to eq 10000
+              expect(aggregates_of_maker_3rd.last_year_sum_amount_sold).to eq 5000
               # １位、２位、３位のインスタンスにセットされている去年の合計販売数量が正しい値か
-              expect(aggregates_of_maker_producttype_1st.last_year_quantity_sold).to eq 30
-              expect(aggregates_of_maker_producttype_2nd.last_year_quantity_sold).to eq 20
-              expect(aggregates_of_maker_producttype_3rd.last_year_quantity_sold).to eq 10
+              expect(aggregates_of_maker_1st.last_year_quantity_sold).to eq 30
+              expect(aggregates_of_maker_2nd.last_year_quantity_sold).to eq 20
+              expect(aggregates_of_maker_3rd.last_year_quantity_sold).to eq 10
               # １位、２位、３位のインスタンスにセットされている売上成長率が正しい値か
-              expect(aggregates_of_maker_producttype_1st.sales_growth_rate).to eq "100.0%"
-              expect(aggregates_of_maker_producttype_2nd.sales_growth_rate).to eq "100.0%"
-              expect(aggregates_of_maker_producttype_3rd.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_1st.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_2nd.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_3rd.sales_growth_rate).to eq "100.0%"
+            end
+
+            it 'インスタンス変数の中身の整合性チェック(@aggregates_of_producttype)' do
+              aggregates_of_producttype_1st = @aggregates_of_producttype.first 
+              aggregates_of_producttype_2nd = @aggregates_of_producttype.second 
+              aggregates_of_producttype_3rd = @aggregates_of_producttype.third 
+              # １位、２位、３位のインスタンスにセットされている商品分類名が正しい値か
+              expect(aggregates_of_producttype_1st.producttype_name).to eq '商品C'
+              expect(aggregates_of_producttype_2nd.producttype_name).to eq '商品A'
+              expect(aggregates_of_producttype_3rd.producttype_name).to eq '商品B'
+              # １位、２位、３位のインスタンスにセットされている合計売上額が正しい値か
+              expect(aggregates_of_producttype_1st.sum_amount_sold).to eq 30000
+              expect(aggregates_of_producttype_2nd.sum_amount_sold).to eq 20000
+              expect(aggregates_of_producttype_3rd.sum_amount_sold).to eq 10000
+              # １位、２位、３位のインスタンスにセットされている合計販売数量が正しい値か
+              expect(aggregates_of_producttype_1st.quantity_sold).to eq 30
+              expect(aggregates_of_producttype_2nd.quantity_sold).to eq 20
+              expect(aggregates_of_producttype_3rd.quantity_sold).to eq 10
+              # １位、２位、３位のインスタンスにセットされている去年の合計売上額が正しい値か
+              expect(aggregates_of_producttype_1st.last_year_sum_amount_sold).to eq 15000
+              expect(aggregates_of_producttype_2nd.last_year_sum_amount_sold).to eq 10000
+              expect(aggregates_of_producttype_3rd.last_year_sum_amount_sold).to eq 5000
+              # １位、２位、３位のインスタンスにセットされている去年の合計販売数量が正しい値か
+              expect(aggregates_of_producttype_1st.last_year_quantity_sold).to eq 30
+              expect(aggregates_of_producttype_2nd.last_year_quantity_sold).to eq 20
+              expect(aggregates_of_producttype_3rd.last_year_quantity_sold).to eq 10
+              # １位、２位、３位のインスタンスにセットされている売上成長率が正しい値か
+              expect(aggregates_of_producttype_1st.sales_growth_rate).to eq '100.0%'
+              expect(aggregates_of_producttype_2nd.sales_growth_rate).to eq '100.0%'
+              expect(aggregates_of_producttype_3rd.sales_growth_rate).to eq '100.0%'
+            end
+
+            it 'インスタンス変数の中身の整合性チェック(@sales_trend)' do
+              # 1月1日  - 1月10日までの売上合計額が、30000円になること
+              expect(@sales_trend.values[0..9].sum).to eq 30000
+              # 1月11日 - 1月20日までの売上合計額が、20000円になること
+              expect(@sales_trend.values[10..19].sum).to eq 20000
+              # 1月21日 - 1月31日までの売上合計額が、10000円になること
+              expect(@sales_trend.values[20..30].sum).to eq 10000
+            end
+
+            it 'インスタンス変数の中身の整合性チェック(@sales_trend)' do
+              
             end
           end
 
