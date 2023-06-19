@@ -64,28 +64,55 @@ RSpec.describe 'Aggregates', type: :request do
               aggregates_of_maker_producttype_1st = @aggregates_of_maker_producttype.first 
               aggregates_of_maker_producttype_2nd = @aggregates_of_maker_producttype.second 
               aggregates_of_maker_producttype_3rd = @aggregates_of_maker_producttype.third 
+              # １位、２位、３位のインスタンスにセットされているメーカー名が正しい値か
               expect(aggregates_of_maker_producttype_1st.maker_name).to eq 'メーカーA'
               expect(aggregates_of_maker_producttype_2nd.maker_name).to eq 'メーカーB'
               expect(aggregates_of_maker_producttype_3rd.maker_name).to eq 'メーカーC'
+              # １位、２位、３位のインスタンスにセットされている商品分類名が正しい値か
               expect(aggregates_of_maker_producttype_1st.producttype_name).to eq '商品A'
               expect(aggregates_of_maker_producttype_2nd.producttype_name).to eq '商品B'
               expect(aggregates_of_maker_producttype_3rd.producttype_name).to eq '商品C'
+              # １位、２位、３位のインスタンスにセットされている合計売上額が正しい値か
               expect(aggregates_of_maker_producttype_1st.sum_amount_sold).to eq 30000
               expect(aggregates_of_maker_producttype_2nd.sum_amount_sold).to eq 20000
               expect(aggregates_of_maker_producttype_3rd.sum_amount_sold).to eq 10000
+              # １位、２位、３位のインスタンスにセットされている合計販売数量が正しい値か
+              expect(aggregates_of_maker_producttype_1st.quantity_sold).to eq 30
+              expect(aggregates_of_maker_producttype_2nd.quantity_sold).to eq 20
+              expect(aggregates_of_maker_producttype_3rd.quantity_sold).to eq 10
+              # １位、２位、３位のインスタンスにセットされている去年の合計売上額が正しい値か
+              expect(aggregates_of_maker_producttype_1st.last_year_sum_amount_sold).to eq 15000
+              expect(aggregates_of_maker_producttype_2nd.last_year_sum_amount_sold).to eq 10000
+              expect(aggregates_of_maker_producttype_3rd.last_year_sum_amount_sold).to eq 5000
+              # １位、２位、３位のインスタンスにセットされている去年の合計販売数量が正しい値か
+              expect(aggregates_of_maker_producttype_1st.last_year_quantity_sold).to eq 30
+              expect(aggregates_of_maker_producttype_2nd.last_year_quantity_sold).to eq 20
+              expect(aggregates_of_maker_producttype_3rd.last_year_quantity_sold).to eq 10
+              # １位、２位、３位のインスタンスにセットされている売上成長率が正しい値か
+              expect(aggregates_of_maker_producttype_1st.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_producttype_2nd.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_producttype_3rd.sales_growth_rate).to eq "100.0%"
             end
           end
 
           context '売上データがない場合' do
             let(:params) { { search_form: { date: '2022-11-1' } } }
             
-            it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
-              is_expected.to render_template('monthly_aggregate') 
-              expect(response).to have_http_status(:success)
-
+            before do
+              subject
               # コントローラーよりインスタンス変数を取得
               @no_result = controller.instance_variable_get('@no_result')
-              # インスタンス変数にメッセージがセットされているか
+            end
+
+            it 'レスポンスが正常であること' do
+              expect(response).to have_http_status(:success)
+            end
+
+            it '意図した画面に遷移すること' do
+              expect(response).to render_template('monthly_aggregate')
+            end
+
+            it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
               expect(@no_result).to eq '集計期間に該当する売上データがありません。'
             end
           end
