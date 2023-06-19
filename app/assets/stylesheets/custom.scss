@@ -184,7 +184,7 @@ label.required:after {
   &__ttl {
     cursor: pointer;
     // border: 2px;
-    padding: 5px;
+    padding: 10px;
     transition: background-color 0.3s;
     &:hover {
       background-color: black;
@@ -201,7 +201,7 @@ label.required:after {
     transition: 0.2s ease height;
     // background-color: #ff0000;
     li {
-      padding: 5px;
+      padding: 10px;
     }
   }
 }
