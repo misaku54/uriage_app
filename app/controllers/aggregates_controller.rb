@@ -37,7 +37,7 @@ class AggregatesController < ApplicationController
       @sales_growth_rate               = aggregate.sales_growth_rate
       render 'monthly_aggregate'
     else
-      render 'monthly_aggregate'
+      render 'monthly_aggregate', status: :unprocessable_entity
     end
   end
 
@@ -76,7 +76,7 @@ class AggregatesController < ApplicationController
       @sales_growth_rate               = aggregate.sales_growth_rate
       render 'yearly_aggregate'
     else
-      render 'yearly_aggregate'
+      render 'yearly_aggregate', status: :unprocessable_entity
     end
   end
 
@@ -113,9 +113,9 @@ class AggregatesController < ApplicationController
       @sales_trend                     = aggregate.sales_trend
       @sales_total_amount              = aggregate.sales_total_amount
       @sales_growth_rate               = aggregate.sales_growth_rate
-      render 'daily_aggregate'
+      render 'daily_aggregate' 
     else
-      render 'daily_aggregate'
+      render 'daily_aggregate', status: :unprocessable_entity
     end
   end
 

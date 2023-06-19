@@ -163,8 +163,12 @@ RSpec.describe 'Aggregates', type: :request do
               expect(@sales_trend.values[20..30].sum).to eq 10000
             end
 
-            it 'インスタンス変数の中身の整合性チェック(@sales_trend)' do
-              
+            it 'インスタンス変数の中身の整合性チェック(@sales_total_amount)' do
+              expect(@sales_total_amount).to eq 60000
+            end
+
+            it 'インスタンス変数の中身の整合性チェック(@sales_growth_rate)' do
+              expect(@sales_growth_rate).to eq '100.0%'
             end
           end
 
@@ -192,8 +196,30 @@ RSpec.describe 'Aggregates', type: :request do
         end
 
         context '失敗した場合' do
-          it 'インスタンス変数に値が入らないこと' do
+          let(:params) { { search_form: { date: '' } } }
 
+          before do
+            subject
+            # コントローラーよりインスタンス変数を取得
+            @aggregates_of_maker_producttype = controller.instance_variable_get('@aggregates_of_maker_producttype')
+            @aggregates_of_maker             = controller.instance_variable_get('@aggregates_of_maker')
+            @aggregates_of_producttype       = controller.instance_variable_get('@aggregates_of_producttype')
+            @sales_trend                     = controller.instance_variable_get('@sales_trend')
+            @sales_total_amount              = controller.instance_variable_get('@sales_total_amount')
+            @sales_growth_rate               = controller.instance_variable_get('@sales_growth_rate')            
+          end
+
+          it 'インスタンス変数に値が入らないこと' do
+            expect(@aggregates_of_maker_producttype).to be_nil
+            expect(@aggregates_of_maker).to be_nil
+            expect(@aggregates_of_producttype).to be_nil
+            expect(@sales_trend).to be_nil
+            expect(@sales_total_amount).to be_nil
+            expect(@sales_growth_rate).to be_nil
+          end
+
+          it 'レスポンスが422であること' do
+            expect(response).to have_http_status(:unprocessable_entity)
           end
         end
       end
