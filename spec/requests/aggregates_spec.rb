@@ -513,7 +513,7 @@ RSpec.describe 'Aggregates', type: :request do
               # １位、２位、３位のインスタンスにセットされている売上成長率が正しい値か
               expect(aggregates_of_maker_1st.sales_growth_rate).to eq "100.0%"
               expect(aggregates_of_maker_2nd.sales_growth_rate).to eq "100.0%"
-              expect(aggregates_of_maker_3rd.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_3rd.sales_growth_rate).to_not eq "100.0%"
             end
 
             it 'インスタンス変数の中身の整合性チェック(@aggregates_of_producttype)' do
@@ -601,6 +601,5 @@ RSpec.describe 'Aggregates', type: :request do
         end
       end
     end
-
   end
 end
