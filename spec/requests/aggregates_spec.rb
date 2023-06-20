@@ -173,7 +173,7 @@ RSpec.describe 'Aggregates', type: :request do
           end
 
           context '売上データがない場合' do
-            let(:params) { { search_form: { date: '2022-11-1' } } }
+            let(:params) { { search_form: { date: '2022-2-1' } } }
 
             it 'レスポンスが正常であること' do
               expect(response).to have_http_status(:success)
