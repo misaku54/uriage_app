@@ -67,6 +67,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem "factory_bot_rails"
   gem 'rails-controller-testing'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
@@ -84,7 +85,6 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem "webdrivers"
+  # gem "webdrivers"
   gem 'launchy' 
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end

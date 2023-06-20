@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "メーカー管理機能", type: :system do
-  let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
-  let(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
+  let!(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
+  let!(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
   let!(:maker) { FactoryBot.create(:maker, name:'メーカーA', user: user_a) }
-  
+
   describe '未ログイン' do
     describe 'ページ遷移確認' do
       context 'メーカーの一覧画面へアクセス' do

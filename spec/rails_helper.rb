@@ -33,7 +33,7 @@ end
 # docker上でCapybaraを使うための設定
 Capybara.register_driver :remote_chrome do |app|
   url = "http://chrome:4444/wd/hub"
-  caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
     "goog:chromeOptions" => {
       "args" => [
         "no-sandbox",
@@ -43,15 +43,16 @@ Capybara.register_driver :remote_chrome do |app|
       ]
     }
   )
-  Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
+  # Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
+  Capybara::Selenium::Driver.new(app, browser: :remote, url: url, capabilities: caps)
 end
 
 RSpec.configure do |config|
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
+  # config.before(:each, type: :system) do
+  #   driven_by :rack_test
+  # end
 
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, type: :system) do
     driven_by :remote_chrome
     Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
     Capybara.server_port = 4444

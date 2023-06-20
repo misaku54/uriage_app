@@ -4,7 +4,7 @@ RSpec.describe "商品管理機能", type: :system do
   let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
   let(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
   let!(:producttype) { FactoryBot.create(:producttype, name:'商品A', user: user_a) }
-  
+
   describe '未ログイン' do
     describe 'ページ遷移確認' do
       context '商品の一覧画面へアクセス' do
@@ -89,14 +89,12 @@ RSpec.describe "商品管理機能", type: :system do
     end
 
     describe '一覧表示機能' do
-      before do
-        visit user_producttypes_path(login_user)
-      end
 
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
 
         it 'ユーザーAが登録した商品が表示されていること' do
+          visit user_producttypes_path(login_user)
           expect(page).to have_content '商品A'
           expect(page).to have_link '編集', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
           expect(page).to have_link '削除', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
@@ -107,6 +105,7 @@ RSpec.describe "商品管理機能", type: :system do
         let(:login_user) { user_b }
 
         it 'ユーザーAが登録した商品が表示されていないこと' do
+          visit user_producttypes_path(login_user)
           expect(page).to have_no_content '商品A'
           expect(page).to have_no_link '編集', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
           expect(page).to have_no_link '削除', href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
