@@ -291,33 +291,33 @@ RSpec.describe 'Aggregates', type: :request do
             end
 
             it 'インスタンス変数の中身の整合性チェック(@aggregates_of_maker)' do
-              # aggregates_of_maker_1st = @aggregates_of_maker.first 
-              # aggregates_of_maker_2nd = @aggregates_of_maker.second 
-              # aggregates_of_maker_3rd = @aggregates_of_maker.third 
-              # # １位、２位、３位のインスタンスにセットされているメーカー名が正しい値か
-              # expect(aggregates_of_maker_1st.maker_name).to eq 'メーカーA'
-              # expect(aggregates_of_maker_2nd.maker_name).to eq 'メーカーB'
-              # expect(aggregates_of_maker_3rd.maker_name).to eq 'メーカーC'
-              # # １位、２位、３位のインスタンスにセットされている合計売上額が正しい値か
-              # expect(aggregates_of_maker_1st.sum_amount_sold).to eq 30000
-              # expect(aggregates_of_maker_2nd.sum_amount_sold).to eq 20000
-              # expect(aggregates_of_maker_3rd.sum_amount_sold).to eq 10000
-              # # １位、２位、３位のインスタンスにセットされている合計販売数量が正しい値か
-              # expect(aggregates_of_maker_1st.quantity_sold).to eq 30
-              # expect(aggregates_of_maker_2nd.quantity_sold).to eq 20
-              # expect(aggregates_of_maker_3rd.quantity_sold).to eq 10
-              # # １位、２位、３位のインスタンスにセットされている去年の合計売上額が正しい値か
-              # expect(aggregates_of_maker_1st.last_year_sum_amount_sold).to eq 15000
-              # expect(aggregates_of_maker_2nd.last_year_sum_amount_sold).to eq 10000
-              # expect(aggregates_of_maker_3rd.last_year_sum_amount_sold).to eq 5000
-              # # １位、２位、３位のインスタンスにセットされている去年の合計販売数量が正しい値か
-              # expect(aggregates_of_maker_1st.last_year_quantity_sold).to eq 30
-              # expect(aggregates_of_maker_2nd.last_year_quantity_sold).to eq 20
-              # expect(aggregates_of_maker_3rd.last_year_quantity_sold).to eq 10
-              # # １位、２位、３位のインスタンスにセットされている売上成長率が正しい値か
-              # expect(aggregates_of_maker_1st.sales_growth_rate).to eq "100.0%"
-              # expect(aggregates_of_maker_2nd.sales_growth_rate).to eq "100.0%"
-              # expect(aggregates_of_maker_3rd.sales_growth_rate).to eq "100.0%"
+              aggregates_of_maker_1st = @aggregates_of_maker.first 
+              aggregates_of_maker_2nd = @aggregates_of_maker.second 
+              aggregates_of_maker_3rd = @aggregates_of_maker.third 
+              # １位、２位、３位のインスタンスにセットされているメーカー名が正しい値か
+              expect(aggregates_of_maker_1st.maker_name).to eq 'メーカーA'
+              expect(aggregates_of_maker_2nd.maker_name).to eq 'メーカーB'
+              expect(aggregates_of_maker_3rd.maker_name).to eq 'メーカーC'
+              # １位、２位、３位のインスタンスにセットされている合計売上額が正しい値か
+              expect(aggregates_of_maker_1st.sum_amount_sold).to eq 15000
+              expect(aggregates_of_maker_2nd.sum_amount_sold).to eq 10000
+              expect(aggregates_of_maker_3rd.sum_amount_sold).to eq 5000
+              # １位、２位、３位のインスタンスにセットされている合計販売数量が正しい値か
+              expect(aggregates_of_maker_1st.quantity_sold).to eq 15
+              expect(aggregates_of_maker_2nd.quantity_sold).to eq 10
+              expect(aggregates_of_maker_3rd.quantity_sold).to eq 5
+              # １位、２位、３位のインスタンスにセットされている去年の合計売上額が正しい値か
+              expect(aggregates_of_maker_1st.last_year_sum_amount_sold).to eq 7500
+              expect(aggregates_of_maker_2nd.last_year_sum_amount_sold).to eq 5000
+              expect(aggregates_of_maker_3rd.last_year_sum_amount_sold).to eq 2500
+              # １位、２位、３位のインスタンスにセットされている去年の合計販売数量が正しい値か
+              expect(aggregates_of_maker_1st.last_year_quantity_sold).to eq 15
+              expect(aggregates_of_maker_2nd.last_year_quantity_sold).to eq 10
+              expect(aggregates_of_maker_3rd.last_year_quantity_sold).to eq 5
+              # １位、２位、３位のインスタンスにセットされている売上成長率が正しい値か
+              expect(aggregates_of_maker_1st.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_2nd.sales_growth_rate).to eq "100.0%"
+              expect(aggregates_of_maker_3rd.sales_growth_rate).to eq "100.0%"
             end
 
             it 'インスタンス変数の中身の整合性チェック(@aggregates_of_producttype)' do
