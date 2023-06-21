@@ -6,8 +6,8 @@ RSpec.describe "セッション機能", type: :system do
     context '無効な値でログインした場合' do
       it 'ログインできないこと' do
         visit login_path
-        fill_in 'メールアドレス', with: ''
-        fill_in 'パスワード', with: ''
+        fill_in 'session[email]', with: ''
+        fill_in 'session[password]', with: ''
         click_button 'ログイン'
         # ログインページにレンダリングされていること
         expect(page).to have_current_path login_path

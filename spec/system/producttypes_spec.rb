@@ -119,7 +119,7 @@ RSpec.describe "商品管理機能", type: :system do
       context '商品分類名を有効な値で登録した場合' do
         it '登録に成功する' do
           visit new_user_producttype_path(login_user)
-          fill_in '商品分類名', with: 'create商品'
+          fill_in 'producttype[name]', with: 'create商品'
           expect {
             click_button '登録'
           }.to change(Producttype, :count).by(1)
@@ -139,7 +139,7 @@ RSpec.describe "商品管理機能", type: :system do
       context '商品分類名を無効な値で登録した場合' do
         it '登録に失敗する' do
           visit new_user_producttype_path(login_user)
-          fill_in '商品分類名', with: ''
+          fill_in 'producttype[name]', with: ''
           # DB上に登録されていないこと
           expect {
             click_button '登録'
@@ -156,7 +156,7 @@ RSpec.describe "商品管理機能", type: :system do
       context '商品分類名を有効な値で更新した場合' do
         it '更新に成功する' do
           visit edit_user_producttype_path(login_user, producttype)
-          fill_in '商品分類名', with: 'update商品'
+          fill_in 'producttype[name]', with: 'update商品'
           click_button '更新'
 
           # 正しい値に更新されているか
@@ -179,7 +179,7 @@ RSpec.describe "商品管理機能", type: :system do
         it '更新に失敗する' do
           producttype_before = producttype
           visit edit_user_producttype_path(login_user, producttype)
-          fill_in '商品分類名', with: ''
+          fill_in 'producttype[name]', with: ''
           click_button '更新'
           producttype.reload
           # 更新前と値が変わっていないこと

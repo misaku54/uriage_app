@@ -161,10 +161,10 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
         context 'ユーザー名を有効な値で登録した場合' do
           it '登録に成功する' do
-            fill_in '名前', with: 'ユーザーC'
-            fill_in 'メールアドレス', with: 'c@example.com'
-            fill_in 'パスワード', with: 'password'
-            fill_in 'パスワード確認', with: 'password'
+            fill_in 'user[name]', with: 'ユーザーC'
+            fill_in 'user[email]', with: 'c@example.com'
+            fill_in 'user[password]', with: 'password'
+            fill_in 'user[password_confirmation]', with: 'password'
             # DB上に登録されていること
             expect {
               click_button 'ユーザー登録'
@@ -182,10 +182,10 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
         context 'ユーザー名を無効な値で登録した場合' do
           it '登録に失敗する' do
-            fill_in '名前', with: ''
-            fill_in 'メールアドレス', with: 'user@invalid'
-            fill_in 'パスワード', with: 'foo'
-            fill_in 'パスワード確認', with: 'bar'
+            fill_in 'user[name]', with: ''
+            fill_in 'user[email]', with: 'user@invalid'
+            fill_in 'user[password]', with: 'foo'
+            fill_in 'user[password_confirmation]', with: 'bar'
             # DB上に登録されていないこと
             expect {
               click_button 'ユーザー登録'
@@ -209,10 +209,10 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
         context 'ユーザーAを有効な値で更新した場合' do
           it '更新に成功する' do
-            fill_in '名前', with: 'ユーザーD'
-            fill_in 'メールアドレス', with: 'd@example.com'
-            fill_in 'パスワード', with: 'validpassword'
-            fill_in 'パスワード確認', with: 'validpassword'
+            fill_in 'user[name]', with: 'ユーザーD'
+            fill_in 'user[email]', with: 'd@example.com'
+            fill_in 'user[password]', with: 'validpassword'
+            fill_in 'user[password_confirmation]', with: 'validpassword'
             click_button 'ユーザー更新'
 
             # 正しい値に更新されているか
@@ -225,7 +225,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
         context 'ユーザーAに管理者権限を付与して更新した場合' do
           it '管理者権限が付与されていること' do
-            check '管理者権限'
+            check 'user[admin]'
             click_button 'ユーザー更新'
             
             user_a.reload
@@ -236,10 +236,10 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
         context 'ユーザーAを無効な値で更新した場合' do
           it '更新に失敗する' do
             user_before = user_a
-            fill_in '名前', with: ''
-            fill_in 'メールアドレス', with: 'user@invalid'
-            fill_in 'パスワード', with: 'foo'
-            fill_in 'パスワード確認', with: 'bar'
+            fill_in 'user[name]', with: ''
+            fill_in 'user[email]', with: 'user@invalid'
+            fill_in 'user[password]', with: 'foo'
+            fill_in 'user[password_confirmation]', with: 'bar'
             click_button 'ユーザー更新'
             user_a.reload
             # 更新前と値が変わっていないこと

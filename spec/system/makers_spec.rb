@@ -120,7 +120,7 @@ RSpec.describe "メーカー管理機能", type: :system do
       context 'メーカー名を有効な値で登録した場合' do
         it '登録に成功する' do
           visit new_user_maker_path(login_user)
-          fill_in 'メーカー名', with: 'createメーカー'
+          fill_in 'maker[name]', with: 'createメーカー'
           # DB上に登録されていること
           expect {
             click_button '登録'
@@ -141,7 +141,7 @@ RSpec.describe "メーカー管理機能", type: :system do
       context 'メーカー名を無効な値で登録した場合' do
         it '登録に失敗する' do
           visit new_user_maker_path(login_user)
-          fill_in 'メーカー名', with: ''
+          fill_in 'maker[name]', with: ''
           # DB上に登録されていないこと
           expect {
             click_button '登録'
@@ -158,7 +158,7 @@ RSpec.describe "メーカー管理機能", type: :system do
       context 'メーカー名を有効な値で更新した場合' do
         it '更新に成功する' do
           visit edit_user_maker_path(login_user, maker)
-          fill_in 'メーカー名', with: 'updateメーカー'
+          fill_in 'maker[name]', with: 'updateメーカー'
           click_button '更新'
 
           # 正しい値に更新されているか
@@ -181,7 +181,7 @@ RSpec.describe "メーカー管理機能", type: :system do
         it '更新に失敗する' do
           maker_before = maker
           visit edit_user_maker_path(login_user, maker)
-          fill_in 'メーカー名', with: ''
+          fill_in 'maker[name]', with: ''
           click_button '更新'
           maker.reload
           # 更新前と値が変わっていないこと

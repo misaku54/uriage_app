@@ -125,8 +125,8 @@ RSpec.describe "売上管理機能", type: :system do
           visit new_user_sale_path(login_user)
           select 'テスト会社', from: 'sale[maker_id]'
           select 'カバン', from: 'sale[producttype_id]'
-          fill_in '販売価格', with: 50000
-          fill_in '備考', with: 'セール価格'
+          fill_in 'sale[amount_sold]', with: 50000
+          fill_in 'sale[remark]', with: 'セール価格'
           # DB上に登録されていること
           expect {
             click_button '登録'
@@ -149,7 +149,7 @@ RSpec.describe "売上管理機能", type: :system do
           visit new_user_sale_path(login_user)
           select '選択してください', from: 'sale[maker_id]'
           select '選択してください', from: 'sale[producttype_id]'
-          fill_in '販売価格', with: 0
+          fill_in 'sale[amount_sold]', with: 0
           # DB上に登録されていないこと
           expect {
             click_button '登録'
@@ -170,8 +170,8 @@ RSpec.describe "売上管理機能", type: :system do
           visit edit_user_sale_path(login_user, sale)
           select 'メーカーA', from: 'sale[maker_id]'
           select '商品A', from: 'sale[producttype_id]'
-          fill_in '販売価格', with: 20000
-          fill_in '備考', with: '３０％オフ'
+          fill_in 'sale[amount_sold]', with: 20000
+          fill_in 'sale[remark]', with: '３０％オフ'
           click_button '更新'
 
           # 正しい値に更新されているか
@@ -197,7 +197,7 @@ RSpec.describe "売上管理機能", type: :system do
           visit edit_user_sale_path(login_user, sale)
           select '選択してください', from: 'sale[maker_id]'
           select '選択してください', from: 'sale[producttype_id]'
-          fill_in '販売価格', with: 0
+          fill_in 'sale[amount_sold]', with: 0
           click_button '更新'
           sale.reload
           # 更新前と値が変わっていないこと
