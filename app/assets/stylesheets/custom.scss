@@ -11,7 +11,6 @@ $gray-medium-light: #eaeaea;
 }
 
 // 共通部分
-
 html {
   // font-size: 10px;
   overflow:auto;
@@ -31,6 +30,10 @@ textarea {
 
 .center {
   text-align: center;
+}
+
+a {
+  text-decoration: none;
 }
 
 li {
@@ -186,7 +189,6 @@ label.required:after {
 .acordion {
   &__ttl {
     cursor: pointer;
-    // border: 2px;
     padding: 10px;
     transition: background-color 0.3s;
     &:hover {
@@ -194,7 +196,7 @@ label.required:after {
       color: white;
     }
     // &.is-active {
-    //   background-color: ;
+    //   background-color: chartreuse;
     // }
   }
   &__cnt {
@@ -202,7 +204,6 @@ label.required:after {
     height: 0;
     overflow: hidden;
     transition: 0.2s ease height;
-    // background-color: #ff0000;
     li {
       padding: 10px;
     }
