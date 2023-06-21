@@ -117,7 +117,9 @@ label.required:after {
 .sidebar {
   display: none;
 }
-
+#hyde {
+  display: none;
+}
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
