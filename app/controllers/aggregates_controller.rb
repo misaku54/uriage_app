@@ -113,7 +113,7 @@ class AggregatesController < ApplicationController
       @sales_trend                     = aggregate.sales_trend
       @sales_total_amount              = aggregate.sales_total_amount
       @sales_growth_rate               = aggregate.sales_growth_rate
-      render 'daily_aggregate', status: :see_other
+      render 'daily_aggregate'
     else
       render 'daily_aggregate', status: :unprocessable_entity
     end
