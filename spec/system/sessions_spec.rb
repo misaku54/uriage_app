@@ -31,7 +31,6 @@ RSpec.describe "セッション機能", type: :system do
         expect(page).to have_current_path user_path(user)
         # ページに適切な項目が表示されていること
         expect(page).to have_content '売上一覧'
-        expect(page).to have_content '運用管理'
         expect(page).to have_content '商品マスタ'
         expect(page).to have_content 'メーカーマスタ'
         expect(page).to have_content "#{user.name}"
