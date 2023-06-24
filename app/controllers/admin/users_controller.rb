@@ -53,6 +53,6 @@ class Admin::UsersController < ApplicationController
 
   # 管理者かどうか確認
   def if_not_admin
-    redirect_to(root_url, status: :see_other) unless current_user&.admin?
+    redirect_to(root_path, status: :see_other) unless current_user&.admin?
   end
 end
