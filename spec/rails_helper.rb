@@ -53,12 +53,12 @@ RSpec.configure do |config|
   end
 
   # このdocker内のブラウザを使ってテストしようとすると、パスするはずのテストでエラーが多発したり、runtimeエラーが出たりするため、racktestでシステムテストはおこなう。
-  # config.before(:each, type: :system) do
-  #   driven_by :remote_chrome
-  #   Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-  #   Capybara.server_port = 4444
-  #   Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
-  # end
+  config.before(:each, type: :system, js: true) do
+    driven_by :remote_chrome
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    Capybara.server_port = 4444
+    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
