@@ -48,12 +48,12 @@ Capybara.register_driver :remote_chrome do |app|
 end
 
 RSpec.configure do |config|
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
+  # config.before(:each, type: :system) do
+  #   driven_by :rack_test
+  # end
 
   # このdocker内のブラウザを使ってテストしようとすると、パスするはずのテストでエラーが多発したり、runtimeエラーが出たりするため、racktestでシステムテストはおこなう。
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, type: :system) do
     driven_by :remote_chrome
     Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
     Capybara.server_port = 4444
