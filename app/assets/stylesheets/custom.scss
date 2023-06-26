@@ -152,7 +152,7 @@ label.required:after {
 }
 
 .text-lg {
-  font-size: 2.0rem;
+  font-size: 1.5rem;
   line-height: 4.0rem;
 }
 
@@ -173,7 +173,8 @@ label.required:after {
 }
 
 .text-yellow,.text-gray,.text-brown{
-  margin-right: 1.5rem;
+  white-space: nowrap;
+  padding-right: 15px;
 }
 
 .form_date_select {
