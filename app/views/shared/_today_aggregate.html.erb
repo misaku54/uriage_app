@@ -1,27 +1,11 @@
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">ホーム</li>
-  </ol>
-</nav>
 
 <% if @no_result.present? %>
   <p><%= @no_result %></p>
 <% end %>
 
-<% if @sales_total_amount.present? %>
-  <div class="card mt-3">
-    <div class="card-header">
-      合計純売上
-    </div>
-    <div class="card-body">
-      <h4><%= add_comma_en(@sales_total_amount) %></h4>
-    </div>
-  </div>
-<% end %>
-
 <div class="row d-flex">
   <div class="col-md-8 col-lg-6 col-xl-4">
-    <div class="card mt-3" style="height: 315px;">
+    <div class="card mt-3" style="height: 310px;">
       <div class="card-body p-4">
       
         <h6 class="flex-grow-1">日付</h6>
@@ -36,7 +20,7 @@
     </div>
   </div>
   <div class="col-md-8 col-lg-6 col-xl-4">
-    <div class="card mt-3" style="height: 315px;">
+    <div class="card mt-3" style="height: 310px;">
       <div class="card-body p-4">
 
         <h6 class="flex-grow-1">天気情報</h6>
@@ -65,7 +49,7 @@
     </div>
   </div>
   <div class="col-md-8 col-lg-6 col-xl-4">
-    <div class="card mt-3" style="height: 315px;">
+    <div class="card mt-3" style="height: 310px;">
       <div class="card-body p-4">
       
         <h6 class="flex-grow-1">本日の売上</h6>
@@ -83,13 +67,23 @@
 
 <% if @sales_trend.present? %>
   <div class="card mt-3">
-    <div class="card-header">
-      売上推移
-    </div>
-    <div class="card-body">
-      <%= line_chart @sales_trend , suffix: "円", thousands: "," %>
+
+    <div class="card-body p-4">
+      <h6 class="flex-grow-1">本日の売上推移</h6>
+
+      <p><%= line_chart @sales_trend , suffix: "円", thousands: "," %></p>
     </div>
   </div>
 <% end %>
 
+<% if @sales_total_amount.present? %>
+  <div class="card mt-3">
+    <div class="card-header">
+      合計純売上
+    </div>
+    <div class="card-body">
+      <h4><%= add_comma_en(@sales_total_amount) %></h4>
+    </div>
+  </div>
+<% end %>
 
