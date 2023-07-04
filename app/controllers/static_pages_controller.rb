@@ -13,13 +13,12 @@ class StaticPagesController < ApplicationController
         @sales_total_amount = sales.sum(:amount_sold)
       end
 
-      # https://api.open-meteo.com/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=2023-07-02&end_date=2023-07-02
       # 天気APIとの連携
       uri = URI.parse('https://api.open-meteo.com')
       # HTTPクラインとを生成し、引数にホスト名とポート番号を指定する。
       http_client = Net::HTTP.new(uri.host, uri.port)
       # Net::HTTPのGETリクエストクラスでインスタンスを生成
-      get_request = Net::HTTP::GET.new(
+      get_request = Net::HTTP::Get.new(
       "/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=#{today.to_s}&end_date=#{today.to_s}",
       'Content-Type' => 'application/json'
       )
@@ -29,6 +28,7 @@ class StaticPagesController < ApplicationController
       response = http_client.request(get_request)
       # responseはJSON形式となっているので、JSON.parseでHashに変換する必要がある。
       @data = JSON.parse(response.body)
+      puts "aaaaa#{@data}"
     end
   end
 end
