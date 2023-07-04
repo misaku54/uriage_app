@@ -28,7 +28,6 @@ class StaticPagesController < ApplicationController
       response = http_client.request(get_request)
       # responseはJSON形式となっているので、JSON.parseでHashに変換する必要がある。
       @data = JSON.parse(response.body)
-      puts "aaaaa#{@data}"
     end
   end
 end
