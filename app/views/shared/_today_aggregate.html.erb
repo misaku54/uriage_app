@@ -14,26 +14,14 @@
       合計純売上
     </div>
     <div class="card-body">
-    <i class="fa-solid fa-magnifying-glass fa-2xs"></i>
       <h4><%= add_comma_en(@sales_total_amount) %></h4>
-    </div>
-  </div>
-<% end %>
-
-<% if @sales_trend.present? %>
-  <div class="card mt-3">
-    <div class="card-header">
-      売上推移
-    </div>
-    <div class="card-body">
-      <%= line_chart @sales_trend , suffix: "円", thousands: "," %>
     </div>
   </div>
 <% end %>
 
 <div class="row d-flex">
   <div class="col-md-8 col-lg-6 col-xl-4">
-    <div class="card mt-3 h-100">
+    <div class="card mt-3" style="height: 315px;">
       <div class="card-body p-4">
       
         <h6 class="flex-grow-1">日付</h6>
@@ -41,31 +29,21 @@
           <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> 7月4日 </h6>
           <span class="small" style="color: #868B94">火曜日</span>
         </div>
-
-      </div>
-    </div>
-  </div>
-  <div class="col-md-8 col-lg-6 col-xl-4">
-    <div class="card mt-3 h-100">
-      <div class="card-body p-4">
-      
-        <h6 class="flex-grow-1">本日の売上</h6>
-        <div class="d-flex flex-column text-center mt-5 mb-4">
-          <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> 10000円 </h6>
+        <div class="d-flex align-items-center justify-content-end">
+          <i class="fa-regular fa-calendar fa-5x"></i>
         </div>
-
       </div>
     </div>
   </div>
   <div class="col-md-8 col-lg-6 col-xl-4">
-    <div class="card mt-3 h-100">
+    <div class="card mt-3" style="height: 315px;">
       <div class="card-body p-4">
 
         <h6 class="flex-grow-1">天気情報</h6>
 
         <div class="d-flex flex-column text-center mt-5 mb-4">
           <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> 13°C </h6>
-          <span class="small" style="color: #868B94">Stormy</span>
+          <span class="small" style="color: #868B94">晴れ</span>
         </div>
 
         <div class="d-flex align-items-center">
@@ -79,14 +57,39 @@
             <div>最低気温： <span class="ms-1"> 0.2h </span>
             </div>
           </div>
-          <div>
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu1.webp"
-              width="100px">
+          <div class="d-flex align-items-center justify-content-end">
+            <i class="fa-solid fa-cloud-sun fa-5x"></i>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="col-md-8 col-lg-6 col-xl-4">
+    <div class="card mt-3" style="height: 315px;">
+      <div class="card-body p-4">
+      
+        <h6 class="flex-grow-1">本日の売上</h6>
+        <div class="d-flex flex-column text-center mt-5 mb-4">
+          <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> 10000 </h6>
+          <span class="small" style="color: #868B94">円</span>
+        </div>
+        <div class="d-flex align-items-center justify-content-end">
+          <i class="fa-solid fa-sack-dollar fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<% if @sales_trend.present? %>
+  <div class="card mt-3">
+    <div class="card-header">
+      売上推移
+    </div>
+    <div class="card-body">
+      <%= line_chart @sales_trend , suffix: "円", thousands: "," %>
+    </div>
+  </div>
+<% end %>
 
 
