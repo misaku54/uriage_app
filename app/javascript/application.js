@@ -10,3 +10,9 @@ import "chartkick"
 import "Chart.bundle"
 import Rails from '@rails/ujs';
 Rails.start();
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import '@fortawesome/fontawesome-free'
+library.add(fas, far, fab)
