@@ -1,4 +1,6 @@
 module ApplicationHelper
+  DAT_OF_WEEK = ["日", "月", "火", "水", "木", "金", "土"]
+
   # ページごとの完全なタイトルを返す
   def full_title(page_title = '')
     base_title = 'LiLy'
@@ -24,11 +26,6 @@ module ApplicationHelper
     "#{quantity_sold}個"
   end 
 
-  # 不要。確認後に消す
-  def html_safe_newline(str)
-    h(str).gsub(/\n|\r|\r\n/, "<br>").html_safe
-  end
-
   # 現在のページ数を取得する。
   def current_page_number(page_obj)
     if page_obj.present?
@@ -40,8 +37,13 @@ module ApplicationHelper
     end
   end
 
-  # turbo_streamでフラッシュを表示する際に使うヘルパー
-  def turbo_stream_flash
-    turbo_stream.update "flash", partial: "layouts/flash"
+  # 日付を曜日付きで取得する。
+  def get_date(date = '')
+    if date.present?
+      # date.strftime("%Y年%-m月%-d日(#{DAT_OF_WEEK[date.wday]})")
+      date.strftime("%-m月%-d日(#{DAT_OF_WEEK[date.wday]})")
+    else
+      '-'
+    end
   end
 end
