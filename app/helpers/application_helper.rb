@@ -13,6 +13,11 @@ module ApplicationHelper
   def add_comma_en(amount_sold = 0)
     "#{number_with_delimiter(amount_sold)}円"
   end
+
+  # カンマ区切りに変換
+  def add_comma(amount_sold = 0)
+    "#{number_with_delimiter(amount_sold)}"
+  end
   
   # 個数に変換
   def add_ko_sold(quantity_sold = 0)
