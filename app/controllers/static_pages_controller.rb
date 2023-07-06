@@ -20,7 +20,7 @@ class StaticPagesController < ApplicationController
       # Net::HTTPのGETリクエストクラスでインスタンスを生成
       # https://api.open-meteo.com/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,windspeed_10m_max&timezone=Asia%2FTokyo&start_date=2023-07-04&end_date=2023-07-04
       get_request = Net::HTTP::Get.new(
-      "/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=#{@today.to_s}&end_date=#{@today.to_s}",
+      "/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=#{@today}&end_date=#{@today}",
       'Content-Type' => 'application/json'
       )
       # httpsで通信をする場合はuse_sslをtrueにする必要がある。
