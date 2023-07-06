@@ -1,0 +1,3 @@
+class OpenMeteoService
+
+end
