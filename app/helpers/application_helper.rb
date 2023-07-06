@@ -4,11 +4,8 @@ module ApplicationHelper
   # ページごとの完全なタイトルを返す
   def full_title(page_title = '')
     base_title = 'LiLy'
-    if page_title.empty?
-      base_title
-    else
-      "#{page_title} | #{base_title}"
-    end
+    return base_title if page_title.empty?
+    "#{page_title} | #{base_title}"
   end
 
   # カンマ区切り円に変換
@@ -38,22 +35,15 @@ module ApplicationHelper
   end
 
   # 日付を曜日付きで取得する。
-  def get_date(date = '')
-    if date.present?
-      # date.strftime("%Y年%-m月%-d日(#{DAT_OF_WEEK[date.wday]})")
-      date.strftime("%-m月%-d日(#{DAT_OF_WEEK[date.wday]})")
-    else
-      '-'
-    end
+  def get_date(date)
+    return '-' if date.blank?
+    date.strftime("%-m月%-d日(#{DAT_OF_WEEK[date.wday]})")
   end
 
   # 与えられた日付が祝日だった場合、その祝日名を取得する。
   def get_holiday(date = '')
-    if HolidayJp.holiday?(date)
-      holidays = HolidayJp.between(date, date)
-      holidays.first.name
-    else
-      '祝日ではありません'
-    end
+    return '祝日ではありません' unless HolidayJp.holiday?(date) 
+    holidays = HolidayJp.between(date, date)
+    holidays.first.name
   end
 end
