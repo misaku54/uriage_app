@@ -3,8 +3,10 @@ require 'net/http'
 class StaticPagesController < ApplicationController
   def home
     if logged_in?
+      # 今日の日付と現在時刻（時間のみ）を取得
       @today = Time.zone.today
-      
+      @hour  = Time.zone.now.strftime("%H").to_i
+
       sales = current_user.sales.where(created_at: @today.all_day)
       if sales.present?
         # 売上推移の取得
@@ -13,13 +15,9 @@ class StaticPagesController < ApplicationController
         @sales_total_amount = sales.sum(:amount_sold)
       end
 
-      # 現在の天気情報を取得するロジック（あとでモデルかヘルパーに回す）
+      # 現在の天気情報の取得
       api = OpenMeteoService.new
       @data = api.get_weather_info(@today)
-      # 現在の時間を取得する。
-      hour = Time.zone.now.strftime("%H").to_i
-      puts @data[:hourly][:temperature_2m]
-      puts "aaaaaaaaaaaaaaaaa#{@data[:hourly][:temperature_2m][hour]}"
     end
   end
 end
