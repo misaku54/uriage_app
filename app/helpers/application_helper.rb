@@ -41,7 +41,7 @@ module ApplicationHelper
 
   # 与えられた日付が祝日だった場合、その祝日名を取得する。
   def get_holiday(date)
-    return '祝日ではありません' unless HolidayJp.holiday?(date) 
+    return '-' unless HolidayJp.holiday?(date) 
     holidays = HolidayJp.between(date, date)
     holidays.first.name
   end
