@@ -1,3 +1,4 @@
+# 天気API連携ロジックモデル
 class OpenMeteoService
   def get_weather_info(target_date, **options)   # 引数で受け取る場合の** キーワード引数をハッシュとして受け取る。
     method = build_query(target_date, **options) # 引数を渡す場合の**　　 ハッシュをキーワード引数に変換する。
@@ -5,7 +6,7 @@ class OpenMeteoService
   end
 
   private
-  
+
   def build_query(target_date, **options)
     {
     latitude: 31.9167,
