@@ -79,9 +79,6 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.9.2, < 3)
       sassc-rails (>= 2.0.0)
-    bootstrap_form (5.1.0)
-      actionpack (>= 5.2)
-      activemodel (>= 5.2)
     builder (3.2.4)
     byebug (11.1.3)
     capybara (3.38.0)
@@ -113,6 +110,7 @@ GEM
       activesupport (>= 5.0)
     groupdate (6.2.0)
       activesupport (>= 5.2)
+    holiday_jp (0.8.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -304,7 +302,6 @@ DEPENDENCIES
   bcrypt
   bootsnap
   bootstrap (~> 5.0.2)
-  bootstrap_form
   byebug
   capybara
   chartkick
@@ -312,6 +309,7 @@ DEPENDENCIES
   factory_bot_rails
   faker (= 2.21.0)
   groupdate
+  holiday_jp
   importmap-rails
   jbuilder
   jquery-rails
