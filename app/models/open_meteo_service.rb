@@ -11,7 +11,7 @@ class OpenMeteoService
     {
     latitude: 31.9167,
     longitude: 131.4167,
-    hourly: 'temperature_2m,precipitation_probability,weathercode',
+    hourly: 'temperature_2m,precipitation_probability,precipitation_probability,weathercode',
     daily: 'weathercode,temperature_2m_max,temperature_2m_min',
     timezone: 'Asia%2FTokyo',
     start_date: target_date,
