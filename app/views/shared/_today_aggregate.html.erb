@@ -27,7 +27,7 @@
 
         <div class="d-flex flex-column text-center mt-5 mb-4">
           <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"><%= "#{@data[:hourly][:temperature_2m][@hour]}°C" %></h6>
-          <span class="small" style="color: #868B94">晴れ</span>
+          <span class="small" style="color: #868B94"><%= get_weather(@data[:hourly][:weathercode][@hour]) %></span>
         </div>
 
         <div class="d-flex align-items-center">

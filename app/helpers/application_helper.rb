@@ -1,5 +1,9 @@
 module ApplicationHelper
   DAT_OF_WEEK = ["日", "月", "火", "水", "木", "金", "土"]
+  WETHER_CODE = {
+  
+  
+  }
 
   # ページごとの完全なタイトルを返す
   def full_title(page_title = '')
@@ -44,5 +48,22 @@ module ApplicationHelper
     return '-' unless HolidayJp.holiday?(date) 
     holidays = HolidayJp.between(date, date)
     holidays.first.name
+  end
+
+  # 天気情報の取得
+  def get_weather(weather_code)
+    return '不明'   if weather_code.blank?
+    return '快晴'   if weather_code == 0
+    return '晴れ'   if weather_code == 1
+    return '一部曇'  if weather_code == 2
+    return '曇り'   if weather_code == 3
+    return '霧'     if weather_code <= 49
+    return '霧雨'   if weather_code <= 59
+    return '雨'     if weather_code <= 69
+    return '雪'     if weather_code <= 79
+    return '俄か雨'  if weather_code <= 84
+    return '雪・雹'  if weather_code <= 94
+    return '雷雨'    if weather_code <= 99
+    '不明'
   end
 end
