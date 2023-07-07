@@ -6,8 +6,8 @@ module ApplicationHelper
   }
 
   # ページごとの完全なタイトルを返す
-  def full_title(page_title = '')
-    base_title = 'LiLy'
+  def full_title(page_title = "")
+    base_title = "LiLy"
     return base_title if page_title.empty?
     "#{page_title} | #{base_title}"
   end
@@ -45,25 +45,25 @@ module ApplicationHelper
 
   # 与えられた日付が祝日だった場合、その祝日名を取得する。
   def get_holiday(date)
-    return '-' unless HolidayJp.holiday?(date) 
+    return "-" unless HolidayJp.holiday?(date) 
     holidays = HolidayJp.between(date, date)
     holidays.first.name
   end
 
   # 天気情報の取得
   def get_weather(weather_code)
-    return '不明'   if weather_code.blank?
-    return '快晴'   if weather_code == 0
-    return '晴れ'   if weather_code == 1
-    return '一部曇'  if weather_code == 2
-    return '曇り'   if weather_code == 3
-    return '霧'     if weather_code <= 49
-    return '霧雨'   if weather_code <= 59
-    return '雨'     if weather_code <= 69
-    return '雪'     if weather_code <= 79
-    return '俄か雨'  if weather_code <= 84
-    return '雪・雹'  if weather_code <= 94
-    return '雷雨'    if weather_code <= 99
-    '不明'
+    return "不明"            if weather_code.blank?
+    return "快晴\u{2600}"   if weather_code == 0
+    return "晴れ\u{2600}"   if weather_code == 1
+    return "一部曇\u{1F324}"  if weather_code == 2
+    return "曇り\u{2601}"   if weather_code == 3
+    return "霧\u{1F32B}"     if weather_code <= 49
+    return "霧雨\u{1F32B}"   if weather_code <= 59
+    return "雨\u{1F327}"     if weather_code <= 69
+    return "雪\u{26C4}"     if weather_code <= 79
+    return "俄か雨\u{1F327}"  if weather_code <= 84
+    return "雪・雹\u{2603}"  if weather_code <= 94
+    return "雷雨\u{26C8}"    if weather_code <= 99
+    "不明"
   end
 end
