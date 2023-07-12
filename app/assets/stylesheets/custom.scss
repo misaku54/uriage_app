@@ -210,3 +210,25 @@ label.required:after {
     }
   }
 }
+
+/* ロードスピナー */
+#loading {
+  transition: all 1s;
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.spinner {
+  width: 200px;
+  height: 200px;
+}
+
+.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
