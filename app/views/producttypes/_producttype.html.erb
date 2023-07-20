@@ -7,9 +7,13 @@
   </td>
   <td>
     <div class="d-flex justify-content-end">
-      <%= link_to '編集', edit_user_producttype_path(@user, producttype), class: "btn btn-primary btn-xs" %> 
-      <%= link_to '削除', user_producttype_path(@user, producttype), 
-      data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'}, class: "btn btn-danger btn-xs" %>
+      <%= link_to edit_user_producttype_path(@user, producttype) do %>
+        <i class="fa-solid fa-pen fa-fw"></i>
+      <% end %>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <%= link_to user_producttype_path(@user, producttype), data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} do %>
+        <i class="far fa-trash-alt"></i>
+      <% end %>
     </div>
   </td>
 </tr>

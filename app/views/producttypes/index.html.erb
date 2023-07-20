@@ -6,12 +6,11 @@
   </ol>
 </nav>
 <%= render 'shared/search', q: @q, url: user_producttypes_path(@user), label: '商品名', list_name: 'producttype' %>
-<div class="card mt-3">
-  <div class="card-header">
-    一覧
-  </div>
+<div class="card shadow-sm">
+  
   <div class="card-body">
-    <div><%= current_page_number(@producttypes) %></div>
+    <h6>一覧 <%= current_page_number(@producttypes) %></h6>
+
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
@@ -24,7 +23,9 @@
             </th>
             <th>
               <div class="d-flex justify-content-end" >
-                <%= link_to " + 追加", new_user_producttype_path(@user), class: "btn btn-outline-primary" %>
+                <%= link_to new_user_producttype_path(@user) do %>
+                  <i class="fa-solid fa-plus"></i>
+                <% end %>
               </div>
             </th>
           </tr>
