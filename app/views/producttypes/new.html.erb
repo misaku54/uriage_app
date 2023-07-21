@@ -7,8 +7,4 @@
     <li class="breadcrumb-item active" aria-current="page">商品分類登録</li>
   </ol>
 </nav>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= render 'shared/form', obj: @producttype %>
-  </div>
-</div>
+<%= render 'shared/form', obj: @producttype, form_name: '登録フォーム' %>
