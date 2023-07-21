@@ -64,7 +64,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @sales.each.with_index(1) do |sale, index| %>
+          <% @sales.each do |sale| %>
             <tr>
               <td><%= sale.maker.present? ? sale.maker.name : '未登録' %></td>
               <td><%= sale.producttype.present? ? sale.producttype.name : "未登録" %></td>
