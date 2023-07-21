@@ -1,9 +1,6 @@
 module ApplicationHelper
+  # 定数宣言
   DAT_OF_WEEK = ["日", "月", "火", "水", "木", "金", "土"]
-  WETHER_CODE = {
-  
-  
-  }
 
   # ページごとの完全なタイトルを返す
   def full_title(page_title = "")
@@ -52,9 +49,9 @@ module ApplicationHelper
 
   # 天気情報の取得
   def get_weather(weather_code)
-    return "不明"            if weather_code.blank?
-    return "快晴\u{2600}"   if weather_code == 0
-    return "晴れ\u{2600}"   if weather_code == 1
+    return "不明"             if weather_code.blank?
+    return "快晴\u{2600}"     if weather_code == 0
+    return "晴れ\u{2600}"     if weather_code == 1
     return "一部曇\u{1F324}"  if weather_code == 2
     return "曇り\u{2601}"   if weather_code == 3
     return "霧\u{1F32B}"     if weather_code <= 49
