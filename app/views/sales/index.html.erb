@@ -55,7 +55,7 @@
             <th><%= Sale.human_attribute_name(:producttype_id) %></th>
             <th><%= Sale.human_attribute_name(:amount_sold) %></th>
             <th><%= Sale.human_attribute_name(:remark) %></th>
-            <th><%= sort_link(@q, :created_at) %></th>
+            <th><%= sort_link(@q, :created_at, class: "Editlink") %></th>
             <th>
               <div class="d-flex justify-content-end" >
                 <%= link_to " + 追加", new_user_sale_path(@user), class: "btn btn-outline-primary" %>
