@@ -4,7 +4,7 @@ class ProducttypesController < ApplicationController
 
   def index
     @q = @user.producttypes.ransack(params[:q])
-    @q.sorts = 'created_at asc' if @q.sorts.empty?
+    # @q.sorts = 'created_at asc' if @q.sorts.empty?
     @producttypes  = @q.result.page(params[:page]).per(10)
   end
 

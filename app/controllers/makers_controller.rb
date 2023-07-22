@@ -4,7 +4,7 @@ class MakersController < ApplicationController
 
   def index
     @q = @user.makers.ransack(params[:q])
-    @q.sorts = 'created_at asc' if @q.sorts.empty?
+    # @q.sorts = 'created_at asc' if @q.sorts.empty?
     @makers  = @q.result.page(params[:page]).per(10)
     @maker   = @user.makers.build
   end
