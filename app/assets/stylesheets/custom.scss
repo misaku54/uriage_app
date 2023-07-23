@@ -91,6 +91,7 @@ input, textarea, select, .uneditable-input {
   .form-control {
     color:  rgb(255, 0, 0);
   }
+  display: contents;
 }
 
 label.required:after {
