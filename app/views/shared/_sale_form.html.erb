@@ -1,0 +1,71 @@
+<%= form_with(model: [user, sale]) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h6 class="mb-3"><%= form_name %></h6>
+      <div class="">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="table-light">
+                <%= f.label :maker_id, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
+              </td>
+              <td>
+                <%= f.select :maker_id, user.makers.map{ |maker| [maker.name, maker.id]}, 
+                                    { include_blank: "選択してください" }, class:"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-light">
+                <%= f.label :producttype_id, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
+              </td>
+              <td>
+                <%= f.select :producttype_id, user.producttypes.map { |producttype| [producttype.name, producttype.id]}, 
+                                    { include_blank: "選択してください" }, class:"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-light">
+                <%= f.label :amount_sold, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
+              </td>
+              <td>
+                <%= f.number_field :amount_sold, class:"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-light">
+                <%= f.label :remark, class: "col-form-label" %>
+              </td>
+              <td>
+                <%= f.text_area :remark, class:"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-light">
+                <%= f.label :created_at, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
+              </td>
+              <td>
+                <%= raw sprintf(
+                f.datetime_select(
+                  :created_at,
+                  { 
+                    use_month_numbers: true,
+                    end_year: Time.current.year,
+                    date_separator: '%s',
+                    datetime_separator: '%s',
+                    time_separator: '%s'
+                  },
+                  { class:"form-control form_date_select" }
+                ),
+                '年 ', '月 ', '日 ', '時 ') + '分' %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="center">
+        <%= f.submit yield(:button_text), class: "btn btn-primary rounded-pill w-50" %>
+      </div>
+    </div>
+  </div>
+<% end %>
