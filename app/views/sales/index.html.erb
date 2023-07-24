@@ -9,31 +9,31 @@
   <div class="card-body">
   <h6 class="mb-3">検索条件</h6>
   <%= search_form_for @q, url: user_sales_path(@user), class: "mt-3" do |f| %>
-    <div class="form_group row">
+    <div class="form_group row mb-2">
       <%= f.label :maker_name_cont, 'メーカー名', class: "col-sm-2 col-form-label"%>
       <div class="col-sm-10">
         <%= f.search_field :maker_name_cont, class: "form-control" %>
       </div>
     </div>
-    <div class="form_group row">
+    <div class="form_group row mb-2">
       <%= f.label :producttype_name_cont, '商品名', class: "col-sm-2 col-form-label"%>
       <div class="col-sm-10">
         <%= f.search_field :producttype_name_cont, class: "form-control" %>
       </div>
     </div>
-    <div class="form_group row">
+    <div class="form_group row mb-2">
       <%= f.label :created_at_gteq, '開始日', class: "col-sm-2 col-form-label"%>
       <div class="col-sm-10">
         <%= f.date_field :created_at_gteq, class: "form-control" %>
       </div>
     </div>
-    <div class="form_group row">
+    <div class="form_group row mb-2">
       <%= f.label :created_at_lteq_end_of_day, '終了日', class: "col-sm-2 col-form-label"%>
       <div class="col-sm-10">
         <%= f.date_field :created_at_lteq_end_of_day, class: "form-control" %>
       </div>
     </div>
-    <div class="form_group mt-3">
+    <div class="form_group">
       <%= f.submit '検索', class: "btn btn-primary" %>
       <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary" %>
     </div>

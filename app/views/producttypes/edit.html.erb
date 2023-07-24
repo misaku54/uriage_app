@@ -7,4 +7,4 @@
     <li class="breadcrumb-item active" aria-current="page">商品分類編集</li>
   </ol>
 </nav>
-<%= render 'shared/form', obj: @producttype, form_name: '編集フォーム'  %>
+<%= render 'shared/form', obj: @producttype, form_name: '編集フォーム', url: user_producttypes_path(@user) %>

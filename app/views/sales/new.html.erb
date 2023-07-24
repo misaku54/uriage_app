@@ -7,4 +7,4 @@
     <li class="breadcrumb-item active" aria-current="page">売上登録</li>
   </ol>
 </nav>
-<%= render 'shared/sale_form', user: @user, sale: @sale, form_name: '登録フォーム' %>
+<%= render 'shared/sale_form', user: @user, sale: @sale, form_name: '登録フォーム', url: user_sales_path(@user) %>
