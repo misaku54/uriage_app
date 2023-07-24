@@ -7,7 +7,7 @@
 </nav>
 <div class="card shadow-sm mb-3">
   <div class="card-body">
-  <h6>検索条件</h6>
+  <h6 class="mb-3">検索条件</h6>
   <%= search_form_for @q, url: user_sales_path(@user), class: "mt-3" do |f| %>
     <div class="form_group row">
       <%= f.label :maker_name_cont, 'メーカー名', class: "col-sm-2 col-form-label"%>
@@ -41,7 +41,7 @@
 </div>
 <div class="card shadow-sm">
   <div class="card-body">
-    <h6><%="一覧（#{current_page_number(@sales)}）" %></h6>
+    <h6 class="mb-3"><%="一覧（#{current_page_number(@sales)}）" %></h6>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
