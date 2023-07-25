@@ -76,6 +76,10 @@ h6:after {
   background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 
+.read-text {
+  font-size: .8rem;
+}
+
 // フォーム
 input, textarea, select, .uneditable-input {
   @include box_sizing;
