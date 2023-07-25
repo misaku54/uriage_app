@@ -1,32 +1,69 @@
 <%= form_with(model: [:admin, @user]) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class:"form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class:"form-control" %>
-  </div>
-
-  <%= f.label :admin, class: "checkbox inline" do %>
-    <%= f.check_box :admin %>
-    <span>管理者権限</span>
-  <% end %>
-  
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, class:"form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation, "パスワード確認" %>
-    <%= f.password_field :password_confirmation, class:"form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h6 class="mb-3"><%= form_name %></h6>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="table-light">
+              <%= f.label :name, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
+            </td>
+            <td>
+              <%= f.text_field :name, class: "form-control" %>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-light">
+              <%= f.label :email, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
+            </td>
+            <td>
+              <%= f.email_field :email, class:"form-control" %>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-light">
+              管理者権限
+            </td>
+            <td>
+              <%= f.label :admin, class: "checkbox inline" do %>
+                <%= f.check_box :admin %>
+                <span>チェックを入れると管理者権限になります。</span>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-light">
+              <%= f.label :password, class: "col-form-label" %>  
+              <% if form_name == '登録フォーム' %>
+                <span class="badge bg-danger">必須</span>
+              <% end %>
+            </td>
+            <td>
+              <%= f.password_field :password, class:"form-control" %>
+              <% if form_name == '編集フォーム' %>
+                ※パスワードは何も入力しなかった場合、現在のパスワードのまま更新されます。
+                <br>パスワードを変更したい場合のみ、入力してください。
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-light">
+              <%= f.label :password_confirmation, "パスワード確認", class: "col-form-label" %>  
+              <% if form_name == '登録フォーム' %>
+                <span class="badge bg-danger">必須</span>
+              <% end %>
+            </td>
+            <td>
+              <%= f.password_field :password_confirmation, class:"form-control" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row mx-auto">
+        <%= f.submit yield(:button_text), class: "btn btn-primary col-sm-3 me-2 mb-2" %>
+        <%= link_to '一覧へ戻る', url, class: "btn btn-danger col-sm-3 ml-3 mb-2", data: { turbo: false } %>
+      </div>
+    </div>
   </div>
 <% end %>
