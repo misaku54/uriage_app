@@ -16,15 +16,6 @@
                 <li><%= link_to "ユーザー管理", admin_users_path, class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
-          <% else %>
-            <li class="nav-item dropdown" id="hyde">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                売上一覧
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><%= link_to '売上一覧', user_sales_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
-              </ul>
-            </li>
             <li class="nav-item dropdown" id="hyde">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 マスター
@@ -32,6 +23,42 @@
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><%= link_to '商品マスタ', user_producttypes_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
                 <li><%= link_to 'メーカーマスタ', user_makers_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown" id="hyde">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                売上登録
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><%= link_to '売上一覧', user_sales_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown" id="hyde">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                売上分析
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><%= link_to '年次集計', user_yearly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '日次集計', user_daily_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="nav-item dropdown" id="hyde">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                マスター
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><%= link_to '商品マスタ', user_producttypes_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to 'メーカーマスタ', user_makers_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown" id="hyde">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                売上登録
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><%= link_to '売上一覧', user_sales_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
             <li class="nav-item dropdown" id="hyde">
