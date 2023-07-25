@@ -1,7 +1,7 @@
 <% provide(:title, '売上一覧')%>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
     <li class="breadcrumb-item active" aria-current="page">売上一覧</li>
   </ol>
 </nav>
@@ -35,7 +35,7 @@
     </div>
     <div class="form_group">
       <%= f.submit '検索', class: "btn btn-primary" %>
-      <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary" %>
+      <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary", data: { turbo: false } %>
     </div>
   <% end %>
   </div>
@@ -54,7 +54,7 @@
             <th><%= sort_link(@q, :created_at, class: "Editlink") %></th>
             <th>
               <div class="d-flex justify-content-end" >
-                <%= link_to new_user_sale_path(@user) do %>
+                <%= link_to new_user_sale_path(@user), data: { turbo: false } do %>
                   <i class="fa-solid fa-plus"></i>
                 <% end %>
               </div>
@@ -71,7 +71,7 @@
               <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
               <td>
                 <div class="d-flex justify-content-end">
-                  <%= link_to edit_user_sale_path(@user, sale) do %>
+                  <%= link_to edit_user_sale_path(@user, sale), data: { turbo: false } do %>
                     <i class="fa-solid fa-pen fa-fw"></i>
                   <% end %>
                   <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>

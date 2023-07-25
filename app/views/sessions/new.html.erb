@@ -1,7 +1,7 @@
 <% provide(:title, "ログイン") %>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
     <li class="breadcrumb-item active" aria-current="page">ログイン</li>
   </ol>
 </nav>

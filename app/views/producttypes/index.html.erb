@@ -1,7 +1,7 @@
 <% provide(:title, '商品分類マスタ')%>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
     <li class="breadcrumb-item active" aria-current="page">商品分類マスタ</li>
   </ol>
 </nav>
@@ -21,7 +21,7 @@
             </th>
             <th>
               <div class="d-flex justify-content-end" >
-                <%= link_to new_user_producttype_path(@user) do %>
+                <%= link_to new_user_producttype_path(@user), data: { turbo: false } do %>
                   <i class="fa-solid fa-plus"></i>
                 <% end %>
               </div>

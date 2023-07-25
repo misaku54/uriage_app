@@ -208,14 +208,14 @@ label.required:after {
   color: #ffffff;
   &__ttl {
     cursor: pointer;
-    padding: 10px;
+    padding: 20px;
     transition: background-color 0.3s;
     &:hover {
-      background-color: rgb(0, 0, 0);
+      background-color: rgb(93, 148, 230);
     }
-    // &.is-active {
-    //   background-color: chartreuse;
-    // }
+    &.is-active {
+      background-color: rgb(93, 148, 230);
+    }
   }
   &__cnt {
     margin: 0;
@@ -223,7 +223,7 @@ label.required:after {
     overflow: hidden;
     transition: 0.2s ease height;
     li {
-      padding: 10px;
+      padding: 20px;
     }
   }
 }

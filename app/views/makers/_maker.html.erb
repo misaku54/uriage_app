@@ -7,11 +7,11 @@
   </td>
   <td>
     <div class="d-flex justify-content-end">
-      <%= link_to edit_user_maker_path(@user, maker) do %>
+      <%= link_to edit_user_maker_path(@user, maker), data: { turbo: false } do %>
         <i class="fa-solid fa-pen fa-fw"></i>
       <% end %>
       <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <%= link_to user_maker_path(@user, maker), data: {turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} do %>
+      <%= link_to user_maker_path(@user, maker), data: { turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} do %>
         <i class="far fa-trash-alt"></i>
       <% end %>
     </div>

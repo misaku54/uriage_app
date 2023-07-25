@@ -1,6 +1,6 @@
 <header class="navbar fixed-top navbar-expand-md navbar-light shadow-sm" style="background-color: #ffffff;">
   <div class="container-fluid">
-    <%= link_to "LiLy", root_path, class: "navbar-brand"%>
+    <%= link_to "LiLy", root_path, class: "navbar-brand", data: { turbo: false } %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,7 +13,7 @@
                 管理者
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><%= link_to "ユーザー管理", admin_users_path, class: "dropdown-item" %></li>
+                <li><%= link_to "ユーザー管理", admin_users_path, class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
           <% else %>
@@ -22,7 +22,7 @@
                 売上一覧
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><%= link_to '売上一覧', user_sales_path(current_user), class: "dropdown-item" %></li>
+                <li><%= link_to '売上一覧', user_sales_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
             <li class="nav-item dropdown" id="hyde">
@@ -30,8 +30,8 @@
                 マスター
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><%= link_to '商品マスタ', user_producttypes_path(current_user), class: "dropdown-item" %></li>
-                <li><%= link_to 'メーカーマスタ', user_makers_path(current_user), class: "dropdown-item" %></li>
+                <li><%= link_to '商品マスタ', user_producttypes_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to 'メーカーマスタ', user_makers_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
             <li class="nav-item dropdown" id="hyde">
@@ -39,9 +39,9 @@
                 売上分析
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><%= link_to '年次集計', user_yearly_aggregate_path(current_user), class: "dropdown-item" %></li>
-                <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user), class: "dropdown-item" %></li>
-                <li><%= link_to '日次集計', user_daily_aggregate_path(current_user), class: "dropdown-item" %></li>
+                <li><%= link_to '年次集計', user_yearly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '日次集計', user_daily_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
           <% end %>
@@ -50,13 +50,13 @@
               <%= current_user.name %>さん<span class="caret"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li><%= link_to "ユーザー情報", current_user, class: "dropdown-item" %></li>
+              <li><%= link_to "ユーザー情報", current_user, class: "dropdown-item", data: { turbo: false } %></li>
               <li><%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete, turbo_confirm: 'ログアウトしますか？' }, class: "dropdown-item" %></li>
             </ul>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "ログイン", login_path, class: "nav-link" %>
+            <%= link_to "ログイン", login_path, class: "nav-link", data: { turbo: false } %>
           </li>
         <% end %>
       </ul>
