@@ -14,27 +14,27 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <th class="table-info"><%= User.human_attribute_name(:id) %></th>
+              <th class="table-success"><%= User.human_attribute_name(:id) %></th>
               <td><%= @user.id %></td>
             </tr>
             <tr>
-              <th class="table-info"><%= User.human_attribute_name(:name) %></th>
+              <th class="table-success"><%= User.human_attribute_name(:name) %></th>
               <td><%= @user.name %></td>
             </tr>
             <tr>
-              <th class="table-info"><%= User.human_attribute_name(:email) %></th>
+              <th class="table-success"><%= User.human_attribute_name(:email) %></th>
               <td><%= @user.email %></td>
             </tr>
             <tr>
-              <th class="table-info"><%= User.human_attribute_name(:admin) %></th>
+              <th class="table-success"><%= User.human_attribute_name(:admin) %></th>
               <td><%= @user.admin? ? '管理者' : '一般' %></td>
             </tr>
             <tr>
-              <th class="table-info"><%= User.human_attribute_name(:created_at) %></th>
+              <th class="table-success"><%= User.human_attribute_name(:created_at) %></th>
               <td><%= @user.created_at.strftime('%Y/%m/%d %H:%M') %></td>
             </tr>
             <tr>
-              <th class="table-info"><%= User.human_attribute_name(:updated_at) %></th>
+              <th class="table-success"><%= User.human_attribute_name(:updated_at) %></th>
               <td><%= @user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
             </tr>
           </tbody>
