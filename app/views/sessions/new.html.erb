@@ -1,33 +1,29 @@
 <% provide(:title, "ログイン") %>
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
-    <li class="breadcrumb-item active" aria-current="page">ログイン</li>
-  </ol>
-</nav>
-<h1>ログイン</h1>
-<div class="row">
-  <div class="col">
-    <%= form_with(url: login_path, scope: :session) do |f| %>
-    
-      <div class="form-group">
-        <%= f.label :email, "メールアドレス" %>
-        <%= f.email_field :email, class: "form-control" %>
+<div class="row mx-auto d-flex justify-content-center align-items-center" style="height:500px;">
+  <div class="col col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="mb-3">ログイン</h6>
+        <%= form_with(url: login_path, scope: :session) do |f| %>
+          <div class="form-group mb-2">
+            <%= f.label :email, "メールアドレス" %>
+            <%= f.email_field :email, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :password, "パスワード" %>
+            <%= f.password_field :password, class: "form-control" %>
+          </div>
+          <div class="form-check mb-2">
+            <%= f.check_box :remember_me , class: "form-check-input" ,id: "flexCheckChecked3" %>
+            <label class="form-check-label" for="flexCheckChecked3">
+              次回から自動でログイン
+            </label>
+          </div>
+          <div class="form-group">
+            <%= f.submit "ログイン", class: "btn btn-primary" %>
+          </div>
+        <% end %>
       </div>
-      
-      <div class="form-group">
-        <%= f.label :password, "パスワード" %>
-        <%= f.password_field :password, class: "form-control" %>
-      </div>
-      
-      <%= f.label :remember_me, class: "checkbox inline" do %>
-        <%= f.check_box :remember_me %>
-        <span>次回から自動でログイン</span>
-      <% end %>
-    
-      <div class="form-group">
-        <%= f.submit "ログイン", class: "btn btn-primary" %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
