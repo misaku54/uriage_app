@@ -3,7 +3,8 @@ class Admin::UsersController < ApplicationController
   before_action :if_not_admin
 
   def index
-    @users = User.order("id").page(params[:page]).per(10)
+    @q = User.order("id").ransack(params[:q])
+    @users = @q.result.page(params[:page]).per(10)
   end
 
   def show

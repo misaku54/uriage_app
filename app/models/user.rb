@@ -25,6 +25,10 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["admin", "created_at", "email", "id", "name", "password_digest", "remember_digest", "updated_at"]
+  end
+
   # 永続的セッションのためユーザーをデータベースに記憶する。
   def remember 
     self.remember_token = User.new_token
@@ -48,4 +52,5 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
 end
