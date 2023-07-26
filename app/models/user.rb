@@ -29,6 +29,10 @@ class User < ApplicationRecord
     ["admin", "created_at", "email", "id", "name", "password_digest", "remember_digest", "updated_at"]
   end
 
+  def self.ransackable_associations(auth_object = nil)
+    ["makers", "producttypes", "sales"]
+  end
+  
   # 永続的セッションのためユーザーをデータベースに記憶する。
   def remember 
     self.remember_token = User.new_token
