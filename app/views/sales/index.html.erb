@@ -22,6 +22,20 @@
       </div>
     </div>
     <div class="form_group row mb-2">
+      <%= f.label :amount_sold_gteq, '販売価格', class: "col-sm-2 col-form-label"%>
+      <div class="col-sm-6 d-flex">
+        <%= f.search_field :amount_sold_gteq, class: "form-control" %>
+        <%= f.label '〜', class: "col-form-label col-sm-1 center"%>
+        <%= f.search_field :amount_sold_lteq, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form_group row mb-2">
+      <%= f.label :remark_cont, '備考', class: "col-sm-2 col-form-label"%>
+      <div class="col-sm-6">
+        <%= f.search_field :remark_cont, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form_group row mb-2">
       <%= f.label :created_at_gteq, '登録日', class: "col-sm-2 col-form-label"%>
       <div class="col-sm-6 d-flex">
         <%= f.date_field :created_at_gteq, class: "form-control" %>
