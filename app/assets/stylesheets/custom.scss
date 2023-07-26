@@ -39,6 +39,8 @@ a {
 
 li {
   list-style: none;
+  padding-left: 0px;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -214,6 +216,7 @@ label.required:after {
     cursor: pointer;
     padding: 20px;
     transition: background-color 0.3s;
+    border-bottom: 1px solid white;
     &:hover {
       background-color: rgb(93, 148, 230);
     }
@@ -227,9 +230,21 @@ label.required:after {
     overflow: hidden;
     transition: 0.2s ease height;
     li {
-      padding: 20px;
+      padding: 20px 20px 20px 60px;
+      border-bottom: 1px solid white;
+      &:hover {
+        background-color: #1974ad;
+      }
+      a {
+        color: #ffffff;
+        display: block;
+      }
     }
   }
+}
+
+.aac {
+  background-color: #000000;
 }
 
 // ロードスピナー

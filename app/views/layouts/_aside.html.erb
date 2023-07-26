@@ -1,19 +1,19 @@
 <% if logged_in? %>
   <div class="acordion">
-    <div class="acordion__ttl">マスター</div>
-    <ul class="acordion__cnt">
+    <div class="acordion__ttl"><i class="fa-solid fa-database" style="color: #ffffff;"></i> マスター</div>
+    <div class="acordion__cnt">
       <li><%= link_to 'メーカーマスタ', user_makers_path(current_user), data: { turbo: false } %></li>
       <li><%= link_to '商品分類マスタ', user_producttypes_path(current_user), data: { turbo: false } %></li>
-    </ul>
-    <div class="acordion__ttl">売上登録</div>
-    <ul class="acordion__cnt">
+    </div>
+    <div class="acordion__ttl"><i class="fa-solid fa-cash-register" style="color: #ffffff;"></i> 売上登録</div>
+    <div class="acordion__cnt">
       <li><%= link_to '売上一覧', user_sales_path(current_user), data: { turbo: false } %></li>
-    </ul>
-    <div class="acordion__ttl">売上分析</div>
-    <ul class="acordion__cnt">
+    </div>
+    <div class="acordion__ttl"><i class="fa-solid fa-table" style="color: #ffffff;"></i> 売上分析</div>
+    <div class="acordion__cnt">
       <li><%= link_to '年次集計', user_yearly_aggregate_path(current_user), data: { turbo: false } %></li>
       <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user), data: { turbo: false } %></li>
       <li><%= link_to '日次集計', user_daily_aggregate_path(current_user), data: { turbo: false } %></li>
-    </ul>
+    </div>
   </div>
 <% end %>
