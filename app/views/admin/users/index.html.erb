@@ -1,7 +1,7 @@
 <% provide(:title, 'ユーザー管理') %>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path %></li>
     <li class="breadcrumb-item active" aria-current="page">ユーザー管理</li>
   </ol>
 </nav>
@@ -54,26 +54,28 @@
     </div>
     <div class="form_group row mx-auto">
       <%= f.submit '検索', class: "btn btn-primary col-sm-3 me-2 mb-2" %>
-      <%= link_to 'クリア', admin_users_path, class: "btn btn-outline-secondary col-sm-3 mb-2", data: { turbo: false } %>
+      <%= link_to 'クリア', admin_users_path, class: "btn btn-outline-secondary col-sm-3 mb-2" %>
     </div>
   <% end %>
   </div>
 </div>
 <div class="card shadow-sm">
   <div class="card-body">
+  <%= turbo_frame_tag "cats-list" do %>
     <h6 class="mb-3"><%="一覧（#{current_page_number(@users)}）" %></h6>
     <div class="table-responsive text-nowrap">
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th><%= User.human_attribute_name(:name) %></th>
-            <th><%= User.human_attribute_name(:email) %></th>
-            <th><%= User.human_attribute_name(:created_at) %></th>
-            <th><%= User.human_attribute_name(:updated_at) %></th>
-            <th><%= User.human_attribute_name(:admin) %></th>
+            <th><%= sort_link(@q, :id, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :name, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :email, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :created_at, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :updated_at, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :admin, class: "Editlink") %></th>
             <th>
               <div class="d-flex justify-content-end" >
-                <%= link_to admin_signup_path, data: { turbo: false } do %>
+                <%= link_to admin_signup_path do %>
                   <i class="fa-solid fa-plus"></i>
                 <% end %>
               </div>
@@ -82,8 +84,9 @@
         </thead>
         <tbody>
           <% @users.each do |user| %>
-            <tr>
-              <td><%= link_to user.name, admin_user_path(user), data: { turbo: false } %></td>
+            <tr data-href="<%= admin_user_path(user) %>">
+              <td><%= user.id %></td>
+              <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.email %></td>
               <td><%= user.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
               <td><%= user.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
@@ -91,7 +94,7 @@
               <td>
                 <% if current_user.admin? && !current_user?(user) %>
                   <div class="d-flex justify-content-end">
-                    <%= link_to edit_admin_user_path(user), data: { turbo: false } do %>
+                    <%= link_to edit_admin_user_path(user) do %>
                       <i class="fa-solid fa-pen fa-fw"></i>
                     <% end %>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -109,5 +112,6 @@
     <div class="d-flex justify-content-end">
       <%= paginate @users %>
     </div>
+  <% end %>
   </div>
 </div>
