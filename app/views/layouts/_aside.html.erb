@@ -1,9 +1,9 @@
 <% if logged_in? %>
   <div class="acordion">
-    <div class="acordion__ttl"><i class="fa-solid fa-database" style="color: #ffffff;"></i> マスター</div>
+    <div class="acordion__ttl"><i class="fa-solid fa-database" style="color: #ffffff;"></i> マスタ</div>
     <div class="acordion__cnt">
-      <li><%= link_to 'メーカーマスタ', user_makers_path(current_user), data: { turbo: false } %></li>
-      <li><%= link_to '商品分類マスタ', user_producttypes_path(current_user), data: { turbo: false } %></li>
+      <li><%= link_to 'メーカー', user_makers_path(current_user), data: { turbo: false } %></li>
+      <li><%= link_to '商品分類', user_producttypes_path(current_user), data: { turbo: false } %></li>
     </div>
     <div class="acordion__ttl"><i class="fa-solid fa-cash-register" style="color: #ffffff;"></i> 売上登録</div>
     <div class="acordion__cnt">
