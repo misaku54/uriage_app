@@ -43,10 +43,10 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th><%= Sale.human_attribute_name(:maker_id) %></th>
-            <th><%= Sale.human_attribute_name(:producttype_id) %></th>
-            <th><%= Sale.human_attribute_name(:amount_sold) %></th>
-            <th><%= Sale.human_attribute_name(:remark) %></th>
+            <th><%= sort_link(@q, :maker_id, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :producttype_id, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :amount_sold, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :remark, class: "Editlink") %></th>
             <th><%= sort_link(@q, :created_at, class: "Editlink") %></th>
             <th>
               <div class="d-flex justify-content-end" >

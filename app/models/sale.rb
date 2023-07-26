@@ -110,7 +110,7 @@ class Sale < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "maker_id", "producttype_id"]
+    ["created_at", "maker_id", "producttype_id", "amount_sold", "remark"]
   end
 
   def self.ransackable_associations(auth_object = nil)
