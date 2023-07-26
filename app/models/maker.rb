@@ -8,4 +8,8 @@ class Maker < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["name", "created_at"]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["sales", "user"]
+  end
 end

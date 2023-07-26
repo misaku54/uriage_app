@@ -255,25 +255,24 @@ label.required:after {
 // リンク色消す
 .Editlink {
   text-decoration: none;
-  color: #272343;
   &:link {
     text-decoration: none;
-    color: #272343;
+    color: #000000;
   }
 
   &:visited {
     text-decoration: none;
-    color: #272343;
+    color: #000000;
   }
 
   &:hover {
     text-decoration: none;
-    color: #272343;
+    color: #000000;
   }
 
   &:active {
     text-decoration: none;
-    color: #272343;
+    color: #000000;
   }
 
 }
