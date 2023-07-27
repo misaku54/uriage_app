@@ -3,14 +3,14 @@
   <h6 class="mb-3">検索条件</h6>
     <%= search_form_for q, url: url, class: "form-inline" do |f| %>
       <div class="form_group row mb-2">
-        <%= f.label :name, class:"col-sm-2 col-form-label" %>
-        <div class="col-sm-6">
+        <%= f.label :name, class:"col-sm-3 col-lg-2 col-form-label" %>
+        <div class="col-sm-7 col-lg-6">
           <%= f.search_field :name_cont, class:"form-control" %>
         </div>
       </div>
       <div class="form_group row mb-2">
-        <%= f.label :created_at_gteq, '登録日', class: "col-sm-2 col-form-label"%>
-        <div class="col-sm-6 d-flex">
+        <%= f.label :created_at_gteq, '登録日', class: "col-sm-3 col-lg-2 col-form-label"%>
+        <div class="col-sm-7 col-lg-6 d-flex">
           <%= f.date_field :created_at_gteq, class: "form-control" %>
           <%= f.label '〜', class: "col-form-label col-sm-1 center"%>
           <%= f.date_field :created_at_lteq_end_of_day, class: "form-control" %>
