@@ -82,6 +82,15 @@ h6:after {
   font-size: .8rem;
 }
 
+// アイコン
+.fa-pen {
+  color: blue;
+}
+
+.fa-trash-can {
+  color: red;
+}
+
 // フォーム
 input, textarea, select, .uneditable-input {
   @include box_sizing;
