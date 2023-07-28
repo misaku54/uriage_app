@@ -1,10 +1,10 @@
 <% if @sales_trend.present? %>
-  <div class="card mt-3">
-    <div class="card-header">
-      売上推移
-    </div>
+  <div class="card">
     <div class="card-body">
-      <%= line_chart @sales_trend , suffix: "円", thousands: "," %>
+      <h5 class="mb-3">売上推移</h5>
+      <div class="">
+        <%= area_chart @sales_trend , suffix: "円", thousands: ",", colors: ["#00ffc4"] %>
+      </div>
     </div>
   </div>
 <% end %>
