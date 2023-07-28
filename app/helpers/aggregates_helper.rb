@@ -34,6 +34,12 @@ module AggregatesHelper
     raise ArgmentError.new("無効な引数が渡されました。#{pattern}")
   end
 
+  def make_card_class_name(pattern)
+    return 'bg-success' if pattern == 'maker_producttype'
+    return 'bg-warning' if pattern == 'maker'
+    return 'bg-danger' if pattern == 'producttype'
+  end
+
   # ランキングのタイトルを求める。
   def make_ranking_title(aggregate)
     if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')

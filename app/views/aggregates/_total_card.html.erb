@@ -1,7 +1,7 @@
 <% if @sales_total_amount.present? %>
   <div class="card mt-3">
     <div class="card-body">
-      <h5 class="mb-3">合計純売上</h5>
+      <h5>合計純売上</h5>
       <h4><%= add_comma_en(@sales_total_amount) %></h4>
       <span><%= "成長率（前年比較）: #{@sales_growth_rate}"%></span>
     </div>

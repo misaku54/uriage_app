@@ -1,22 +1,22 @@
 <% if aggregates.present? %>
-  <div class="card mb-3 border-success"style="max-height: 250px;">
+  <div class="card mb-3 text-white <%=make_card_class_name(card_pattern)%>"style="max-height: 250px;">
     <div class="card-body">
-      <div class="d-flex justify-content-between border">
+      <div class="d-flex justify-content-between">
         <h5><%= make_best_selling_title(card_pattern)%></h5>
         <div>
             <% if card_pattern == "maker_producttype" %>
-              <i class="fa-solid fa-building fa-2x" style="color: #b2b2b3;"></i>
-              <i class="fa-solid fa-bag-shopping fa-2x" style="color: #947f7f;"></i>
+              <i class="fa-solid fa-building fa-2x" style="color: #ffffff;"></i>
+              <i class="fa-solid fa-bag-shopping fa-2x" style="color: #ffffff;"></i>
             <% elsif card_pattern == "maker" %>
-              <i class="fa-solid fa-building fa-2x" style="color: #b2b2b3;"></i>
+              <i class="fa-solid fa-building fa-2x" style="color: #ffffff;"></i>
             <% elsif card_pattern == "producttype" %>
-              <i class="fa-solid fa-bag-shopping fa-2x" style="color: #947f7f;"></i>
+              <i class="fa-solid fa-bag-shopping fa-2x" style="color: #ffffff;"></i>
             <% end %>
         </div>
       </div>
-      <div class="best-sale-content border">
+      <div class="best-sale-content">
         <div class="d-flex flex-column text-center">
-          <h5 class="mb-0 font-weight-bold best-sale-name" style="color: #1C2331;"><%= make_ranking_name(aggregates.first) %></h5>
+          <h5 class="mb-0 font-weight-bold best-sale-name"><%= make_ranking_name(aggregates.first) %></h5>
           <span class="small"><%= add_comma_en(aggregates.first.sum_amount_sold) %></span>
         </div>
       </div>
