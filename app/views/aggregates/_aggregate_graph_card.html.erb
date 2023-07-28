@@ -1,6 +1,7 @@
 <% if @aggregates_of_maker_producttype.present? %>
   <div class="card mb-3">
-    <div class="card-body pt-1">
+    <div class="card-body">
+      <h6 class="mb-3">カテゴリ別の売上集計結果（グラフ）</h6>
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
@@ -13,7 +14,7 @@
             aria-controls="home"
             aria-selected="true"
           >
-            メーカー×商品分類ごとの売上合計一覧
+            メーカー×商品分類
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -27,7 +28,7 @@
             aria-controls="profile"
             aria-selected="false"
           >
-            メーカーごとの売上合計一覧
+            メーカー
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -41,7 +42,7 @@
             aria-controls="contact"
             aria-selected="false"
           >
-            商品分類ごとの売上合計一覧
+            商品分類
           </button>
         </li>
       </ul>
