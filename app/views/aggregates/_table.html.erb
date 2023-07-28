@@ -1,7 +1,7 @@
 <div class="table-responsive text-nowrap">
-  <table class="table">
+  <table class="table table-striped mb-0">
     <thead>
-      <tr class="table-secondary">
+      <tr class="table-<%= make_class_name(card_pattern)%>">
         <th>No.</th>
         <% if card_pattern == "maker_producttype" %>
           <th><%= Sale.human_attribute_name(:maker_id) %></th>

@@ -42,7 +42,28 @@
   </div>
 </div>
 <%= render 'trend_card' %>
-<%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-<%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-<%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
+
 <%= render 'table_card' %>
+<div class="card text-center">
+  <div class="card-header">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a href="#photo1" class="nav-link active" data-bs-toggle="tab">タブ1</a>
+        </li>
+        <li class="nav-item">
+          <a href="#photo2" class="nav-link active" data-bs-toggle="tab">タブ2</a>
+        </li>
+        <!-- 中略 -->
+      </ul>
+  </div>
+  <div class="card-body">
+    <div class="tab-content">
+      <div id="photo1" class="tab-pane active">
+        <!--(省略)--> x
+      </div>
+      <div id="photo2" class="tab-pane">
+        <!--(省略)-->a
+      </div>
+    </div>
+  </div>
+</div>
