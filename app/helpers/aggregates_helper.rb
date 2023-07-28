@@ -30,7 +30,7 @@ module AggregatesHelper
   def make_best_selling_title(pattern)
     return '最も売れたメーカーの商品カテゴリ' if pattern == 'maker_producttype'
     return '最も売れたメーカー' if pattern == 'maker'
-    return '商品カテゴリ' if pattern == 'producttype'
+    return '最も売れた商品カテゴリ' if pattern == 'producttype'
     raise ArgmentError.new("無効な引数が渡されました。#{pattern}")
   end
 

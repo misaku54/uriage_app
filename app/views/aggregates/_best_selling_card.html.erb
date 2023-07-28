@@ -1,21 +1,23 @@
 <% if aggregates.present? %>
-  <div class="card mb-3"style="max-height: 250px;">
+  <div class="card mb-3 border-success"style="max-height: 250px;">
     <div class="card-body">
-      <h5 class="">最も売れた商品</h5>
-      <div class="best-sale-content">
-        <div class="d-flex flex-column text-center mt-5 mb-4">
+      <div class="d-flex justify-content-between border">
+        <h5><%= make_best_selling_title(card_pattern)%></h5>
+        <div>
+            <% if card_pattern == "maker_producttype" %>
+              <i class="fa-solid fa-building fa-2x" style="color: #b2b2b3;"></i>
+              <i class="fa-solid fa-bag-shopping fa-2x" style="color: #947f7f;"></i>
+            <% elsif card_pattern == "maker" %>
+              <i class="fa-solid fa-building fa-2x" style="color: #b2b2b3;"></i>
+            <% elsif card_pattern == "producttype" %>
+              <i class="fa-solid fa-bag-shopping fa-2x" style="color: #947f7f;"></i>
+            <% end %>
+        </div>
+      </div>
+      <div class="best-sale-content border">
+        <div class="d-flex flex-column text-center">
           <h5 class="mb-0 font-weight-bold best-sale-name" style="color: #1C2331;"><%= make_ranking_name(aggregates.first) %></h5>
           <span class="small"><%= add_comma_en(aggregates.first.sum_amount_sold) %></span>
-        </div>
-        <div class="d-flex align-items-center justify-content-end">
-          <% if card_pattern == "maker_producttype" %>
-            <i class="fa-solid fa-building fa-2x" style="color: #b2b2b3;"></i>
-            <i class="fa-solid fa-bag-shopping fa-2x" style="color: #947f7f;"></i>
-          <% elsif card_pattern == "maker" %>
-            <i class="fa-solid fa-building fa-2x" style="color: #b2b2b3;"></i>
-          <% elsif card_pattern == "producttype" %>
-            <i class="fa-solid fa-bag-shopping fa-2x" style="color: #947f7f;"></i>
-          <% end %>
         </div>
       </div>
     </div>
