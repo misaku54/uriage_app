@@ -26,6 +26,14 @@ module AggregatesHelper
     end
   end
   
+  # best_selling_cardの見出しを作成
+  def make_best_selling_title(pattern)
+    return '最も売れたメーカーの商品カテゴリ' if pattern == 'maker_producttype'
+    return '最も売れたメーカー' if pattern == 'maker'
+    return '商品カテゴリ' if pattern == 'producttype'
+    raise ArgmentError.new("無効な引数が渡されました。#{pattern}")
+  end
+
   # ランキングのタイトルを求める。
   def make_ranking_title(aggregate)
     if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')
@@ -60,17 +68,9 @@ module AggregatesHelper
 
   # 集計結果のタイトルを求める。
   def make_aggregate_title(pattern)
-    if pattern == 'maker_producttype'
-      return '集計結果（メーカー、商品分類別の販売額の合計）'   
-    end
-    
-    if pattern == 'maker'
-      return '集計結果（メーカー別の販売額の合計）' 
-    end
-
-    if pattern == 'producttype'
-      return '集計結果（商品分類別の販売額の合計）'           
-    end
+    return '集計結果（メーカー、商品分類別の販売額の合計）' if pattern == 'maker_producttype'
+    return '集計結果（メーカー別の販売額の合計）' if pattern == 'maker'
+    return '集計結果（商品分類別の販売額の合計）' if pattern == 'producttype'          
     raise ArgmentError.new("無効な引数が渡されました。#{pettern}")
   end
 

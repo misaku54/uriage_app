@@ -301,3 +301,19 @@ label.required:after {
   }
 
 }
+
+// best_selling_cardの設定
+.best-sale-content {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.best-sale-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.5rem;
+}
+
+.best-sale-name:hover {
+  white-space: normal;
+}

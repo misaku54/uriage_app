@@ -45,6 +45,17 @@
     <%= render 'ranking_card', aggregates: @aggregates_of_producttype %>
   </div>
 </div>
+<div class = "row">
+  <div class="col-xxl-4">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
+  </div>
+  <div class="col-xxl-4">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+  </div>
+  <div class="col-xxl-4">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
+  </div>
+</div>
 
 <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
 <%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
