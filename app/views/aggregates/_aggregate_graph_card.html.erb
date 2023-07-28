@@ -1,0 +1,76 @@
+<% if @aggregates_of_maker_producttype.present? %>
+  <div class="card mb-3">
+    <div class="card-body pt-1">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active" 
+            id="home-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#home2"
+            type="button"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+          >
+            メーカー×商品分類ごとの売上合計一覧
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="profile-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#profile2"
+            type="button"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+          >
+            メーカーごとの売上合計一覧
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="contact-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#contact2"
+            type="button"
+            role="tab"
+            aria-controls="contact"
+            aria-selected="false"
+          >
+            商品分類ごとの売上合計一覧
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="home2"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+        <%= column_chart convert_array(@aggregates_of_maker_producttype, "maker_producttype"), suffix: "円", thousands: "," %>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="profile2"
+          role="tabpanel"
+          aria-labelledby="profile-tab"
+        >
+        <%= column_chart convert_array(@aggregates_of_maker, "maker"), suffix: "円", thousands: "," %>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="contact2"
+          role="tabpanel"
+          aria-labelledby="contact-tab"
+        >
+        <%= column_chart convert_array(@aggregates_of_maker_producttype, "producttype"), suffix: "円", thousands: "," %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
