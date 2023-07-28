@@ -27,10 +27,10 @@ module AggregatesHelper
   end
   
   # best_selling_cardの見出しを作成
-  def make_best_selling_title(pattern)
-    return '最も売れたメーカーの商品カテゴリ' if pattern == 'maker_producttype'
-    return '最も売れたメーカー' if pattern == 'maker'
-    return '最も売れた商品カテゴリ' if pattern == 'producttype'
+  def make_title(pattern)
+    return 'メーカー×商品分類' if pattern == 'maker_producttype'
+    return 'メーカー' if pattern == 'maker'
+    return '商品分類' if pattern == 'producttype'
     raise ArgmentError.new("無効な引数が渡されました。#{pattern}")
   end
 
