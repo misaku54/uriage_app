@@ -5,7 +5,6 @@
     <li class="breadcrumb-item active" aria-current="page">年別売上集計</li>
   </ol>
 </nav>
-
 <div class="card mb-3">
   <div class="card-body">
     <h6 class="mb-3">集計条件</h6>
@@ -25,15 +24,11 @@
     <% end %>
   </div>
 </div>
-
-<p><%= search_result_title(@search_params, "yearly") %></p>
 <% if @no_result.present? %>
   <p><%= @no_result %></p>
 <% end %>
-
-
 <div class = "row">
-  <div class="col-sm-6  col-xxl-3">
+  <div class="col-sm-6 col-xxl-3">
     <%= render 'total_card' %>  
   </div>
   <div class="col-sm-6 col-xxl-3">
@@ -47,8 +42,6 @@
   </div>
 </div>
 <%= render 'trend_card' %>
-
-
 <%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
 <%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
 <%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
