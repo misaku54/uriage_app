@@ -5,45 +5,41 @@
     <li class="breadcrumb-item active" aria-current="page">月別売上集計</li>
   </ol>
 </nav>
-
-<div class="card mt-3">
-  <div class="card-header">
-    集計条件
-  </div>
-  <div class="card-body">
+<div class="card mb-3">
+  <div class="card-body shadow-sm">
+    <h6 class="mb-3">集計条件</h6>
     <%= form_with(url: user_monthly_search_path(@user), scope: :search_form, method: "get", class: "form-inline") do |f| %>
       <%= render 'shared/error_messages', object: @search_params %>
-      <div class="form-group">
-        <%== sprintf(f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,
-                                            discard_day: true, date_separator: '%s', selected: Date.today}, class:'form-control'),'年') + '月' %>
+      <div class="form-group row mb-2">
+        <%= f.label :date, '集計月', class: "col-sm-3 col-lg-2 col-form-label" %>
+        <div class="col-sm-5 col-xxl-3 d-flex align-items-center">
+        <%== sprintf(f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,month_format_string: "%<number>d 月",
+                                            discard_day: true, date_separator: '%s', selected: Date.today}, class:'form-select'),'年') + '月' %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.submit '集計する', class: "btn btn-info" %>
+      <div class="form_group row mx-auto">
+        <%= f.submit '集計', class: "btn btn-primary col-sm-2" %>
       </div>
     <% end %>
   </div>
 </div>
-
-<p><%= search_result_title(@search_params, "monthly") %></p>
 <% if @no_result.present? %>
   <p><%= @no_result %></p>
 <% end %>
-
-<%= render 'total_card' %>
-<%= render 'trend_card' %>
-
 <div class = "row">
-  <div class="col-xxl-4">
-    <%= render 'ranking_card', aggregates: @aggregates_of_maker_producttype %>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'total_card', period: "monthly" %>  
   </div>
-  <div class="col-xxl-4">
-    <%= render 'ranking_card', aggregates: @aggregates_of_maker %>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
   </div>
-  <div class="col-xxl-4">
-    <%= render 'ranking_card', aggregates: @aggregates_of_producttype %>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+  </div>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
   </div>
 </div>
-
-<%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-<%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-<%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
+<%= render 'trend_card' %>
+<%= render 'aggregate_graph_card' %>
+<%= render 'table_card' %>
