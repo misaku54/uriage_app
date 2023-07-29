@@ -25,27 +25,23 @@
     <% end %>
   </div>
 </div>
-
-<p><%= search_result_title(@search_params, "daily") %></p>
 <% if @no_result.present? %>
   <p><%= @no_result %></p>
 <% end %>
-
-<%= render 'total_card' %>
-<%= render 'trend_card' %>
-
 <div class = "row">
-  <div class="col-xxl-4">
-    <%= render 'ranking_card', aggregates: @aggregates_of_maker_producttype %>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'total_card', period: "daily" %>  
   </div>
-  <div class="col-xxl-4">
-    <%= render 'ranking_card', aggregates: @aggregates_of_maker %>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
   </div>
-  <div class="col-xxl-4">
-    <%= render 'ranking_card', aggregates: @aggregates_of_producttype %>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
+  </div>
+  <div class="col-sm-6 col-xxl-3">
+    <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
   </div>
 </div>
-
-<%= render 'card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-<%= render 'card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-<%= render 'card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
+<%= render 'trend_card', period: "daily" %>
+<%= render 'aggregate_graph_card' %>
+<%= render 'table_card' %>

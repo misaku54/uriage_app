@@ -24,9 +24,7 @@
     <% end %>
   </div>
 </div>
-<% if @no_result.present? %>
-  <p><%= @no_result %></p>
-<% end %>
+<%= render 'search_result_info', period: "yearly" %>
 <div class = "row">
   <div class="col-sm-6 col-xxl-3">
     <%= render 'total_card', period: "yearly" %>  
@@ -41,6 +39,6 @@
     <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
   </div>
 </div>
-<%= render 'trend_card' %>
+<%= render 'trend_card', period: "yearly" %>
 <%= render 'aggregate_graph_card' %>
 <%= render 'table_card' %>

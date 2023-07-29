@@ -1,7 +1,7 @@
 <% if @sales_trend.present? %>
   <div class="card shadow-sm mb-3">
     <div class="card-body">
-      <h6 class="mb-3"><%= search_result_title(@search_params, "yearly") %>の売上推移</h6>
+      <h6 class="mb-3">売上推移</h6>
       <%= area_chart @sales_trend , suffix: "円", thousands: ",", colors: ["#0dcaf0"] %>
     </div>
   </div>

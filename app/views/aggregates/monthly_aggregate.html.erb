@@ -40,6 +40,6 @@
     <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
   </div>
 </div>
-<%= render 'trend_card' %>
+<%= render 'trend_card', period: "monthly" %>
 <%= render 'aggregate_graph_card' %>
 <%= render 'table_card' %>

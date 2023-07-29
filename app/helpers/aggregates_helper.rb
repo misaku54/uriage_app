@@ -83,8 +83,7 @@ module AggregatesHelper
   # 検索パラメータの取得
   def search_result_title(params, period)
     if period == 'daily' && params.start_date.present? && params.end_date.present? 
-      return "#{params.start_date.in_time_zone.year}年#{params.start_date.in_time_zone.month}月#{params.start_date.in_time_zone.day}日から
-              #{params.end_date.in_time_zone.year}年#{params.end_date.in_time_zone.month}月#{params.end_date.in_time_zone.day}まで"
+      return "#{params.start_date.in_time_zone.year}年#{params.start_date.in_time_zone.month}月#{params.start_date.in_time_zone.day}日から#{params.end_date.in_time_zone.year}年#{params.end_date.in_time_zone.month}月#{params.end_date.in_time_zone.day}日まで"
     end
 
     if period == 'monthly' && params.date.present?
