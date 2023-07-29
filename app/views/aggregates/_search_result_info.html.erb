@@ -1,7 +1,7 @@
 <% if @no_result.present? %>
-  <h4 class="mr-2 mb-3 center"><%= @no_result %></h4>
+  <h5 class="mr-2 mb-3 center"><%= @no_result %></h5>
 <% else %>
   <% if result = search_result_title(@search_params, period) %>
-    <h4 class="mr-2 mb-3 center"><%= result %>の集計結果</h4>
+    <h5 class="mr-2 mb-3 center"><%= result %>の集計結果</h5>
   <% end %>
 <% end %>
