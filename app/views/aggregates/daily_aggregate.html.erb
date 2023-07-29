@@ -5,22 +5,21 @@
     <li class="breadcrumb-item active" aria-current="page">日別売上集計</li>
   </ol>
 </nav>
-
-<div class="card mt-3">
-  <div class="card-header">
-    集計条件
-  </div>
-  <div class="card-body">
+<%= render 'shared/error_messages', object: @search_params %>
+<div class="card mb-3">
+  <div class="card-body shadow-sm">
+    <h6 class="mb-3">集計条件</h6>
     <%= form_with(url: user_daily_search_path(@user), scope: :search_daily, method: "get", class: "form-inline") do |f| %>
-      <%= render 'shared/error_messages', object: @search_params %>
-      <div class="form-group">
-        <%= f.date_field :start_date, class:'form-control' %>
-      </div> 〜
-      <div class="form-group">
-        <%= f.date_field :end_date, class:'form-control' %>
+      <div class="form_group row mb-2">
+        <%= f.label '集計期間', class: "col-sm-3 col-lg-2 col-form-label"%>
+        <div class="col-sm-7 col-lg-6 d-flex">
+          <%= f.date_field :start_date, class:'form-control' %>
+          <%= f.label '〜', class: "col-form-label col-sm-1 center"%>
+          <%= f.date_field :end_date, class:'form-control' %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.submit '集計する', class: "btn btn-info" %>
+      <div class="form_group row mx-auto">
+        <%= f.submit '集計', class: "btn btn-primary col-sm-2" %>
       </div>
     <% end %>
   </div>
