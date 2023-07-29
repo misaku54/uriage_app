@@ -1,7 +1,7 @@
 <% if @sales_total_amount.present? %>
-  <div class="card mb-3 text-white bg-info" style="max-height: 350px;">
+  <div class="card shadow-sm mb-3 text-white bg-info" style="max-height: 350px;">
     <div class="card-body">
-      <h5><%= search_result_title(@search_params, "yearly") %>の合計純売上</h5>
+      <h5><%= search_result_title(@search_params, period) %>の合計純売上</h5>
       <div class="best-sale-content">
         <div class="d-flex flex-column text-center">
           <h5 class="mb-0 font-weight-bold best-sale-name"><%= add_comma_en(@sales_total_amount) %></h5>

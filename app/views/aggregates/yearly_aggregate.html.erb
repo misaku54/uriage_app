@@ -6,7 +6,7 @@
   </ol>
 </nav>
 <div class="card mb-3">
-  <div class="card-body">
+  <div class="card-body shadow-sm">
     <h6 class="mb-3">集計条件</h6>
     <%= form_with(url: user_yearly_search_path(@user), scope: :search_form, method: "get") do |f| %>
       <%= render 'shared/error_messages', object: @search_params %>
@@ -29,7 +29,7 @@
 <% end %>
 <div class = "row">
   <div class="col-sm-6 col-xxl-3">
-    <%= render 'total_card' %>  
+    <%= render 'total_card', period: "yearly" %>  
   </div>
   <div class="col-sm-6 col-xxl-3">
     <%= render 'best_selling_card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
