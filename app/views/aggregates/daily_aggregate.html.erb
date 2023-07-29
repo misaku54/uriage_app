@@ -11,10 +11,10 @@
     <h6 class="mb-3">集計条件</h6>
     <%= form_with(url: user_daily_search_path(@user), scope: :search_daily, method: "get", class: "form-inline") do |f| %>
       <div class="form_group row mb-2">
-        <%= f.label '集計期間', class: "col-sm-3 col-lg-2 col-form-label"%>
+        <div class="col-sm-3 col-lg-2 col-form-label">集計期間</div>
         <div class="col-sm-7 col-lg-6 d-flex">
           <%= f.date_field :start_date, class:'form-control' %>
-          <%= f.label '〜', class: "col-form-label col-sm-1 center"%>
+          <div class="col-form-label col-sm-1 center">〜</div>
           <%= f.date_field :end_date, class:'form-control' %>
         </div>
       </div>

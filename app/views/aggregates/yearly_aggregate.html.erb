@@ -11,11 +11,11 @@
     <h6 class="mb-3">集計条件</h6>
     <%= form_with(url: user_yearly_search_path(@user), scope: :search_form, method: "get") do |f| %>
       <div class="form_group row mb-2">
-        <%= f.label :date, '集計年度', class: "col-sm-3 col-lg-2 col-form-label"%>
+        <div class="col-sm-3 col-lg-2 col-form-label">集計年度</div>
         <div class="col-sm-3 col-lg-2 d-flex">
           <%= f.date_select(:date, { use_month_numbers: true, start_year: 2018, end_year: Time.now.year,
                                     discard_month: true, discard_day: true }, class:"form-select me-2") %>
-          <%= f.label '年', class: "col-form-label"%>
+          <div class="col-form-label">年</div>
         </div>
       </div>
       <div class="form_group row mx-auto">

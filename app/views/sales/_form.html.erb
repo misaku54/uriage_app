@@ -19,8 +19,8 @@
               <%= f.label :producttype_id, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
             </td>
             <td>
-              <%= f.select :producttype_id, user.producttypes.map { |producttype| [producttype.name, producttype.id]}, 
-                                  { include_blank: "選択してください" }, class:"form-control" %>
+              <%= f.select :producttype_id, user.producttypes.pluck(:name,:id), 
+                                  { include_blank: "選択してください" }, { data: {controller: 'slim'}} %>
             </td>
           </tr>
           <tr>
