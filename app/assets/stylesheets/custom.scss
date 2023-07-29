@@ -34,7 +34,6 @@ textarea {
 
 a {
   text-decoration: none;
-  // color: #000000;
 }
 
 li {
@@ -85,6 +84,13 @@ h6:after {
 
 .read-text {
   font-size: .8rem;
+}
+
+// カードレイアウト内のタブのフォントサイズ調整
+.card-body {
+  .nav-link {
+    font-size: 0.8rem;
+  }
 }
 
 // アイコン
@@ -316,8 +322,4 @@ label.required:after {
 
 .best-sale-name:hover {
   white-space: normal;
-}
-
-.nav-link {
-  font-size: 16px;
 }
