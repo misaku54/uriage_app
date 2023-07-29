@@ -185,44 +185,9 @@ label.required:after {
   padding-bottom: 20px;
 }
 
-// ランキングカード
-.font-bold{
-  font-weight: bold;
-}
-
-.text-lg {
-  font-size: 1.5rem;
-  line-height: 4.0rem;
-}
-
-.text-yellow {
-  color: rgb(250, 204, 21);
-}
-
-.text-gray {
-  color: rgb(156, 163, 175);
-}
-
-.text-brown {
-  color: rgb(161, 98, 7);
-}
-
-.ranking-item {
-  display: flex;
-}
-
-.text-yellow,.text-gray,.text-brown{
-  white-space: nowrap;
-  padding-right: 15px;
-}
-
 .form_date_select {
 	display: inline-block;
 	width: auto;
-}
-
-.modal-open {
-  padding-right: 0px !important;
 }
 
 // アコーディオン
@@ -259,10 +224,6 @@ label.required:after {
   }
 }
 
-.aac {
-  background-color: #000000;
-}
-
 // ロードスピナー
 #loading {
   transition: all 1s;
@@ -283,7 +244,7 @@ label.required:after {
   visibility: hidden;
 }
 
-// リンク色消す
+// ソートリンク色の設定
 .Editlink {
   text-decoration: none;
   &:link {
@@ -305,7 +266,6 @@ label.required:after {
     text-decoration: none;
     color: #000000;
   }
-
 }
 
 // best_selling_cardの設定
