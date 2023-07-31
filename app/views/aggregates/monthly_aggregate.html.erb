@@ -9,7 +9,7 @@
 <div class="card mb-3">
   <div class="card-body shadow-sm">
     <h6 class="mb-3">集計条件</h6>
-    <%= form_with(url: user_monthly_search_path(@user), scope: :search_form, method: "get", class: "form-inline") do |f| %>
+    <%= form_with(url: user_monthly_search_path(@user), scope: :search_form, method: "get", data: { turbo: false }) do |f| %>
       <div class="form-group row mb-2">
         <div class="col-sm-3 col-lg-2 col-form-label">集計月</div>
         <div class="col-sm-5 col-xxl-3 d-flex align-items-center">

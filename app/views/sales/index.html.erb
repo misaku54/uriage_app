@@ -8,7 +8,7 @@
 <div class="card shadow-sm mb-3">
   <div class="card-body">
   <h6 class="mb-3">検索条件</h6>
-  <%= search_form_for @q, url: user_sales_path(@user), class: "mt-3" do |f| %>
+  <%= search_form_for @q, url: user_sales_path(@user), data: { turbo: false } do |f| %>
     <div class="form_group row mb-2">
       <%= f.label :maker_name_cont, 'メーカー名', class: "col-sm-3 col-lg-2 col-form-label"%>
       <div class="col-sm-7 col-lg-6">
