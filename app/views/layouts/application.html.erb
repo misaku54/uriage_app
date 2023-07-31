@@ -27,6 +27,7 @@
         <% end %>
         <%= yield %>
         <%= debug(params) if Rails.env.development? %>
+        <%= render 'layouts/footer' %>
       </div>
     <% else %>
       <div class="main">
@@ -37,6 +38,7 @@
         <% end %>
         <%= yield %>
         <%= debug(params) if Rails.env.development? %>
+        <%= render 'layouts/footer' %>
       </div>
     <% end %>
     </div>
