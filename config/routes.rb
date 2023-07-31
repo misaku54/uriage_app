@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]  do
     resources :makers, except: :show
     resources :producttypes, except: :show
-    resources :sales, except: :show
+    resources :sales
     get '/monthly_aggregate', to: 'aggregates#monthly_aggregate'
     get '/monthly_search', to: 'aggregates#monthly_search'
     get '/yearly_aggregate', to: 'aggregates#yearly_aggregate'

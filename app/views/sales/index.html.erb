@@ -77,7 +77,7 @@
               <td><%= sale.maker.present? ? sale.maker.name : '未登録' %></td>
               <td><%= sale.producttype.present? ? sale.producttype.name : "未登録" %></td>
               <td class="text-right"><%= add_comma_en(sale.amount_sold) %></td>
-              <td><%= sale.remark %></td>
+              <td><%= truncate(sale.remark, length: 10) %></td>
               <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
               <td>
                 <div class="d-flex justify-content-end">
