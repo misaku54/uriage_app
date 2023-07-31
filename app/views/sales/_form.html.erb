@@ -1,4 +1,4 @@
-<%= form_with(model: [user, sale]) do |f| %>
+<%= form_with(model: [user, sale], data: { turbo: false }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="card shadow-sm">
     <div class="card-body">
