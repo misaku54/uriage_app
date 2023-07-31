@@ -2,6 +2,10 @@ class SalesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
 
+  def show
+    @sale = @user.sales.find(params[:id])
+  end
+
   def index
     @sales = @user.sales.order("created_at").page(params[:page]).per(10)
     @q = @user.sales.ransack(params[:q])
