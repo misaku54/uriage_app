@@ -1,5 +1,6 @@
 # 集計処理ロジックモデル
 class Aggregate
+  # アクセサメソッド
   attr_reader :sales, :aggregates_of_maker_producttype, :aggregates_of_maker, :aggregates_of_producttype, :sales_trend, :sales_total_amount, :sales_growth_rate
 
   def initialize(start_date:, end_date:, last_year_start_date:, last_year_end_date:, user:, type: )

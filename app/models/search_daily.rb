@@ -1,10 +1,13 @@
 class SearchDaily
   include ActiveModel::Model
+
+  # アクセサメソッド
   attr_accessor :start_date, :end_date
 
   # バリデーション
   validates :start_date, presence: true
   validates :end_date, presence: true
+  
   # カスタムバリデーション
   validate :date_check # 開始日と終了日のチェック
 

@@ -1,10 +1,16 @@
 class User < ApplicationRecord
+  # アクセサメソッド
+  attr_accessor :remember_token
+
+  # 関連付け
   has_many :makers, dependent: :destroy
   has_many :producttypes, dependent: :destroy
   has_many :sales, dependent: :destroy
-  attr_accessor :remember_token
-  # メールアドレスは小文字で登録
+  
+  # save時にメールアドレスは小文字で登録
   before_save { email.downcase! }
+
+  # バリデーション
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },

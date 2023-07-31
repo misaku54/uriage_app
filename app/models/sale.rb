@@ -1,5 +1,6 @@
 class Sale < ApplicationRecord
   include SessionsHelper
+  
   # 関連付け
   belongs_to :user
   belongs_to :maker
