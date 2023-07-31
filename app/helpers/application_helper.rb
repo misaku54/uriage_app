@@ -37,6 +37,7 @@ module ApplicationHelper
 
   # 日付を曜日付きで取得する。
   def get_date(date)
+    return '-' if date.blank?
     date.strftime("%-m月%-d日(#{DAT_OF_WEEK[date.wday]})")
   end
 
