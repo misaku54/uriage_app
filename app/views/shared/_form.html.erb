@@ -7,10 +7,12 @@
         <tbody>
           <tr>
             <td class="table-light">
-              <%= f.label :name, class: "col-form-label" %>  <span class="badge bg-danger">必須</span>
+              <div class="col-form-label col-form-label-sm">
+                <%= f.label :name %>  <span class="badge bg-danger">必須</span>
+              </div>
             </td>
             <td>
-              <%= f.text_field :name, class: "form-control" %>
+              <%= f.text_field :name, class: "form-control form-control-sm" %>
             </td>
           </tr>
         </tbody>
