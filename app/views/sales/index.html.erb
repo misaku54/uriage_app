@@ -10,34 +10,34 @@
   <h6 class="mb-3">検索条件</h6>
   <%= search_form_for @q, url: user_sales_path(@user), data: { turbo: false } do |f| %>
     <div class="form_group row mb-2">
-      <div class="col-sm-3 col-lg-2">
+      <div class="col-sm-2">
         <%= f.label :maker_name_cont, 'メーカー名', class: "col-form-label col-form-label-sm"%>
       </div>
-      <div class="col-sm-3 col-lg-4">
+      <div class="col-sm-4">
         <%= f.search_field :maker_name_cont, class: "form-control form-control-sm" %>
       </div>
-      <div class="col-sm-3 col-lg-2">
+      <div class="col-sm-2">
         <%= f.label :producttype_name_cont, '商品分類名', class: "col-form-label col-form-label-sm"%>
       </div>
-      <div class="col-sm-3 col-lg-4">
+      <div class="col-sm-4">
         <%= f.search_field :producttype_name_cont, class: "form-control form-control-sm" %>
       </div>
     </div>
     <div class="form_group row mb-2">
-      <div class="col-sm-2 col-lg-2">
+      <div class="col-sm-2">
         <%= f.label :amount_sold_gteq, '販売価格', class: "col-form-label col-form-label-sm"%>
       </div>
-      <div class="col-sm-4 col-lg-4">
+      <div class="col-sm-4">
         <div class="d-flex">
           <%= f.search_field :amount_sold_gteq, class: "form-control form-control-sm" %>
           <div class="col-form-label col-form-label-sm center">〜</div>
           <%= f.search_field :amount_sold_lteq, class: "form-control form-control-sm" %>
         </div>
       </div>
-      <div class="col-sm-2 col-lg-2">
+      <div class="col-sm-2">
         <%= f.label :created_at_gteq, '登録日', class: "col-form-label col-form-label-sm"%>
       </div>
-      <div class="col-sm-4 col-lg-4">
+      <div class="col-sm-4">
         <div class="d-flex">
           <%= f.date_field :created_at_gteq, class: "form-control form-control-sm" %>
           <div class="col-form-label col-form-label-sm center">〜</div>
@@ -46,10 +46,10 @@
       </div>
     </div>
     <div class="form_group row">
-      <div class="col-sm-2 col-lg-2">
+      <div class="col-sm-2">
         <%= f.label :remark_cont, '備考', class: "col-form-label col-form-label-sm"%>
       </div>
-      <div class="col-sm-4 col-lg-4">
+      <div class="col-sm-4">
         <%= f.search_field :remark_cont, class: "form-control form-control-sm" %>
       </div>
       <div class="col-sm-6 d-flex justify-content-start">
