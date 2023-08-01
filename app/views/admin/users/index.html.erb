@@ -78,12 +78,12 @@
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <th><%= sort_link(@q, :id, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :name, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :email, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :created_at, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :updated_at, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :admin, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :id, default_order: :desc, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :email, default_order: :desc, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :updated_at, default_order: :desc, class: "Editlink") %></th>
+            <th><%= sort_link(@q, :admin, default_order: :desc, class: "Editlink") %></th>
             <th>
               <div class="d-flex justify-content-end" >
                 <%= link_to admin_signup_path, data: { turbo: false } do %>
