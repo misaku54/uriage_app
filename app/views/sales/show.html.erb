@@ -10,30 +10,33 @@
   <div class="card-body">
     <h6 class="mb-3">売上詳細</h6>
     <div class="table-responsive text-nowrap">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-sm">
           <tbody>
             <tr>
-              <th class="table-dark col-2"><%= Sale.human_attribute_name(:maker_id) %></th>
+              <th class="table-light col-2"><%= Sale.human_attribute_name(:maker_id) %></th>
               <td><%= @sale.maker.present? ? @sale.maker.name : '未登録' %></td>
             </tr>
             <tr>
-              <th class="table-dark col-2"><%= Sale.human_attribute_name(:producttype_id) %></th>
+              <th class="table-light col-2"><%= Sale.human_attribute_name(:producttype_id) %></th>
               <td><%= @sale.producttype.present? ? @sale.producttype.name : "未登録" %></td>
             </tr>
             <tr>
-              <th class="table-dark col-2"><%= Sale.human_attribute_name(:amount_sold) %></th>
+              <th class="table-light col-2"><%= Sale.human_attribute_name(:amount_sold) %></th>
               <td><%= add_comma_en(@sale.amount_sold) %></td>
             </tr>
             <tr>
-              <th class="table-dark col-2"><%= Sale.human_attribute_name(:remark) %></th>
+              <th class="table-light col-2"><%= Sale.human_attribute_name(:remark) %></th>
               <td><%= simple_format(@sale.remark) %></td>
             </tr>
             <tr>
-              <th class="table-dark col-2"><%= Sale.human_attribute_name(:created_at) %></th>
+              <th class="table-light col-2"><%= Sale.human_attribute_name(:created_at) %></th>
               <td><%= @sale.created_at.strftime('%Y/%m/%d %H:%M') %></td>
             </tr>
           </tbody>
         </table>
+    </div>
+    <div class="row mx-auto">
+      <%= link_to '一覧へ戻る', user_sales_path(@user), class: "btn btn-danger col-sm-3 ml-3 mb-2", data: { turbo: false } %>
     </div>
   </div>
 </div>
