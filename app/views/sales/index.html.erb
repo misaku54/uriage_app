@@ -81,6 +81,10 @@
               <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M')  %></td>
               <td>
                 <div class="d-flex justify-content-end">
+                  <%= link_to user_sale_path(@user, sale), data: { turbo: false } do %>
+                    <i class="fa-solid fa-magnifying-glass fa-fw"></i>
+                  <% end %>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <%= link_to edit_user_sale_path(@user, sale), data: { turbo: false } do %>
                     <i class="fa-solid fa-pen fa-fw"></i>
                   <% end %>
