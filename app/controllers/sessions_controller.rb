@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       log_in user
       flash[:success] = 'ログインしました。'
-      redirect_to forwarding_url || user
+      redirect_to forwarding_url || root_url
     else
       flash.now[:danger] = 'メールアドレスまたはパスワードが違います。'
       render 'new', status: :unprocessable_entity
