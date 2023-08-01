@@ -9,34 +9,34 @@
 <div class="card shadow-sm">
   <div class="card-body">
     <h6 class="mb-3">売上詳細</h6>
-    <div class="table-responsive text-nowrap">
-        <table class="table table-bordered table-sm">
+    <div class="">
+        <table class="table table-sm table-bordered">
           <tbody>
             <tr>
-              <th class="table-light col-2"><%= Sale.human_attribute_name(:maker_id) %></th>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= Sale.human_attribute_name(:maker_id) %></th>
               <td><%= @sale.maker.present? ? @sale.maker.name : '未登録' %></td>
             </tr>
             <tr>
-              <th class="table-light col-2"><%= Sale.human_attribute_name(:producttype_id) %></th>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= Sale.human_attribute_name(:producttype_id) %></th>
               <td><%= @sale.producttype.present? ? @sale.producttype.name : "未登録" %></td>
             </tr>
             <tr>
-              <th class="table-light col-2"><%= Sale.human_attribute_name(:amount_sold) %></th>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= Sale.human_attribute_name(:amount_sold) %></th>
               <td><%= add_comma_en(@sale.amount_sold) %></td>
             </tr>
             <tr>
-              <th class="table-light col-2"><%= Sale.human_attribute_name(:remark) %></th>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= Sale.human_attribute_name(:remark) %></th>
               <td><%= simple_format(@sale.remark) %></td>
             </tr>
             <tr>
-              <th class="table-light col-2"><%= Sale.human_attribute_name(:created_at) %></th>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= Sale.human_attribute_name(:created_at) %></th>
               <td><%= @sale.created_at.strftime('%Y/%m/%d %H:%M') %></td>
             </tr>
           </tbody>
         </table>
     </div>
     <div class="row mx-auto">
-      <%= link_to '一覧へ戻る', user_sales_path(@user), class: "btn btn-danger col-sm-3 ml-3 mb-2", data: { turbo: false } %>
+      <%= link_to '一覧へ戻る', user_sales_path(@user), class: "btn btn-danger btn-sm col-4 col-md-2", data: { turbo: false } %>
     </div>
   </div>
 </div>
