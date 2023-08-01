@@ -10,42 +10,52 @@
   <h6 class="mb-3">検索条件</h6>
   <%= search_form_for @q, url: user_sales_path(@user), data: { turbo: false } do |f| %>
     <div class="form_group row mb-2">
-      <%= f.label :maker_name_cont, 'メーカー名', class: "col-sm-3 col-lg-2 col-form-label"%>
-      <div class="col-sm-7 col-lg-6">
-        <%= f.search_field :maker_name_cont, class: "form-control" %>
+      <div class="col-sm-3 col-lg-2">
+        <%= f.label :maker_name_cont, 'メーカー名', class: "col-form-label col-form-label-sm"%>
+      </div>
+      <div class="col-sm-3 col-lg-4">
+        <%= f.search_field :maker_name_cont, class: "form-control form-control-sm" %>
+      </div>
+      <div class="col-sm-3 col-lg-2">
+        <%= f.label :producttype_name_cont, '商品分類名', class: "col-form-label col-form-label-sm"%>
+      </div>
+      <div class="col-sm-3 col-lg-4">
+        <%= f.search_field :producttype_name_cont, class: "form-control form-control-sm" %>
       </div>
     </div>
     <div class="form_group row mb-2">
-      <%= f.label :producttype_name_cont, '商品分類名', class: "col-sm-3 col-lg-2 col-form-label"%>
-      <div class="col-sm-7 col-lg-6">
-        <%= f.search_field :producttype_name_cont, class: "form-control" %>
+      <div class="col-sm-2 col-lg-2">
+        <%= f.label :amount_sold_gteq, '販売価格', class: "col-form-label col-form-label-sm"%>
+      </div>
+      <div class="col-sm-4 col-lg-4">
+        <div class="d-flex">
+          <%= f.search_field :amount_sold_gteq, class: "form-control form-control-sm" %>
+          <div class="col-form-label col-form-label-sm center">〜</div>
+          <%= f.search_field :amount_sold_lteq, class: "form-control form-control-sm" %>
+        </div>
+      </div>
+      <div class="col-sm-2 col-lg-2">
+        <%= f.label :created_at_gteq, '登録日', class: "col-form-label col-form-label-sm"%>
+      </div>
+      <div class="col-sm-4 col-lg-4">
+        <div class="d-flex">
+          <%= f.date_field :created_at_gteq, class: "form-control form-control-sm" %>
+          <div class="col-form-label col-form-label-sm center">〜</div>
+          <%= f.date_field :created_at_lteq_end_of_day, class: "form-control form-control-sm" %>
+        </div>
       </div>
     </div>
-    <div class="form_group row mb-2">
-      <%= f.label :amount_sold_gteq, '販売価格', class: "col-sm-3 col-lg-2 col-form-label"%>
-      <div class="col-sm-7 col-lg-6 d-flex">
-        <%= f.search_field :amount_sold_gteq, class: "form-control" %>
-        <div class="col-form-label col-sm-1 center">〜</div>
-        <%= f.search_field :amount_sold_lteq, class: "form-control" %>
+    <div class="form_group row">
+      <div class="col-sm-2 col-lg-2">
+        <%= f.label :remark_cont, '備考', class: "col-form-label col-form-label-sm"%>
       </div>
-    </div>
-    <div class="form_group row mb-2">
-      <%= f.label :remark_cont, '備考', class: "col-sm-3 col-lg-2 col-form-label"%>
-      <div class="col-sm-7 col-lg-6">
-        <%= f.search_field :remark_cont, class: "form-control" %>
+      <div class="col-sm-4 col-lg-4">
+        <%= f.search_field :remark_cont, class: "form-control form-control-sm" %>
       </div>
-    </div>
-    <div class="form_group row mb-2">
-      <%= f.label :created_at_gteq, '登録日', class: "col-sm-3 col-lg-2 col-form-label"%>
-      <div class="col-sm-7 col-lg-6 d-flex">
-        <%= f.date_field :created_at_gteq, class: "form-control" %>
-        <div class="col-form-label col-sm-1 center">〜</div>
-        <%= f.date_field :created_at_lteq_end_of_day, class: "form-control" %>
+      <div class="col-sm-6 d-flex justify-content-start">
+          <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary col-sm-5 me-1 btn-sm", data: { turbo: false } %>
+          <%= f.submit '検索', class: "btn btn-primary col-sm-5 btn-sm" %>
       </div>
-    </div>
-    <div class="form_group row mx-auto">
-      <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary col-sm-2 mb-2 me-1", data: { turbo: false } %>
-      <%= f.submit '検索', class: "btn btn-primary col-sm-2 me-2 mb-2" %>
     </div>
   <% end %>
   </div>
