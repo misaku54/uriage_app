@@ -1,0 +1,39 @@
+<% provide(:title, '売上詳細')%>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
+    <li class="breadcrumb-item"><%= link_to '売上一覧', user_sales_path(@user), data: { turbo: false } %></li>
+    <li class="breadcrumb-item active" aria-current="page">売上詳細</li>
+  </ol>
+</nav>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h6 class="mb-3">売上詳細</h6>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th class="table-dark col-2"><%= Sale.human_attribute_name(:maker_id) %></th>
+              <td><%= @sale.maker.present? ? @sale.maker.name : '未登録' %></td>
+            </tr>
+            <tr>
+              <th class="table-dark col-2"><%= Sale.human_attribute_name(:producttype_id) %></th>
+              <td><%= @sale.producttype.present? ? @sale.producttype.name : "未登録" %></td>
+            </tr>
+            <tr>
+              <th class="table-dark col-2"><%= Sale.human_attribute_name(:amount_sold) %></th>
+              <td><%= add_comma_en(@sale.amount_sold) %></td>
+            </tr>
+            <tr>
+              <th class="table-dark col-2"><%= Sale.human_attribute_name(:remark) %></th>
+              <td><%= simple_format(@sale.remark) %></td>
+            </tr>
+            <tr>
+              <th class="table-dark col-2"><%= Sale.human_attribute_name(:created_at) %></th>
+              <td><%= @sale.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
