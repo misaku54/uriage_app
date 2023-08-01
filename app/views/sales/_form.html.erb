@@ -3,10 +3,10 @@
   <div class="card shadow-sm">
     <div class="card-body">
       <h6 class="mb-3"><%= form_name %></h6>
-      <table class="table table-bordered">
+      <table class="table table-sm table-bordered">
         <tbody>
           <tr>
-            <td class="table-light">
+            <td class="table-light col-5 col-sm-3">
               <div class="col-form-label col-form-label-sm">
                 <%= f.label :maker_id %>  <span class="badge bg-danger">必須</span>
               </div>
@@ -70,8 +70,8 @@
         </tbody>
       </table>
       <div class="row mx-auto">
-        <%= f.submit yield(:button_text), class: "btn btn-primary btn-sm col-sm-3 me-2 mb-2" %>
-        <%= link_to '一覧へ戻る', url, class: "btn btn-danger btn-sm col-sm-3 ml-3 mb-2", data: { turbo: false } %>
+        <%= f.submit yield(:button_text), class: "btn btn-primary btn-sm col-4 col-md-2 me-2" %>
+        <%= link_to '一覧へ戻る', url, class: "btn btn-danger btn-sm col-4 col-md-2 ", data: { turbo: false } %>
       </div>
     </div>
   </div>
