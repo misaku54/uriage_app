@@ -9,7 +9,11 @@ class SalesController < ApplicationController
   def index
     @q = @user.sales.ransack(params[:q])
     # @q.sorts = 'created_at asc' if @q.sorts.empty?
-    @sales  = @q.result.page(params[:page]).per(10)
+    if params[:export_csv]
+      @sales  = @q.result
+    else
+      @sales  = @q.result.page(params[:page]).per(10)
+    end
   end
 
   def new
