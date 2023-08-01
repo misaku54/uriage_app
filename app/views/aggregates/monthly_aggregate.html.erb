@@ -6,8 +6,8 @@
   </ol>
 </nav>
 <%= render 'shared/error_messages', object: @search_params %>
-<div class="card mb-3">
-  <div class="card-body shadow-sm">
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
     <h6 class="mb-3">集計条件</h6>
     <%= form_with(url: user_monthly_search_path(@user), scope: :search_form, method: "get", data: { turbo: false }) do |f| %>
       <div class="form-group row mb-2">
