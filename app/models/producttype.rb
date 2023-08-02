@@ -20,7 +20,7 @@ class Producttype < ApplicationRecord
     CSV.generate do |csv|
       csv << ["商品分類名","登録日時"]
       producttypes.each do |producttype|
-        csv << [producttype.name, producttype.created_at]
+        csv << [producttype.name, producttype.created_at.strftime('%Y/%m/%d %H:%M')]
       end
     end
   end
