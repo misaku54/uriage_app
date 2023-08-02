@@ -119,7 +119,9 @@ class Sale < ApplicationRecord
   end
 
   def self.csv_output(sales)
-    CSV.generate do |csv|
+    bom = "\uFEFF"
+
+    CSV.generate(bom) do |csv|
       csv << ['メーカー名','商品分類名','販売価格','備考','登録日時']
       sales.each do |sale|
         maker_name = sale.maker.present? ? sale.maker.name : '未登録'

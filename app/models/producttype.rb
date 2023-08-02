@@ -17,7 +17,9 @@ class Producttype < ApplicationRecord
   end
 
   def self.csv_output(producttypes)
-    CSV.generate do |csv|
+    bom = "\uFEFF"
+
+    CSV.generate(bom) do |csv|
       csv << ["商品分類名","登録日時"]
       producttypes.each do |producttype|
         csv << [producttype.name, producttype.created_at.strftime('%Y/%m/%d %H:%M')]
