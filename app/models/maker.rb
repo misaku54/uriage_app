@@ -15,4 +15,13 @@ class Maker < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["sales", "user"]
   end
+
+  def self.csv_output(makers)
+    CSV.genarate.each do |csv|
+      csv << ["メーカー名","登録日"]
+      makers.each do |maker|
+        csv << [maker.name, maker.created_at.strftime("%Y/%m/%d %H:%M")]
+      end
+    end
+  end
 end
