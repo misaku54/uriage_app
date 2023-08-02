@@ -17,7 +17,7 @@ class Maker < ApplicationRecord
   end
 
   def self.csv_output(makers)
-    CSV.genarate.each do |csv|
+    CSV.generate do |csv|
       csv << ["メーカー名","登録日"]
       makers.each do |maker|
         csv << [maker.name, maker.created_at.strftime("%Y/%m/%d %H:%M")]

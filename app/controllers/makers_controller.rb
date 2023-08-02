@@ -7,7 +7,7 @@ class MakersController < ApplicationController
     # @q.sorts = 'created_at asc' if @q.sorts.empty?
     if params[:export_csv]
       @makers = @q.result
-      send_data(Maker.csv_output(@maker), filename: "#{Time.zone.now.strftime("%Y%n%d")}_メーカー一覧.csv")
+      send_data(Maker.csv_output(@makers), filename: "#{Time.zone.now.strftime("%Y%m%d")}_メーカー一覧.csv")
     else
       @makers = @q.result.page(params[:page]).per(10)
     end
