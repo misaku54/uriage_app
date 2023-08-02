@@ -53,12 +53,12 @@
         <%= f.search_field :remark_cont, class: "form-control form-control-sm" %>
       </div>
       <div class="col-sm-6 mt-2 mt-sm-0 d-flex justify-content-start">
-          <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary btn-sm col-5 col-lg-2 me-1", data: { turbo: false } %>
-          <%= f.submit '検索', class: "btn btn-primary btn-sm col-5 col-lg-2" %>
+          <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary btn-sm col-lg-2 me-1", data: { turbo: false } %>
+          <%= f.submit '検索', class: "btn btn-primary btn-sm col-lg-2 me-1" %>
+          <%= f.button class: 'btn btn-success btn-sm col-lg-3', name: 'export_csv' do %>
+            <i class="fa fa-file-text"></i> CSV出力
+          <% end %>
       </div>
-      <%= f.button class: 'btn btn-default', name: 'export_csv' do %>
-        <i class="fa fa-file-text"></i> CSV出力
-      <% end %>
     </div>
   <% end %>
   </div>
