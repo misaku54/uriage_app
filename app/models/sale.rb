@@ -104,18 +104,29 @@ class Sale < ApplicationRecord
   def self.sales_growth_rate(sales_total_amount = 0, last_year_sales_total_amount = 0)
     if last_year_sales_total_amount > 0
       # 売上成長率 = (今年売上 - 前年売上) ÷ 前年売上 × 100　
-      "#{((sales_total_amount - last_year_sales_total_amount) / last_year_sales_total_amount.to_f * 100).floor(1)}%"
+      '#{((sales_total_amount - last_year_sales_total_amount) / last_year_sales_total_amount.to_f * 100).floor(1)}%'
     else
-      "-"
+      '-'
     end
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "maker_id", "producttype_id", "amount_sold", "remark"]
+    ['created_at', 'maker_id', 'producttype_id', 'amount_sold', 'remark']
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["maker", "producttype"]
+    ['maker', 'producttype']
+  end
+
+  def self.csv_output(sales)
+    CSV.generate do |csv|
+      csv << ['メーカー名','商品分類名','販売価格','備考','登録日時']
+      sales.each do |sale|
+        maker_name = sale.maker.present? ? sale.maker.name : '未登録'
+        producttype_name = sale.producttype.present? ? sale.producttype.name : '未登録'
+        csv << [maker_name, producttype_name, sale.amount_sold, sale.remark, sale.created_at.strftime('%Y/%m/%d %H:%M') ]
+      end
+    end
   end
 
   private 
