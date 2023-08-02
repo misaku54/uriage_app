@@ -5,7 +5,12 @@ class ProducttypesController < ApplicationController
   def index
     @q = @user.producttypes.ransack(params[:q])
     # @q.sorts = 'created_at asc' if @q.sorts.empty?
-    @producttypes  = @q.result.page(params[:page]).per(10)
+    if params[:export_csv]
+      @producttypes = @q.result
+      send_data(Producttype.csv_output(@producttypes), filename: "#{Time.zone.now.strftime("%Y%m%d")}_商品分類一覧.csv")
+    else
+      @producttypes = @q.result.page(params[:page]).per(10)
+    end
   end
 
   def new
