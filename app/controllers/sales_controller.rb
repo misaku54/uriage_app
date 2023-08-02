@@ -11,7 +11,7 @@ class SalesController < ApplicationController
     # @q.sorts = 'created_at asc' if @q.sorts.empty?
     if params[:export_csv]
       @sales  = @q.result
-      send_data(Sale.csv_output(@sales), filename: "売上一覧.csv")
+      send_data(Sale.csv_output(@sales), filename: "#{Time.current.strftime("%Y%m%d")}_売上一覧.csv")
     else
       @sales  = @q.result.page(params[:page]).per(10)
     end
