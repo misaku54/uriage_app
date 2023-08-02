@@ -15,4 +15,13 @@ class Producttype < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["sales", "user"]
   end
+
+  def self.csv_output(producttypes)
+    CSV.generate do |csv|
+      csv << ["商品分類名","登録日時"]
+      producttypes.each do |producttype|
+        csv << [producttype.name, producttype.created_at]
+      end
+    end
+  end
 end
