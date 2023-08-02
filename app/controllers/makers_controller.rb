@@ -5,8 +5,12 @@ class MakersController < ApplicationController
   def index
     @q = @user.makers.ransack(params[:q])
     # @q.sorts = 'created_at asc' if @q.sorts.empty?
-    @makers  = @q.result.page(params[:page]).per(10)
-    @maker   = @user.makers.build
+    if params[:export_csv]
+      @makers = @q.result
+      send_data(Maker.csv_output(@maker), filename: "#{Time.zone.now.strftime("%Y%n%d")}_メーカー一覧.csv")
+    else
+      @makers = @q.result.page(params[:page]).per(10)
+    end
   end
 
   def new
