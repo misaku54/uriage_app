@@ -106,13 +106,12 @@ RSpec.describe "集計機能", type: :system do
           select '2022', from: 'search_form[date(1i)]'
           click_button '集計'
           expect(page).to have_content '合計純売上'
+          expect(page).to have_content '最も売れたメーカー×商品分類'
+          expect(page).to have_content '最も売れたメーカー'
+          expect(page).to have_content '最も売れた商品分類'
           expect(page).to have_content '売上推移'
-          expect(page).to have_content '売上ランキング（メーカー、商品分類別）'
-          expect(page).to have_content '売上ランキング（メーカー別）'
-          expect(page).to have_content '売上ランキング（商品分類別）'
-          expect(page).to have_content '集計結果（メーカー、商品分類別の販売額の合計）'
-          expect(page).to have_content '集計結果（メーカー別の販売額の合計）'
-          expect(page).to have_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_content 'カテゴリ別の売上集計（グラフ）'
+          expect(page).to have_content 'カテゴリ別の売上集計（一覧）'
         end
       end 
 
@@ -121,13 +120,12 @@ RSpec.describe "集計機能", type: :system do
           select '2021', from: 'search_form[date(1i)]'
           click_button '集計'
           expect(page).to have_no_content '合計純売上'
+          expect(page).to have_no_content '最も売れたメーカー×商品分類'
+          expect(page).to have_no_content '最も売れたメーカー'
+          expect(page).to have_no_content '最も売れた商品分類'
           expect(page).to have_no_content '売上推移'
-          expect(page).to have_no_content '売上ランキング（メーカー、商品分類別）'
-          expect(page).to have_no_content '売上ランキング（メーカー別）'
-          expect(page).to have_no_content '売上ランキング（商品分類別）'
-          expect(page).to have_no_content '集計結果（メーカー、商品分類別の販売額の合計）'
-          expect(page).to have_no_content '集計結果（メーカー別の販売額の合計）'
-          expect(page).to have_no_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_no_content 'カテゴリ別の売上集計（グラフ）'
+          expect(page).to have_no_content 'カテゴリ別の売上集計（一覧）'
           expect(page).to have_content '集計期間に該当する売上データがありません。'
         end
       end
@@ -145,15 +143,14 @@ RSpec.describe "集計機能", type: :system do
         it '集計結果が表示されること' do
           select '2022', from: 'search_form[date(1i)]'
           select '1', from: 'search_form[date(2i)]'
-          click_button '集計する'
+          click_button '集計'
           expect(page).to have_content '合計純売上'
+          expect(page).to have_content '最も売れたメーカー×商品分類'
+          expect(page).to have_content '最も売れたメーカー'
+          expect(page).to have_content '最も売れた商品分類'
           expect(page).to have_content '売上推移'
-          expect(page).to have_content '売上ランキング（メーカー、商品分類別）'
-          expect(page).to have_content '売上ランキング（メーカー別）'
-          expect(page).to have_content '売上ランキング（商品分類別）'
-          expect(page).to have_content '集計結果（メーカー、商品分類別の販売額の合計）'
-          expect(page).to have_content '集計結果（メーカー別の販売額の合計）'
-          expect(page).to have_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_content 'カテゴリ別の売上集計（グラフ）'
+          expect(page).to have_content 'カテゴリ別の売上集計（一覧）'
         end
       end
 
@@ -161,15 +158,14 @@ RSpec.describe "集計機能", type: :system do
         it '集計結果が表示されないこと' do
           select '2022', from: 'search_form[date(1i)]'
           select '2', from: 'search_form[date(2i)]'
-          click_button '集計する'
+          click_button '集計'
           expect(page).to have_no_content '合計純売上'
+          expect(page).to have_no_content '最も売れたメーカー×商品分類'
+          expect(page).to have_no_content '最も売れたメーカー'
+          expect(page).to have_no_content '最も売れた商品分類'
           expect(page).to have_no_content '売上推移'
-          expect(page).to have_no_content '売上ランキング（メーカー、商品分類別）'
-          expect(page).to have_no_content '売上ランキング（メーカー別）'
-          expect(page).to have_no_content '売上ランキング（商品分類別）'
-          expect(page).to have_no_content '集計結果（メーカー、商品分類別の販売額の合計）'
-          expect(page).to have_no_content '集計結果（メーカー別の販売額の合計）'
-          expect(page).to have_no_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_no_content 'カテゴリ別の売上集計（グラフ）'
+          expect(page).to have_no_content 'カテゴリ別の売上集計（一覧）'
           expect(page).to have_content '集計期間に該当する売上データがありません。'
         end
       end
@@ -187,15 +183,14 @@ RSpec.describe "集計機能", type: :system do
         it '集計結果が表示されること' do
           fill_in 'search_daily[start_date]' , with: '002022-01-01'
           fill_in 'search_daily[end_date]' , with: '002022-01-31'
-          click_button '集計する'
+          click_button '集計'
           expect(page).to have_content '合計純売上'
+          expect(page).to have_content '最も売れたメーカー×商品分類'
+          expect(page).to have_content '最も売れたメーカー'
+          expect(page).to have_content '最も売れた商品分類'
           expect(page).to have_content '売上推移'
-          expect(page).to have_content '売上ランキング（メーカー、商品分類別）'
-          expect(page).to have_content '売上ランキング（メーカー別）'
-          expect(page).to have_content '売上ランキング（商品分類別）'
-          expect(page).to have_content '集計結果（メーカー、商品分類別の販売額の合計）'
-          expect(page).to have_content '集計結果（メーカー別の販売額の合計）'
-          expect(page).to have_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_content 'カテゴリ別の売上集計（グラフ）'
+          expect(page).to have_content 'カテゴリ別の売上集計（一覧）'
         end
       end
 
@@ -203,15 +198,14 @@ RSpec.describe "集計機能", type: :system do
         it '集計結果が表示されないこと' do
           fill_in 'search_daily[start_date]' , with: '002022-02-01'
           fill_in 'search_daily[end_date]' , with: '002022-02-28'
-          click_button '集計する'
+          click_button '集計'
           expect(page).to have_no_content '合計純売上'
+          expect(page).to have_no_content '最も売れたメーカー×商品分類'
+          expect(page).to have_no_content '最も売れたメーカー'
+          expect(page).to have_no_content '最も売れた商品分類'
           expect(page).to have_no_content '売上推移'
-          expect(page).to have_no_content '売上ランキング（メーカー、商品分類別）'
-          expect(page).to have_no_content '売上ランキング（メーカー別）'
-          expect(page).to have_no_content '売上ランキング（商品分類別）'
-          expect(page).to have_no_content '集計結果（メーカー、商品分類別の販売額の合計）'
-          expect(page).to have_no_content '集計結果（メーカー別の販売額の合計）'
-          expect(page).to have_no_content '集計結果（商品分類別の販売額の合計）'
+          expect(page).to have_no_content 'カテゴリ別の売上集計（グラフ）'
+          expect(page).to have_no_content 'カテゴリ別の売上集計（一覧）'
           expect(page).to have_content '集計期間に該当する売上データがありません。'
         end
       end

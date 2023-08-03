@@ -98,8 +98,8 @@ RSpec.describe "売上管理機能", type: :system do
           expect(page).to have_content 'カバン'
           expect(page).to have_content '10,000円'
           expect(page).to have_content '期間限定商品'
-          expect(page).to have_link '編集', href: "/users/#{sale.user.id}/sales/#{sale.id}/edit"
-          expect(page).to have_link '削除', href: "/users/#{sale.user.id}/sales/#{sale.id}"
+          expect(page).to have_link nil, href: "/users/#{sale.user.id}/sales/#{sale.id}/edit"
+          expect(page).to have_link nil, href: "/users/#{sale.user.id}/sales/#{sale.id}"
         end
       end
 
@@ -111,8 +111,8 @@ RSpec.describe "売上管理機能", type: :system do
           expect(page).to have_no_content 'カバン'
           expect(page).to have_no_content '10,000円'
           expect(page).to have_no_content '期間限定商品'
-          expect(page).to have_no_link '編集', href: "/users/#{sale.user.id}/sales/#{sale.id}/edit"
-          expect(page).to have_no_link '削除', href: "/users/#{sale.user.id}/sales/#{sale.id}"
+          expect(page).to have_no_link nil, href: "/users/#{sale.user.id}/sales/#{sale.id}/edit"
+          expect(page).to have_no_link nil, href: "/users/#{sale.user.id}/sales/#{sale.id}"
         end
       end
     end
@@ -216,7 +216,7 @@ RSpec.describe "売上管理機能", type: :system do
           visit user_sales_path(login_user)
           # DB上で削除されていること
           expect {
-            click_link '削除'
+            page.all("a[href='/users/#{sale.user.id}/sales/#{sale.id}']")[1].click
           }.to change(Sale, :count).by(-1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_sales_path(login_user)

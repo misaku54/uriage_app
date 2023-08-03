@@ -24,7 +24,7 @@ RSpec.describe "Sessions", type: :request do
         it 'ログイン状態になり、ユーザー情報にリダイレクトされること' do
           session_params = { email: user.email, password: user.password }
           post login_path, params: { session: session_params }
-          expect(response).to redirect_to user
+          expect(response).to redirect_to root_path
           expect(logged_in?).to be_truthy
         end
       end
