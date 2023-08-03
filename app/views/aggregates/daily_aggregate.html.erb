@@ -10,7 +10,7 @@
   <div class="card-body">
     <h6 class="mb-3">集計条件</h6>
     <%= form_with(url: user_daily_search_path(@user), scope: :search_daily, method: "get", data: { turbo: false }) do |f| %>
-      <div class="form_group row">
+      <div class="form_group row mb-2">
         <div class="col-sm-2 col-xl-1 col-form-label col-form-label-sm">集計期間</div>
         <div class="col-sm-8 col-md-7 col-xl-6 col-xxl-4 d-flex">
           <%= f.date_field :start_date, class:'form-control form-control-sm' %>
@@ -18,6 +18,11 @@
           <%= f.date_field :end_date, class:'form-control form-control-sm me-1' %>
           <%= f.submit '集計', class: "btn btn-primary btn-sm col-2" %>
         </div>
+      </div>
+      <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
+        <%= f.button class: "btn btn-success btn-sm col-6 col-sm-2", name: "export_csv" do %>
+          <i class="fa fa-file-text"></i> CSV出力
+        <% end %>
       </div>
     <% end %>
   </div>
