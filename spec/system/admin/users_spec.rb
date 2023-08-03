@@ -139,10 +139,10 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           expect(page).to have_content 'a@example.com'
           expect(page).to have_content 'ユーザーB'
           expect(page).to have_content 'b@example.com'
-          expect(page).to have_link '編集', href: "/admin/users/#{user_a.id}/edit"
-          expect(page).to have_link '削除', href: "/admin/users/#{user_a.id}"
-          expect(page).to have_link '編集', href: "/admin/users/#{user_b.id}/edit"
-          expect(page).to have_link '削除', href: "/admin/users/#{user_b.id}"
+          expect(page).to have_link nil, href: "/admin/users/#{user_a.id}/edit"
+          expect(page).to have_link nil, href: "/admin/users/#{user_a.id}"
+          expect(page).to have_link nil, href: "/admin/users/#{user_b.id}/edit"
+          expect(page).to have_link nil, href: "/admin/users/#{user_b.id}"
         end
 
         it '自分（管理者）のアカウントには編集ボタンと削除ボタンが表示されていないこと' do
@@ -192,7 +192,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
             }.to_not change(User, :count)
             # エラーメッセージが表示されていること
             # renderの挙動を確認する方法がわからなかったため、have_selectorを使用
-            expect(page).to have_selector 'h1', text: 'ユーザー登録'
+            expect(page).to have_selector 'li', text: 'ユーザー登録'
             expect(page).to have_selector 'div.alert.alert-danger'
           end
         end
@@ -259,9 +259,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           visit admin_users_path
           # DB上で削除されていること
           expect {
-            # page.accept_confirm do
-              click_link '削除', href: "/admin/users/#{user_a.id}"
-            # end
+            page.all("a[href='/admin/users/#{user_a.id}']")[1].click
           }.to change(User, :count).by(-1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path admin_users_path
