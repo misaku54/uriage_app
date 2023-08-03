@@ -35,6 +35,20 @@ class Aggregate
     set_sales_trend
   end
 
+  def csv_output
+    bom = "\uFEFF"
+    CSV.generate(bom) do |csv|
+      csv << ['売上集計（メーカー×商品分類）']
+      csv << ['メーカー名', '商品分類名', '純売上', '販売数量', '昨年の純売上', '昨年の販売数量','成長率（前年比較）']     
+      @aggregates_of_maker_producttype.each do |aggregate|
+        csv << [
+          aggregate.maker_name, aggregate.producttype_name, aggregate.sum_amount_sold, aggregate.quantity_sold,
+          aggregate.last_year_sum_amount_sold, aggregate.last_year_quantity_sold, aggregate.sales_growth_rate
+        ]
+      end
+    end
+  end
+
   private 
 
   def set_sales

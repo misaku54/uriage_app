@@ -67,6 +67,12 @@ class AggregatesController < ApplicationController
         render 'yearly_aggregate' and return
       end 
 
+      # csv出力
+      if params[:export_csv]
+        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_集計結果.csv")
+        return
+      end
+
       # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
@@ -74,6 +80,7 @@ class AggregatesController < ApplicationController
       @sales_trend                     = aggregate.sales_trend
       @sales_total_amount              = aggregate.sales_total_amount
       @sales_growth_rate               = aggregate.sales_growth_rate
+
       render 'yearly_aggregate'
     else
       render 'yearly_aggregate', status: :unprocessable_entity

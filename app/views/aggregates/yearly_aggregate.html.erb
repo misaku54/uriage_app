@@ -18,6 +18,9 @@
           <div class="col-form-label col-form-label-sm center">年</div>
           <%= f.submit '集計', class: "btn btn-primary btn-sm col-6" %>
         </div>
+          <%= f.button class: "btn btn-success btn-sm col-5 col-md-3", name: "export_csv" do %>
+            <i class="fa fa-file-text"></i> CSV出力
+          <% end %>
       </div>
     <% end %>
   </div>
