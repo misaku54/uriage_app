@@ -44,11 +44,13 @@ RSpec.describe "ユーザー管理機能（一般）", type: :system do
         end
       end
     end
+    
     describe '詳細表示機能' do
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
         
         it 'ユーザーAの詳細画面が表示されていること' do
+          visit user_path(user_a)
           expect(page).to have_current_path user_path(user_a)
           expect(page).to have_content 'ユーザーA'
           expect(page).to have_content 'a@example.com'
