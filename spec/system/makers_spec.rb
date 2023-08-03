@@ -108,8 +108,8 @@ RSpec.describe "メーカー管理機能", type: :system do
 
         it 'ユーザーAが作成したメーカーが表示されていないこと' do
           expect(page).to have_no_content 'メーカーA'
-          expect(page).to have_no_link '編集', href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
-          expect(page).to have_no_link '削除', href: "/users/#{maker.user.id}/makers/#{maker.id}"
+          expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
+          expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}"
         end
       end
     end
