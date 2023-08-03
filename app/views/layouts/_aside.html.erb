@@ -11,9 +11,9 @@
     </div>
     <div class="acordion__ttl"><i class="fa-solid fa-table" style="color: #ffffff;"></i> 売上分析</div>
     <div class="acordion__cnt">
-      <li><%= link_to '年次集計', user_yearly_aggregate_path(current_user), data: { turbo: false } %></li>
-      <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user), data: { turbo: false } %></li>
-      <li><%= link_to '日次集計', user_daily_aggregate_path(current_user), data: { turbo: false } %></li>
+      <li><%= link_to '年別集計', user_yearly_aggregate_path(current_user), data: { turbo: false } %></li>
+      <li><%= link_to '月別集計', user_monthly_aggregate_path(current_user), data: { turbo: false } %></li>
+      <li><%= link_to '日別集計', user_daily_aggregate_path(current_user), data: { turbo: false } %></li>
     </div>
   </div>
 <% end %>

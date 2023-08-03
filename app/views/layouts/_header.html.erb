@@ -38,9 +38,9 @@
                 売上分析
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><%= link_to '年次集計', user_yearly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
-                <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
-                <li><%= link_to '日次集計', user_daily_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '年別集計', user_yearly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '月別集計', user_monthly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '日別集計', user_daily_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
           <% else %>
@@ -66,9 +66,9 @@
                 売上分析
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><%= link_to '年次集計', user_yearly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
-                <li><%= link_to '月次集計', user_monthly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
-                <li><%= link_to '日次集計', user_daily_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '年別集計', user_yearly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '月別集計', user_monthly_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to '日別集計', user_daily_aggregate_path(current_user), class: "dropdown-item", data: { turbo: false } %></li>
               </ul>
             </li>
           <% end %>
