@@ -22,6 +22,12 @@ class AggregatesController < ApplicationController
       aggregate.call
       sales = aggregate.sales
 
+      # csv出力
+      if params[:export_csv]
+        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_月別集計結果.csv")
+        return
+      end
+      
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
@@ -69,7 +75,7 @@ class AggregatesController < ApplicationController
 
       # csv出力
       if params[:export_csv]
-        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_集計結果.csv")
+        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_年別集計結果.csv")
         return
       end
 
@@ -111,6 +117,12 @@ class AggregatesController < ApplicationController
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
         render 'daily_aggregate' and return
+      end
+
+      # csv出力
+      if params[:export_csv]
+        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_日別集計結果.csv")
+        return
       end
 
       # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
