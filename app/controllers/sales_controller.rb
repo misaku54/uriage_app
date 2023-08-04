@@ -58,4 +58,8 @@ class SalesController < ApplicationController
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id, :created_at)
   end
 
+  def generate_csv
+    @sales  = @q.result
+    send_data(CsvExport.csv_output(@sales), filename: "#{Time.zone.now.strftime("%Y%m%d")}_売上一覧.csv")
+  end
 end
