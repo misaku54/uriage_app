@@ -93,26 +93,45 @@ RSpec.describe "メーカー管理機能", type: :system do
         visit user_makers_path(login_user)
       end
 
-      context 'ユーザーAでログインしている場合' do
-        let(:login_user) { user_a }
+      describe '表示機能' do
+        context 'ユーザーAでログインしている場合' do
+          let(:login_user) { user_a }
 
-        it 'ユーザーAが作成したメーカーが表示されていること' do
-          expect(page).to have_content 'メーカーA'
-          expect(page).to have_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
-          expect(page).to have_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}"
+          it 'ユーザーAが作成したメーカーが表示されていること' do
+            expect(page).to have_content 'メーカーA'
+            expect(page).to have_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
+            expect(page).to have_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}"
+          end
+        end
+
+        context 'ユーザーBでログインしている場合' do
+          let(:login_user) { user_b }
+
+          it 'ユーザーAが作成したメーカーが表示されていないこと' do
+            expect(page).to have_no_content 'メーカーA'
+            expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
+            expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}"
+          end
         end
       end
 
-      context 'ユーザーBでログインしている場合' do
-        let(:login_user) { user_b }
+      describe '検索機能' do
+        let(:login_user) { user_a }
 
-        it 'ユーザーAが作成したメーカーが表示されていないこと' do
-          expect(page).to have_no_content 'メーカーA'
-          expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
-          expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}"
+        context '一覧が2件ある状態でメーカーAを検索した場合' do
+          let!(:maker_b) { FactoryBot.create(:maker, name:'メーカーB', user: user_a) }
+          
+          it 'メーカーAが表示されること' do
+            fill_in 'q[name_cont]', with: 'メーカーA'
+            click_button '検索'
+            expect(page).to have_content 'メーカーA'
+            expect(page).to have_no_content 'メーカーB'
+          end
         end
       end
     end
+
+
 
     describe '新規登録機能' do
       let(:login_user) { user_a }
