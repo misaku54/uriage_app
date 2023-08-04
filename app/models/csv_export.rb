@@ -71,5 +71,4 @@ class CsvExport
       end
     end
   end
-
 end
