@@ -21,12 +21,6 @@ class AggregatesController < ApplicationController
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'month')
       aggregate.call
       sales = aggregate.sales
-
-      # csv出力
-      if params[:export_csv]
-        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_月別集計結果.csv")
-        return
-      end
       
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
@@ -41,6 +35,8 @@ class AggregatesController < ApplicationController
       @sales_trend                     = aggregate.sales_trend
       @sales_total_amount              = aggregate.sales_total_amount
       @sales_growth_rate               = aggregate.sales_growth_rate
+
+      return generate_csv if params[:export_csv]
       render 'monthly_aggregate'
     else
       render 'monthly_aggregate', status: :unprocessable_entity
@@ -73,12 +69,6 @@ class AggregatesController < ApplicationController
         render 'yearly_aggregate' and return
       end 
 
-      # csv出力
-      if params[:export_csv]
-        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_年別集計結果.csv")
-        return
-      end
-
       # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
@@ -87,6 +77,7 @@ class AggregatesController < ApplicationController
       @sales_total_amount              = aggregate.sales_total_amount
       @sales_growth_rate               = aggregate.sales_growth_rate
 
+      return generate_csv if params[:export_csv]
       render 'yearly_aggregate'
     else
       render 'yearly_aggregate', status: :unprocessable_entity
@@ -119,12 +110,6 @@ class AggregatesController < ApplicationController
         render 'daily_aggregate' and return
       end
 
-      # csv出力
-      if params[:export_csv]
-        send_data(aggregate.csv_output, filename: "#{Time.zone.now.strftime("%Y%m%d")}_日別集計結果.csv")
-        return
-      end
-
       # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
@@ -132,6 +117,8 @@ class AggregatesController < ApplicationController
       @sales_trend                     = aggregate.sales_trend
       @sales_total_amount              = aggregate.sales_total_amount
       @sales_growth_rate               = aggregate.sales_growth_rate
+
+      return generate_csv if params[:export_csv]
       render 'daily_aggregate'
     else
       render 'daily_aggregate', status: :unprocessable_entity
@@ -151,4 +138,8 @@ class AggregatesController < ApplicationController
     params.require(:search_daily).permit(:start_date, :end_date)
   end
 
+  # csv出力
+  def generate_csv
+    send_data(CsvExport.aggregate_csv_output(@sales_total_amount, @sales_growth_rate, @aggregates_of_maker_producttype, @aggregates_of_maker, @aggregates_of_producttype), filename: "#{Time.zone.now.strftime("%Y%m%d")}_集計結果.csv")
+  end
 end

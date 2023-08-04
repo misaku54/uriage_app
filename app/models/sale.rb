@@ -118,19 +118,6 @@ class Sale < ApplicationRecord
     ["maker", "producttype"]
   end
 
-  def self.csv_output(sales)
-    bom = "\uFEFF"
-
-    CSV.generate(bom) do |csv|
-      csv << ['メーカー名','商品分類名','販売価格','備考','登録日時']
-      sales.each do |sale|
-        maker_name = sale.maker.present? ? sale.maker.name : '未登録'
-        producttype_name = sale.producttype.present? ? sale.producttype.name : '未登録'
-        csv << [maker_name, producttype_name, sale.amount_sold, sale.remark, sale.created_at.strftime('%Y/%m/%d %H:%M') ]
-      end
-    end
-  end
-
   private 
 
   def maker_id_should_be_registered

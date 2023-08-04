@@ -35,45 +35,6 @@ class Aggregate
     set_sales_trend
   end
 
-  def csv_output
-    bom = "\uFEFF"
-    CSV.generate(bom) do |csv|
-      csv << ['合計純売上']
-      csv << ['純売上', '前年比']     
-      csv << [@sales_total_amount, @sales_growth_rate]     
-
-      csv << ['']
-      csv << ['売上集計（メーカー×商品分類）']
-      csv << ['メーカー名', '商品分類名', '純売上', '販売数量', '昨年の純売上', '昨年の販売数量','成長率（前年比較）']     
-      @aggregates_of_maker_producttype.each do |aggregate|
-        csv << [
-          aggregate.maker_name, aggregate.producttype_name, aggregate.sum_amount_sold, aggregate.quantity_sold,
-          aggregate.last_year_sum_amount_sold, aggregate.last_year_quantity_sold, aggregate.sales_growth_rate
-        ]
-      end
-
-      csv << ['']
-      csv << ['売上集計（メーカー）']
-      csv << ['メーカー名', '純売上', '販売数量', '昨年の純売上', '昨年の販売数量', '成長率（前年比較）']     
-      @aggregates_of_maker.each do |aggregate|
-        csv << [
-          aggregate.maker_name, aggregate.sum_amount_sold, aggregate.quantity_sold,
-          aggregate.last_year_sum_amount_sold, aggregate.last_year_quantity_sold, aggregate.sales_growth_rate
-        ]
-      end
-
-      csv << ['']
-      csv << ['売上集計（商品分類）']
-      csv << ['商品分類名', '純売上', '販売数量', '昨年の純売上', '昨年の販売数量', '成長率（前年比較）']     
-      @aggregates_of_producttype.each do |aggregate|
-        csv << [
-          aggregate.producttype_name, aggregate.sum_amount_sold, aggregate.quantity_sold,
-          aggregate.last_year_sum_amount_sold, aggregate.last_year_quantity_sold, aggregate.sales_growth_rate
-        ]
-      end
-    end
-  end
-
   private 
 
   def set_sales

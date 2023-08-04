@@ -8,13 +8,8 @@ class SalesController < ApplicationController
 
   def index
     @q = @user.sales.ransack(params[:q])
-    # @q.sorts = 'created_at asc' if @q.sorts.empty?
-    if params[:export_csv]
-      @sales  = @q.result
-      send_data(Sale.csv_output(@sales), filename: "#{Time.zone.now.strftime("%Y%m%d")}_売上一覧.csv")
-    else
-      @sales  = @q.result.page(params[:page]).per(10)
-    end
+    return generate_csv if params[:export_csv]
+    @sales  = @q.result.page(params[:page]).per(10)
   end
 
   def new
@@ -58,4 +53,8 @@ class SalesController < ApplicationController
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id, :created_at)
   end
 
+  def generate_csv
+    @sales = @q.result
+    send_data(CsvExport.sale_csv_output(@sales), filename: "#{Time.zone.now.strftime("%Y%m%d")}_売上一覧.csv")
+  end
 end
