@@ -1,3 +1,4 @@
+# 日別集計用フォームクラス
 class SearchDaily
   include ActiveModel::Model
 
