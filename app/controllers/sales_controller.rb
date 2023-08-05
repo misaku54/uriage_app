@@ -18,7 +18,7 @@ class SalesController < ApplicationController
 
   def export_csv
     @sales = @q.result
-    send_data(CsvExport.sale_csv_output(@sales))
+    send_data(CsvExport.sale_csv_output(@sales), filename: "#{Time.zone.now.strftime("%Y%m%d")}_売上一覧.csv")
   end
 
   def new
