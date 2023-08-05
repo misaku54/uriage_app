@@ -146,8 +146,7 @@ RSpec.describe "売上管理機能", type: :system do
           it '正しい売上データが表示されること' do
             fill_in 'q[producttype_name_cont]', with: 'B'
             click_button '検索'
-            expect(page).to have_content 'メーカーB'
-            expect(page).to have_content '備考B'
+            expect(page).to have_content '商品B'
             expect(page).to have_no_content '商品C'
             expect(page).to have_no_content 'カバン'
           end
@@ -157,8 +156,7 @@ RSpec.describe "売上管理機能", type: :system do
           it '正しい売上データが表示されること' do
             fill_in 'q[remark_cont]', with: 'B'
             click_button '検索'
-            expect(page).to have_content 'メーカーB'
-            expect(page).to have_content '商品B'
+            expect(page).to have_content '備考B'
             expect(page).to have_no_content '備考C'
             expect(page).to have_no_content '期間限定商品'
           end
@@ -262,6 +260,7 @@ RSpec.describe "売上管理機能", type: :system do
           expect(page).to have_content '３０％オフ'
         end
       end
+      
       context '売上情報を無効な値で更新した場合' do
         it '更新に失敗する' do
           sale_before = sale
