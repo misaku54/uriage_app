@@ -117,15 +117,26 @@ RSpec.describe "メーカー管理機能", type: :system do
 
       describe '検索機能' do
         let(:login_user) { user_a }
+        let!(:maker_b) { FactoryBot.create(:maker, name:'メーカーB', created_at: Time.zone.local(2023, 4, 1), user: user_a) }
+        let!(:maker_c) { FactoryBot.create(:maker, name:'メーカーC', created_at: Time.zone.local(2023, 4, 10), user: user_a) }
 
-        context '一覧が2件ある状態でメーカーAを検索した場合' do
-          let!(:maker_b) { FactoryBot.create(:maker, name:'メーカーB', user: user_a) }
-          
+        context '名前検索（部分一致）' do
           it 'メーカーAが表示されること' do
-            fill_in 'q[name_cont]', with: 'メーカーA'
+            fill_in 'q[name_cont]', with: 'A'
             click_button '検索'
             expect(page).to have_content 'メーカーA'
             expect(page).to have_no_content 'メーカーB'
+          end
+        end
+
+        context '日付検索（範囲指定）' do
+          it 'メーカーBとCが表示されること' do
+            fill_in 'q[created_at_gteq]', with: '002023-04-01'
+            fill_in 'q[created_at_lteq_end_of_day]', with: '002023-04-30'
+            click_button '検索'
+            expect(page).to have_content 'メーカーB'
+            expect(page).to have_content 'メーカーC'
+            expect(page).to have_no_content 'メーカーA'
           end
         end
       end
