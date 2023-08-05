@@ -117,15 +117,26 @@ RSpec.describe "商品管理機能", type: :system do
 
       describe '検索機能' do
         let(:login_user) { user_a }
-
-        context '一覧が2件ある状態で商品Aを検索した場合' do
-          let!(:producttype_b) { FactoryBot.create(:producttype, name:'商品B', user: user_a) }
-          
+        let!(:producttype_b) { FactoryBot.create(:producttype, name:'商品B', created_at: Time.zone.local(2023, 4, 1), user: user_a) }
+        let!(:producttype_c) { FactoryBot.create(:producttype, name:'商品C', created_at: Time.zone.local(2023, 4, 10), user: user_a) }
+        
+        context '名前検索（部分一致）' do
           it '商品Aが表示されること' do
-            fill_in 'q[name_cont]', with: '商品A'
+            fill_in 'q[name_cont]', with: 'A'
             click_button '検索'
             expect(page).to have_content '商品A'
             expect(page).to have_no_content '商品B'
+          end
+        end
+
+        context '日付検索（範囲指定）' do
+          it '商品BとCが表示されること' do
+            fill_in 'q[created_at_gteq]', with: '002023-04-01'
+            fill_in 'q[created_at_lteq_end_of_day]', with: '002023-04-30'
+            click_button '検索'
+            expect(page).to have_content '商品B'
+            expect(page).to have_content '商品C'
+            expect(page).to have_no_content '商品A'
           end
         end
       end
