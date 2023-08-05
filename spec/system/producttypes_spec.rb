@@ -42,21 +42,21 @@ RSpec.describe "商品管理機能", type: :system do
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
 
-        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+        context 'ユーザーAに紐づく商品分類の一覧画面へアクセス' do
           it '正常に遷移すること' do
             visit user_producttypes_path(login_user)
             expect(page).to have_current_path user_producttypes_path(login_user)
           end
         end
 
-        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+        context 'ユーザーAに紐づく商品分類の新規登録画面へアクセス' do
           it '正常に遷移すること' do
             visit new_user_producttype_path(login_user)
             expect(page).to have_current_path new_user_producttype_path(login_user)
           end
         end
 
-        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+        context 'ユーザーAに紐づく商品分類の編集画面へアクセス' do
           it '正常に遷移すること' do
             visit edit_user_producttype_path(login_user, producttype)
             expect(page).to have_current_path edit_user_producttype_path(login_user, producttype)
@@ -67,19 +67,19 @@ RSpec.describe "商品管理機能", type: :system do
       context 'ユーザーBでログインしている場合' do
         let(:login_user) { user_b }
 
-        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+        context 'ユーザーAに紐づく商品分類の一覧画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             visit user_producttypes_path(user_a)
             expect(page).to have_current_path root_path
           end
         end
-        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+        context 'ユーザーAに紐づく商品分類の新規登録画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             visit new_user_producttype_path(user_a)
             expect(page).to have_current_path root_path
           end
         end
-        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+        context 'ユーザーAに紐づく商品分類の編集画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             visit edit_user_producttype_path(user_a, producttype)
             expect(page).to have_current_path root_path
@@ -89,26 +89,55 @@ RSpec.describe "商品管理機能", type: :system do
     end
 
     describe '一覧表示機能' do
+      before do
+        visit user_producttypes_path(login_user)
+      end
 
-      context 'ユーザーAでログインしている場合' do
-        let(:login_user) { user_a }
+      describe '表示機能' do
+        context 'ユーザーAでログインしている場合' do
+          let(:login_user) { user_a }
 
-        it 'ユーザーAが登録した商品が表示されていること' do
-          visit user_producttypes_path(login_user)
-          expect(page).to have_content '商品A'
-          expect(page).to have_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
-          expect(page).to have_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
+          it 'ユーザーAが登録した商品が表示されていること' do
+            expect(page).to have_content '商品A'
+            expect(page).to have_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
+            expect(page).to have_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
+          end
+        end
+
+        context 'ユーザーBでログインしている場合' do
+          let(:login_user) { user_b }
+
+          it 'ユーザーAが登録した商品が表示されていないこと' do
+            expect(page).to have_no_content '商品A'
+            expect(page).to have_no_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
+            expect(page).to have_no_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
+          end
         end
       end
 
-      context 'ユーザーBでログインしている場合' do
-        let(:login_user) { user_b }
+      describe '検索機能' do
+        let(:login_user) { user_a }
+        let!(:producttype_b) { FactoryBot.create(:producttype, name:'商品B', created_at: Time.zone.local(2023, 4, 1), user: user_a) }
+        let!(:producttype_c) { FactoryBot.create(:producttype, name:'商品C', created_at: Time.zone.local(2023, 4, 10), user: user_a) }
+        
+        context '名前検索（部分一致）' do
+          it '商品Aが表示されること' do
+            fill_in 'q[name_cont]', with: 'A'
+            click_button '検索'
+            expect(page).to have_content '商品A'
+            expect(page).to have_no_content '商品B'
+          end
+        end
 
-        it 'ユーザーAが登録した商品が表示されていないこと' do
-          visit user_producttypes_path(login_user)
-          expect(page).to have_no_content '商品A'
-          expect(page).to have_no_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
-          expect(page).to have_no_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
+        context '日付検索（範囲指定）' do
+          it '商品BとCが表示されること' do
+            fill_in 'q[created_at_gteq]', with: '002023-04-01'
+            fill_in 'q[created_at_lteq_end_of_day]', with: '002023-04-30'
+            click_button '検索'
+            expect(page).to have_content '商品B'
+            expect(page).to have_content '商品C'
+            expect(page).to have_no_content '商品A'
+          end
         end
       end
     end

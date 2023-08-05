@@ -111,29 +111,27 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
         end
       end 
     end
+    
     describe '詳細表示機能' do
-      context '管理者でログイン時' do
-        let(:login_user) { admin_user }
+      let(:login_user) { admin_user }
 
-        context 'ユーザーAの詳細画面へアクセス' do
-          it 'ユーザーAの情報が表示されていること' do
-            visit admin_user_path(user_a)
-            expect(page).to have_selector 'td', text: user_a.id
-            expect(page).to have_selector 'td', text: user_a.name
-            expect(page).to have_selector 'td', text: user_a.email
-          end
+      context 'ユーザーAの詳細画面へアクセス' do
+        it 'ユーザーAの情報が表示されていること' do
+          visit admin_user_path(user_a)
+          expect(page).to have_selector 'td', text: user_a.id
+          expect(page).to have_selector 'td', text: user_a.name
+          expect(page).to have_selector 'td', text: user_a.email
         end
       end
     end
 
     describe '一覧表示機能' do
-      context '管理者でログイン時' do
-        let(:login_user) { admin_user }
+      let(:login_user) { admin_user }
+      before do
+        visit admin_users_path
+      end
 
-        before do
-          visit admin_users_path
-        end
-
+      describe '表示機能' do
         it 'ユーザーA、ユーザーBの情報が表示されていること' do
           expect(page).to have_content 'ユーザーA'
           expect(page).to have_content 'a@example.com'
@@ -150,103 +148,150 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           expect(page).to have_no_link '削除', href: "/admin/users/#{login_user.id}"
         end
       end
-    end
 
-    describe '新規登録機能' do
-      context '管理者でログイン時' do
-        let(:login_user) { admin_user }
-        before do
-          visit admin_signup_path
-        end
+      describe '検索機能' do
+        let!(:user_c) { FactoryBot.create(:user, name:'ユーザーC', email: 'c@example.com', created_at: Time.zone.local(2023, 4, 1), updated_at: Time.zone.local(2023, 4, 1)) }
+        let!(:user_d) { FactoryBot.create(:user, name:'ユーザーD', email: 'd@example.com', created_at: Time.zone.local(2023, 4, 10), updated_at: Time.zone.local(2023, 4, 1)) }
 
-        context 'ユーザー名を有効な値で登録した場合' do
-          it '登録に成功する' do
-            fill_in 'user[name]', with: 'ユーザーC'
-            fill_in 'user[email]', with: 'c@example.com'
-            fill_in 'user[password]', with: 'password'
-            fill_in 'user[password_confirmation]', with: 'password'
-            # DB上に登録されていること
-            expect {
-              click_button 'ユーザー登録'
-            }.to change(User, :count).by(1)
-            create_user = User.last
-            # 登録したユーザーの詳細画面へ遷移していること
-            expect(page).to have_current_path admin_user_path(create_user)
-            # 成功時のフラッシュが表示されていること
-            expect(page).to have_selector 'div.alert.alert-success'
-            # 登録したユーザーが表示されていること
-            expect(page).to have_content 'ユーザーC'
-            expect(page).to have_content 'c@example.com'
+        context '名前検索（部分一致）' do
+          it 'ユーザーAが表示されること' do
+            fill_in 'q[name_cont]', with: 'A'
+            click_button '検索'
+            expect(page).to have_content 'ユーザーA'
+            expect(page).to have_no_content 'ユーザーB'
+            expect(page).to have_no_content 'ユーザーC'
+            expect(page).to have_no_content 'ユーザーD'
           end
         end
 
-        context 'ユーザー名を無効な値で登録した場合' do
-          it '登録に失敗する' do
-            fill_in 'user[name]', with: ''
-            fill_in 'user[email]', with: 'user@invalid'
-            fill_in 'user[password]', with: 'foo'
-            fill_in 'user[password_confirmation]', with: 'bar'
-            # DB上に登録されていないこと
-            expect {
-              click_button 'ユーザー登録'
-            }.to_not change(User, :count)
-            # エラーメッセージが表示されていること
-            # renderの挙動を確認する方法がわからなかったため、have_selectorを使用
-            expect(page).to have_selector 'li', text: 'ユーザー登録'
-            expect(page).to have_selector 'div.alert.alert-danger'
+        context 'email検索（部分一致）' do
+          it 'ユーザーAが表示されること' do
+            fill_in 'q[email_cont]', with: 'a@example'
+            click_button '検索'
+            expect(page).to have_content 'ユーザーA'
+            expect(page).to have_no_content 'ユーザーB'
+            expect(page).to have_no_content 'ユーザーC'
+            expect(page).to have_no_content 'ユーザーD'
+          end
+        end
+
+        context '日付検索（範囲指定）' do
+          context '登録日で検索' do
+            it 'ユーザーCとDが表示されること' do
+              fill_in 'q[created_at_gteq]', with: '002023-04-01'
+              fill_in 'q[created_at_lteq_end_of_day]', with: '002023-04-30'
+              click_button '検索'
+              expect(page).to have_content 'ユーザーC'
+              expect(page).to have_content 'ユーザーD'
+              expect(page).to have_no_content 'ユーザーA'
+              expect(page).to have_no_content 'ユーザーB'
+            end
+          end
+
+          context '更新日で検索' do
+            it 'ユーザーCとDが表示されること' do
+              fill_in 'q[updated_at_gteq]', with: '002023-04-01'
+              fill_in 'q[updated_at_lteq_end_of_day]', with: '002023-04-30'
+              click_button '検索'
+              expect(page).to have_content 'ユーザーC'
+              expect(page).to have_content 'ユーザーD'
+              expect(page).to have_no_content 'ユーザーA'
+              expect(page).to have_no_content 'ユーザーB'
+            end
           end
         end
       end
     end
 
+    describe '新規登録機能' do
+      let(:login_user) { admin_user }
+      before do
+        visit admin_signup_path
+      end
+
+      context 'ユーザー名を有効な値で登録した場合' do
+        it '登録に成功する' do
+          fill_in 'user[name]', with: 'ユーザーC'
+          fill_in 'user[email]', with: 'c@example.com'
+          fill_in 'user[password]', with: 'password'
+          fill_in 'user[password_confirmation]', with: 'password'
+          # DB上に登録されていること
+          expect {
+            click_button 'ユーザー登録'
+          }.to change(User, :count).by(1)
+          create_user = User.last
+          # 登録したユーザーの詳細画面へ遷移していること
+          expect(page).to have_current_path admin_user_path(create_user)
+          # 成功時のフラッシュが表示されていること
+          expect(page).to have_selector 'div.alert.alert-success'
+          # 登録したユーザーが表示されていること
+          expect(page).to have_content 'ユーザーC'
+          expect(page).to have_content 'c@example.com'
+        end
+      end
+
+      context 'ユーザー名を無効な値で登録した場合' do
+        it '登録に失敗する' do
+          fill_in 'user[name]', with: ''
+          fill_in 'user[email]', with: 'user@invalid'
+          fill_in 'user[password]', with: 'foo'
+          fill_in 'user[password_confirmation]', with: 'bar'
+          # DB上に登録されていないこと
+          expect {
+            click_button 'ユーザー登録'
+          }.to_not change(User, :count)
+          # エラーメッセージが表示されていること
+          # renderの挙動を確認する方法がわからなかったため、have_selectorを使用
+          expect(page).to have_selector 'li', text: 'ユーザー登録'
+          expect(page).to have_selector 'div.alert.alert-danger'
+        end
+      end
+    end
+
     describe '編集機能' do
-      context '管理者でログイン時' do
-        let(:login_user) { admin_user }
-        
-        before do
-          visit edit_admin_user_path(user_a)
+      let(:login_user) { admin_user }
+      before do
+        visit edit_admin_user_path(user_a)
+      end
+
+      context 'ユーザーAを有効な値で更新した場合' do
+        it '更新に成功する' do
+          fill_in 'user[name]', with: 'ユーザーD'
+          fill_in 'user[email]', with: 'd@example.com'
+          fill_in 'user[password]', with: 'validpassword'
+          fill_in 'user[password_confirmation]', with: 'validpassword'
+          click_button 'ユーザー更新'
+          # 正しい値に更新されているか
+          user_a.reload
+          expect(user_a.name).to eq 'ユーザーD'
+          expect(user_a.email).to eq 'd@example.com'
+          expect(user_a.authenticate('validpassword')).to be_truthy
         end
+      end
 
-        context 'ユーザーAを有効な値で更新した場合' do
-          it '更新に成功する' do
-            fill_in 'user[name]', with: 'ユーザーD'
-            fill_in 'user[email]', with: 'd@example.com'
-            fill_in 'user[password]', with: 'validpassword'
-            fill_in 'user[password_confirmation]', with: 'validpassword'
-            click_button 'ユーザー更新'
-
-            # 正しい値に更新されているか
-            user_a.reload
-            expect(user_a.name).to eq 'ユーザーD'
-            expect(user_a.email).to eq 'd@example.com'
-            expect(user_a.authenticate('validpassword')).to be_truthy
-          end
+      context 'ユーザーAに管理者権限を付与して更新した場合' do
+        it '管理者権限が付与されていること' do
+          check 'user[admin]'
+          click_button 'ユーザー更新'
+          
+          user_a.reload
+          expect(user_a.admin).to be_truthy
         end
+      end
 
-        context 'ユーザーAに管理者権限を付与して更新した場合' do
-          it '管理者権限が付与されていること' do
-            check 'user[admin]'
-            click_button 'ユーザー更新'
-            
-            user_a.reload
-            expect(user_a.admin).to be_truthy
-          end
-        end
-
-        context 'ユーザーAを無効な値で更新した場合' do
-          it '更新に失敗する' do
-            user_before = user_a
-            fill_in 'user[name]', with: ''
-            fill_in 'user[email]', with: 'user@invalid'
-            fill_in 'user[password]', with: 'foo'
-            fill_in 'user[password_confirmation]', with: 'bar'
-            click_button 'ユーザー更新'
-            user_a.reload
-            # 更新前と値が変わっていないこと
-            expect(user_a).to be user_before
-            # エラーメッセージが表示されること
-            expect(page).to have_selector 'div.alert.alert-danger'
-          end
+      context 'ユーザーAを無効な値で更新した場合' do
+        it '更新に失敗する' do
+          user_before = user_a
+          fill_in 'user[name]', with: ''
+          fill_in 'user[email]', with: 'user@invalid'
+          fill_in 'user[password]', with: 'foo'
+          fill_in 'user[password_confirmation]', with: 'bar'
+          click_button 'ユーザー更新'
+          user_a.reload
+          # 更新前と値が変わっていないこと
+          expect(user_a).to be user_before
+          # エラーメッセージが表示されること
+          expect(page).to have_selector 'div.alert.alert-danger'
         end
       end
     end
