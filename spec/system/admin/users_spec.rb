@@ -111,29 +111,27 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
         end
       end 
     end
+    
     describe '詳細表示機能' do
-      context '管理者でログイン時' do
-        let(:login_user) { admin_user }
+      let(:login_user) { admin_user }
 
-        context 'ユーザーAの詳細画面へアクセス' do
-          it 'ユーザーAの情報が表示されていること' do
-            visit admin_user_path(user_a)
-            expect(page).to have_selector 'td', text: user_a.id
-            expect(page).to have_selector 'td', text: user_a.name
-            expect(page).to have_selector 'td', text: user_a.email
-          end
+      context 'ユーザーAの詳細画面へアクセス' do
+        it 'ユーザーAの情報が表示されていること' do
+          visit admin_user_path(user_a)
+          expect(page).to have_selector 'td', text: user_a.id
+          expect(page).to have_selector 'td', text: user_a.name
+          expect(page).to have_selector 'td', text: user_a.email
         end
       end
     end
 
     describe '一覧表示機能' do
-      context '管理者でログイン時' do
-        let(:login_user) { admin_user }
+      let(:login_user) { admin_user }
+      before do
+        visit admin_users_path
+      end
 
-        before do
-          visit admin_users_path
-        end
-
+      describe '表示機能' do
         it 'ユーザーA、ユーザーBの情報が表示されていること' do
           expect(page).to have_content 'ユーザーA'
           expect(page).to have_content 'a@example.com'
@@ -148,6 +146,59 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
         it '自分（管理者）のアカウントには編集ボタンと削除ボタンが表示されていないこと' do
           expect(page).to have_no_link '編集', href: "/admin/users/#{login_user.id}/edit"
           expect(page).to have_no_link '削除', href: "/admin/users/#{login_user.id}"
+        end
+      end
+
+      describe '検索機能' do
+        let!(:user_c) { FactoryBot.create(:user, name:'ユーザーC', email: 'c@example.com', created_at: Time.zone.local(2023, 4, 1), updated_at: Time.zone.local(2023, 4, 1)) }
+        let!(:user_d) { FactoryBot.create(:user, name:'ユーザーD', email: 'd@example.com', created_at: Time.zone.local(2023, 4, 10), updated_at: Time.zone.local(2023, 4, 1)) }
+
+        context '名前検索（部分一致）' do
+          it 'ユーザーAが表示されること' do
+            fill_in 'q[name_cont]', with: 'A'
+            click_button '検索'
+            expect(page).to have_content 'ユーザーA'
+            expect(page).to have_no_content 'ユーザーB'
+            expect(page).to have_no_content 'ユーザーC'
+            expect(page).to have_no_content 'ユーザーD'
+          end
+        end
+
+        context 'email検索（部分一致）' do
+          it 'ユーザーAが表示されること' do
+            fill_in 'q[email_cont]', with: 'a@example'
+            click_button '検索'
+            expect(page).to have_content 'ユーザーA'
+            expect(page).to have_no_content 'ユーザーB'
+            expect(page).to have_no_content 'ユーザーC'
+            expect(page).to have_no_content 'ユーザーD'
+          end
+        end
+
+        context '日付検索（範囲指定）' do
+          context '登録日で検索' do
+            it 'ユーザーCとDが表示されること' do
+              fill_in 'q[created_at_gteq]', with: '002023-04-01'
+              fill_in 'q[created_at_lteq_end_of_day]', with: '002023-04-30'
+              click_button '検索'
+              expect(page).to have_content 'ユーザーC'
+              expect(page).to have_content 'ユーザーD'
+              expect(page).to have_no_content 'ユーザーA'
+              expect(page).to have_no_content 'ユーザーB'
+            end
+          end
+
+          context '更新日で検索' do
+            it 'ユーザーCとDが表示されること' do
+              fill_in 'q[updated_at_gteq]', with: '002023-04-01'
+              fill_in 'q[updated_at_lteq_end_of_day]', with: '002023-04-30'
+              click_button '検索'
+              expect(page).to have_content 'ユーザーC'
+              expect(page).to have_content 'ユーザーD'
+              expect(page).to have_no_content 'ユーザーA'
+              expect(page).to have_no_content 'ユーザーB'
+            end
+          end
         end
       end
     end
