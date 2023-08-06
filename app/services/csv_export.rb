@@ -3,7 +3,7 @@ class CsvExport
 
   def self.maker_csv_output(makers)
     bom = "\uFEFF"
-    CSV.generate do |csv|
+    CSV.generate(bom) do |csv|
       csv << ["メーカー名","登録日時"]
       makers.each do |maker|
         csv << [maker.name, maker.created_at.strftime("%Y/%m/%d %H:%M")]

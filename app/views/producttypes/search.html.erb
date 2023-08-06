@@ -1,14 +1,14 @@
-<% provide(:title, 'メーカーマスタ') %>
+<% provide(:title, '商品分類マスタ')%>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
-    <li class="breadcrumb-item active" aria-current="page">メーカーマスタ</li>
+    <li class="breadcrumb-item active" aria-current="page">商品分類マスタ</li>
   </ol>
 </nav>
-<%= render 'shared/search', q: @q, url: search_user_makers_path(@user), clear_url: user_makers_path(@user), label: 'メーカー名' %>
+<%= render 'shared/search', q: @q, url: search_user_producttypes_path(@user), clear_url: user_producttypes_path(@user), label: '商品名', list_name: 'producttype' %>
 <div class="card shadow-sm">
   <div class="card-body">
-    <h6 class="mb-3"><%="一覧（#{current_page_number(@makers)}）" %></h6>
+    <h6 class="mb-3"><%="検索結果（#{current_page_number(@producttypes)}）" %></h6>
     <div class="table-responsive text-nowrap">
       <table class="table table-sm table-striped">
         <thead>
@@ -21,7 +21,7 @@
             </th>
             <th>
               <div class="d-flex justify-content-end" >
-                <%= link_to new_user_maker_path(@user), data: { turbo: false } do %>
+                <%= link_to new_user_producttype_path(@user), data: { turbo: false } do %>
                   <i class="fa-solid fa-plus"></i>
                 <% end %>
               </div>
@@ -29,12 +29,12 @@
           </tr>
         </thead>
         <tbody>
-          <%= render @makers %>
+          <%= render @producttypes %>
         </tbody>
       </table>
     </div>
     <div class="d-flex justify-content-end mt-3">
-      <%= paginate @makers %>
+      <%= paginate @producttypes %>
     </div>
   </div>
 </div>

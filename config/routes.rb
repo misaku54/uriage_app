@@ -1,3 +1,10 @@
+class CsvExportConstraint
+  # リクエストのパラメータにexport_csvがあればtrueを返す
+  def self.matches?(request)
+    request.params.has_key?(:export_csv)
+  end
+end
+
 Rails.application.routes.draw do
   get    'sessions/new'
   root   'static_pages#home'
@@ -9,9 +16,24 @@ Rails.application.routes.draw do
     get    '/signup',  to: 'users#new'
   end
   resources :users, only: [:show]  do
-    resources :makers, except: :show
-    resources :producttypes, except: :show
-    resources :sales
+    resources :makers, except: :show do
+      collection do
+        get :search, action: :export_csv, constraints: CsvExportConstraint
+        get :search
+      end
+    end
+    resources :producttypes, except: :show do
+      collection do
+        get :search, action: :export_csv, constraints: CsvExportConstraint
+        get :search
+      end
+    end
+    resources :sales do
+      collection do
+        get :search, action: :export_csv, constraints: CsvExportConstraint
+        get :search
+      end
+    end
     get '/monthly_aggregate', to: 'aggregates#monthly_aggregate'
     get '/monthly_search', to: 'aggregates#monthly_search'
     get '/yearly_aggregate', to: 'aggregates#yearly_aggregate'

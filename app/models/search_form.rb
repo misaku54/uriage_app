@@ -1,3 +1,4 @@
+# 年別月別集計用フォームクラス
 class SearchForm
   include ActiveModel::Model
   include ActiveRecord::AttributeAssignment

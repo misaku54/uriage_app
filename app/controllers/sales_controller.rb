@@ -1,15 +1,24 @@
 class SalesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
+  before_action :set_search_query, only:[:index, :search, :export_csv]
+  MAX_DISPLAY_COUNT = 10
 
   def show
     @sale = @user.sales.find(params[:id])
   end
 
   def index
-    @q = @user.sales.ransack(params[:q])
-    return generate_csv if params[:export_csv]
-    @sales  = @q.result.page(params[:page]).per(10)
+    @sales = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
+  end
+
+  def search
+    @sales = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
+  end
+
+  def export_csv
+    @sales = @q.result
+    send_data(CsvExport.sale_csv_output(@sales), filename: "#{Time.zone.now.strftime("%Y%m%d")}_売上一覧.csv")
   end
 
   def new
@@ -53,8 +62,7 @@ class SalesController < ApplicationController
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id, :created_at)
   end
 
-  def generate_csv
-    @sales = @q.result
-    send_data(CsvExport.sale_csv_output(@sales), filename: "#{Time.zone.now.strftime("%Y%m%d")}_売上一覧.csv")
+  def set_search_query
+    @q = @user.sales.ransack(params[:q])
   end
 end
