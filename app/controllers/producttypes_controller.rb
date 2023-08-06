@@ -1,7 +1,7 @@
 class ProducttypesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
-  before_action :set_serach_query, only: [:index, :search, :export_csv]
+  before_action :set_search_query, only: [:index, :search, :export_csv]
   MAX_DISPLAY_COUNT = 10
 
   def index
@@ -58,6 +58,6 @@ class ProducttypesController < ApplicationController
   end
 
   def set_search_query
-    @q = @user.producttype.ransack(params[:q])
+    @q = @user.producttypes.ransack(params[:q])
   end
 end
