@@ -5,7 +5,7 @@
     <li class="breadcrumb-item active" aria-current="page">商品分類マスタ</li>
   </ol>
 </nav>
-<%= render 'shared/search', q: @q, url: user_producttypes_path(@user), label: '商品名', list_name: 'producttype' %>
+<%= render 'shared/search', q: @q, url: search_user_producttypes_path(@user), clear_url: user_producttypes_path(@user), label: '商品名', list_name: 'producttype' %>
 <div class="card shadow-sm">
   <div class="card-body">
     <h6 class="mb-3"><%="一覧（#{current_page_number(@producttypes)}）" %></h6>
