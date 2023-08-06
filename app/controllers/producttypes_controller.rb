@@ -1,11 +1,20 @@
 class ProducttypesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
+  before_action :set_serach_query, only: [:index, :search, :export_csv]
+  MAX_DISPLAY_COUNT = 10
 
   def index
-    @q = @user.producttypes.ransack(params[:q])
-    return generate_csv if params[:export_csv]
-    @producttypes = @q.result.page(params[:page]).per(10)
+    @producttypes = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
+  end
+
+  def search
+    @producttypes = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
+  end
+
+  def export_csv
+    @producttype = @q.result
+    send_data(CsvExport.producttype_csv_output(@producttype), filename: "#{Time.zone.now.strftime("%Y%m%d")}_商品分類一覧.csv")
   end
 
   def new
@@ -48,9 +57,7 @@ class ProducttypesController < ApplicationController
     params.require(:producttype).permit(:name)
   end
 
-  # csv出力
-  def generate_csv
-    @producttypes = @q.result
-    send_data(CsvExport.producttype_csv_output(@producttypes), filename: "#{Time.zone.now.strftime("%Y%m%d")}_商品分類一覧.csv")
+  def set_search_query
+    @q = @user.producttype.ransack(params[:q])
   end
 end
