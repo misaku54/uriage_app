@@ -13,8 +13,8 @@ class ProducttypesController < ApplicationController
   end
 
   def export_csv
-    @producttype = @q.result
-    send_data(CsvExport.producttype_csv_output(@producttype), filename: "#{Time.zone.now.strftime("%Y%m%d")}_商品分類一覧.csv")
+    @producttypes = @q.result
+    send_data(CsvExport.producttype_csv_output(@producttypes), filename: "#{Time.zone.now.strftime("%Y%m%d")}_商品分類一覧.csv")
   end
 
   def new

@@ -1,8 +1,9 @@
 # csv出力ロジックモデル
 class CsvExport
-  BOM = "\uFEFF"
+
   def self.maker_csv_output(makers)
-    CSV.generate(BOM) do |csv|
+    bom = "\uFEFF"
+    CSV.generate(bom) do |csv|
       csv << ["メーカー名","登録日時"]
       makers.each do |maker|
         csv << [maker.name, maker.created_at.strftime("%Y/%m/%d %H:%M")]
@@ -11,7 +12,8 @@ class CsvExport
   end
 
   def self.producttype_csv_output(producttypes)
-    CSV.generate(BOM) do |csv|
+    bom = "\uFEFF"
+    CSV.generate(bom) do |csv|
       csv << ["商品分類名","登録日時"]
       producttypes.each do |producttype|
         csv << [producttype.name, producttype.created_at.strftime('%Y/%m/%d %H:%M')]
@@ -20,7 +22,8 @@ class CsvExport
   end
 
   def self.sale_csv_output(sales)
-    CSV.generate(BOM) do |csv|
+    bom = "\uFEFF"
+    CSV.generate(bom) do |csv|
       csv << ['メーカー名','商品分類名','販売価格','備考','登録日時']
       sales.each do |sale|
         maker_name = sale.maker.present? ? sale.maker.name : '未登録'
@@ -31,7 +34,8 @@ class CsvExport
   end
 
   def self.aggregate_csv_output(sales_total_amount, sales_growth_rate, aggregates_of_maker_producttype, aggregates_of_maker, aggregates_of_producttype)
-    CSV.generate(BOM) do |csv|
+    bom = "\uFEFF"
+    CSV.generate(bom) do |csv|
       csv << ['合計純売上']
       csv << ['純売上', '前年比']     
       csv << [sales_total_amount, sales_growth_rate]     
