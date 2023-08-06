@@ -1,11 +1,20 @@
 class MakersController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
+  before_action :set_search_query, only: [:index, :search, :export_csv]
+  MAX_DISPLAY_COUNT = 10
 
   def index
-    @q = @user.makers.ransack(params[:q])
-    return generate_csv if params[:export_csv]
-    @makers = @q.result.page(params[:page]).per(10)
+    @makers = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
+  end
+
+  def search
+    @makers = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
+  end
+
+  def export_csv
+    @makers = @q.result
+    send_data(CsvExport.maker_csv_output(@maker), filename: "#{Time.zone.now.strftime("%Y%m%d")}_メーカー一覧.csv")
   end
 
   def new
@@ -49,9 +58,7 @@ class MakersController < ApplicationController
     params.require(:maker).permit(:name)
   end
 
-  # csv出力
-  def generate_csv
-    @makers = @q.result
-    send_data(CsvExport.maker_csv_output(@makers), filename: "#{Time.zone.now.strftime("%Y%m%d")}_メーカー一覧.csv")
+  def set_search_query
+    @q = @user.makers.ransack(params[:q])
   end
 end
