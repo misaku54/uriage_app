@@ -16,7 +16,12 @@ Rails.application.routes.draw do
     get    '/signup',  to: 'users#new'
   end
   resources :users, only: [:show]  do
-    resources :makers, except: :show
+    resources :makers, except: :show do
+      collection do
+        get :search, action: :export_csv, constraints: CsvExportConstraint
+        get :search
+      end
+    end
     resources :producttypes, except: :show do
       collection do
         get :search, action: :export_csv, constraints: CsvExportConstraint
