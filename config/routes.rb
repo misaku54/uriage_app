@@ -17,7 +17,12 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:show]  do
     resources :makers, except: :show
-    resources :producttypes, except: :show
+    resources :producttypes, except: :show do
+      collection do
+        get :search, action: :export_csv, constraints: CsvExportConstraint
+        get :search
+      end
+    end
     resources :sales do
       collection do
         get :search, action: :export_csv, constraints: CsvExportConstraint
