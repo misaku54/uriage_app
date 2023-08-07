@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_01_181120) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_125545) do
   create_table "makers", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
@@ -51,6 +51,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_181120) do
     t.string "remember_digest"
     t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "weather_forecasts", primary_key: "aquired_on", id: :date, default: "2023-08-08", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "weather_id"
+    t.float "temp_max"
+    t.float "temp_min"
+    t.float "rainfall_sum"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "makers", "users"
