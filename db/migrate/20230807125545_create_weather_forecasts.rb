@@ -1,11 +1,11 @@
 class CreateWeatherForecasts < ActiveRecord::Migration[7.0]
   def change
     create_table :weather_forecasts, id: false do |t|
-      t.date :aquired_on, null: false, default: -> { '(CURRENT_DATE)' }, primary_key: true
+      t.date :aquired_on, null: false, default: Time.zone.now, primary_key: true
       t.integer :weather_id
       t.float :temp_max
       t.float :temp_min
-      t.float :rainfall
+      t.float :rainfall_sum
       t.timestamps
     end
   end
