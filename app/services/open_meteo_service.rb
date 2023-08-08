@@ -5,6 +5,16 @@ class OpenMeteoService
     call_api(method)
   end
 
+  # JSONからDBに保存するパラメータを設定する
+  def self.attributes_for(attrs)
+    {
+      weather_id: attrs[:hourly],
+      temp_max: attrs[:daily][:temperature_2m_max][0],
+      temp_min: result[:daily][:temperature_2m_min][0],
+      rainfall_sum:,
+    }
+  end
+
   private
 
   def build_query(target_date, **options)
