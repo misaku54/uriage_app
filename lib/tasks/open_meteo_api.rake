@@ -1,7 +1,7 @@
 namespace :open_meteo_api do
   desc 'リクエストで連携してきたAPI項目をDBに保存する'
   task weather_forecasts: :environment do
-    today = Time.zone.today
+    # 天気APIサービスクラスの呼び出し
     api = OpenMeteoService.new
     result = api.get_weather_info(today)
 
