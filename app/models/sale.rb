@@ -131,7 +131,7 @@ class Sale < ApplicationRecord
   def producttype_id_should_be_registered
     unless producttype_id.blank?
       select_producttype = Producttype.find_by(id: producttype_id, user_id: user_id)
-      errors.add(:producttype_id, 'は不正な値です', allow_blank: true) unless select_producttype
+      errors.add(:producttype_id, 'は不正な値です') unless select_producttype
     end
   end
 end
