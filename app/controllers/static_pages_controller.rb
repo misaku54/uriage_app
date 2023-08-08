@@ -15,7 +15,7 @@ class StaticPagesController < ApplicationController
         @sales_total_amount = sales.sum(:amount_sold)
       end
 
-      # 現在の天気情報の取得
+      # 天気APIサービスクラスの呼び出し
       api = OpenMeteoService.new
       if result = api.get_weather_info(@today)
         @current_temperature  = result[:hourly][:temperature_2m][hour]
