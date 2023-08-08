@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_125545) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table "weather_forecasts", primary_key: "aquired_on", id: :date, default: "2023-08-08", charset: "utf8mb4", force: :cascade do |t|
+  create_table "weather_forecasts", primary_key: "aquired_on", id: :date, charset: "utf8mb4", force: :cascade do |t|
     t.integer "weather_id"
     t.float "temp_max"
     t.float "temp_min"
