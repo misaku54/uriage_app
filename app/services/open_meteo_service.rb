@@ -7,10 +7,10 @@ class OpenMeteoService
 
   # JSONからDBに保存するパラメータを設定する
   def self.attributes_for(attrs)
-    date = attrs[:daily][:time].in_time_zone
+    date = attrs[:daily][:time][0].in_time_zone
     {
       aquired_on: date,
-      weather_id: attrs[:daily][:weathercode],
+      weather_id: attrs[:daily][:weathercode][0],
       temp_max: attrs[:daily][:temperature_2m_max][0],
       temp_min: attrs[:daily][:temperature_2m_min][0],
       rainfall_sum: attrs[:daily][:precipitation_sum][0],
