@@ -23,8 +23,10 @@ User.create!( name:     "Test User",
       password_confirmation: password)
 end
 
+# ユーザー５人にそれぞれメーカー、商品分類、売上データを作成していく
 users = User.order(:created_at).take(5)
-# ユーザー一人につき
+
+# ユーザー一人に対して、メーカーと商品分類データを５件ずつ登録する。
 5.times do |n|
   maker_name = Faker::Company.name
   product_name = Faker::Coin.name
@@ -34,12 +36,21 @@ users = User.order(:created_at).take(5)
   end
 end
 
+# ユーザー一人に対して、２年度分で一ヶ月ごとに15日分の売上データを生成する。
 users.each do |user|
   maker_ids   = user.makers.ids
   product_ids = user.producttypes.ids 
   sales = user.sales
+  
   1.upto(12) do |month|
     1.upto(15) do |day|
+      # 2021年度分
+      sales.create!(maker_id: maker_ids.sample, 
+                    producttype_id: product_ids.sample,
+                    user_id: user.id,
+                    amount_sold: rand(1..9) * 1000,
+                    created_at: Time.zone.local(2021, month, day))
+      # 2022年度分
       sales.create!(maker_id: maker_ids.sample, 
                     producttype_id: product_ids.sample,
                     user_id: user.id,
@@ -48,14 +59,3 @@ users.each do |user|
     end
   end
 end
-
-
-# 商品分類5件登録
-# 売上情報60件登録（２年分で120件）1ヶ月で５件ずつ登録
-# 一ヶ月ごとに５件ずつ登録
-
-# users = User.order(:created_at).take(5)
-# 50.times do
-#   maker_name = Faker::Company.name(word_count: 5)
-#   users.each { |user| user.makers.create!(name: maker_name) }
-# end
