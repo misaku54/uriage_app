@@ -12,7 +12,7 @@ namespace :open_meteo_api do
     if weather_forecast = WeatherForecast.find_by(aquired_on: params[:aquired_on]).presence #rails固有ActiveSupportのメソッド　あれば、オブジェクトをそのまま、なければnilを返す。
       weather_forecast.update!(params)
     else
-      weather_forecast.create!(params)
+      WeatherForecast.create!(params)
     end
     puts 'API連携:正常終了'
   end
