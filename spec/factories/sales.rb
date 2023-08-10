@@ -12,7 +12,6 @@ FactoryBot.define do
   # 年次集計用
   factory :aggregate_sale, class: Sale do
     amount_sold { 1000 }
-    # 2022年の1月〜12月の売り上げデータを月毎に１件ずつ生成
     user 
     maker
     producttype
