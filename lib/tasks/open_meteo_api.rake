@@ -18,6 +18,6 @@ namespace :open_meteo_api do
         puts "API連携:1件追加 #{params}"
       end
     end
-    puts "API連携:正常終了 git1#{result}s"
+    puts "API連携:正常終了 #{result}s"
   end
 end
