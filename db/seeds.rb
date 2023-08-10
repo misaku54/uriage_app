@@ -28,11 +28,27 @@ users = User.order(:created_at).take(5)
 
 # ユーザー一人に対して、メーカーと商品分類データを５件ずつ登録する。
 5.times do |n|
-  maker_name = Faker::Company.name
-  product_name = Faker::Coin.name
+  maker_name = Faker::Company.unique.name
+  product_name = Faker::Hobby.unique.activity
   users.each do |user| 
     user.makers.create!(name: maker_name)
     user.producttypes.create!(name: product_name)
+  end
+end
+
+
+1.upto(12) do |month|
+  1.upto(15) do |day|
+    WeatherForecast.create!(aquired_on: Time.zone.local(2021, month, day),
+                            weather_id: rand(0..99),
+                            temp_max: rand(25.0..30.0).floor(1),
+                            temp_min: rand(20.0..24.9).floor(1),
+                            rainfall_sum: rand(0..10.0).floor(1))
+    WeatherForecast.create!(aquired_on: Time.zone.local(2022, month, day),
+                            weather_id: rand(0..99),
+                            temp_max: rand(25.0..30.0).floor(1),
+                            temp_min: rand(20.0..24.9).floor(1),
+                            rainfall_sum: rand(0..10.0).floor(1))
   end
 end
 
@@ -44,18 +60,20 @@ users.each do |user|
   
   1.upto(12) do |month|
     1.upto(15) do |day|
-      # 2021年度分
+      # # 2021年度分
       sales.create!(maker_id: maker_ids.sample, 
                     producttype_id: product_ids.sample,
                     user_id: user.id,
                     amount_sold: rand(1..9) * 1000,
-                    created_at: Time.zone.local(2021, month, day))
-      # 2022年度分
+                    created_at: Time.zone.local(2021, month, day),
+                    )
+      # # # 2022年度分
       sales.create!(maker_id: maker_ids.sample, 
                     producttype_id: product_ids.sample,
                     user_id: user.id,
                     amount_sold: rand(1..9) * 1000,
-                    created_at: Time.zone.local(2022, month, day))
+                    created_at: Time.zone.local(2022, month, day),
+                    )
     end
   end
 end

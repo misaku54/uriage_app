@@ -1,10 +1,13 @@
 class Sale < ApplicationRecord
   include SessionsHelper
-  
+  attribute :created_on, default: -> { Time.zone.local(2021,1,1) }
   # 関連付け
   belongs_to :user
   belongs_to :maker
   belongs_to :producttype
+
+  # アクションコールバック
+  before_save :set_created_on
 
   # バリデーション
   validates :amount_sold, presence: true
@@ -14,7 +17,7 @@ class Sale < ApplicationRecord
   # カスタムバリデーション
   validate :maker_id_should_be_registered       #売上登録できるメーカー名は、メーカーマスタに登録されているものでなければならない
   validate :producttype_id_should_be_registered #売上登録できる商品分類名は、商品分類マスタに登録されているものでなければならない
-
+  
   # scopeで使う集計用SQL
   sql_1 = <<-EOS
   SELECT COALESCE(k.maker_name, '未登録') maker_name, COALESCE(k.producttype_name, '未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
@@ -133,5 +136,9 @@ class Sale < ApplicationRecord
       select_producttype = Producttype.find_by(id: producttype_id, user_id: user_id)
       errors.add(:producttype_id, 'は不正な値です') unless select_producttype
     end
+  end
+
+  def set_created_on
+    self.created_on = self.created_at.in_time_zone
   end
 end
