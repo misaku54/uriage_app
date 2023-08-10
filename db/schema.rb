@@ -37,7 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_074315) do
     t.bigint "producttype_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "created_on", null: false
+    t.date "created_on"
     t.index ["created_on"], name: "fk_rails_49491b7fc3"
     t.index ["maker_id"], name: "index_sales_on_maker_id"
     t.index ["producttype_id"], name: "index_sales_on_producttype_id"
