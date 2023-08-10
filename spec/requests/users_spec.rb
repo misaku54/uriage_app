@@ -20,17 +20,18 @@ RSpec.describe 'Users', type: :request do
     end
 
     context 'ログイン中' do
-      it 'レスポンスが正常であること' do
+      before do
         log_in(user)
-        get user_path(user)
-        expect(response).to have_http_status(:success)
       end
-    end
+      context '自身の詳細画面へのリクエストの場合' do  
+        it 'レスポンスが正常であること' do
+          get user_path(user)
+          expect(response).to have_http_status(:success)
+        end
+      end
 
-    context 'ログイン中' do
       context '別ユーザーの詳細画面へのリクエストの場合' do
         it 'ホーム画面にリダイレクトされること' do
-          log_in(user)
           get user_path(other_user)
           expect(response).to redirect_to root_url
         end
