@@ -36,14 +36,16 @@ users = User.order(:created_at).take(5)
   end
 end
 
-
+# 参照整合性制約のため、先に天気情報を登録
 1.upto(12) do |month|
   1.upto(15) do |day|
+    # 2021年度分
     WeatherForecast.create!(aquired_on: Time.zone.local(2021, month, day),
                             weather_id: rand(0..99),
                             temp_max: rand(25.0..30.0).floor(1),
                             temp_min: rand(20.0..24.9).floor(1),
                             rainfall_sum: rand(0..10.0).floor(1))
+    # 2022年度分
     WeatherForecast.create!(aquired_on: Time.zone.local(2022, month, day),
                             weather_id: rand(0..99),
                             temp_max: rand(25.0..30.0).floor(1),
@@ -60,20 +62,18 @@ users.each do |user|
   
   1.upto(12) do |month|
     1.upto(15) do |day|
-      # # 2021年度分
+      # 2021年度分
       sales.create!(maker_id: maker_ids.sample, 
                     producttype_id: product_ids.sample,
                     user_id: user.id,
                     amount_sold: rand(1..9) * 1000,
-                    created_at: Time.zone.local(2021, month, day),
-                    )
-      # # # 2022年度分
+                    created_at: Time.zone.local(2021, month, day))
+      # 2022年度分
       sales.create!(maker_id: maker_ids.sample, 
                     producttype_id: product_ids.sample,
                     user_id: user.id,
                     amount_sold: rand(1..9) * 1000,
-                    created_at: Time.zone.local(2022, month, day),
-                    )
+                    created_at: Time.zone.local(2022, month, day))
     end
   end
 end
