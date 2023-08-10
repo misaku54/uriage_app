@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "売上管理機能", type: :system do
+  let!(:weather) { FactoryBot.create(:weather) }
   let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
   let(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
   let!(:sale) { FactoryBot.create(:sale, user: user_a) }
@@ -125,6 +126,8 @@ RSpec.describe "売上管理機能", type: :system do
 
       describe '検索機能' do
         let(:login_user) { user_a }
+        let!(:weather_b) { FactoryBot.create(:weather, aquired_on: Time.zone.local(2023, 4, 1)) }
+        let!(:weather_c) { FactoryBot.create(:weather, aquired_on: Time.zone.local(2023, 4, 10)) }
         let!(:maker_b) { FactoryBot.create(:maker, name:'メーカーB', user: user_a) }
         let!(:producttype_b) { FactoryBot.create(:producttype, name:'商品B', user: user_a) }
         let!(:maker_c) { FactoryBot.create(:maker, name:'メーカーC', user: user_a) }

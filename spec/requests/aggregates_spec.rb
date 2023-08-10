@@ -15,6 +15,8 @@ RSpec.describe 'Aggregates', type: :request do
 
   describe '#monthly_search' do
     let(:login_user) { user_a }
+    let!(:weather_a) {FactoryBot.reload; FactoryBot.create_list(:weather, 30, :monthly_this_year)}
+    let!(:weather_b) {FactoryBot.reload; FactoryBot.create_list(:weather, 30, :monthly_last_year)}
     # 2022年1月の登録日時で、メーカAと商品Cの組み合わせの売上データを３０件、メーカBと商品Aの組み合わせの売上データを２０件、メーカCと商品Bの組み合わせの売上データを１０件作成する。
     let!(:monthly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_c)}
     let!(:monthly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 20, user: user_a, maker: maker_b, producttype: producttype_a)}
@@ -207,6 +209,8 @@ RSpec.describe 'Aggregates', type: :request do
 
   describe '#yearly_search' do
     let(:login_user) { user_a }
+    let!(:weather_a) {FactoryBot.reload; FactoryBot.create_list(:weather, 12, :yearly_this_year)}
+    let!(:weather_b) {FactoryBot.reload; FactoryBot.create_list(:weather, 12, :yearly_last_year)}
     # 2022年の登録日時で、メーカAと商品Cの組み合わせの売上データを12件（12ヶ月分）、メーカBと商品Aの組み合わせの売上データを6件（6ヶ月分）、メーカCと商品Bの組み合わせの売上データを3件（3ヶ月分）作成する。
     let!(:yearly_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:yearly_aggregate_sale, 12, user: user_a, maker: maker_a, producttype: producttype_c)}
     let!(:yearly_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:yearly_aggregate_sale, 6, user: user_a, maker: maker_b, producttype: producttype_a)}
@@ -403,6 +407,8 @@ RSpec.describe 'Aggregates', type: :request do
   
   describe '#daily_search' do
     let(:login_user) { user_a }
+    let!(:weather_a) {FactoryBot.reload; FactoryBot.create_list(:weather, 15, :daily_this_year)}
+    let!(:weather_b) {FactoryBot.reload; FactoryBot.create_list(:weather, 15, :daily_last_year)}
     # 2022年1月の登録日時で、メーカAと商品Cの組み合わせの売上データを15件、メーカBと商品Aの組み合わせの売上データを10件、メーカCと商品Bの組み合わせの売上データを5件作成する。
     let!(:daily_aggregate_sale_a) {FactoryBot.reload; FactoryBot.create_list(:daily_aggregate_sale, 15, user: user_a, maker: maker_a, producttype: producttype_c)}
     let!(:daily_aggregate_sale_b) {FactoryBot.reload; FactoryBot.create_list(:daily_aggregate_sale, 10, user: user_a, maker: maker_b, producttype: producttype_a)}
