@@ -8,8 +8,6 @@ FactoryBot.define do
     producttype { FactoryBot.create(:producttype,user: user) } 
   end
 
-  # システムスペック用のテストデータ--------------------------------------------
-  # 年次集計用
   factory :aggregate_sale, class: Sale do
     amount_sold { 1000 }
     user 
