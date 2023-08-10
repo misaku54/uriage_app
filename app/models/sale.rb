@@ -1,7 +1,7 @@
 class Sale < ApplicationRecord
   include SessionsHelper
   # created_onのデフォルト値に現在の日付を設定 
-  attribute :created_on, default: -> { Time.zone.local(2021,1,1) }
+  # attribute :created_on, default: -> { Time.zone.local(2021,1,1) }
 
   # 関連付け
   belongs_to :user
