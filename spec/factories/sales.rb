@@ -10,51 +10,36 @@ FactoryBot.define do
 
   # システムスペック用のテストデータ--------------------------------------------
   # 年次集計用
-  factory :yearly_aggregate_sale, class: Sale do
+  factory :aggregate_sale, class: Sale do
     amount_sold { 1000 }
-    sequence(:remark) { |n| "Test yearly_aggregate #{n}" }
     # 2022年の1月〜12月の売り上げデータを月毎に１件ずつ生成
-    sequence(:created_at) { |n| Time.zone.local(2021, 12, 1).next_month(n) } 
     user 
     maker
     producttype
 
-    # 去年の売上データを登録する用
-    trait :last_year do
+    # 年別集計のテストで使用するデータを用意
+    trait :yearly_this_year do
+      sequence(:created_at) { |n| Time.zone.local(2021, 12, 1).next_month(n) } 
+    end
+    trait :yearly_last_year do
       amount_sold { 500 }
       sequence(:created_at) { |n| Time.zone.local(2020, 12, 1).next_month(n)  } 
     end
-  end 
 
-  # 月次集計用
-  factory :monthly_aggregate_sale, class: Sale do
-    amount_sold { 1000 }
-    sequence(:remark) { |n| "Test monthly_aggregate #{n}" }
-    # 2022年の1月から売り上げデータを生成していく
-    sequence(:created_at) { |n| Time.zone.local(2021, 12, 31).next_day(n)  } 
-    user 
-    maker
-    producttype
-    
-    # 去年の売上データを登録する用
-    trait :last_year do
+    # 月別集計のテストで使用するデータを用意
+    trait :monthly_this_year do
+      sequence(:created_at) { |n| Time.zone.local(2021, 12, 31).next_day(n) } 
+    end
+    trait :monthly_last_year do
       amount_sold { 500 }
       sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n)  } 
     end
-  end 
 
-  # 日次集計用
-  factory :daily_aggregate_sale, class: Sale do
-    amount_sold { 1000 }
-    sequence(:remark) { |n| "Test daily_aggregate #{n}" }
-    # 2022年の12月の売り上げデータを生成
-    sequence(:created_at) { |n| Time.zone.local(2021, 12, 31).next_day(n) } 
-    user 
-    maker
-    producttype
-
-    # 去年の売上データを登録する用
-    trait :last_year do
+    # 日別集計のテストで使用するデータを用意
+    trait :daily_this_year do
+      sequence(:created_at) { |n| Time.zone.local(2021, 12, 31).next_day(n) } 
+    end
+    trait :daily_last_year do
       amount_sold { 500 }
       sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n)  } 
     end

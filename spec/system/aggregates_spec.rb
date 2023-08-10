@@ -95,7 +95,7 @@ RSpec.describe "集計機能", type: :system do
     describe '年次集計機能' do
       let(:login_user) { user_a }
       let!(:weather) {FactoryBot.reload; FactoryBot.create_list(:weather, 12, :yearly_this_year)}
-      let!(:yearly_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:yearly_aggregate_sale, 12, user: user_a, maker: maker_a, producttype: producttype_a)}
+      let!(:yearly_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:aggregate_sale, 12, :yearly_this_year, user: user_a, maker: maker_a, producttype: producttype_a)}
       
 
       before do
@@ -135,7 +135,7 @@ RSpec.describe "集計機能", type: :system do
     describe '月次集計機能' do
       let(:login_user) { user_a }
       let!(:weather) {FactoryBot.reload; FactoryBot.create_list(:weather, 30, :monthly_this_year)}
-      let!(:monthly_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:monthly_aggregate_sale, 30, user: user_a, maker: maker_a, producttype: producttype_a)}
+      let!(:monthly_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:aggregate_sale, 30, :monthly_this_year, user: user_a, maker: maker_a, producttype: producttype_a)}
 
       before do
         visit user_monthly_aggregate_path(login_user)
@@ -176,7 +176,7 @@ RSpec.describe "集計機能", type: :system do
     describe '日次集計機能' do
       let(:login_user) { user_a }
       let!(:weather) {FactoryBot.reload; FactoryBot.create_list(:weather, 35, :daily_this_year)}
-      let!(:daily_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:daily_aggregate_sale, 15, user: user_a, maker: maker_a, producttype: producttype_a)}
+      let!(:daily_aggregate_sale) {FactoryBot.reload; FactoryBot.create_list(:aggregate_sale, 15, :daily_this_year, user: user_a, maker: maker_a, producttype: producttype_a)}
 
       before do
         visit user_daily_aggregate_path(login_user)
