@@ -10,7 +10,7 @@ class Sale < ApplicationRecord
   belongs_to :weather, class_name: "WeatherForecast", foreign_key: "created_on"
 
   # アクションコールバック
-  before_save :set_created_on
+  before_validation :set_created_on
 
   # バリデーション
   validates :amount_sold, presence: true
