@@ -34,6 +34,7 @@ RSpec.describe "売上管理機能", type: :system do
     end
   end
 
+
   describe 'ログイン中' do
     before do
       log_in(login_user)
@@ -90,6 +91,7 @@ RSpec.describe "売上管理機能", type: :system do
         end
       end
     end
+
 
     describe '一覧表示機能' do
       before do 
@@ -189,6 +191,7 @@ RSpec.describe "売上管理機能", type: :system do
       end
     end
 
+
     describe '新規登録機能' do
       let(:login_user) { user_a }
       
@@ -231,6 +234,7 @@ RSpec.describe "売上管理機能", type: :system do
         end
       end
     end
+
 
     describe '編集機能' do
       let(:login_user) { user_a }
@@ -281,6 +285,7 @@ RSpec.describe "売上管理機能", type: :system do
       end
     end
 
+    
     describe '削除機能' do
       let(:login_user) { user_a }
 
