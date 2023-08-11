@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Sessions", type: :request do
   let!(:user) { FactoryBot.create(:user) }
-
   describe '#new' do
     it 'レスポンスが正常であること' do
       get login_path
