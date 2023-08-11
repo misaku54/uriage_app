@@ -142,7 +142,7 @@ class Sale < ApplicationRecord
   end
 
   def future_day_check
-    errors.add(:created_at, 'に未来日を設定できません。') if self.created_at > Time.zone.now
+    errors.add(:created_at, 'に未来日は設定できません。') if self.created_at > Time.zone.now
   end
 
   # 作成更新時にcreated_atと同じ日付をcreated_onに設定
