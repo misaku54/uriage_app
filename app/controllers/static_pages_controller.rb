@@ -17,13 +17,15 @@ class StaticPagesController < ApplicationController
 
       # 天気APIサービスクラスの呼び出し
       api = OpenMeteoService.new
-      if result = api.get_weather_info(@today)
-        @current_temperature  = result[:hourly][:temperature_2m][hour]
-        @current_weather_code = result[:hourly][:weathercode][hour]
-        @max_temperature = result[:daily][:temperature_2m_max][0]
-        @min_temperature = result[:daily][:temperature_2m_min][0]
-        @current_rainfall_probability = result[:hourly][:precipitation_probability][hour]
-      end
+
+      result = api.get_weather_info(@today)
+      return puts "API連携:JSONの取得に失敗しました。（#{result[:reason]}）" if result[:error]
+      @current_temperature  = result[:hourly][:temperature_2m][hour]
+      @current_weather_code = result[:hourly][:weathercode][hour]
+      @max_temperature = result[:daily][:temperature_2m_max][0]
+      @min_temperature = result[:daily][:temperature_2m_min][0]
+      @current_rainfall_probability = result[:hourly][:precipitation_probability][hour]
+      
     end
   end
 end
