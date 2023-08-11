@@ -195,9 +195,12 @@ RSpec.describe "売上管理機能", type: :system do
     describe '新規登録機能' do
       let(:login_user) { user_a }
       
+      before do
+        visit new_user_sale_path(login_user)
+      end
+
       context '売上情報を有効な値で登録した場合' do
         it '登録に成功する' do
-          visit new_user_sale_path(login_user)
           select 'テスト会社', from: 'sale[maker_id]'
           select 'カバン', from: 'sale[producttype_id]'
           fill_in 'sale[amount_sold]', with: 50000
@@ -221,7 +224,6 @@ RSpec.describe "売上管理機能", type: :system do
       
       context '売上情報を無効な値で登録した場合' do
         it '登録に失敗する' do
-          visit new_user_sale_path(login_user)
           select '選択してください', from: 'sale[maker_id]'
           select '選択してください', from: 'sale[producttype_id]'
           fill_in 'sale[amount_sold]', with: 0
@@ -285,7 +287,7 @@ RSpec.describe "売上管理機能", type: :system do
       end
     end
 
-    
+
     describe '削除機能' do
       let(:login_user) { user_a }
 
