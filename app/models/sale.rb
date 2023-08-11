@@ -19,7 +19,8 @@ class Sale < ApplicationRecord
   validates :created_at, presence: true
   validate :maker_id_should_be_registered       #売上登録できるメーカー名は、メーカーマスタに登録されているものでなければならない
   validate :producttype_id_should_be_registered #売上登録できる商品分類名は、商品分類マスタに登録されているものでなければならない
-  
+  validate :future_day_check # 未来日は設定できない
+
   # scopeで使う集計用SQL（できればサービスモデルに持っていきたい。）
   sql_1 = <<-EOS
   SELECT COALESCE(k.maker_name, '未登録') maker_name, COALESCE(k.producttype_name, '未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
@@ -138,6 +139,10 @@ class Sale < ApplicationRecord
       select_producttype = Producttype.find_by(id: producttype_id, user_id: user_id)
       errors.add(:producttype_id, 'は不正な値です') unless select_producttype
     end
+  end
+
+  def future_day_check
+    errors.add(:created_at, 'に未来日を設定できません。') if self.created_at > Time.zone.now
   end
 
   # 作成更新時にcreated_atと同じ日付をcreated_onに設定

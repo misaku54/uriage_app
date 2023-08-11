@@ -11,11 +11,11 @@ class WeatherForecast < ApplicationRecord
   validates :temp_max, presence: true, numericality: true
   validates :temp_min, presence: true, numericality: true
   validates :rainfall_sum, presence: true, numericality: true
-  validate :future_day_check
+  validate :future_day_check # 未来日は設定できない
 
   private 
 
   def future_day_check
-    errors.add(:aquired_on, 'に未来日を設定できません。') if self.aquired_on > Time.zone.today
+    errors.add(:aquired_on, 'に未来日は設定できません。') if self.aquired_on > Time.zone.today
   end
 end
