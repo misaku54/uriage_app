@@ -33,6 +33,7 @@ RSpec.describe "商品管理機能", type: :system do
     end
   end
 
+
   describe 'ログイン中' do
     before do
       log_in(login_user)
@@ -88,6 +89,7 @@ RSpec.describe "商品管理機能", type: :system do
       end
     end
 
+
     describe '一覧表示機能' do
       before do
         visit user_producttypes_path(login_user)
@@ -142,12 +144,16 @@ RSpec.describe "商品管理機能", type: :system do
       end
     end
 
+
     describe '新規登録機能' do
       let(:login_user) { user_a }
 
+      before do
+        visit new_user_producttype_path(login_user)
+      end
+
       context '商品分類名を有効な値で登録した場合' do
         it '登録に成功する' do
-          visit new_user_producttype_path(login_user)
           fill_in 'producttype[name]', with: 'create商品'
           expect {
             click_button '登録'
@@ -167,7 +173,6 @@ RSpec.describe "商品管理機能", type: :system do
 
       context '商品分類名を無効な値で登録した場合' do
         it '登録に失敗する' do
-          visit new_user_producttype_path(login_user)
           fill_in 'producttype[name]', with: ''
           # DB上に登録されていないこと
           expect {
@@ -179,6 +184,7 @@ RSpec.describe "商品管理機能", type: :system do
       end
     end
 
+
     describe '編集機能' do
       let(:login_user) { user_a }
 
@@ -187,7 +193,6 @@ RSpec.describe "商品管理機能", type: :system do
           visit edit_user_producttype_path(login_user, producttype)
           fill_in 'producttype[name]', with: 'update商品'
           click_button '更新'
-
           # 正しい値に更新されているか
           producttype.reload
           expect(producttype.name).to eq 'update商品'
@@ -197,7 +202,6 @@ RSpec.describe "商品管理機能", type: :system do
           expect(page).to have_selector 'div.alert.alert-success'
           # 更新した商品が表示されていること
           expect(page).to have_content 'update商品'
-
           # 売上登録画面のセレクトボックスに商品分類が反映されていること
           visit new_user_sale_path(login_user)
           expect(page).to have_content 'update商品'
@@ -219,6 +223,7 @@ RSpec.describe "商品管理機能", type: :system do
       end
     end
 
+
     describe '削除機能' do
       let(:login_user) { user_a }
 
@@ -232,7 +237,6 @@ RSpec.describe "商品管理機能", type: :system do
           expect(page).to have_current_path user_producttypes_path(login_user)
           # 削除した商品分類名が表示されていないこと
           expect(page).to have_no_content '商品A'
-
           # 売上登録画面のセレクトボックスから商品分類名が削除されていること
           visit new_user_sale_path(login_user)
           expect(page).to have_no_content '商品A'
