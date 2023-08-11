@@ -12,7 +12,7 @@ namespace :open_meteo_api do
         result = api.get_weather_info(today)
         return Rails.logger.error("API連携:連携はできましたが、JSONの取得に失敗しました。（#{result[:reason]}）") if result[:error]
         params = OpenMeteoService.attributes_for(result)
-
+        
         # 天気予報DBに取得した日付が存在するか
         if weather_forecast = WeatherForecast.find_by(aquired_on: params[:aquired_on]).presence 
           weather_forecast.update!(params)
