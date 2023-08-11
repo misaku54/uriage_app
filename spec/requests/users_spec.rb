@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   describe '#show' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:other_user) { FactoryBot.create(:jhon) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:other_user) { FactoryBot.create(:jhon) }
     
     context '未ログイン' do
       before do
@@ -23,6 +23,7 @@ RSpec.describe 'Users', type: :request do
       before do
         log_in(user)
       end
+
       context '自身の詳細画面へのリクエストの場合' do  
         it 'レスポンスが正常であること' do
           get user_path(user)
