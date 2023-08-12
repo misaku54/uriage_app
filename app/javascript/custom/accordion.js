@@ -1,6 +1,5 @@
 document.addEventListener("turbo:load", () => {
   const acc_ttls = document.querySelectorAll('.acordion__ttl');
-  console.log('load')
   for(let i = 0; i < acc_ttls.length; i++){
     let ttl = acc_ttls[i];
     let content = ttl.nextElementSibling;
