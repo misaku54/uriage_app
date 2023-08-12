@@ -19,6 +19,7 @@ ja:
       maker: メーカー
       producttype: 商品分類
       sale: 売上
+      weather_forecast: 天気予報
     attributes:
       user:
         id: ユーザーID
@@ -49,6 +50,12 @@ ja:
         producttype_id: 商品分類名
         created_at: 登録日時
         updated_at: 更新日時
+      weather_forecast:
+        aquired_on: 取得日
+        weather_id: 天気
+        temp_max: 最高気温
+        temp_min: 最高気温
+        rainfall_sum: 降水量
   activemodel:
     attributes:
       search_form:
