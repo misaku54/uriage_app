@@ -42,11 +42,11 @@
             </tr>
             <tr>
               <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_max) %></th>
-              <td><%= @sale.weather.temp_max %></td>
+              <td><%= "#{@sale.weather.temp_max}°C" %></td>
             </tr>
             <tr>
               <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_min) %></th>
-              <td><%= @sale.weather.temp_min %></td>
+              <td><%= "#{@sale.weather.temp_min}°C" %></td>
             </tr>
             <tr>
               <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:rainfall_sum) %></th>
