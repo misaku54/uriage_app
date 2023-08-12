@@ -32,6 +32,22 @@
               <td class="table-light col-4 col-sm-3 col-md-2"><%= Sale.human_attribute_name(:created_at) %></th>
               <td><%= @sale.created_at.strftime('%Y/%m/%d %H:%M') %></td>
             </tr>
+            <tr>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:weather_id) %></th>
+              <td><%= get_weather(@sale.weather.weather_id) %></td>
+            </tr>
+            <tr>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_max) %></th>
+              <td><%= @sale.weather.temp_max %></td>
+            </tr>
+            <tr>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_min) %></th>
+              <td><%= @sale.weather.temp_min %></td>
+            </tr>
+            <tr>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:rainfall_sum) %></th>
+              <td><%= @sale.weather.rainfall_sum %></td>
+            </tr>
           </tbody>
         </table>
     </div>
