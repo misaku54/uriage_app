@@ -26,13 +26,12 @@ module ApplicationHelper
 
   # 現在のページ数を取得する。
   def current_page_number(page_obj)
-    if page_obj.present?
-      unless page_obj.first_page?
-        current_page = page_obj.count + (page_obj.current_page - 1) * 10 #←perメソッドの表示ページ数に応じて変更する。
-        return "#{current_page}/#{page_obj.total_count}件"
-      end
-      return "#{page_obj.count}/#{page_obj.total_count}件"
+    return "0件" if page_obj.blank?
+    unless page_obj.first_page?
+      current_page = page_obj.count + (page_obj.current_page - 1) * 10 #←perメソッドの表示ページ数に応じて変更する。
+      return "#{current_page}/#{page_obj.total_count}件"
     end
+    return "#{page_obj.count}/#{page_obj.total_count}件"
   end
 
   # 日付を曜日付きで取得する。
