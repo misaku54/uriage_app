@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Sale, type: :model do
   describe 'バリデーション' do
+    let!(:weather) { FactoryBot.create(:weather) }
     let!(:sale) { FactoryBot.create(:sale) }
-    let(:other_user) { FactoryBot.create(:user, name: '他のユーザー', email: 'other@example.com') } 
+    let!(:other_user) { FactoryBot.create(:user, name: '他のユーザー', email: 'other@example.com') } 
     let!(:other_maker) { FactoryBot.create(:maker, name: '他のユーザーが登録したメーカー', user: other_user) }
     let!(:other_producttype) { FactoryBot.create(:producttype, name:'他のユーザーが登録した商品', user: other_user) }
 

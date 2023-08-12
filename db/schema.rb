@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_01_181120) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_09_074315) do
   create_table "makers", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
@@ -37,6 +37,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_181120) do
     t.bigint "producttype_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "created_on"
+    t.index ["created_on"], name: "fk_rails_49491b7fc3"
     t.index ["maker_id"], name: "index_sales_on_maker_id"
     t.index ["producttype_id"], name: "index_sales_on_producttype_id"
     t.index ["user_id"], name: "index_sales_on_user_id"
@@ -53,9 +55,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_181120) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "weather_forecasts", primary_key: "aquired_on", id: :date, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "weather_id"
+    t.float "temp_max"
+    t.float "temp_min"
+    t.float "rainfall_sum"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "makers", "users"
   add_foreign_key "producttypes", "users"
   add_foreign_key "sales", "makers"
   add_foreign_key "sales", "producttypes"
   add_foreign_key "sales", "users"
+  add_foreign_key "sales", "weather_forecasts", column: "created_on", primary_key: "aquired_on"
 end

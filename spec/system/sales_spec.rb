@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "売上管理機能", type: :system do
+  let!(:weather) { FactoryBot.create(:weather) }
   let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') } 
   let(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') } 
   let!(:sale) { FactoryBot.create(:sale, user: user_a) }
@@ -32,6 +33,7 @@ RSpec.describe "売上管理機能", type: :system do
       end
     end
   end
+
 
   describe 'ログイン中' do
     before do
@@ -90,6 +92,7 @@ RSpec.describe "売上管理機能", type: :system do
       end
     end
 
+
     describe '一覧表示機能' do
       before do 
         visit user_sales_path(login_user)
@@ -125,6 +128,8 @@ RSpec.describe "売上管理機能", type: :system do
 
       describe '検索機能' do
         let(:login_user) { user_a }
+        let!(:weather_b) { FactoryBot.create(:weather, aquired_on: Time.zone.local(2023, 4, 1)) }
+        let!(:weather_c) { FactoryBot.create(:weather, aquired_on: Time.zone.local(2023, 4, 10)) }
         let!(:maker_b) { FactoryBot.create(:maker, name:'メーカーB', user: user_a) }
         let!(:producttype_b) { FactoryBot.create(:producttype, name:'商品B', user: user_a) }
         let!(:maker_c) { FactoryBot.create(:maker, name:'メーカーC', user: user_a) }
@@ -186,12 +191,16 @@ RSpec.describe "売上管理機能", type: :system do
       end
     end
 
+
     describe '新規登録機能' do
       let(:login_user) { user_a }
       
+      before do
+        visit new_user_sale_path(login_user)
+      end
+
       context '売上情報を有効な値で登録した場合' do
         it '登録に成功する' do
-          visit new_user_sale_path(login_user)
           select 'テスト会社', from: 'sale[maker_id]'
           select 'カバン', from: 'sale[producttype_id]'
           fill_in 'sale[amount_sold]', with: 50000
@@ -215,7 +224,6 @@ RSpec.describe "売上管理機能", type: :system do
       
       context '売上情報を無効な値で登録した場合' do
         it '登録に失敗する' do
-          visit new_user_sale_path(login_user)
           select '選択してください', from: 'sale[maker_id]'
           select '選択してください', from: 'sale[producttype_id]'
           fill_in 'sale[amount_sold]', with: 0
@@ -228,6 +236,7 @@ RSpec.describe "売上管理機能", type: :system do
         end
       end
     end
+
 
     describe '編集機能' do
       let(:login_user) { user_a }
@@ -277,6 +286,7 @@ RSpec.describe "売上管理機能", type: :system do
         end
       end
     end
+
 
     describe '削除機能' do
       let(:login_user) { user_a }

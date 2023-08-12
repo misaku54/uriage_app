@@ -1,21 +1,27 @@
 class Sale < ApplicationRecord
   include SessionsHelper
-  
+  # created_onのデフォルト値に現在の日付を設定 
+  # attribute :created_on, default: -> { Time.zone.local(2021,1,1) }
+
   # 関連付け
   belongs_to :user
   belongs_to :maker
   belongs_to :producttype
+  belongs_to :weather, class_name: "WeatherForecast", foreign_key: "created_on"
+
+  # アクションコールバック
+  before_validation :set_created_on
 
   # バリデーション
   validates :amount_sold, presence: true
   validates :amount_sold, numericality: { greater_than_or_equal_to: 1 }, allow_nil: true #売上登録できる販売額は１円以上でなければならない。
   validates :remark, length: { maximum: 1000 }
   validates :created_at, presence: true
-  # カスタムバリデーション
   validate :maker_id_should_be_registered       #売上登録できるメーカー名は、メーカーマスタに登録されているものでなければならない
   validate :producttype_id_should_be_registered #売上登録できる商品分類名は、商品分類マスタに登録されているものでなければならない
+  validate :future_day_check # 未来日は設定できない
 
-  # scopeで使う集計用SQL
+  # scopeで使う集計用SQL（できればサービスモデルに持っていきたい。）
   sql_1 = <<-EOS
   SELECT COALESCE(k.maker_name, '未登録') maker_name, COALESCE(k.producttype_name, '未登録') producttype_name, k.sum_amount_sold, k.quantity_sold,
   COALESCE(z.sum_amount_sold, 0) last_year_sum_amount_sold, COALESCE(z.quantity_sold, 0) last_year_quantity_sold,
@@ -131,7 +137,16 @@ class Sale < ApplicationRecord
   def producttype_id_should_be_registered
     unless producttype_id.blank?
       select_producttype = Producttype.find_by(id: producttype_id, user_id: user_id)
-      errors.add(:producttype_id, 'は不正な値です', allow_blank: true) unless select_producttype
+      errors.add(:producttype_id, 'は不正な値です') unless select_producttype
     end
+  end
+
+  def future_day_check
+    errors.add(:created_at, 'に未来日は設定できません。') if self.created_at > Time.zone.now
+  end
+
+  # 作成更新時にcreated_atと同じ日付をcreated_onに設定
+  def set_created_on
+    self.created_on = self.created_at&.in_time_zone
   end
 end

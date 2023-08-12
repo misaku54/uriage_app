@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Producttype, type: :model do
   describe 'バリデーション' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:producttype) { user.producttypes.build(name: 'カバン' ) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:producttype) { user.producttypes.build(name: 'カバン' ) }
 
     it 'producttypeが有効であること' do
       expect(producttype).to be_valid

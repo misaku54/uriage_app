@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Sessions", type: :request do
+  let!(:user) { FactoryBot.create(:user) }
   describe '#new' do
     it 'レスポンスが正常であること' do
       get login_path
@@ -9,8 +10,6 @@ RSpec.describe "Sessions", type: :request do
   end
 
   describe '#create' do
-    let(:user) { FactoryBot.create(:user) }
-
     describe 'ログイン機能' do
       context 'ログインに失敗した場合（パスワード誤）' do
         it 'ログイン画面を再表示すること' do
@@ -50,7 +49,6 @@ RSpec.describe "Sessions", type: :request do
   end
 
   describe '#destroy' do
-    let(:user) { FactoryBot.create(:user) }
     describe 'ログアウト機能' do
       context 'ログアウト時' do
         before do

@@ -5,6 +5,18 @@ class OpenMeteoService
     call_api(method)
   end
 
+  # JSONからDBに保存するパラメータを設定する
+  def self.attributes_for(attrs)
+    date = attrs[:daily][:time][0]&.in_time_zone
+    {
+      aquired_on: date,
+      weather_id: attrs[:daily][:weathercode][0],
+      temp_max: attrs[:daily][:temperature_2m_max][0],
+      temp_min: attrs[:daily][:temperature_2m_min][0],
+      rainfall_sum: attrs[:daily][:precipitation_sum][0],
+    }
+  end
+
   private
 
   def build_query(target_date, **options)
@@ -12,7 +24,7 @@ class OpenMeteoService
     latitude: 31.9167,
     longitude: 131.4167,
     hourly: 'temperature_2m,precipitation_probability,precipitation_probability,weathercode',
-    daily: 'weathercode,temperature_2m_max,temperature_2m_min',
+    daily: 'weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum',
     timezone: 'Asia%2FTokyo',
     start_date: target_date,
     end_date: target_date,

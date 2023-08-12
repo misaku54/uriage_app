@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "ユーザー管理機能（管理者）", type: :system do
   let!(:admin_user) { FactoryBot.create(:admin_user) }
   let!(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') }
-  let!(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') }
 
   describe '未ログイン' do
     describe 'ページ遷移確認' do
@@ -127,6 +126,8 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
 
     describe '一覧表示機能' do
       let(:login_user) { admin_user }
+      let!(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') }
+      
       before do
         visit admin_users_path
       end

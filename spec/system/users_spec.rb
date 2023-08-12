@@ -16,6 +16,7 @@ RSpec.describe "ユーザー管理機能（一般）", type: :system do
     end
   end
 
+
   describe 'ログイン中' do
     before do
       log_in(login_user)
@@ -44,6 +45,7 @@ RSpec.describe "ユーザー管理機能（一般）", type: :system do
         end
       end
     end
+    
     
     describe '詳細表示機能' do
       context 'ユーザーAでログインしている場合' do

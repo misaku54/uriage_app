@@ -18,6 +18,9 @@ gem 'ransack'
 gem 'bootstrap', '~> 5.0.2'
 gem "bootstrap_form"
 gem 'holiday_jp'
+gem 'pry-rails'
+gem 'pry-byebug'
+gem 'whenever', require: false
 # gem 'pry-byebug', group: :development
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

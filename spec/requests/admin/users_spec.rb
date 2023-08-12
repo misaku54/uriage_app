@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Admin::Users", type: :request do
-  describe '#show' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:admin_user) { FactoryBot.create(:admin_user) } 
-    
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:admin_user) { FactoryBot.create(:admin_user) } 
+  let!(:other_user) { FactoryBot.create(:jhon) }
+
+  describe '#show' do    
     context '未ログイン' do
       it 'ログイン画面にリダイレクトされること' do
         get admin_user_path(user)
@@ -30,9 +31,6 @@ RSpec.describe "Admin::Users", type: :request do
   end
 
   describe '#new' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:admin_user) { FactoryBot.create(:admin_user) } 
-
     context '未ログイン' do
       it 'ログイン画面にリダイレクトされること' do
         get new_admin_user_path
@@ -58,9 +56,6 @@ RSpec.describe "Admin::Users", type: :request do
   end
 
   describe '#create' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:admin_user) { FactoryBot.create(:admin_user) } 
-
     context '未ログイン' do
       context '無効なパラメーターの場合' do
         it '登録されずに、ログイン画面へリダイレクトされること' do
@@ -140,10 +135,6 @@ RSpec.describe "Admin::Users", type: :request do
   end
 
   describe '#edit' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:other_user) { FactoryBot.create(:jhon) }
-    let!(:admin_user) { FactoryBot.create(:admin_user) } 
-
     context '未ログイン' do
       it 'ログイン画面にリダイレクトされること' do
         get edit_admin_user_path(user)
@@ -179,10 +170,6 @@ RSpec.describe "Admin::Users", type: :request do
   end
 
   describe '#update' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:other_user) { FactoryBot.create(:jhon) }
-    let!(:admin_user) { FactoryBot.create(:admin_user) } 
-
     context '未ログイン' do
       context '無効なパラメータの場合' do
         it '更新されずに、ログイン画面へリダイレクトされること' do
@@ -319,10 +306,6 @@ RSpec.describe "Admin::Users", type: :request do
   end
 
   describe '#destroy' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:other_user) { FactoryBot.create(:jhon) }
-    let!(:admin_user) { FactoryBot.create(:admin_user) } 
-
     context '未ログイン' do
       it '削除されずに、ログイン画面へリダイレクトされること' do
         expect {
