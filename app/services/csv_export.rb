@@ -6,7 +6,7 @@ class CsvExport
     CSV.generate(bom) do |csv|
       csv << ["メーカー名","登録日時"]
       makers.each do |maker|
-        csv << [maker.name, maker.created_at.strftime("%Y-%m-%d %H:%M")]
+        csv << [maker.name, maker.created_at.strftime("%Y/%m/%d %H:%M")]
       end
     end
   end
@@ -16,7 +16,7 @@ class CsvExport
     CSV.generate(bom) do |csv|
       csv << ["商品分類名","登録日時"]
       producttypes.each do |producttype|
-        csv << [producttype.name, producttype.created_at.strftime('%Y-%m-%d %H:%M')]
+        csv << [producttype.name, producttype.created_at.strftime('%Y/%m/%d %H:%M')]
       end
     end
   end
@@ -28,7 +28,7 @@ class CsvExport
       sales.each do |sale|
         maker_name = sale.maker.present? ? sale.maker.name : '未登録'
         producttype_name = sale.producttype.present? ? sale.producttype.name : '未登録'
-        csv << [maker_name, producttype_name, sale.amount_sold, sale.remark, sale.created_at.strftime('%Y-%m-%d %H:%M') ]
+        csv << [maker_name, producttype_name, sale.amount_sold, sale.remark, sale.created_at.strftime('%Y/%m/%d %H:%M') ]
       end
     end
   end

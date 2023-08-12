@@ -89,7 +89,7 @@
         <tbody>
           <% @sales.each do |sale| %>
             <tr>
-              <td><%= sale.created_at.strftime('%Y-%m-%d %H:%M')  %></td>
+              <td><%= l sale.created_at, format: :long  %></td>
               <td><%= sale.maker.present? ? sale.maker.name : '未登録' %></td>
               <td><%= sale.producttype.present? ? sale.producttype.name : "未登録" %></td>
               <td class="text-right"><%= add_comma_en(sale.amount_sold) %></td>
