@@ -19,7 +19,7 @@ class Sale < ApplicationRecord
   validates :created_at, presence: true
   validate :maker_id_should_be_registered       #売上登録できるメーカー名は、メーカーマスタに登録されているものでなければならない
   validate :producttype_id_should_be_registered #売上登録できる商品分類名は、商品分類マスタに登録されているものでなければならない
-  validate :future_day_check # 未来日は設定できない
+  validate :aquired_on_should_be_registered # 売上登録できる登録日付は、天気予報DBに登録されているものでなければならない
 
   # scopeで使う集計用SQL（できればサービスモデルに持っていきたい。）
   sql_1 = <<-EOS
@@ -129,20 +129,20 @@ class Sale < ApplicationRecord
   def maker_id_should_be_registered
     # カスタムバリデーションでallow_nilがやりたかった。
     unless maker_id.blank?
-      select_maker = Maker.find_by(id: maker_id, user_id: user_id)
-      errors.add(:maker_id, 'は不正な値です') unless select_maker
+      errors.add(:maker_id, 'は不正な値です') unless Maker.find_by(id: maker_id, user_id: user_id)
     end
   end
 
   def producttype_id_should_be_registered
     unless producttype_id.blank?
-      select_producttype = Producttype.find_by(id: producttype_id, user_id: user_id)
-      errors.add(:producttype_id, 'は不正な値です') unless select_producttype
+      errors.add(:producttype_id, 'は不正な値です') unless Producttype.find_by(id: producttype_id, user_id: user_id)
     end
   end
 
-  def future_day_check
-    errors.add(:created_at, 'に未来日は設定できません。') if self.created_at > Time.zone.now
+  def aquired_on_should_be_registered
+    unless created_at.blank?
+      errors.add(:created_at, '天気予報DBに登録されていない日付は登録できません。登録しようとしている日付は未来日か運用開始日より前の日付の可能性があります。') unless WeatherForecast.find_by(aquired_on: created_at)
+    end
   end
 
   # 作成更新時にcreated_atと同じ日付をcreated_onに設定

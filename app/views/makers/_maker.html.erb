@@ -3,7 +3,7 @@
     <%= maker.name %>
   </td>
   <td>
-    <%= maker.created_at.strftime('%Y/%m/%d %H:%M')  %>
+    <%= l maker.created_at, format: :long  %>
   </td>
   <td>
     <div class="d-flex justify-content-end">
