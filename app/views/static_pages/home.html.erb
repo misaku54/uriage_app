@@ -4,9 +4,10 @@
 <% if logged_in? %>
   <%= render 'shared/today_aggregate' %>
 <% else %>
-  <div class="home-content">
-    <h1 class="display-3">LiLy</h1>
-    <p>売上集計アプリケーションです。</p>
-    <div class="background"></div>
+  <div class="background">
+    <div class="home-content border">
+      <h1 class="display-3">LiLy</h1>
+      <p>売上集計アプリケーションです。</p>
+    </div>
   </div>
 <% end %>
