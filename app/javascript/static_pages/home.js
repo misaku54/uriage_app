@@ -24,7 +24,6 @@ document.addEventListener('turbo:load', () => {
         newDate = now.getDate();
         dateDiv.innerText = getDateString(now);
     }
-    // 要素に表示する
     timeDiv.innerText = getTimeString(now);
   }, 1000);
 });
