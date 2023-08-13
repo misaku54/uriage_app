@@ -3,7 +3,7 @@ const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
 const zeroPadding = n => ( n < 10 ) ? '0' + n.toString() : n.toString();
 
 const getDateString = date => 
-  `${date.getFullYear()}年${zeroPadding(date.getMonth() + 1)}月${zeroPadding(date.getDate())}日(${dayOfWeek[date.getDay()]})`;
+  `${zeroPadding(date.getMonth() + 1)}月${zeroPadding(date.getDate())}日(${dayOfWeek[date.getDay()]})`;
 
 const getTimeString = date =>
   `${zeroPadding(date.getHours())}:${zeroPadding(date.getMinutes())}:${zeroPadding(date.getSeconds())}`;
