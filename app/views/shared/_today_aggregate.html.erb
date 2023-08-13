@@ -7,7 +7,8 @@
       <div class="card-body p-4">
         <h6 class="flex-grow-1">日付</h6>
         <div class="d-flex flex-column text-center mt-5 mb-4">
-          <h5 class="display-5 mb-0 font-weight-bold" style="color: #1C2331;"> <%= get_date(@today) %> </h5>
+          <h5 class="display-6 mb-0 font-weight-bold" id="date" style="color: #1C2331;"></h5>
+          <h5 class="display-7 mb-0" id="time" style="color: #1C2331;"></h5>
           <span class="small" style="color: #868B94"><%= get_holiday(@today) %></span>
         </div>
         <div class="d-flex align-items-center justify-content-end">
@@ -69,3 +70,4 @@
 <% end %>
 <div id="date"></div>
 <div id="time"></div>
+
