@@ -1,8 +1,11 @@
-// dateオブジェクト整形用の変数と関数
+// dateオブジェクト整形用の変数
 const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
 
+// dateオブジェクト整形用の関数
+const zeroPadding = n => ( n < 10 ) ? '0' + n.toString() : n.toString();
+
 const getDateString = date => 
-  `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日(${dayOfWeek[date.getDay()]})`;
+  `${date.getFullYear()}年${zeroPadding(date.getMonth() + 1)}月${zeroPadding(date.getDate())}日(${dayOfWeek[date.getDay()]})`;
 
 const getTimeString = date =>
   `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -26,4 +29,7 @@ document.addEventListener('turbo:load', () => {
     }
     timeDiv.innerText = getTimeString(now);
   }, 1000);
+
+  // 型調査
+  // console.log(typeof date2.getDate())
 });
