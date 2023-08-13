@@ -8,7 +8,7 @@ const getDateString = date =>
   `${date.getFullYear()}年${zeroPadding(date.getMonth() + 1)}月${zeroPadding(date.getDate())}日(${dayOfWeek[date.getDay()]})`;
 
 const getTimeString = date =>
-  `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  `${zeroPadding(date.getHours())}:${zeroPadding(date.getMinutes())}:${zeroPadding(date.getSeconds())}`;
 
 
 // 画面ロード後の処理
