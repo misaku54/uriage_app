@@ -85,7 +85,17 @@ h6:after {
 .read-text {
   font-size: .8rem;
 }
+// 未ログインのホーム画面
 
+.background {
+  // width: 100%;
+  height: 100vh;
+  background-image: url("../images/lily.jpg");
+  // background-repeat: no-repeat;
+  // background-color: #009efd;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
 // カードレイアウト内のタブのフォントサイズ調整
 .card-body {
   .nav-link {
