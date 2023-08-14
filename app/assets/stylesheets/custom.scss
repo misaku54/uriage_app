@@ -19,6 +19,12 @@ html {
 body {
   padding-top: 50px;
   background-color: #f1f3f6;
+  font-family: "Helvetica Neue",
+  Arial,
+  "Hiragino Kaku Gothic ProN",
+  "Hiragino Sans",
+  Meiryo,
+  sans-serif;
 }
 
 section {
@@ -106,18 +112,13 @@ h6:after {
 
 // ホーム画面
 .background {
-  height: 100vh;
+  height: calc(100vh - 50px);
   background-image: image-url('lily.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position:bottom center;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  margin-top: calc(50% - 50vw);
-}
-
-.home {
-  padding-top: 18px;
 }
 
 .home-content {
