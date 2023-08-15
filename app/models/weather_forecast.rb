@@ -16,6 +16,8 @@ class WeatherForecast < ApplicationRecord
   private 
 
   def future_day_check
-    errors.add(:aquired_on, 'に未来日は設定できません。') if self.aquired_on > Time.zone.today
+    unless aquired_on.blank?
+      errors.add(:aquired_on, 'に未来日は設定できません。') if self.aquired_on > Time.zone.today
+    end
   end
 end
