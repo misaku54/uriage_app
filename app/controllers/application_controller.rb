@@ -15,10 +15,10 @@ class ApplicationController < ActionController::Base
 
   # 遷移したページのidがログインユーザー本人でなければ、ホーム画面へリダイレクト
   def correct_user
-    if params[:user_id].present?
-      @user = User.find(params[:user_id])
+    if params[:user_id]
+      @user = User.find_by(params[:user_id])
     else
-      @user = User.find(params[:id])
+      @user = User.find_by(params[:id])
     end
     redirect_to(root_url, status: :see_other) unless current_user?(@user)
   end
