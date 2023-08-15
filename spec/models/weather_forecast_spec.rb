@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe WeatherForecast, type: :model do
-  let!(:weather) { FactoryBot.build(:weather) }
-  
   describe 'バリデーション' do
+    let!(:weather) { FactoryBot.build(:weather) }
     it 'weatherが有効であること' do
       expect(weather).to be_valid
     end
