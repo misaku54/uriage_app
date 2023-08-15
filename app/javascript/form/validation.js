@@ -29,15 +29,14 @@ console.log(inputSelector)
 
 for (const input of inputSelector) {
   input.addEventListener('blur', () => {
-    if(input.value.trim() === ''){
+    if(input.hasAttribute('required') && input.value.trim() === ''){
       showErrorMessage(input, '必須項目です。');
     }
   });
 
   input.addEventListener('input', () => {
     console.log('aaa')
-    input.name === 'maker[name]' && checkLength('メーカー名', 30, input)
-    
-  
+    input.name === 'maker[name]' && checkLength('メーカー名', 30, input);
+    input.name === 'producttype[name]' && checkLength('商品分類名', 30, input);
   });
 }
