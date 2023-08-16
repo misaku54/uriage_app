@@ -13,7 +13,7 @@
             </td>
             <td>
               <%= f.select :maker_id, user.makers.pluck(:name, :id), 
-                                  { include_blank: "選択してください" }, { data: { controller: 'slim' } } %>
+                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "selectBox" } %>
             </td>
           </tr>
           <tr>
@@ -24,7 +24,7 @@
             </td>
             <td>
               <%= f.select :producttype_id, user.producttypes.pluck(:name, :id), 
-                                  { include_blank: "選択してください" }, { data: { controller: 'slim' } } %>
+                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "selectBox" } %>
             </td>
           </tr>
           <tr>
