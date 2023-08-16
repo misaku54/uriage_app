@@ -1,3 +1,4 @@
+// 関数部---------------------------------------------------------
 // バリデーションエラーの表示
 const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('small');
@@ -66,7 +67,7 @@ const checkNumber = (labelName, input) => {
 }
 
 
-// 実行部
+// 実行部---------------------------------------------------------
 // input系のバリデーションイベント
 const inputSelector = document.querySelectorAll('.input');
 if(inputSelector) {
