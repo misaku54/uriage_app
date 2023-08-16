@@ -58,8 +58,6 @@ const checkNumber = (labelName, input) => {
   if(input.value && input.value <= 0){
     showErrorMessage(input, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
   }else{
-    console.log('b')
-    console.log(input.value)
     removeErrorMessage(input, 'input')
   }
 
