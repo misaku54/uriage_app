@@ -1,3 +1,4 @@
+// バリデーションエラーの表示
 const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('small');
   errorMessage.textContent = message;
@@ -15,10 +16,11 @@ const showErrorMessage = (target, message ,type) => {
       break;
       
     default:
-      console.log('その他');
+      throw 'argument error';
   }
 }
 
+// バリデーションエラーの削除
 const removeErrorMessage = (target, type) => {
   switch(type) {
     case 'input':
@@ -38,12 +40,12 @@ const removeErrorMessage = (target, type) => {
       break;
 
     default:
-      console.log('その他');
+      throw 'argument error';
   }
 }
 
+// 桁数チェック
 const checkLength = (labelName, maxLength, input) => {
-  console.log(input.value.length)
   if(input.value.length > maxLength) {
     showErrorMessage(input, `※${labelName}は、${maxLength}文字以内にしてください`, 'input')
   }else{
@@ -51,10 +53,10 @@ const checkLength = (labelName, maxLength, input) => {
   }
 }
 
+// 数値の有効チェック
 const checkNumber = (labelName, input) => {
   // const regex = /^[1-9][0-9]+/;
   // const result = input.value.match(regex)
-
   if(input.value && input.value <= 0){
     showErrorMessage(input, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
   }else{
@@ -63,6 +65,9 @@ const checkNumber = (labelName, input) => {
 
 }
 
+
+// 実行部
+// input系のバリデーションイベント
 const inputSelector = document.querySelectorAll('.input');
 if(inputSelector) {
   for (const input of inputSelector) {
@@ -81,7 +86,7 @@ if(inputSelector) {
   }
 }
 
-
+// slimselectのバリデーションイベント
 const selectBox = document.querySelectorAll('.selectBox');
 if(selectBox) {
   for (const select of selectBox) {
