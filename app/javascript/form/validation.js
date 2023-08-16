@@ -1,24 +1,41 @@
-const showErrorMessage = (target, message , parent = null) => {
-  console.log(target.nextElementSibling)
+const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('small');
   errorMessage.textContent = message;
+  errorMessage.classList.add('invalid');
 
-  if(!target.nextElementSibling) {
-    target.insertAdjacentElement('afterend', errorMessage);
-  }
-  if(parent){
-    parent.insertAdjacentElement('beforeend', errorMessage);
+  switch(type) {
+    case "input":
+      if(!target.nextElementSibling) {
+        target.insertAdjacentElement('afterend', errorMessage);
+      }
+      break;
+
+    case "slim":
+      target.parentElement.insertAdjacentElement('beforeend', errorMessage);
+      break;
+      
+    default:
+      console.log('その他');
   }
 }
 
-const removeErrorMessage = (target, parent = null) => {
-  const error = target.nextElementSibling;
-  const parent = parent.lastElementChild.classList.contain('samll') || null
-  if(error){
-    error.remove();
-  }
-  if(parent){
-    parent.insertAdjacentElement('beforeend', errorMessage);
+const removeErrorMessage = (target, type) => {
+  switch(type) {
+    case 'input':
+      const error = target.nextElementSibling;
+      if(error) {
+        error.remove();
+      }
+      break;
+    
+    case 'slim':
+      const selectError = target.parentElement
+      if(selectError.classList.contains('invalid')) {
+        selectError.remove();
+      }
+
+    default:
+      console.log('その他');
   }
 }
 
@@ -40,7 +57,7 @@ if(inputSelector) {
   for (const input of inputSelector) {
     input.addEventListener('blur', () => {
       if(input.hasAttribute('required') && input.value.trim() === ''){
-        showErrorMessage(input, '必須項目です。');
+        showErrorMessage(input, '必須項目です。','input');
       }
     });
 
@@ -63,9 +80,10 @@ for (const select of selectBox) {
   select.addEventListener('change', () => {
     if(select.options[0].selected === true){
       console.log('saaaa')
-      showErrorMessage(select, '必須項目です。', parent)
+      showErrorMessage(select, '必須項目です。', 'slim')
     }else{
-      removeErrorMessage(select, '必須項目です。', parent)
+      console.log('bnot')
+      removeErrorMessage(select, parent)
     }
   })
 }
