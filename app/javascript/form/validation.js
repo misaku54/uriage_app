@@ -28,7 +28,7 @@ const removeErrorMessage = (target, type) => {
         error.remove();
       }
       break;
-    
+
     case 'slim':
       const slimError = target.lastElementChild;
 
@@ -43,26 +43,42 @@ const removeErrorMessage = (target, type) => {
 }
 
 const checkLength = (labelName, maxLength, input) => {
+  console.log(input.value.length)
   if(input.value.length > maxLength) {
-    showErrorMessage(input, `${labelName}は、${maxLength}文字以内にしてください`)
+    showErrorMessage(input, `※${labelName}は、${maxLength}文字以内にしてください`, 'input')
   }else{
-    removeErrorMessage(input);
+    removeErrorMessage(input, 'input');
   }
 }
 
+const checkNumber = (labelName, input) => {
+  // const regex = /^[1-9][0-9]+/;
+  // const result = input.value.match(regex)
+
+  if(input.value && input.value <= 0){
+    showErrorMessage(input, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
+  }else{
+    console.log('b')
+    console.log(input.value)
+    removeErrorMessage(input, 'input')
+  }
+
+}
 
 const inputSelector = document.querySelectorAll('.input');
 if(inputSelector) {
   for (const input of inputSelector) {
     input.addEventListener('blur', () => {
       if(input.hasAttribute('required') && input.value.trim() === ''){
-        showErrorMessage(input, '必須項目です。','input');
+        showErrorMessage(input, '※必須項目です。','input');
       }
     });
 
     input.addEventListener('input', () => {
       input.name === 'maker[name]' && checkLength('メーカー名', 30, input);
       input.name === 'producttype[name]' && checkLength('商品分類名', 30, input);
+      input.name === 'sale[remark]' && checkLength('備考', 1000, input);
+      input.name === 'sale[amount_sold]' && checkNumber('販売価格', input);
     });
   }
 }
@@ -75,7 +91,7 @@ if(selectBox) {
 
     select.addEventListener('change', () => {
       if(select.options[0].selected === true){
-        showErrorMessage(parent, '必須項目です。', 'slim');
+        showErrorMessage(parent, '※必須項目です。', 'slim');
       }else{
         removeErrorMessage(parent, 'slim');
       }

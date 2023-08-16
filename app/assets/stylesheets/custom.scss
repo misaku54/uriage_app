@@ -182,6 +182,12 @@ label.required:after {
 	width: auto;
 }
 
+// リアルタイムバリデーション
+.invalid {
+  color: red;
+  font-size: 0.8rem;
+}
+
 
 /* サイドバーナビ */
 .sidebar {
