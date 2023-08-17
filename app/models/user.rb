@@ -40,8 +40,9 @@ class User < ApplicationRecord
   end
   
   # 永続的セッションのためユーザーをデータベースに記憶する。
-  def remember 
-    remember_token = User.new_token
+  def remember
+    # 代入する時はselfが必要、参照する際はいらない。
+    self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
     remember_digest
   end
