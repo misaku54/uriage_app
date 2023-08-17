@@ -4,20 +4,17 @@ const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('div');
   errorMessage.textContent = message;
   errorMessage.classList.add('invalid');
-
   switch(type) {
     case "input":
       if(!target.nextElementSibling) {
         target.insertAdjacentElement('afterend', errorMessage);
       }
       break;
-
     case "select":
       if(!target.lastElementChild.classList.contains('invalid')){
         target.insertAdjacentElement('beforeend', errorMessage);
       }
       break;
-      
     default:
       throw 'argument error';
   }
@@ -33,15 +30,13 @@ const removeErrorMessage = (target, type) => {
         error.remove();
       }
       break;
-
     case 'select':
       const selectError = target.lastElementChild;
-
+      
       if(selectError.classList.contains('invalid')) {
         selectError.remove();
       }
       break;
-
     default:
       throw 'argument error';
   }
@@ -63,20 +58,18 @@ const checkNumber = (labelName, input) => {
   if(input.value && input.value <= 0){
     showErrorMessage(input, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
   }else{
-    removeErrorMessage(input, 'input')
+    removeErrorMessage(input, 'input');
   }
-
 }
 
 // 日付の有効チェック
 const checkDate = (labelName, date, input) => {
   const now = new Date();
   if(date > now){
-    showErrorMessage(input, `※${labelName}に、未来日は設定できません。`, 'select')
+    showErrorMessage(input, `※${labelName}に、未来日は設定できません。`, 'select');
   }else{
-    removeErrorMessage(input, 'select')
+    removeErrorMessage(input, 'select');
   }
-
 }
 
 
@@ -100,11 +93,11 @@ if(inputSelector) {
   }
 }
 
-// selectselectのバリデーションイベント
-const selectBox = document.querySelectorAll('.selectBox');
-if(selectBox) {
-  for (const select of selectBox) {
-    const parent = select.parentElement
+// slimselectのバリデーションイベント
+const slimSelector = document.querySelectorAll('.slim');
+if(slimSelector) {
+  for (const select of slimSelector) {
+    const parent = select.parentElement;
 
     select.addEventListener('change', () => {
       if(select.options[0].selected === true){
@@ -116,33 +109,20 @@ if(selectBox) {
   }
 }
 
-const selectCreated = document.querySelectorAll('.select-created')
-if(selectCreated){
-  const parent = selectCreated[0].parentElement;
+// date_selectのバリデーションイベント
+const createdSelector = document.querySelectorAll('.select-created')
+if(createdSelector){
+  const parent = createdSelector[0].parentElement;
 
-  for (const select of selectCreated) {
+  for (const select of createdSelector) {
     select.addEventListener('change', () => {
       const dateAry = [];
 
-      selectCreated.forEach((element, index) => {
-        index === 1 ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value);
-      })
+      createdSelector.forEach((element, index) => 
+        (index === 1) ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value));
+
       const selectDate = new Date(...dateAry);
       checkDate('登録日時', selectDate, parent);
     })
   }
 }
-
-// 要素を変更するたびにバリデーション実行
-
-// 一つのセレクト要素を変更　
-
-// イベント発火
-
-// 現在のセレクト要素をすべて取得
-
-// 取得した要素よりdateクラスを作成
-
-// dateクラスと現在のクラスを比較し、現在の日付以上であれば、バリデーションエラーを出力する。
-
-// dateクラスと運用開始日を比較し、運用開始日より低ければ、バリデーションエラーを出力する。
