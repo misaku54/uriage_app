@@ -19,6 +19,14 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
+  def self.ransackable_attributes(auth_object = nil)
+    ["admin", "created_at", "email", "id", "name", "password_digest", "remember_digest", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["makers", "producttypes", "sales"]
+  end
+  
   # 渡された文字列のハッシュ値を返す
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -29,14 +37,6 @@ class User < ApplicationRecord
   # ランダムなトークンを返す
   def self.new_token
     SecureRandom.urlsafe_base64
-  end
-
-  def self.ransackable_attributes(auth_object = nil)
-    ["admin", "created_at", "email", "id", "name", "password_digest", "remember_digest", "updated_at"]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    ["makers", "producttypes", "sales"]
   end
   
   # 永続的セッションのためユーザーをデータベースに記憶する。
