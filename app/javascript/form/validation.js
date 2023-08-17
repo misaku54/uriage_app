@@ -66,6 +66,12 @@ const checkNumber = (labelName, input) => {
 
 }
 
+// 日付の有効チェック
+const checkDate = (labelName, date, input) => {
+  
+
+}
+
 
 // 実行部---------------------------------------------------------
 // input系のバリデーションイベント
@@ -102,3 +108,55 @@ if(selectBox) {
     });
   }
 }
+
+const selectCreated = document.querySelectorAll('.select-created')
+// console.log(selectCreated[selectCreated.length-1])
+
+if(selectCreated){
+  const last = selectCreated[selectCreated.length-1];
+
+  for (const select of selectCreated) {
+    select.addEventListener('change', () => {
+      const dateAry = [];
+
+      selectCreated.forEach((element, index) => {
+        index === 1 ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value)
+      });
+      const selectDate = new Date(...dateAry);
+    })
+  }
+  // console.log(dateAry)
+  // const last = selectCreated[selectCreated.length-1]
+  // const selectDate = new Date(...dateAry);
+  // console.log(selectDate)
+  // const sele = new Date(2022,2,31);
+  // console.log(sele)
+
+  // for(const select of selectCreated) {
+    // select.addEventListener('change', ()=)
+  
+  // }
+
+
+
+// const yearNum   = document.getElementById('sale_created_at_1i').selectedIndex
+// const monthNum  = document.getElementById('sale_created_at_2i').selectedIndex
+// const dayNum    = document.getElementById('sale_created_at_3i').selectedIndex
+// console.log(yearNum,monthNum)
+// const choise = selectElem.
+// console.log(selectElem.options[choise].value)
+}
+
+// 要素を変更するたびにバリデーション実行
+
+// 一つのセレクト要素を変更　
+
+// イベント発火
+
+// 現在のセレクト要素をすべて取得
+
+// 取得した要素よりdateクラスを作成
+
+// dateクラスと現在のクラスを比較し、現在の日付以上であれば、バリデーションエラーを出力する。
+
+// dateクラスと運用開始日を比較し、運用開始日より低ければ、バリデーションエラーを出力する。
