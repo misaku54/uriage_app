@@ -13,7 +13,7 @@
             </td>
             <td>
               <%= f.select :maker_id, user.makers.pluck(:name, :id), 
-                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "selectBox" } %>
+                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "slim-select" } %>
             </td>
           </tr>
           <tr>
@@ -24,7 +24,7 @@
             </td>
             <td>
               <%= f.select :producttype_id, user.producttypes.pluck(:name, :id), 
-                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "selectBox" } %>
+                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "slim-select" } %>
             </td>
           </tr>
           <tr>
@@ -62,7 +62,7 @@
                   datetime_separator: '%s',
                   time_separator: '%s'
                 },
-                { class:"form-select-sm select-created", required: true }
+                { class:"form-select-sm created-select", required: true }
               ),
               '年 ', '月 ', '日 ', '時 ') + '分' %>
             </td>

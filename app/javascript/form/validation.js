@@ -94,7 +94,7 @@ if(inputSelector) {
 }
 
 // slimselectのバリデーションイベント
-const slimSelector = document.querySelectorAll('.slim');
+const slimSelector = document.querySelectorAll('.slim-select');
 if(slimSelector) {
   for (const select of slimSelector) {
     const parent = select.parentElement;
@@ -110,7 +110,7 @@ if(slimSelector) {
 }
 
 // date_selectのバリデーションイベント
-const createdSelector = document.querySelectorAll('.select-created')
+const createdSelector = document.querySelectorAll('.created-select')
 if(createdSelector){
   const parent = createdSelector[0].parentElement;
 
