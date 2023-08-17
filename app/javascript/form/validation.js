@@ -68,7 +68,12 @@ const checkNumber = (labelName, input) => {
 
 // 日付の有効チェック
 const checkDate = (labelName, date, input) => {
-  
+  const now = new Date();
+  if(date > now){
+    showErrorMessage(input, `${labelName}は、未来日を設定できません。`, 'input')
+  }else{
+    removeErrorMessage(input, 'input')
+  }
 
 }
 
@@ -110,10 +115,8 @@ if(selectBox) {
 }
 
 const selectCreated = document.querySelectorAll('.select-created')
-// console.log(selectCreated[selectCreated.length-1])
-
 if(selectCreated){
-  const last = selectCreated[selectCreated.length-1];
+  const lastSelect = selectCreated[selectCreated.length-1];
 
   for (const select of selectCreated) {
     select.addEventListener('change', () => {
@@ -123,6 +126,7 @@ if(selectCreated){
         index === 1 ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value)
       });
       const selectDate = new Date(...dateAry);
+      checkDate('登録日時', selectDate, lastSelect)
     })
   }
   // console.log(dateAry)
