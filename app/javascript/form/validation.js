@@ -4,18 +4,20 @@ const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('div');
   errorMessage.textContent = message;
   errorMessage.classList.add('invalid');
-  
+
   switch(type) {
     case "input":
       if(!target.nextElementSibling) {
         target.insertAdjacentElement('afterend', errorMessage);
       }
       break;
+      
     case "select":
       if(!target.lastElementChild.classList.contains('invalid')){
         target.insertAdjacentElement('beforeend', errorMessage);
       }
       break;
+
     default:
       throw 'argument error';
   }
@@ -31,6 +33,7 @@ const removeErrorMessage = (target, type) => {
         error.remove();
       }
       break;
+
     case 'select':
       const selectError = target.lastElementChild;
       
@@ -38,6 +41,7 @@ const removeErrorMessage = (target, type) => {
         selectError.remove();
       }
       break;
+
     default:
       throw 'argument error';
   }
