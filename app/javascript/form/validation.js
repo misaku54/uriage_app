@@ -1,7 +1,7 @@
 // 関数部---------------------------------------------------------
 // バリデーションエラーの表示
 const showErrorMessage = (target, message ,type) => {
-  const errorMessage = document.createElement('small');
+  const errorMessage = document.createElement('div');
   errorMessage.textContent = message;
   errorMessage.classList.add('invalid');
 
@@ -12,8 +12,10 @@ const showErrorMessage = (target, message ,type) => {
       }
       break;
 
-    case "slim":
-      target.insertAdjacentElement('beforeend', errorMessage);
+    case "select":
+      if(!target.lastElementChild.classList.contains('invalid')){
+        target.insertAdjacentElement('beforeend', errorMessage);
+      }
       break;
       
     default:
@@ -32,11 +34,11 @@ const removeErrorMessage = (target, type) => {
       }
       break;
 
-    case 'slim':
-      const slimError = target.lastElementChild;
+    case 'select':
+      const selectError = target.lastElementChild;
 
-      if(slimError.classList.contains('invalid')) {
-        slimError.remove();
+      if(selectError.classList.contains('invalid')) {
+        selectError.remove();
       }
       break;
 
@@ -70,9 +72,9 @@ const checkNumber = (labelName, input) => {
 const checkDate = (labelName, date, input) => {
   const now = new Date();
   if(date > now){
-    showErrorMessage(input, `${labelName}は、未来日を設定できません。`, 'input')
+    showErrorMessage(input, `※${labelName}に、未来日は設定できません。`, 'select')
   }else{
-    removeErrorMessage(input, 'input')
+    removeErrorMessage(input, 'select')
   }
 
 }
@@ -98,7 +100,7 @@ if(inputSelector) {
   }
 }
 
-// slimselectのバリデーションイベント
+// selectselectのバリデーションイベント
 const selectBox = document.querySelectorAll('.selectBox');
 if(selectBox) {
   for (const select of selectBox) {
@@ -106,49 +108,29 @@ if(selectBox) {
 
     select.addEventListener('change', () => {
       if(select.options[0].selected === true){
-        showErrorMessage(parent, '※必須項目です。', 'slim');
+        showErrorMessage(parent, '※必須項目です。', 'select');
       }else{
-        removeErrorMessage(parent, 'slim');
+        removeErrorMessage(parent, 'select');
       }
-    });
+    })
   }
 }
 
 const selectCreated = document.querySelectorAll('.select-created')
 if(selectCreated){
-  const lastSelect = selectCreated[selectCreated.length-1];
+  const parent = selectCreated[0].parentElement;
 
   for (const select of selectCreated) {
     select.addEventListener('change', () => {
       const dateAry = [];
 
       selectCreated.forEach((element, index) => {
-        index === 1 ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value)
-      });
+        index === 1 ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value);
+      })
       const selectDate = new Date(...dateAry);
-      checkDate('登録日時', selectDate, lastSelect)
+      checkDate('登録日時', selectDate, parent);
     })
   }
-  // console.log(dateAry)
-  // const last = selectCreated[selectCreated.length-1]
-  // const selectDate = new Date(...dateAry);
-  // console.log(selectDate)
-  // const sele = new Date(2022,2,31);
-  // console.log(sele)
-
-  // for(const select of selectCreated) {
-    // select.addEventListener('change', ()=)
-  
-  // }
-
-
-
-// const yearNum   = document.getElementById('sale_created_at_1i').selectedIndex
-// const monthNum  = document.getElementById('sale_created_at_2i').selectedIndex
-// const dayNum    = document.getElementById('sale_created_at_3i').selectedIndex
-// console.log(yearNum,monthNum)
-// const choise = selectElem.
-// console.log(selectElem.options[choise].value)
 }
 
 // 要素を変更するたびにバリデーション実行
