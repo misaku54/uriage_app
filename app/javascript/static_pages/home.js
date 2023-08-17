@@ -13,7 +13,6 @@ document.addEventListener('turbo:load', () => {
   const timeDiv = document.getElementById('time');
   let newDate = null;
   const clock = () => {
-    // 現在の日付をコンストラクタで取得
     const now = new Date();
     // 日にちが変わったら、新しい日付をnewDateにセットし、要素に再出力
     if( newDate !== now.getDate() ) {
@@ -25,9 +24,9 @@ document.addEventListener('turbo:load', () => {
 
   // 要素があった場合に実行
   if( dateDiv && timeDiv ){
+    // 初期表示のラグ対策
     clock();
-    // 1秒ごとに実行　ここのコールバックメソッドには()をつけたらダメ！
-    // （）は実行という意味で、つけてしまうとその場でclockメソッドを実行してしまう。
+    // 1秒ごとに実行
     setInterval(clock, 1000);
   };
 });
