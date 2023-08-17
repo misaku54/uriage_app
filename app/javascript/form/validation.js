@@ -4,6 +4,7 @@ const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('div');
   errorMessage.textContent = message;
   errorMessage.classList.add('invalid');
+  
   switch(type) {
     case "input":
       if(!target.nextElementSibling) {
