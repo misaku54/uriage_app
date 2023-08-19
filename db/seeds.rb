@@ -53,6 +53,11 @@ end
                             rainfall_sum: rand(0..10.0).floor(1))
   end
 end
+WeatherForecast.create!(aquired_on: Time.zone.now,
+weather_id: rand(0..99),
+temp_max: rand(25.0..30.0).floor(1),
+temp_min: rand(20.0..24.9).floor(1),
+rainfall_sum: rand(0..10.0).floor(1))
 
 # ユーザー一人に対して、２年度分で一ヶ月ごとに15日分の売上データを生成する。
 users.each do |user|

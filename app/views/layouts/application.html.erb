@@ -31,15 +31,13 @@
         <%= render 'layouts/footer' %>
       </div>
     <% else %>
-      <div class="main">
+      <div class="home">
         <% flash.each do |message_type, message| %>
-          <div class="alert alert-<%= message_type %>">
+          <div class="alert alert-<%= message_type %> mt-3">
             <%= message %>
           </div>
         <% end %>
         <%= yield %>
-        <%= debug(params) if Rails.env.development? %>
-        <%= render 'layouts/footer' %>
       </div>
     <% end %>
     </div>
