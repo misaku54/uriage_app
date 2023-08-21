@@ -54,7 +54,7 @@ ja:
         aquired_on: 取得日
         weather_id: 天気
         temp_max: 最高気温
-        temp_min: 最高気温
+        temp_min: 最低気温
         rainfall_sum: 降水量
   activemodel:
     attributes:
