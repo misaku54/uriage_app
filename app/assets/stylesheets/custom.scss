@@ -182,6 +182,14 @@ label.required:after {
 	width: auto;
 }
 
+// 576px以下でテーブルフォームの線を消す
+@media (max-width: 576px) {
+	.table-line {
+		border:none !important; 
+    background-color: transparent !important;
+	}
+}
+
 // リアルタイムバリデーション
 .invalid {
   color: red;
