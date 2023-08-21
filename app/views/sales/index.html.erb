@@ -9,7 +9,7 @@
   <div class="card-body">
     <h6 class="mb-3">検索条件</h6>
     <%= search_form_for @q, url: search_user_sales_path(@user), data: { turbo: false } do |f| %>
-      <div class="form_group row mb-2">
+      <div class="form_group row mb-sm-2">
         <div class="col-sm-2">
           <%= f.label :maker_name_cont, 'メーカー名', class: "col-form-label col-form-label-sm"%>
         </div>
@@ -23,7 +23,7 @@
           <%= f.search_field :producttype_name_cont, class: "form-control form-control-sm" %>
         </div>
       </div>
-      <div class="form_group row mb-2">
+      <div class="form_group row mb-sm-2">
         <div class="col-sm-2 col-lg-2">
           <%= f.label :amount_sold_gteq, '販売価格', class: "col-form-label col-form-label-sm"%>
         </div>
@@ -53,9 +53,9 @@
           <%= f.search_field :remark_cont, class: "form-control form-control-sm" %>
         </div>
         <div class="col-sm-6 mt-2 mt-sm-0 d-flex justify-content-start">
-            <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary btn-sm col-3 me-1", data: { turbo: false } %>
-            <%= f.submit '検索', class: "btn btn-primary btn-sm col-3 me-1" %>
-            <%= f.button class: 'btn btn-success btn-sm col-5 col-md-4', name: 'export_csv' do %>
+            <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary btn-sm col-3 col-md-4 me-1", data: { turbo: false } %>
+            <%= f.submit '検索', class: "btn btn-primary btn-sm col-3 col-md-4 me-1" %>
+            <%= f.button class: 'btn btn-success btn-sm col-6 col-md-4', name: 'export_csv' do %>
               <i class="fa fa-file-text"></i> CSV出力
             <% end %>
         </div>
