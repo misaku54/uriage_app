@@ -3,55 +3,53 @@
   <div class="card shadow-sm">
     <div class="card-body">
       <h6 class="mb-3"><%= form_name %></h6>
-      <table class="table table-sm table-bordered">
-        <tbody>
-          <tr>
-            <td class="table-light col-5 col-sm-3">
-              <div class="col-form-label col-form-label-sm">
-                <%= f.label :maker_id %>  <span class="badge bg-danger">必須</span>
-              </div>
-            </td>
-            <td>
-              <%= f.select :maker_id, user.makers.pluck(:name, :id), 
-                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "slim-select" } %>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-light">
-              <div class="col-form-label col-form-label-sm">
-                <%= f.label :producttype_id %>  <span class="badge bg-danger">必須</span>
-              </div>
-            </td>
-            <td>
-              <%= f.select :producttype_id, user.producttypes.pluck(:name, :id), 
-                                  { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "slim-select" } %>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-light">
-              <div class="col-form-label col-form-label-sm">
-                <%= f.label :amount_sold %>  <span class="badge bg-danger">必須</span>
-              </div>
-            </td>
-            <td>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :maker_id %>  <span class="badge bg-danger">必須</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 p-sm-2">
+          <%= f.select :maker_id, user.makers.pluck(:name, :id), 
+                              { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "slim-select" } %>
+        </div>
+      </div>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :producttype_id %>  <span class="badge bg-danger">必須</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
+          <%= f.select :producttype_id, user.producttypes.pluck(:name, :id), 
+                      { include_blank: "選択してください" }, { data: { controller: 'slim' }, class: "slim-select" } %>
+        </div>
+      </div>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :amount_sold %>  <span class="badge bg-danger">必須</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
               <%= f.number_field :amount_sold, class:"form-control form-control-sm input", required: true %>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-light">
-              <div class="col-form-label col-form-label-sm">
-                <%= f.label :remark %>
-              </div>
-            </td>
-            <td>
-              <%= f.text_area :remark, class:"form-control form-control-sm input" %>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-light">
-              <div class="col-form-label col-form-label-sm">登録日時  <span class="badge bg-danger">必須</span></div>
-            </td>
-            <td>
+        </div>
+      </div>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :remark %>  <span class="badge bg-secondary">任意</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
+          <%= f.text_area :remark, class:"form-control form-control-sm input" %>
+        </div>
+      </div>
+      <div class="form_group row mx-sm-auto mb-2">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
+              <div class="col-form-label col-form-label-sm text-sm-center">登録日時  <span class="badge bg-danger">必須</span></div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
               <%= raw sprintf(
               f.datetime_select(
                 :created_at,
@@ -65,10 +63,8 @@
                 { class:"form-select-sm created-select", required: true }
               ),
               '年 ', '月 ', '日 ', '時 ') + '分' %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        </div>
+      </div>  
       <div class="row mx-auto">
         <%= f.submit yield(:button_text), class: "btn btn-primary btn-sm col-4 col-md-2 me-2" %>
         <%= link_to '一覧へ戻る', url, class: "btn btn-danger btn-sm col-4 col-md-2 ", data: { turbo: false } %>
