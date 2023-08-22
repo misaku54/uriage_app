@@ -4,6 +4,10 @@
 
 /* mixins, variables, etc. */
 $gray-medium-light: #eaeaea;
+$black: #000000;
+$white: #ffffff;
+$deep-bule: rgb(93, 148, 230);
+$side-bar-color: #12639c;
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -208,7 +212,7 @@ label.required:after {
 /* サイドバーナビ */
 .sidebar {
   display: none;
-  background-color: #12639c;
+  background-color: $side-bar-color;
 }
 
 @media (min-width: 768px) {
@@ -259,22 +263,22 @@ label.required:after {
   text-decoration: none;
   &:link {
     text-decoration: none;
-    color: #000000;
+    color: $black;
   }
 
   &:visited {
     text-decoration: none;
-    color: #000000;
+    color: $black;
   }
 
   &:hover {
     text-decoration: none;
-    color: #000000;
+    color: $black;
   }
 
   &:active {
     text-decoration: none;
-    color: #000000;
+    color: $black;
   }
 }
 
@@ -283,7 +287,7 @@ label.required:after {
 // ロードスピナー
 #loading {
   transition: all 1s;
-  background-color: #ffffff;
+  background-color: $white;
   position: fixed;
   z-index: 9999;
   inset: 0;
@@ -302,7 +306,7 @@ label.required:after {
 
 // アコーディオン
 .acordion {
-  color: #ffffff;
+  color: $white;
   &__ttl {
     cursor: pointer;
     padding: 20px;
@@ -327,7 +331,7 @@ label.required:after {
         background-color: #1974ad;
       }
       a {
-        color: #ffffff;
+        color: $white;
         display: block;
       }
     }
