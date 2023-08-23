@@ -2,13 +2,13 @@ document.addEventListener('turbo:load',() => {
   const removeClass = (tab, item) => {
     const currentTab = tab.parentNode.querySelector('.current');
     const activeItem = item.parentNode.querySelector('.active');
-    currentTab.classList.remove('.current');
-    activeItem.classList.remove('.active');
+    currentTab.classList.remove('current');
+    activeItem.classList.remove('active');
   };
 
   const addClass = (tab, item) => {
-    tab.classList.add('.current');
-    item.classList.add('.active');
+    tab.classList.add('current');
+    item.classList.add('active');
   };
 
   const switchElementClass = (e) => {
