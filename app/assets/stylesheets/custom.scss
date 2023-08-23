@@ -236,6 +236,9 @@ label.required:after {
 
 
 /* カードレイアウト設定 */
+.card {
+  border-radius: 0% !important;
+}
 .best-sale-content {
   padding: 1.0rem .5rem 0 .5rem;
 }
@@ -311,7 +314,7 @@ label.required:after {
     cursor: pointer;
     padding: 20px;
     transition: background-color 0.3s;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid $white;
     &:hover {
       background-color: rgb(93, 148, 230);
     }
@@ -326,7 +329,7 @@ label.required:after {
     transition: 0.2s ease height;
     li {
       padding: 20px 20px 20px 50px;
-      border-bottom: 1px solid white;
+      border-bottom: 1px solid $white;
       &:hover {
         background-color: #1974ad;
       }
