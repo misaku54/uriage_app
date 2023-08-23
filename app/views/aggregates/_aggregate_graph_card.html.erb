@@ -4,19 +4,19 @@
       <div class="d-flex justify-content-between">
         <h5 class="mb-3">カテゴリ別の売上集計（グラフ）</h5>
         <ul class="tab-list d-flex">
-          <li><a href="#tab1" class="current">タブA</a></li>
-          <li><a href="#tab2">タブB</a></li>
-          <li><a href="#tab3">タブC</a></li>
+          <li><a href="#tab1-item" id="tab" class="current">タブ1</a></li>
+          <li><a href="#tab2-item" id="tab">タブ2</a></li>
+          <li><a href="#tab3-item" id="tab">タブ3</a></li>
         </ul>
       </div>
       <div class="tab-body">
-        <div class="active" id="tab1">
+        <div id="tab1-item" class="active" >
           <%= column_chart convert_array(@aggregates_of_maker_producttype, "maker_producttype"), suffix: "円", thousands: ",", colors: ["#198754"] %>
         </div>
-        <div id="tab2">
+        <div id="tab2-item">
           <%= column_chart convert_array(@aggregates_of_maker, "maker"), suffix: "円", thousands: ",", colors: ["#ffc107"] %>
         </div>
-        <div id="tab3">
+        <div id="tab3-item">
           <%= column_chart convert_array(@aggregates_of_producttype, "producttype"), suffix: "円", thousands: ",", colors: ["#dc3545"] %>
         </div>
       </div>
