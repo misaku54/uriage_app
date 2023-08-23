@@ -72,8 +72,9 @@ h2 {
 }
 
 h5 {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.9rem;
+  color:#545454;
+  // font-weight: bold;
 }
 
 h6 {
@@ -240,14 +241,19 @@ label.required:after {
   border-radius: 0% !important;
 }
 .best-sale-content {
-  padding: 1.0rem .5rem 0 .5rem;
+  padding: 0 .5rem .5rem .5rem; 
 }
 
 .best-sale-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 1.2rem;
+}
+.best-sale-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.4rem;
 }
 
 .best-sale-name:hover {

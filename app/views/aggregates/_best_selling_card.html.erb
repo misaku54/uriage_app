@@ -1,22 +1,21 @@
 <% if aggregates.present? %>
-  <div class="card shadow-sm mb-3 text-white bg-<%= make_class_name(card_pattern) %>"style="max-height: 350px;">
+  <div class="card shadow-sm mb-3"style="max-height: 350px;">
     <div class="card-body">
-      <h5>最も売れた<%= make_title(card_pattern) %></h5>
-      <div class="best-sale-content">
-        <div class="d-flex flex-column text-center">
-          <h5 class="mb-0 font-weight-bold best-sale-name"><%= make_ranking_name(aggregates.first) %></h5>
-          <span class="small"><%= add_comma_en(aggregates.first.sum_amount_sold) %></span>
+      <div class="d-flex justify-content-between align-items-center">
+        <h5>最も売れた<%= make_title(card_pattern) %></h5>
+        <div>
+          <% if card_pattern == "maker_producttype" %>
+            <i class="fa-solid fa-cart-flatbed-suitcase fa-2x" style="color: #3fab7b;"></i>
+          <% elsif card_pattern == "maker" %>
+            <i class="fa-solid fa-building fa-2x" style="color: #b0b0b0;"></i>
+          <% elsif card_pattern == "producttype" %>
+            <i class="fa-solid fa-bag-shopping fa-2x" style="color: #ff6714;"></i>
+          <% end %>
         </div>
       </div>
-      <div class="d-flex align-items-center justify-content-end">
-        <% if card_pattern == "maker_producttype" %>
-          <i class="fa-solid fa-building fa-2x" style="color: #ffffff;"></i>&nbsp;
-          <i class="fa-solid fa-bag-shopping fa-2x" style="color: #ffffff;"></i>
-        <% elsif card_pattern == "maker" %>
-          <i class="fa-solid fa-building fa-2x" style="color: #ffffff;"></i>
-        <% elsif card_pattern == "producttype" %>
-          <i class="fa-solid fa-bag-shopping fa-2x" style="color: #ffffff;"></i>
-        <% end %>
+      <div class="best-sale-content d-flex flex-column">
+        <div class="best-sale-value mb-0 font-weight-bold"><%= add_comma_en(aggregates.first.sum_amount_sold) %></div>
+        <span class="best-sale-name small"><%= make_ranking_name(aggregates.first) %></span>
       </div>
     </div>
   </div>
