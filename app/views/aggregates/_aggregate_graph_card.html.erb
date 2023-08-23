@@ -1,75 +1,23 @@
 <% if @aggregates_of_maker_producttype.present? %>
   <div class="card shadow-sm mb-3">
     <div class="card-body">
-      <h5 class="mb-3">カテゴリ別の売上集計（グラフ）</h5>
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active" 
-            id="graph1-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#graph1"
-            type="button"
-            role="tab"
-            aria-controls="graph1"
-            aria-selected="true"
-          >
-            メーカー×商品分類
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="graph2-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#graph2"
-            type="button"
-            role="tab"
-            aria-controls="graph2"
-            aria-selected="false"
-          >
-            メーカー
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="graph3-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#graph3"
-            type="button"
-            role="tab"
-            aria-controls="graph3"
-            aria-selected="false"
-          >
-            商品分類
-          </button>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div
-          class="tab-pane fade show active"
-          id="graph1"
-          role="tabpanel"
-          aria-labelledby="graph1-tab"
-        >
-        <%= column_chart convert_array(@aggregates_of_maker_producttype, "maker_producttype"), suffix: "円", thousands: ",", colors: ["#198754"] %>
+      <div class="d-flex justify-content-between">
+        <h5 class="mb-3">カテゴリ別の売上集計（グラフ）</h5>
+        <ul class="tab-list d-flex">
+          <li><a href="#tab1" class="current">タブA</a></li>
+          <li><a href="#tab2">タブB</a></li>
+          <li><a href="#tab3">タブC</a></li>
+        </ul>
+      </div>
+      <div class="tab-body">
+        <div class="active" id="tab1">
+          <%= column_chart convert_array(@aggregates_of_maker_producttype, "maker_producttype"), suffix: "円", thousands: ",", colors: ["#198754"] %>
         </div>
-        <div
-          class="tab-pane fade"
-          id="graph2"
-          role="tabpanel"
-          aria-labelledby="graph2-tab"
-        >
-        <%= column_chart convert_array(@aggregates_of_maker, "maker"), suffix: "円", thousands: ",", colors: ["#ffc107"] %>
+        <div id="tab2">
+          <%= column_chart convert_array(@aggregates_of_maker, "maker"), suffix: "円", thousands: ",", colors: ["#ffc107"] %>
         </div>
-        <div
-          class="tab-pane fade"
-          id="graph3"
-          role="tabpanel"
-          aria-labelledby="graph3-tab"
-        >
-        <%= column_chart convert_array(@aggregates_of_producttype, "producttype"), suffix: "円", thousands: ",", colors: ["#dc3545"] %>
+        <div id="tab3">
+          <%= column_chart convert_array(@aggregates_of_producttype, "producttype"), suffix: "円", thousands: ",", colors: ["#dc3545"] %>
         </div>
       </div>
     </div>
