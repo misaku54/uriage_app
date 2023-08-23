@@ -12,6 +12,7 @@ document.addEventListener('turbo:load',() => {
   };
 
   const switchElementClass = (e) => {
+    e.preventDefault();
     const targetTab  = e.target;
     const targetItem = document.querySelector(e.target.getAttribute('href'));
     // 引数の親要素からcurrent、activeクラスを検索し削除する。
