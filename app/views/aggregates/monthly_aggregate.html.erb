@@ -1,3 +1,6 @@
+<% content_for :js do %>
+  <%= javascript_import_module_tag "aggregates/tabMenu" %>
+<% end %>
 <% provide(:title, '月別売上集計') %>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
@@ -40,7 +43,11 @@
   <div class="col-sm-6 col-xxl-3">
     <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
   </div>
+  <div class="col-xxl-6">
+    <%= render 'trend_card', period: "monthly" %>
+  </div>
+  <div class="col-xxl-6">
+    <%= render 'aggregate_graph_card' %>
+  </div>
 </div>
-<%= render 'trend_card', period: "monthly" %>
-<%= render 'aggregate_graph_card' %>
 <%= render 'table_card' %>
