@@ -78,19 +78,19 @@
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <th><%= sort_link(@q, :id, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :email, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :updated_at, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :admin, default_order: :desc, class: "Editlink") %></th>
-            <th>
+            <td><%= sort_link(@q, :id, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :email, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :updated_at, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :admin, default_order: :desc, class: "Editlink") %></td>
+            <td>
               <div class="d-flex justify-content-end" >
                 <%= link_to admin_signup_path, data: { turbo: false } do %>
                   <i class="fa-solid fa-plus"></i>
                 <% end %>
               </div>
-            </th>
+            </td>
           </tr>
         </thead>
         <tbody>

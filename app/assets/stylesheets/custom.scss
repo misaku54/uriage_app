@@ -330,10 +330,10 @@ label.required:after {
     transition: background-color 0.3s;
     border-bottom: 1px solid $white;
     &:hover {
-      background-color: rgb(93, 148, 230);
+      background-color: $deep-bule;
     }
     &.is-active {
-      background-color: rgb(93, 148, 230);
+      background-color: $deep-bule;
     }
   }
   &__cnt {
