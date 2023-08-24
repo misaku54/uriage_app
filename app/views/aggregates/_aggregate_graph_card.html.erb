@@ -11,13 +11,13 @@
       </div>
       <div class="tab-items">
         <div id="tab1-item" class="active" >
-          <%= column_chart convert_array(@aggregates_of_maker_producttype, "maker_producttype"), suffix: "円", thousands: ",", colors: ["#198754"] %>
+          <%= column_chart convert_array(@aggregates_of_maker_producttype, "maker_producttype"), suffix: "円", thousands: ",", colors: ["#69AADE"] %>
         </div>
         <div id="tab2-item">
-          <%= column_chart convert_array(@aggregates_of_maker, "maker"), suffix: "円", thousands: ",", colors: ["#ffc107"] %>
+          <%= column_chart convert_array(@aggregates_of_maker, "maker"), suffix: "円", thousands: ",", colors: ["#003793"] %>
         </div>
         <div id="tab3-item">
-          <%= column_chart convert_array(@aggregates_of_producttype, "producttype"), suffix: "円", thousands: ",", colors: ["#dc3545"] %>
+          <%= column_chart convert_array(@aggregates_of_producttype, "producttype"), suffix: "円", thousands: ",", colors: ["#009E96"] %>
         </div>
       </div>
     </div>
