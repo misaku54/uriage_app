@@ -64,7 +64,7 @@
   <div class="card shadow-sm mb-3">
     <div class="card-body p-4">
       <h6 class="flex-grow-1">売上推移</h6>
-      <p><%= line_chart @sales_trend , suffix: "円", thousands: "," %></p>
+      <p><%= area_chart @sales_trend , suffix: "円", thousands: ",", colors: ["#69AADE"] %></p>
     </div>
   </div>
 <% end %>
