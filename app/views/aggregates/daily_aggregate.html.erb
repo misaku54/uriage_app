@@ -19,12 +19,12 @@
           <%= f.date_field :start_date, class:'form-control form-control-sm' %>
           <div class="col-form-label col-form-label-sm center">〜</div>
           <%= f.date_field :end_date, class:'form-control form-control-sm me-1' %>
-          <%= f.submit '集計', class: "btn btn-primary btn-sm col-2" %>
         </div>
       </div>
       <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
+        <%= f.submit '集計', class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
         <%= f.button class: "btn btn-info btn-sm col-6 col-sm-2", name: "export_csv" do %>
-          <i class="fa fa-file-text"></i> CSV出力
+          CSV出力
         <% end %>
       </div>
     <% end %>
