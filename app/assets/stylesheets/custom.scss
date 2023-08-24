@@ -1,15 +1,19 @@
-@import "bootstrap";
-@import "rails_bootstrap_forms";
-@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
-
-/* mixins, variables, etc. */
+$primary:       #003793;
+$secondary:     #6c757d;
+$success:       #198754;
+$info:          #0dcaf0;
+$warning:       #ffc107;
+$danger:        #dc3545;
+$light:         #f8f9fa;
+$dark:          #212529;
 $gray-medium-light: #eaeaea;
 $black: #000000;
 $white: #ffffff;
 $deep-bule: rgb(93, 148, 230);
 $side-bar-color: #12639c;
-// $side-bar-color: #0066FF;
-
+@import "bootstrap";
+@import "rails_bootstrap_forms";
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -21,7 +25,9 @@ $side-bar-color: #12639c;
 html {
   overflow:auto;
 }
-
+.btn {
+  border-radius: 0;
+}
 body {
   padding-top: 50px;
   background-color: #f1f3f6;
@@ -395,4 +401,8 @@ label.required:after {
   float: left;
   width: 100%;
   margin-top: 45px;
+}
+
+.form-select{
+  width: 80px !important;
 }
