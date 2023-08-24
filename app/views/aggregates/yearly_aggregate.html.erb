@@ -19,12 +19,12 @@
           <%= f.date_select(:date, { use_month_numbers: true, start_year: 2018, end_year: Time.now.year,
                                     discard_month: true, discard_day: true }, class:"form-select form-select-sm") %>
           <div class="col-form-label col-form-label-sm center">年</div>
-          <%= f.submit '集計', class: "btn btn-primary btn-sm col-6" %>
         </div>
       </div>
       <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
-        <%= f.button class: "btn btn-success btn-sm col-6 col-sm-2", name: "export_csv" do %>
-          <i class="fa fa-file-text"></i> CSV出力
+        <%= f.submit '集計', class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
+        <%= f.button class: "btn btn-info btn-sm col-6 col-sm-2", name: "export_csv" do %>
+          CSV出力
         <% end %>
       </div>
     <% end %>
