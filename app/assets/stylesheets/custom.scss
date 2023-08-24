@@ -348,10 +348,19 @@ label.required:after {
 }
 
 // タブメニュー
+.tabs {
+  #tab {
+    color: #000000;
+    font-size: 0.9rem;
+    border: 1px solid ;
+    padding: 0 .5rem;
+    margin-left: .2rem;
+    display: block;
+  }
+}
 .tab-items {
   #tab1-item, #tab2-item, #tab3-item {
     display: none;
-    // height: 0;
   }
   .active {
     display: block !important;
