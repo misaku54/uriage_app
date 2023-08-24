@@ -87,7 +87,8 @@ h5 {
 
 h6 {
   position: relative;
-  font-weight: bold;
+  font-weight:  500;
+  display: inline-block;
 }
 
 h6:after {
@@ -95,11 +96,11 @@ h6:after {
   bottom: -5px;
   left: 0;
   width: 100%;
-  height: 5px;
+  height: 3px;
   content: '';
-  background-image: -webkit-gradient(linear, right top, left top, from(#2af598), to(#009efd));
-  background-image: -webkit-linear-gradient(right, #2af598 0%, #009efd 100%);
-  background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
+  background-image: -webkit-gradient(linear, right top, left top, from(#a0fffd), to(#004be0));
+  background-image: -webkit-linear-gradient(right, #a0fffd 0%, #004be0 100%);
+  background-image: linear-gradient(to left,  #a0fffd 0%, #004be0 100%);
 }
 
 .read-text {
@@ -190,10 +191,10 @@ label.required:after {
 	max-width: auto;
 }
 
-.form_date_select {
-	display: inline-block;
-	width: auto;
+.form-select{
+  width: 80px !important;
 }
+
 .created-select {
   font-weight: 400;
   line-height: 1.5;
@@ -401,8 +402,4 @@ label.required:after {
   float: left;
   width: 100%;
   margin-top: 45px;
-}
-
-.form-select{
-  width: 80px !important;
 }
