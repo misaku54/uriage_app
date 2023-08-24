@@ -350,12 +350,18 @@ label.required:after {
 // タブメニュー
 .tabs {
   #tab {
-    color: #000000;
+    color: $black;
     font-size: 0.9rem;
     border: 1px solid ;
     padding: 0 .5rem;
     margin-left: .2rem;
     display: block;
+    min-width: 56px;
+    text-align: center;
+  }
+  .current {
+    background-color: $black;
+    color: $white !important;
   }
 }
 .tab-items {
