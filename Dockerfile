@@ -2,6 +2,7 @@ FROM ruby:3.2.1
 # インストール済みのパッケージ更新をおこない、新しいバージョンにアップグレードする
 RUN apt-get update -qq && apt-get install -y nodejs yarnpkg
 RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn
+RUN apt-get install -y cron 
 # コンテナないにappフォルダをつくる。
 RUN mkdir /app
 # 作業ディレクトリを指定
