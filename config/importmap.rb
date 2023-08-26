@@ -19,3 +19,4 @@ pin "@fortawesome/free-solid-svg-icons", to: "https://ga.jspm.io/npm:@fortawesom
 pin "slim-select", to: "https://ga.jspm.io/npm:slim-select@2.6.0/dist/slimselect.es.js"
 pin "static_pages/home"
 pin "form/validation"
+pin "aggregates/tabMenu"

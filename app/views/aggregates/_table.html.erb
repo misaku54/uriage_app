@@ -1,21 +1,21 @@
 <div class="table-responsive text-nowrap">
   <table class="table table-sm table-striped mb-0">
-    <thead>
-      <tr class="table-<%= make_class_name(card_pattern)%>">
-        <th>No.</th>
+    <thead class="text-white" style="background-color: <%= make_color(card_pattern)%>;">
+      <tr>
+        <td>No.</td>
         <% if card_pattern == "maker_producttype" %>
-          <th><%= Sale.human_attribute_name(:maker_id) %></th>
-          <th><%= Sale.human_attribute_name(:producttype_id) %></th>
+          <td><%= Sale.human_attribute_name(:maker_id) %></td>
+          <td><%= Sale.human_attribute_name(:producttype_id) %></td>
         <% elsif card_pattern == "maker" %>
-          <th><%= Sale.human_attribute_name(:maker_id) %></th>
+          <td><%= Sale.human_attribute_name(:maker_id) %></td>
         <% elsif card_pattern == "producttype" %>
-          <th><%= Sale.human_attribute_name(:producttype_id) %></th>
+          <td><%= Sale.human_attribute_name(:producttype_id) %></td>
         <% end %>
-        <th>純売上</th>
-        <th>販売数量</th>
-        <th>昨年の純売上</th>
-        <th>昨年の販売数量</th>
-        <th>成長率（前年比較）</th>
+        <td>純売上</td>
+        <td>販売数量</td>
+        <td>昨年の純売上</td>
+        <td>昨年の販売数量</td>
+        <td>成長率（前年比較）</td>
       </tr>
     </thead>
     <tbody>

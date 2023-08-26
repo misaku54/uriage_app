@@ -55,8 +55,8 @@
         <div class="col-sm-6 mt-2 mt-sm-0 d-flex justify-content-start">
             <%= link_to 'クリア', user_sales_path(@user), class: "btn btn-outline-secondary btn-sm col-3 col-md-4 me-1", data: { turbo: false } %>
             <%= f.submit '検索', class: "btn btn-primary btn-sm col-3 col-md-4 me-1" %>
-            <%= f.button class: 'btn btn-success btn-sm col-6 col-md-4', name: 'export_csv' do %>
-              <i class="fa fa-file-text"></i> CSV出力
+            <%= f.button class: 'btn btn-info btn-sm col-6 col-md-4', name: 'export_csv' do %>
+              CSV出力
             <% end %>
         </div>
       </div>
@@ -70,14 +70,14 @@
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <th style="width: 15.5%"><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></th>
-            <th style="width: 15.5%"><%= sort_link(@q, :maker_name, "メーカー名", default_order: :desc, class: "Editlink") %></th>
-            <th style="width: 15.5%"><%= sort_link(@q, :producttype_name, "商品分類名", default_order: :desc, class: "Editlink") %></th>
-            <th style="width: 15.5%"><%= sort_link(@q, :amount_sold, default_order: :desc, class: "Editlink") %></th>
-            <th style="width: 15.5%"><%= sort_link(@q, :remark, default_order: :desc, class: "Editlink") %></th>
-            <th style="width: 7.5%">祝日</th>
-            <th style="width: 7.5%"><%= WeatherForecast.human_attribute_name(:weather_id) %></th>
-            <th style="width: 7.5%">
+            <td style="width: 15.5%"><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
+            <td style="width: 15.5%"><%= sort_link(@q, :maker_name, "メーカー名", default_order: :desc, class: "Editlink") %></td>
+            <td style="width: 15.5%"><%= sort_link(@q, :producttype_name, "商品分類名", default_order: :desc, class: "Editlink") %></td>
+            <td style="width: 15.5%"><%= sort_link(@q, :amount_sold, default_order: :desc, class: "Editlink") %></td>
+            <td style="width: 15.5%"><%= sort_link(@q, :remark, default_order: :desc, class: "Editlink") %></td>
+            <td style="width: 7.5%">祝日</td>
+            <td style="width: 7.5%"><%= WeatherForecast.human_attribute_name(:weather_id) %></td>
+            <td style="width: 7.5%">
               <div class="d-flex justify-content-end" >
                 <%= link_to new_user_sale_path(@user), data: { turbo: false } do %>
                   <i class="fa-solid fa-plus"></i>

@@ -81,7 +81,7 @@ const checkDate = (labelName, date, input) => {
 // 実行部---------------------------------------------------------
 // input系のバリデーションイベント
 const inputSelector = document.querySelectorAll('.input');
-if(inputSelector) {
+if(inputSelector.length) {
   for (const input of inputSelector) {
     input.addEventListener('blur', () => {
       if(input.hasAttribute('required') && input.value.trim() === ''){
@@ -100,7 +100,7 @@ if(inputSelector) {
 
 // slimselectのバリデーションイベント
 const slimSelector = document.querySelectorAll('.slim-select');
-if(slimSelector) {
+if(slimSelector.length) {
   for (const select of slimSelector) {
     const parent = select.parentElement;
 
@@ -116,7 +116,7 @@ if(slimSelector) {
 
 // date_selectのバリデーションイベント
 const createdSelector = document.querySelectorAll('.created-select')
-if(createdSelector){
+if(createdSelector.length){
   const parent = createdSelector[0].parentElement;
 
   for (const select of createdSelector) {

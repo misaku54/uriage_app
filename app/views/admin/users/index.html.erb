@@ -9,7 +9,7 @@
   <div class="card-body">
   <h6 class="mb-3">検索条件</h6>
   <%= search_form_for @q, url: admin_users_path, data: { turbo: false } do |f| %>
-    <div class="form_group row mb-2">
+    <div class="form_group row mb-sm-2">
       <div class="col-sm-2">
         <%= f.label :name_cont, '名前', class: "col-form-label col-form-label-sm"%>
       </div>
@@ -23,7 +23,7 @@
         <%= f.search_field :email_cont, class: "form-control form-control-sm" %>
       </div>
     </div>
-    <div class="form_group row mb-2">
+    <div class="form_group row mb-sm-2">
       <div class="col-sm-2 col-lg-2">
         <%= f.label :created_at_gteq, '登録日', class: "col-form-label col-form-label-sm" %>
       </div>
@@ -64,8 +64,8 @@
         </div>
       </div>
       <div class="col-sm-6 mt-2 mt-sm-0 d-flex justify-content-start">
-        <%= link_to 'クリア', admin_users_path, class: "btn btn-outline-secondary btn-sm col-5 col-lg-2 me-1", data: { turbo: false } %>
-        <%= f.submit '検索', class: "btn btn-primary btn-sm col-5 col-lg-2" %>
+        <%= link_to 'クリア', admin_users_path, class: "btn btn-outline-secondary btn-sm col-6 me-sm-1", data: { turbo: false } %>
+        <%= f.submit '検索', class: "btn btn-primary btn-sm col-6" %>
       </div>
     </div>
   <% end %>
@@ -78,19 +78,19 @@
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <th><%= sort_link(@q, :id, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :email, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :updated_at, default_order: :desc, class: "Editlink") %></th>
-            <th><%= sort_link(@q, :admin, default_order: :desc, class: "Editlink") %></th>
-            <th>
+            <td><%= sort_link(@q, :id, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :email, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :updated_at, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :admin, default_order: :desc, class: "Editlink") %></td>
+            <td>
               <div class="d-flex justify-content-end" >
                 <%= link_to admin_signup_path, data: { turbo: false } do %>
                   <i class="fa-solid fa-plus"></i>
                 <% end %>
               </div>
-            </th>
+            </td>
           </tr>
         </thead>
         <tbody>

@@ -13,19 +13,15 @@
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <th>
-              <%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %>
-            </th>
-            <th>
-              <%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %>
-            </th>
-            <th>
+            <td><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
+            <td>
               <div class="d-flex justify-content-end" >
                 <%= link_to new_user_producttype_path(@user), data: { turbo: false } do %>
                   <i class="fa-solid fa-plus"></i>
                 <% end %>
               </div>
-            </th>
+            </td>
           </tr>
         </thead>
         <tbody>
