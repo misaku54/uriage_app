@@ -49,23 +49,8 @@ module AggregatesHelper
     raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
-  # ランキングのタイトルを求める。
-  def make_ranking_title(aggregate)
-    if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')
-      return '売上ランキング（メーカー、商品分類別）'
-    end
 
-    if aggregate.respond_to?('maker_name')
-      return '売上ランキング（メーカー別）'
-    end
-    
-    if aggregate.respond_to?('producttype_name')
-      return '売上ランキング（商品分類別）' 
-    end
-    raise ArgmentError.new("無効な引数が渡されました。#{aggregate}")
-  end
-
-  # ランクインした名前を求める。
+  # 最も売れた項目の名前を求める。
   def make_ranking_name(aggregate)
     if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')
       return "#{aggregate.maker_name}の#{aggregate.producttype_name}"  
@@ -80,14 +65,7 @@ module AggregatesHelper
     end
     raise ArgmentError.new("無効な引数が渡されました。#{aggregate}")
   end
-
-  # 集計結果のタイトルを求める。
-  def make_aggregate_title(pattern)
-    return '集計結果（メーカー、商品分類別の販売額の合計）' if pattern == 'maker_producttype'
-    return '集計結果（メーカー別の販売額の合計）' if pattern == 'maker'
-    return '集計結果（商品分類別の販売額の合計）' if pattern == 'producttype'          
-    raise ArgmentError.new("無効な引数が渡されました。#{pettern}")
-  end
+  
 
   # 検索パラメータの取得
   def search_result_title(params, period)
