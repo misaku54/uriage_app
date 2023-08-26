@@ -2,7 +2,7 @@
   <%= javascript_import_module_tag "static_pages/home" %>
 <% end %>
 <% if logged_in? %>
-  <%= render 'shared/today_aggregate' %>
+  <%= render 'today_aggregate' %>
 <% else %>
   <div class="background d-flex align-items-center">
     <div class="home-content">
