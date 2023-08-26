@@ -18,5 +18,6 @@ pin "@fortawesome/free-regular-svg-icons", to: "https://ga.jspm.io/npm:@fortawes
 pin "@fortawesome/free-solid-svg-icons", to: "https://ga.jspm.io/npm:@fortawesome/free-solid-svg-icons@6.4.0/index.mjs"
 pin "slim-select", to: "https://ga.jspm.io/npm:slim-select@2.6.0/dist/slimselect.es.js"
 pin "static_pages/home"
+pin "static_pages/openMeteoApi"
 pin "form/validation"
 pin "aggregates/tabMenu"
