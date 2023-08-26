@@ -42,8 +42,8 @@ module AggregatesHelper
   end
 
   # 色を決める
-  def make_color(pattern)
-    return '#003793' if pattern == 'maker_producttype'
+  def make_color(pattern = '')
+    return '#003793' if pattern == 'maker_producttype' || pattern == ''
     return '#69AADE' if pattern == 'maker'
     return '#009E96' if pattern == 'producttype'
     raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
@@ -65,7 +65,7 @@ module AggregatesHelper
     end
     raise ArgmentError.new("無効な引数が渡されました。#{aggregate}")
   end
-  
+
 
   # 検索パラメータの取得
   def search_result_title(params, period)
