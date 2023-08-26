@@ -1,5 +1,5 @@
 module AggregatesHelper
-  # リレーションインスタンスをchartkickメソッドの引数に渡す用の配列に変換する。
+  # 生SQLで取得したリレーションインスタンスをchartkickメソッドの引数に渡す用の配列に変換する。
   def convert_array(aggregates, pattern)
     if aggregates.present?
       # 引数で渡した集計結果が、
@@ -22,7 +22,7 @@ module AggregatesHelper
           [aggregate.producttype_name, aggregate.sum_amount_sold] 
         end
       end
-      raise ArgmentError.new("無効な引数が渡されました。#{pettern}")
+      raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
     end
   end
   
@@ -31,13 +31,22 @@ module AggregatesHelper
     return 'メーカー×商品分類' if pattern == 'maker_producttype'
     return 'メーカー' if pattern == 'maker'
     return '商品分類' if pattern == 'producttype'
-    raise ArgmentError.new("無効な引数が渡されました。#{pattern}")
+    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
   def make_class_name(pattern)
     return 'success' if pattern == 'maker_producttype'
     return 'warning' if pattern == 'maker'
     return 'danger' if pattern == 'producttype'
+    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
+  end
+
+  # 色を決める
+  def make_color(pattern)
+    return '#003793' if pattern == 'maker_producttype'
+    return '#69AADE' if pattern == 'maker'
+    return '#009E96' if pattern == 'producttype'
+    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
   # ランキングのタイトルを求める。
