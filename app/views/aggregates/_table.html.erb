@@ -1,7 +1,7 @@
 <div class="table-responsive text-nowrap">
   <table class="table table-sm table-striped mb-0">
     <thead class="text-white" style="background-color: <%= make_color(card_pattern)%>;">
-      <tr class="">
+      <tr>
         <td>No.</td>
         <% if card_pattern == "maker_producttype" %>
           <td><%= Sale.human_attribute_name(:maker_id) %></td>
