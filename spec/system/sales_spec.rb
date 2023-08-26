@@ -189,6 +189,16 @@ RSpec.describe "売上管理機能", type: :system do
           end
         end
       end
+
+      describe 'CSV出力機能' do
+        let(:login_user) { user_a }
+
+        it '正しい名前でCSVが出力されていること' do
+          click_button 'CSV出力'
+          expect(page.response_headers["Content-Type"]).to include "text/csv"
+          expect(page.response_headers['Content-Disposition']).to include("#{Time.zone.now.strftime('%Y%m%d')}_sales.csv")
+        end
+      end
     end
 
 

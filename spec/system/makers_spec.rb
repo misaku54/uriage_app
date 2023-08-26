@@ -143,14 +143,13 @@ RSpec.describe "メーカー管理機能", type: :system do
         end
       end
 
-      describe 'csv出力機能' do
+      describe 'CSV出力機能' do
         let(:login_user) { user_a }
-        let!(:maker_b) { FactoryBot.create(:maker, name:'メーカーB', created_at: Time.zone.local(2023, 4, 1), user: user_a) }
-        let!(:maker_c) { FactoryBot.create(:maker, name:'メーカーC', created_at: Time.zone.local(2023, 4, 10), user: user_a) }
 
-        it '正しいCSV名で出力されていること' do
+        it '正しい名前でCSVが出力されていること' do
           click_button 'CSV出力'
-          expect(page.response_headers['Content-Disposition']).to include('メーカー')
+          expect(page.response_headers["Content-Type"]).to include "text/csv"
+          expect(page.response_headers['Content-Disposition']).to include("#{Time.zone.now.strftime('%Y%m%d')}_makers.csv")
         end
       end
     end

@@ -102,7 +102,7 @@ RSpec.describe "集計機能", type: :system do
         visit user_yearly_aggregate_path(login_user)
       end
 
-      context '2022年で集計ボタンを押下した場合' do
+      context 'データのある年度で集計ボタンを押下した場合' do
         it '集計結果が表示されること' do
           select '2022', from: 'search_form[date(1i)]'
           click_button '集計'
@@ -115,6 +115,15 @@ RSpec.describe "集計機能", type: :system do
           expect(page).to have_content 'カテゴリ別の売上集計（一覧）'
         end
       end 
+
+      context 'データのある年度でCSV出力ボタンを押下した場合' do
+        it '正しい名前でCSVが出力されていること' do
+          select '2022', from: 'search_form[date(1i)]'
+          click_button 'CSV出力'
+          expect(page.response_headers["Content-Type"]).to include "text/csv"
+          expect(page.response_headers['Content-Disposition']).to include("#{Time.zone.now.strftime('%Y%m%d')}_shukei.csv")
+        end
+      end
 
       context 'データのない年度で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
@@ -141,7 +150,7 @@ RSpec.describe "集計機能", type: :system do
         visit user_monthly_aggregate_path(login_user)
       end
 
-      context '2022年12月で集計ボタンを押下した場合' do
+      context 'データのある年月で集計ボタンを押下した場合' do
         it '集計結果が表示されること' do
           select '2022', from: 'search_form[date(1i)]'
           select '1', from: 'search_form[date(2i)]'
@@ -153,6 +162,16 @@ RSpec.describe "集計機能", type: :system do
           expect(page).to have_content '売上推移'
           expect(page).to have_content 'カテゴリ別の売上集計（グラフ）'
           expect(page).to have_content 'カテゴリ別の売上集計（一覧）'
+        end
+      end
+
+      context 'データのある年月でCSV出力ボタンを押下した場合' do
+        it '正しい名前でCSVが出力されていること' do
+          select '2022', from: 'search_form[date(1i)]'
+          select '1', from: 'search_form[date(2i)]'
+          click_button 'CSV出力'
+          expect(page.response_headers["Content-Type"]).to include "text/csv"
+          expect(page.response_headers['Content-Disposition']).to include("#{Time.zone.now.strftime('%Y%m%d')}_shukei.csv")
         end
       end
 
@@ -182,7 +201,7 @@ RSpec.describe "集計機能", type: :system do
         visit user_daily_aggregate_path(login_user)
       end
 
-      context '2022年12月で集計ボタンを押下した場合' do
+      context 'データのある期間で集計ボタンを押下した場合' do
         it '集計結果が表示されること' do
           fill_in 'search_daily[start_date]' , with: '002022-01-01'
           fill_in 'search_daily[end_date]' , with: '002022-01-31'
@@ -197,7 +216,17 @@ RSpec.describe "集計機能", type: :system do
         end
       end
 
-      context 'データのない年月で集計ボタンを押下した場合' do
+      context 'データのある期間でCSV出力ボタンを押下した場合' do
+        it '正しい名前でCSVが出力されていること' do
+          fill_in 'search_daily[start_date]' , with: '002022-01-01'
+          fill_in 'search_daily[end_date]' , with: '002022-01-31'
+          click_button 'CSV出力'
+          expect(page.response_headers["Content-Type"]).to include "text/csv"
+          expect(page.response_headers['Content-Disposition']).to include("#{Time.zone.now.strftime('%Y%m%d')}_shukei.csv")
+        end
+      end
+
+      context 'データのない期間で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
           fill_in 'search_daily[start_date]' , with: '002022-02-01'
           fill_in 'search_daily[end_date]' , with: '002022-02-28'
