@@ -140,6 +140,6 @@ class AggregatesController < ApplicationController
 
   # csv出力
   def generate_csv
-    send_data(CsvExport.aggregate_csv_output(@sales_total_amount, @sales_growth_rate, @aggregates_of_maker_producttype, @aggregates_of_maker, @aggregates_of_producttype), filename: "#{Time.zone.now.strftime("%Y%m%d")}_集計結果.csv")
+    send_data(CsvExport.aggregate_csv_output(@sales_total_amount, @sales_growth_rate, @aggregates_of_maker_producttype, @aggregates_of_maker, @aggregates_of_producttype), filename: "#{Time.zone.now.strftime("%Y%m%d")}_shukei.csv", type: :csv)
   end
 end
