@@ -14,7 +14,7 @@ class ProducttypesController < ApplicationController
 
   def export_csv
     @producttypes = @q.result
-    send_data(CsvExport.producttype_csv_output(@producttypes), filename: "#{Time.zone.now.strftime("%Y%m%d")}_商品分類一覧.csv")
+    send_data(CsvExport.producttype_csv_output(@producttypes), filename: "#{Time.zone.now.strftime("%Y%m%d")}_商品分類一覧.csv", type: :csv)
   end
 
   def new

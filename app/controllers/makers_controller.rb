@@ -14,7 +14,7 @@ class MakersController < ApplicationController
 
   def export_csv
     @makers = @q.result
-    send_data(CsvExport.maker_csv_output(@makers), filename: "#{Time.zone.now.strftime("%Y%m%d")}_メーカー一覧.csv")
+    send_data(CsvExport.maker_csv_output(@makers), filename: "#{Time.zone.now.strftime("%Y%m%d")}_メーカー一覧.csv", type: :csv)
   end
 
   def new
