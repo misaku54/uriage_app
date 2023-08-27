@@ -33,13 +33,22 @@ const callApi = async () => {
   const today = getDateSting(now);
   const hour = now.getHours();
   // API取得
-  const res  = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia%2FTokyo&start_date=${today}&end_date=${today}`)
-  const data = await res.json();
-  currTempDiv.innerText    = `${data.hourly.temperature_2m[hour]}°C`;
-  currWeatherDiv.innerText = getWeather(data.hourly.weathercode[hour]);
-  currRainSpan.innerText   = `${data.hourly.precipitation_probability[hour]}%`;
-  maxTempSpan.innerText    = `${data.daily.temperature_2m_max[0]}°C`;
-  minTempSpan.innerText    = `${data.daily.temperature_2m_min[0]}°C`;
+  try {
+    const res  = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia%2FTokyo&start_date=${today}&end_date=${today}`)
+    const data = await res.json();
+    currTempDiv.innerText    = `${data.hourly.temperature_2m[hour]}°C`;
+    currWeatherDiv.innerText = getWeather(data.hourly.weathercode[hour]);
+    currRainSpan.innerText   = `${data.hourly.precipitation_probability[hour]}%`;
+    maxTempSpan.innerText    = `${data.daily.temperature_2m_max[0]}°C`;
+    minTempSpan.innerText    = `${data.daily.temperature_2m_min[0]}°C`;
+  } catch (e) {
+    console.error(e);
+    currTempDiv.innerText    = "取得に失敗";
+    currWeatherDiv.innerText = "取得に失敗";
+    currRainSpan.innerText   = "取得に失敗";
+    maxTempSpan.innerText    = "取得に失敗";
+    minTempSpan.innerText    = "取得に失敗";
+  }
 }
 
 document.addEventListener('turbo:load', () => {
