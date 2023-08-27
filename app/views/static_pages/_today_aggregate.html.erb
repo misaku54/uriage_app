@@ -22,16 +22,16 @@
       <div class="card-body p-4">
         <h6 class="flex-grow-1">天気情報</h6>
         <div class="d-flex flex-column text-center mt-5 mb-4">
-          <h5 class="display-5 mb-0 font-weight-bold" style="color: #1C2331;"><%= "#{@current_temperature}°C" %></h5>
-          <span class="small" style="color: #868B94"><%= get_weather(@current_weather_code) %></span>
+          <h5 class="current-temperature display-5 mb-0 font-weight-bold" style="color: #1C2331;"></h5>
+          <span class="current-weather small" style="color: #868B94"></span>
         </div>
         <div class="d-flex align-items-center">
           <div class="flex-grow-1" style="font-size: 1rem;">
-            <div>最高気温： <span class="ms-1"><%= "#{@max_temperature}°C" %></span>
+            <div>最高気温： <span class="max-temperature ms-1"></span>
             </div>
-            <div>最低気温： <span class="ms-1"><%= "#{@min_temperature}°C" %></span>
+            <div>最低気温： <span class="min-temperature ms-1"></span>
             </div>
-            <div>降水確率： <span class="ms-1"><%= "#{@current_rainfall_probability}%" %></span>
+            <div>降水確率： <span class="current-rainfall ms-1"></span>
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end">
