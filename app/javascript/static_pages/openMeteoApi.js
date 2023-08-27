@@ -10,6 +10,7 @@ const minTempSpan    = document.querySelector('#min-temperature');
 const getDateSting = date => 
   `${zeroPadding(date.getFullYear())}-${zeroPadding(date.getMonth() + 1)}-${zeroPadding(date.getDate())}`;
 
+// 天気情報の取得
 const getWeather = code => {
   if(code !== 0 && !code){ return "不明" };
   if(code == 0) { return "快晴\u{2600}" };
@@ -25,6 +26,7 @@ const getWeather = code => {
   if(code <= 99){ return "雷雨\u{26C8}" };
   return "不明"
 };
+
 // weatherAPI呼び出し 
 const callApi = async () => {
   const now = new Date()
