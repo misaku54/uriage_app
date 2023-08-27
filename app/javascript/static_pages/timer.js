@@ -22,11 +22,8 @@ document.addEventListener('turbo:load', () => {
     timeDiv.innerText = getTimeString(now);
   };
 
-  // 要素があった場合に実行
-  if( dateDiv && timeDiv ){
-    // 初期表示のラグ対策
-    clock();
-    // 1秒ごとに実行
-    setInterval(clock, 1000);
-  };
+  // 初期表示のラグ対策
+  clock();
+  // 1秒ごとに実行
+  setInterval(clock, 1000);
 });
