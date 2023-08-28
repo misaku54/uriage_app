@@ -15,7 +15,7 @@
       </div>
       <div class="best-sale-content d-flex flex-column">
         <div class="best-sale-value mb-0 font-weight-bold"><%= add_comma_en(aggregates.first.sum_amount_sold) %></div>
-        <span class="best-sale-name small"><%= make_ranking_name(aggregates.first) %></span>
+        <span class="best-sale-name small"><%= best_selling_name(aggregates.first) %></span>
       </div>
     </div>
   </div>
