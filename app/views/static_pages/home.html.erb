@@ -1,7 +1,8 @@
-<% content_for :js do %>
-  <%= javascript_import_module_tag "static_pages/home" %>
-<% end %>
 <% if logged_in? %>
+  <% content_for :js do %>
+    <%= javascript_import_module_tag "static_pages/timer" %>
+    <%= javascript_import_module_tag "static_pages/openMeteoApi" %>
+  <% end %>
   <%= render 'today_aggregate' %>
 <% else %>
   <div class="background d-flex align-items-center">

@@ -1,6 +1,6 @@
 // dateオブジェクト整形用の変数と関数
+export const zeroPadding = n => ( n < 10 ) ? '0' + n.toString() : n.toString();
 const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
-const zeroPadding = n => ( n < 10 ) ? '0' + n.toString() : n.toString();
 
 const getDateString = date => 
   `${zeroPadding(date.getFullYear())}年${zeroPadding(date.getMonth() + 1)}月${zeroPadding(date.getDate())}日(${dayOfWeek[date.getDay()]})`;
@@ -22,11 +22,8 @@ document.addEventListener('turbo:load', () => {
     timeDiv.innerText = getTimeString(now);
   };
 
-  // 要素があった場合に実行
-  if( dateDiv && timeDiv ){
-    // 初期表示のラグ対策
-    clock();
-    // 1秒ごとに実行
-    setInterval(clock, 1000);
-  };
+  // 初期表示のラグ対策
+  clock();
+  // 1秒ごとに実行
+  setInterval(clock, 1000);
 });
