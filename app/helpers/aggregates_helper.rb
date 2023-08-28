@@ -2,7 +2,7 @@ module AggregatesHelper
   # 生SQLで取得したリレーションインスタンスをchartkickメソッドの引数に渡す用の配列に変換する。
   def convert_array(aggregates, pattern)
     # nil値が入るのは想定していないため、raiseする
-    return raise ArgmentError.new("無効な引数が渡されました。aggregates: #{aggregates}") if aggregates.blank?
+    return raise ArgumentError.new("無効な引数が渡されました。aggregates: #{aggregates}") if aggregates.blank?
 
     if pattern == 'maker_producttype'
       return aggregates.map do |aggregate|
@@ -22,7 +22,7 @@ module AggregatesHelper
       end
     end
     # ３パターン以外の値が入るのは想定していないため、raiseする
-    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
+    raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
   
   # best_selling_cardの見出しを作成
@@ -30,14 +30,7 @@ module AggregatesHelper
     return 'メーカー×商品分類' if pattern == 'maker_producttype'
     return 'メーカー' if pattern == 'maker'
     return '商品分類' if pattern == 'producttype'
-    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
-  end
-
-  def make_class_name(pattern)
-    return 'success' if pattern == 'maker_producttype'
-    return 'warning' if pattern == 'maker'
-    return 'danger' if pattern == 'producttype'
-    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
+    raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
   # 色を決める
@@ -45,7 +38,7 @@ module AggregatesHelper
     return '#003793' if pattern == 'maker_producttype' || pattern == ''
     return '#69AADE' if pattern == 'maker'
     return '#009E96' if pattern == 'producttype'
-    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
+    raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
 
@@ -62,7 +55,7 @@ module AggregatesHelper
     if aggregate.respond_to?('producttype_name')
       return aggregate.producttype_name  
     end
-    raise ArgmentError.new("無効な引数が渡されました。#{aggregate}")
+    raise ArgumentError.new("無効な引数が渡されました。#{aggregate}")
   end
 
 
