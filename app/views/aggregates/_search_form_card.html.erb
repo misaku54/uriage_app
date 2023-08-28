@@ -1,0 +1,66 @@
+<% if period == "yearly" %>
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h6 class="mb-3">集計条件</h6>
+      <%= form_with(url: user_yearly_search_path(@user), scope: :search_form, method: "get", data: { turbo: false }) do |f| %>
+        <div class="form_group row mb-2">
+          <div class="col-sm-2 col-xl-1 col-form-label col-form-label-sm">集計年度</div>
+          <div class="col-sm-6 col-md-5 col-xl-3 d-flex">
+            <%= f.date_select(:date, { use_month_numbers: true, start_year: 2018, end_year: Time.now.year,
+                                      discard_month: true, discard_day: true }, class:"form-select form-select-sm") %>
+            <div class="col-form-label col-form-label-sm center">年</div>
+          </div>
+        </div>
+        <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
+          <%= f.submit '集計', class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
+          <%= f.button class: "btn btn-info btn-sm col-6 col-sm-2", name: "export_csv" do %>
+            CSV出力
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% elsif period == "monthly" %>
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h6 class="mb-3">集計条件</h6>
+      <%= form_with(url: user_monthly_search_path(@user), scope: :search_form, method: "get", data: { turbo: false }) do |f| %>
+        <div class="form-group row mb-2">
+          <div class="col-sm-2 col-lg-1 col-form-label col-form-label-sm">集計月</div>
+          <div class="col-sm-6 col-xl-4 col-xxl-3 d-flex align-items-center">
+            <%== sprintf(f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,month_format_string: "%<number>d 月",
+                                              discard_day: true, date_separator: '%s', selected: Date.today}, class:'form-select form-select-sm'),'年') + '月' %>
+          </div>
+        </div>
+        <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
+          <%= f.submit '集計', class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
+          <%= f.button class: "btn btn-info btn-sm col-6 col-sm-2", name: "export_csv" do %>
+            CSV出力
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% elsif period == "daily"  %>
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h6 class="mb-3">集計条件</h6>
+      <%= form_with(url: user_daily_search_path(@user), scope: :search_daily, method: "get", data: { turbo: false }) do |f| %>
+        <div class="form_group row mb-2">
+          <div class="col-sm-2 col-xl-1 col-form-label col-form-label-sm">集計期間</div>
+          <div class="col-sm-8 col-md-7 col-xl-6 col-xxl-4 d-flex">
+            <%= f.date_field :start_date, class:'form-control form-control-sm' %>
+            <div class="col-form-label col-form-label-sm center">〜</div>
+            <%= f.date_field :end_date, class:'form-control form-control-sm me-1' %>
+          </div>
+        </div>
+        <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
+          <%= f.submit '集計', class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
+          <%= f.button class: "btn btn-info btn-sm col-6 col-sm-2", name: "export_csv" do %>
+            CSV出力
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

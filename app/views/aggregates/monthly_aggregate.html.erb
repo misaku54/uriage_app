@@ -1,6 +1,3 @@
-<% content_for :js do %>
-  <%= javascript_import_module_tag "aggregates/tabMenu" %>
-<% end %>
 <% provide(:title, '月別売上集計') %>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
@@ -9,45 +6,4 @@
   </ol>
 </nav>
 <%= render 'shared/error_messages', object: @search_params %>
-<div class="card shadow-sm mb-3">
-  <div class="card-body">
-    <h6 class="mb-3">集計条件</h6>
-    <%= form_with(url: user_monthly_search_path(@user), scope: :search_form, method: "get", data: { turbo: false }) do |f| %>
-      <div class="form-group row mb-2">
-        <div class="col-sm-2 col-lg-1 col-form-label col-form-label-sm">集計月</div>
-        <div class="col-sm-6 col-xl-4 col-xxl-3 d-flex align-items-center">
-          <%== sprintf(f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,month_format_string: "%<number>d 月",
-                                            discard_day: true, date_separator: '%s', selected: Date.today}, class:'form-select form-select-sm'),'年') + '月' %>
-        </div>
-      </div>
-      <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
-        <%= f.submit '集計', class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
-        <%= f.button class: "btn btn-info btn-sm col-6 col-sm-2", name: "export_csv" do %>
-          CSV出力
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-</div>
-<%= render 'search_result_info', period: "monthly" %>
-<div class="row">
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'total_card', period: "monthly" %>  
-  </div>
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'best_selling_card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-  </div>
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'best_selling_card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-  </div>
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
-  </div>
-  <div class="col-xxl-6">
-    <%= render 'trend_card', period: "monthly" %>
-  </div>
-  <div class="col-xxl-6">
-    <%= render 'aggregate_graph_card' %>
-  </div>
-</div>
-<%= render 'table_card' %>
+<%= render 'search_form_card', period: "monthly" %>  

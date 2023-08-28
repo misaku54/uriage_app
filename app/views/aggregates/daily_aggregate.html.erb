@@ -1,6 +1,3 @@
-<% content_for :js do %>
-  <%= javascript_import_module_tag "aggregates/tabMenu" %>
-<% end %>
 <% provide(:title, '日別売上集計') %>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
   <ol class="breadcrumb">
@@ -9,46 +6,4 @@
   </ol>
 </nav>
 <%= render 'shared/error_messages', object: @search_params %>
-<div class="card shadow-sm mb-3">
-  <div class="card-body">
-    <h6 class="mb-3">集計条件</h6>
-    <%= form_with(url: user_daily_search_path(@user), scope: :search_daily, method: "get", data: { turbo: false }) do |f| %>
-      <div class="form_group row mb-2">
-        <div class="col-sm-2 col-xl-1 col-form-label col-form-label-sm">集計期間</div>
-        <div class="col-sm-8 col-md-7 col-xl-6 col-xxl-4 d-flex">
-          <%= f.date_field :start_date, class:'form-control form-control-sm' %>
-          <div class="col-form-label col-form-label-sm center">〜</div>
-          <%= f.date_field :end_date, class:'form-control form-control-sm me-1' %>
-        </div>
-      </div>
-      <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
-        <%= f.submit '集計', class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
-        <%= f.button class: "btn btn-info btn-sm col-6 col-sm-2", name: "export_csv" do %>
-          CSV出力
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-</div>
-<%= render 'search_result_info', period: "daily" %>
-<div class="row">
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'total_card', period: "daily" %>  
-  </div>
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'best_selling_card', aggregates: @aggregates_of_maker_producttype, card_pattern: "maker_producttype" %>
-  </div>
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'best_selling_card', aggregates: @aggregates_of_maker, card_pattern: "maker" %>
-  </div>
-  <div class="col-sm-6 col-xxl-3">
-    <%= render 'best_selling_card', aggregates: @aggregates_of_producttype, card_pattern: "producttype" %>
-  </div>
-  <div class="col-xxl-6">
-    <%= render 'trend_card', period: "daily" %>
-  </div>
-  <div class="col-xxl-6">
-    <%= render 'aggregate_graph_card' %>
-  </div>
-</div>
-<%= render 'table_card' %>
+<%= render 'search_form_card', period: "daily" %>  
