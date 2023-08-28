@@ -55,7 +55,7 @@ module AggregatesHelper
     if aggregate.respond_to?('producttype_name')
       return aggregate.producttype_name  
     end
-    raise ArgumentError.new("無効な引数が渡されました。#{aggregate}")
+    raise ArgumentError.new("無効な引数が渡されました。aggregate:#{aggregate}")
   end
 
 
