@@ -41,7 +41,7 @@ module AggregatesHelper
   end
 
   # 色を決める
-  def make_color(pattern = '')
+  def make_color(pattern)
     return '#003793' if pattern == 'maker_producttype' || pattern == ''
     return '#69AADE' if pattern == 'maker'
     return '#009E96' if pattern == 'producttype'
