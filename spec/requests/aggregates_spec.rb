@@ -46,8 +46,8 @@ RSpec.describe 'Aggregates', type: :request do
             expect(response).to have_http_status(:success)
           end
           
-          it '意図した画面に遷移すること' do
-            expect(response).to render_template('monthly_aggregate')
+          it '意図した画面がレンダリング' do
+            expect(response).to render_template('monthly_search')
           end
           
           it "集計した値がインスタンス変数に入ること" do
@@ -177,8 +177,8 @@ RSpec.describe 'Aggregates', type: :request do
             expect(response).to have_http_status(:success)
           end
 
-          it '意図した画面に遷移すること' do
-            expect(response).to render_template('monthly_aggregate')
+          it '意図した画面にレンダリングされること' do
+            expect(response).to render_template('monthly_search')
           end
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
@@ -202,6 +202,10 @@ RSpec.describe 'Aggregates', type: :request do
 
         it 'レスポンスが422であること' do
           expect(response).to have_http_status(:unprocessable_entity)
+        end
+        
+        it '意図した画面にレンダリングされること' do
+          expect(response).to render_template('monthly_aggregate')
         end
       end
     end
@@ -242,8 +246,8 @@ RSpec.describe 'Aggregates', type: :request do
             expect(response).to have_http_status(:success)
           end
 
-          it '意図した画面に遷移すること' do
-            expect(response).to render_template('yearly_aggregate')
+          it '意図した画面にレンダリングされること' do
+            expect(response).to render_template('yearly_search')
           end
 
           it "集計した値がインスタンス変数に入ること" do
@@ -374,8 +378,8 @@ RSpec.describe 'Aggregates', type: :request do
             expect(response).to have_http_status(:success)
           end
 
-          it '意図した画面に遷移すること' do
-            expect(response).to render_template('yearly_aggregate')
+          it '意図した画面にレンダリングされること' do
+            expect(response).to render_template('yearly_search')
           end
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
@@ -400,6 +404,10 @@ RSpec.describe 'Aggregates', type: :request do
 
         it 'レスポンスが422であること' do
           expect(response).to have_http_status(:unprocessable_entity)
+        end
+
+        it '意図した画面にレンダリングされること' do
+          expect(response).to render_template('yearly_aggregate')
         end
       end
     end
@@ -440,8 +448,8 @@ RSpec.describe 'Aggregates', type: :request do
             expect(response).to have_http_status(:success)
           end
           
-          it '意図した画面に遷移すること' do
-            expect(response).to render_template('daily_aggregate')
+          it '意図した画面にレンダリングされること' do
+            expect(response).to render_template('daily_search')
           end
           
           it "集計した値がインスタンス変数に入ること" do
@@ -571,8 +579,8 @@ RSpec.describe 'Aggregates', type: :request do
             expect(response).to have_http_status(:success)
           end
           
-          it '意図した画面に遷移すること' do
-            expect(response).to render_template('daily_aggregate')
+          it '意図した画面にレンダリングされること' do
+            expect(response).to render_template('daily_search')
           end
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
@@ -594,9 +602,13 @@ RSpec.describe 'Aggregates', type: :request do
           expect(@sales_total_amount).to be_nil
           expect(@sales_growth_rate).to be_nil
         end
-        
+
         it 'レスポンスが422であること' do
           expect(response).to have_http_status(:unprocessable_entity)
+        end
+        
+        it '意図した画面にレンダリングされること' do
+          expect(response).to render_template('daily_aggregate')
         end
       end
     end

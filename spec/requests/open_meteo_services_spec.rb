@@ -6,6 +6,7 @@ RSpec.describe "OpenMeteoService", type: :request do
     it "APIレスポンスが正しく取得できること" do
       api = OpenMeteoService.new
       result = api.get_weather_info(today)
+      # 同一クラスか確認
       expect(api).to be_an_instance_of(OpenMeteoService)
       expect(result[:hourly]).to include(:temperature_2m)
       expect(result[:hourly]).to include(:weathercode)
