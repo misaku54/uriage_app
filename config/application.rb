@@ -22,7 +22,7 @@ module App
     config.generators do |g|
       g.test_framework :rspec,
         view_specs: false, 
-        helper_specs: false, 
+        helper_specs: true, 
         routing_specs: false
     end
   end
