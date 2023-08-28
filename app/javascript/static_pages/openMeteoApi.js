@@ -43,11 +43,11 @@ const callApi = async () => {
     minTempSpan.innerText    = `${data.daily.temperature_2m_min[0]}°C`;
   } catch (e) {
     console.error(e);
-    currTempDiv.innerText    = "取得に失敗";
-    currWeatherDiv.innerText = "取得に失敗";
-    currRainSpan.innerText   = "取得に失敗";
-    maxTempSpan.innerText    = "取得に失敗";
-    minTempSpan.innerText    = "取得に失敗";
+    currTempDiv.innerText    = "-°C";
+    currWeatherDiv.innerText = "-";
+    currRainSpan.innerText   = "-%";
+    maxTempSpan.innerText    = "-°C";
+    minTempSpan.innerText    = "-°C";
   }
 }
 
