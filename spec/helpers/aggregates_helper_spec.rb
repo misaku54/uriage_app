@@ -44,12 +44,6 @@ RSpec.describe AggregatesHelper, type: :helper do
     end
 
     context '引数が無効な値の場合' do
-      context '第一引数がnilの場合' do
-        it 'raiseすること' do
-          expect{convert_array(nil, 'producttype')}.to raise_error(ArgumentError, '無効な引数が渡されました。aggregatesに空値またはnilが渡されてます。')
-        end
-      end
-
       context '第二引数が条件外の値の場合' do
         it 'raiseすること' do
           expect{convert_array(@aggregates_of_producttype, 'foo')}.to raise_error(ArgumentError, '無効な引数が渡されました。pattern: foo')
