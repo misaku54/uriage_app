@@ -25,7 +25,7 @@ class AggregatesController < ApplicationController
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
-        render 'monthly_aggregate' and return
+        render 'monthly_search' and return
       end
 
       # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
@@ -37,7 +37,6 @@ class AggregatesController < ApplicationController
       @sales_growth_rate               = aggregate.sales_growth_rate
 
       return generate_csv if params[:export_csv]
-      render 'monthly_aggregate'
     else
       render 'monthly_aggregate', status: :unprocessable_entity
     end
@@ -66,7 +65,7 @@ class AggregatesController < ApplicationController
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
-        render 'yearly_aggregate' and return
+        render 'yearly_search' and return
       end 
 
       # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
@@ -78,7 +77,6 @@ class AggregatesController < ApplicationController
       @sales_growth_rate               = aggregate.sales_growth_rate
 
       return generate_csv if params[:export_csv]
-      render 'yearly_aggregate'
     else
       render 'yearly_aggregate', status: :unprocessable_entity
     end
@@ -107,7 +105,7 @@ class AggregatesController < ApplicationController
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
       unless sales.present?
         @no_result = '集計期間に該当する売上データがありません。'
-        render 'daily_aggregate' and return
+        render 'daily_search' and return
       end
 
       # ロジックモデルで集計した値をビューで使用するインスタンス変数に格納する。
@@ -119,7 +117,6 @@ class AggregatesController < ApplicationController
       @sales_growth_rate               = aggregate.sales_growth_rate
 
       return generate_csv if params[:export_csv]
-      render 'daily_aggregate'
     else
       render 'daily_aggregate', status: :unprocessable_entity
     end
