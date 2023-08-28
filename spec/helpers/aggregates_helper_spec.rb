@@ -123,4 +123,42 @@ RSpec.describe AggregatesHelper, type: :helper do
       end
     end
   end
+
+  describe 'best_selling_name' do
+    before do
+      aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: user, type: 'day')
+      aggregate.call
+      @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
+      @aggregates_of_maker             = aggregate.aggregates_of_maker
+      @aggregates_of_producttype       = aggregate.aggregates_of_producttype
+    end
+
+    context '引数が有効な値の場合' do
+      context 'メーカー×商品分類のオブジェクトの場合' do
+        let(:name) { 'テスト会社のカバン' }
+        it '正しい文字列が返ること' do
+          expect(best_selling_name(@aggregates_of_maker_producttype.first)).to eq name
+        end
+      end
+      context 'メーカーのオブジェクトの場合' do
+        let(:name) { 'テスト会社' }
+        it '正しい文字列が返ること' do
+          expect(best_selling_name(@aggregates_of_maker.first)).to eq name
+        end
+      end
+      context '商品分類のオブジェクトの場合' do
+        let(:name) { 'カバン' }
+        it '正しい文字列が返ること' do
+          expect(best_selling_name(@aggregates_of_producttype.first)).to eq name
+        end
+      end
+    end
+    context '引数が無効な値の場合' do
+      context 'nilの場合' do
+        it 'raiseすること' do
+          expect{best_selling_name(nil)}.to raise_error(ArgumentError,"無効な引数が渡されました。aggregate:")
+        end
+      end
+    end
+  end
 end

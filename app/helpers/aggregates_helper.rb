@@ -1,7 +1,7 @@
 module AggregatesHelper
-  # 生SQLで取得したリレーションインスタンスをchartkickメソッドの引数に渡す用の配列に変換する。
+  # 生SQLで取得したオブジェクト配列をchartkickメソッドの引数に渡す用の配列に変換する。
   def convert_array(aggregates, pattern)
-    # nil値が入るのは想定していないため、raiseする
+    # aggregatesにnil値が入るのは想定していないため、raiseする
     return raise ArgumentError.new("無効な引数が渡されました。aggregatesに空値またはnilが渡されてます。") if aggregates.blank?
 
     if pattern == 'maker_producttype'
@@ -21,7 +21,7 @@ module AggregatesHelper
         [aggregate.producttype_name, aggregate.sum_amount_sold] 
       end
     end
-    # ３パターン以外の値が入るのは想定していないため、raiseする
+    # patternに３パターン以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
   
@@ -30,14 +30,17 @@ module AggregatesHelper
     return 'メーカー×商品分類' if pattern == 'maker_producttype'
     return 'メーカー' if pattern == 'maker'
     return '商品分類' if pattern == 'producttype'
+    # ３パターン以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
   # 色を決める
   def make_color(pattern = '')
+    # 引数なしでも色を取得したいために「|| pattern == ''」が条件にある。
     return '#003793' if pattern == 'maker_producttype' || pattern == ''
     return '#69AADE' if pattern == 'maker'
     return '#009E96' if pattern == 'producttype'
+    # ３パターン以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
@@ -55,6 +58,7 @@ module AggregatesHelper
     if aggregate.respond_to?('producttype_name')
       return aggregate.producttype_name  
     end
+    # ３パターン以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。aggregate:#{aggregate}")
   end
 
