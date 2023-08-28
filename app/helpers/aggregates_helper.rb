@@ -1,29 +1,28 @@
 module AggregatesHelper
   # 生SQLで取得したリレーションインスタンスをchartkickメソッドの引数に渡す用の配列に変換する。
   def convert_array(aggregates, pattern)
-    if aggregates.present?
-      # 引数で渡した集計結果が、
-      # ①メーカー、商品別　②メーカー別　③商品別のうち
-      # どのパターンの集計結果なのかで、変換する配列の中身を切り替える。
-      if pattern == 'maker_producttype'
-        return aggregates.map do |aggregate|
-          ["#{aggregate.maker_name} #{aggregate.producttype_name}", aggregate.sum_amount_sold] 
-        end
-      end
+    # nil値が入るのは想定していないため、raiseする
+    return raise ArgmentError.new("無効な引数が渡されました。aggregates: #{aggregates}") if aggregates.blank?
 
-      if pattern == 'maker'
-        return aggregates.map do |aggregate|
-          [aggregate.maker_name, aggregate.sum_amount_sold] 
-        end
+    if pattern == 'maker_producttype'
+      return aggregates.map do |aggregate|
+        ["#{aggregate.maker_name} #{aggregate.producttype_name}", aggregate.sum_amount_sold] 
       end
-
-      if pattern == 'producttype'
-        return aggregates.map do |aggregate|
-          [aggregate.producttype_name, aggregate.sum_amount_sold] 
-        end
-      end
-      raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
     end
+
+    if pattern == 'maker'
+      return aggregates.map do |aggregate|
+        [aggregate.maker_name, aggregate.sum_amount_sold] 
+      end
+    end
+
+    if pattern == 'producttype'
+      return aggregates.map do |aggregate|
+        [aggregate.producttype_name, aggregate.sum_amount_sold] 
+      end
+    end
+    # ３パターン以外の値が入るのは想定していないため、raiseする
+    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
   
   # best_selling_cardの見出しを作成
