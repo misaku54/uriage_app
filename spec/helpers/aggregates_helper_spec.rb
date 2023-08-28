@@ -1,8 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe AggregatesHelper, type: :helper do
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:producttype) { FactoryBot.create(:producttype, user: user) }
+  let!(:maker) { FactoryBot.create(:maker, user: user) }
+  let!(:weather) { FactoryBot.create(:weather) }
+  let!(:sale) { FactoryBot.create(:sale, user: user, maker: maker, producttype: producttype)}
+  let!(:start_date) { Time.zone.now.beginning_of_day }
+  let!(:end_date) { Time.zone.now.end_of_day }
+  let!(:last_year_start_date) { Time.zone.now.prev_year.beginning_of_day }
+  let!(:last_year_end_date) { Time.zone.now.prev_year.end_of_day }
+  
   describe 'convert_array' do
     context '引数が有効な値の場合' do
+      before do
+        aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: user, type: 'day')
+        aggregate.call
+        @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
+        @aggregates_of_maker             = aggregate.aggregates_of_maker
+        @aggregates_of_producttype       = aggregate.aggregates_of_producttype
+      end
       context '第二引数がmaker_producttypeの場合' do
         it '配列が作成されること' do
           
