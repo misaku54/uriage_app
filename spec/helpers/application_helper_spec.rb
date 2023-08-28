@@ -14,4 +14,8 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe 'add_comma_en' do
+    
+  end
 end
