@@ -12,29 +12,33 @@ RSpec.describe AggregatesHelper, type: :helper do
   let!(:last_year_end_date) { Time.zone.now.prev_year.end_of_day }
   
   describe 'convert_array' do
+    before do
+      aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: user, type: 'day')
+      aggregate.call
+      @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
+      @aggregates_of_maker             = aggregate.aggregates_of_maker
+      @aggregates_of_producttype       = aggregate.aggregates_of_producttype
+    end
+
     context '引数が有効な値の場合' do
-      before do
-        aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: user, type: 'day')
-        aggregate.call
-        @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
-        @aggregates_of_maker             = aggregate.aggregates_of_maker
-        @aggregates_of_producttype       = aggregate.aggregates_of_producttype
-      end
       context '第二引数がmaker_producttypeの場合' do
+        let(:ary) { [["テスト会社 カバン", 10000]] }
         it '配列が作成されること' do
-          
+          expect(convert_array(@aggregates_of_maker_producttype, 'maker_producttype')).to eq ary
         end
       end
 
       context '第二引数がmakerの場合' do
+        let(:ary) { [["テスト会社", 10000]] }
         it '配列が作成されること' do
-
+          expect(convert_array(@aggregates_of_maker, 'maker')).to eq ary
         end
       end
 
       context '第二引数がproducttypeの場合' do
+        let(:ary) { [["カバン", 10000]] }
         it '配列が作成されること' do
-
+          expect(convert_array(@aggregates_of_producttype, 'producttype')).to eq ary
         end
       end
     end
@@ -42,13 +46,13 @@ RSpec.describe AggregatesHelper, type: :helper do
     context '引数が無効な値の場合' do
       context '第一引数がnilの場合' do
         it 'raiseすること' do
-
+          expect{convert_array(nil, 'producttype')}.to raise_error(ArgumentError, '無効な引数が渡されました。aggregatesに空値またはnilが渡されてます。')
         end
       end
 
       context '第二引数が条件外の値の場合' do
         it 'raiseすること' do
-        
+          expect{convert_array(@aggregates_of_producttype, 'foo')}.to raise_error(ArgumentError, '無効な引数が渡されました。pattern: foo')
         end
       end
     end

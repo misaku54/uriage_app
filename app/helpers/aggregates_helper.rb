@@ -2,7 +2,7 @@ module AggregatesHelper
   # 生SQLで取得したリレーションインスタンスをchartkickメソッドの引数に渡す用の配列に変換する。
   def convert_array(aggregates, pattern)
     # nil値が入るのは想定していないため、raiseする
-    return raise ArgumentError.new("無効な引数が渡されました。aggregates: #{aggregates}") if aggregates.blank?
+    return raise ArgumentError.new("無効な引数が渡されました。aggregatesに空値またはnilが渡されてます。") if aggregates.blank?
 
     if pattern == 'maker_producttype'
       return aggregates.map do |aggregate|
@@ -34,7 +34,7 @@ module AggregatesHelper
   end
 
   # 色を決める
-  def make_color(pattern)
+  def make_color(pattern = '')
     return '#003793' if pattern == 'maker_producttype' || pattern == ''
     return '#69AADE' if pattern == 'maker'
     return '#009E96' if pattern == 'producttype'
