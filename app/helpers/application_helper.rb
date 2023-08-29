@@ -25,19 +25,11 @@ module ApplicationHelper
   end 
 
   # 現在のページ数を取得する。
-  def current_page_number(page_obj)
-    return "0件" if page_obj.blank?
-    unless page_obj.first_page?
-      current_page = page_obj.count + (page_obj.current_page - 1) * 10 #←perメソッドの表示ページ数に応じて変更する。
-      return "#{current_page}/#{page_obj.total_count}件"
-    end
-    return "#{page_obj.count}/#{page_obj.total_count}件"
-  end
-
-  # 日付を曜日付きで取得する。
-  def get_date(date)
-    return '-' if date.blank?
-    date.strftime("%-m月%-d日(#{DAT_OF_WEEK[date.wday]})")
+  def current_page_number(obj)
+    return "0件" if obj.blank?
+    return "#{obj.count}/#{obj.total_count}件" if obj.first_page?
+    current_page = obj.count + (obj.current_page - 1) * 10 #←perメソッドの表示ページ数に応じて変更する。
+    return "#{current_page}/#{obj.total_count}件"
   end
 
   # 与えられた日付が祝日だった場合、その祝日名を取得する。
