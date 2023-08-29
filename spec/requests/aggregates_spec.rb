@@ -30,12 +30,12 @@ RSpec.describe 'Aggregates', type: :request do
     before do
       subject
       # コントローラーよりインスタンス変数を取得
-      @aggregates_of_maker_producttype = controller.instance_variable_get('@aggregates_of_maker_producttype')
-      @aggregates_of_maker             = controller.instance_variable_get('@aggregates_of_maker')
-      @aggregates_of_producttype       = controller.instance_variable_get('@aggregates_of_producttype')
-      @sales_trend                     = controller.instance_variable_get('@sales_trend')
-      @sales_total_amount              = controller.instance_variable_get('@sales_total_amount')
-      @sales_growth_rate               = controller.instance_variable_get('@sales_growth_rate')            
+      @aggregates_of_maker_producttype = controller.instance_variable_get(:@aggregates_of_maker_producttype)
+      @aggregates_of_maker             = controller.instance_variable_get(:@aggregates_of_maker)
+      @aggregates_of_producttype       = controller.instance_variable_get(:@aggregates_of_producttype)
+      @sales_trend                     = controller.instance_variable_get(:@sales_trend)
+      @sales_total_amount              = controller.instance_variable_get(:@sales_total_amount)
+      @sales_growth_rate               = controller.instance_variable_get(:@sales_growth_rate)            
     end
 
     context 'パラメータのバリデーションが' do
@@ -183,7 +183,7 @@ RSpec.describe 'Aggregates', type: :request do
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
             # コントローラーよりインスタンス変数を取得
-            @no_result = controller.instance_variable_get('@no_result')
+            @no_result = controller.instance_variable_get(:@no_result)
             expect(@no_result).to eq '集計期間に該当する売上データがありません。'
           end
         end
@@ -229,12 +229,12 @@ RSpec.describe 'Aggregates', type: :request do
     before do
       subject
       # コントローラーよりインスタンス変数を取得
-      @aggregates_of_maker_producttype = controller.instance_variable_get('@aggregates_of_maker_producttype')
-      @aggregates_of_maker             = controller.instance_variable_get('@aggregates_of_maker')
-      @aggregates_of_producttype       = controller.instance_variable_get('@aggregates_of_producttype')
-      @sales_trend                     = controller.instance_variable_get('@sales_trend')
-      @sales_total_amount              = controller.instance_variable_get('@sales_total_amount')
-      @sales_growth_rate               = controller.instance_variable_get('@sales_growth_rate')            
+      @aggregates_of_maker_producttype = controller.instance_variable_get(:@aggregates_of_maker_producttype)
+      @aggregates_of_maker             = controller.instance_variable_get(:@aggregates_of_maker)
+      @aggregates_of_producttype       = controller.instance_variable_get(:@aggregates_of_producttype)
+      @sales_trend                     = controller.instance_variable_get(:@sales_trend)
+      @sales_total_amount              = controller.instance_variable_get(:@sales_total_amount)
+      @sales_growth_rate               = controller.instance_variable_get(:@sales_growth_rate)            
     end
 
     context 'パラメータのバリデーションが' do
@@ -384,7 +384,7 @@ RSpec.describe 'Aggregates', type: :request do
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
             # コントローラーよりインスタンス変数を取得
-            @no_result = controller.instance_variable_get('@no_result')
+            @no_result = controller.instance_variable_get(:@no_result)
             expect(@no_result).to eq '集計期間に該当する売上データがありません。'
           end
         end
@@ -431,12 +431,12 @@ RSpec.describe 'Aggregates', type: :request do
     before do
       subject
       # コントローラーよりインスタンス変数を取得
-      @aggregates_of_maker_producttype = controller.instance_variable_get('@aggregates_of_maker_producttype')
-      @aggregates_of_maker             = controller.instance_variable_get('@aggregates_of_maker')
-      @aggregates_of_producttype       = controller.instance_variable_get('@aggregates_of_producttype')
-      @sales_trend                     = controller.instance_variable_get('@sales_trend')
-      @sales_total_amount              = controller.instance_variable_get('@sales_total_amount')
-      @sales_growth_rate               = controller.instance_variable_get('@sales_growth_rate')            
+      @aggregates_of_maker_producttype = controller.instance_variable_get(:@aggregates_of_maker_producttype)
+      @aggregates_of_maker             = controller.instance_variable_get(:@aggregates_of_maker)
+      @aggregates_of_producttype       = controller.instance_variable_get(:@aggregates_of_producttype)
+      @sales_trend                     = controller.instance_variable_get(:@sales_trend)
+      @sales_total_amount              = controller.instance_variable_get(:@sales_total_amount)
+      @sales_growth_rate               = controller.instance_variable_get(:@sales_growth_rate)            
     end
     
     context 'パラメータのバリデーションが' do
@@ -585,7 +585,7 @@ RSpec.describe 'Aggregates', type: :request do
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
             # コントローラーよりインスタンス変数を取得
-            @no_result = controller.instance_variable_get('@no_result')
+            @no_result = controller.instance_variable_get(:@no_result)
             expect(@no_result).to eq '集計期間に該当する売上データがありません。'
           end
         end

@@ -23,7 +23,7 @@ class AggregatesController < ApplicationController
       sales = aggregate.sales
       
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
-      unless sales.present?
+      if sales.blank?
         @no_result = '集計期間に該当する売上データがありません。'
         render 'monthly_search' and return
       end
@@ -63,7 +63,7 @@ class AggregatesController < ApplicationController
       sales = aggregate.sales
 
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
-      unless sales.present?
+      if sales.blank?
         @no_result = '集計期間に該当する売上データがありません。'
         render 'yearly_search' and return
       end 
@@ -103,7 +103,7 @@ class AggregatesController < ApplicationController
       sales = aggregate.sales
 
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
-      unless sales.present?
+      if sales.blank?
         @no_result = '集計期間に該当する売上データがありません。'
         render 'daily_search' and return
       end

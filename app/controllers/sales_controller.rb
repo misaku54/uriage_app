@@ -4,12 +4,12 @@ class SalesController < ApplicationController
   before_action :set_search_query, only: %i[index search export_csv]
   MAX_DISPLAY_COUNT = 10
 
-  def show
-    @sale = @user.sales.find(params[:id])
-  end
-
   def index
     @sales = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
+  end
+
+  def show
+    @sale = @user.sales.find(params[:id])
   end
 
   def search
@@ -25,6 +25,10 @@ class SalesController < ApplicationController
     @sale = @user.sales.build
   end
 
+  def edit
+    @sale = @user.sales.find(params[:id])
+  end
+
   def create
     @sale = @user.sales.build(sale_params)
     if @sale.save
@@ -33,10 +37,6 @@ class SalesController < ApplicationController
     else
       render 'new', status: :unprocessable_entity
     end
-  end
-
-  def edit
-    @sale = @user.sales.find(params[:id])
   end
 
   def update

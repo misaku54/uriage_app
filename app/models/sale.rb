@@ -7,7 +7,7 @@ class Sale < ApplicationRecord
   belongs_to :user
   belongs_to :maker
   belongs_to :producttype
-  belongs_to :weather, class_name: "WeatherForecast", foreign_key: "created_on", optional: true
+  belongs_to :weather, class_name: 'WeatherForecast', foreign_key: 'created_on', optional: true
 
   # アクションコールバック
   before_validation :set_created_on

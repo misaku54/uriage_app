@@ -28,7 +28,7 @@ module ApplicationHelper
   def current_page_number(obj)
     return "0件" if obj.blank?
     return "#{obj.count}/#{obj.total_count}件" if obj.first_page?
-    current_count = obj.count + (obj.current_page - 1) * 10 #←perメソッドの表示ページ数に応じて変更する。
+    current_count = obj.count + ((obj.current_page - 1) * 10) #←perメソッドの表示ページ数に応じて変更する。
     return "#{current_count}/#{obj.total_count}件"
   end
 

@@ -47,15 +47,15 @@ module AggregatesHelper
 
   # 最も売れた項目の名前を求める。
   def best_selling_name(aggregate)
-    if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')
+    if aggregate.respond_to?(:maker_name) && aggregate.respond_to?(:producttype_name)
       return "#{aggregate.maker_name}の#{aggregate.producttype_name}"  
     end
 
-    if aggregate.respond_to?('maker_name')
+    if aggregate.respond_to?(:maker_name)
       return aggregate.maker_name
     end
     
-    if aggregate.respond_to?('producttype_name')
+    if aggregate.respond_to?(:producttype_name)
       return aggregate.producttype_name  
     end
 

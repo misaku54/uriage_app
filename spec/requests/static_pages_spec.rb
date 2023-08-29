@@ -35,8 +35,8 @@ RSpec.describe "StaticPages", type: :request do
 
         before do
           get root_path
-          @sales_trend = controller.instance_variable_get('@sales_trend')
-          @sales_total_amount = controller.instance_variable_get('@sales_total_amount')
+          @sales_trend = controller.instance_variable_get(:@sales_trend)
+          @sales_total_amount = controller.instance_variable_get(:@sales_total_amount)
         end
 
         it '売上推移と売上合計額が取得されていること' do
