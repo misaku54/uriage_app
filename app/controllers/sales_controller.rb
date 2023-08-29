@@ -1,7 +1,7 @@
 class SalesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
-  before_action :set_search_query, only:[:index, :search, :export_csv]
+  before_action :set_search_query, only: %i[index search export_csv]
   MAX_DISPLAY_COUNT = 10
 
   def show
@@ -18,7 +18,7 @@ class SalesController < ApplicationController
 
   def export_csv
     @sales = @q.result
-    send_data(CsvExport.sale_csv_output(@sales), filename: "#{Time.zone.now.strftime("%Y%m%d")}_sales.csv", type: :csv)
+    send_data(CsvExport.sale_csv_output(@sales), filename: "#{Time.zone.now.strftime('%Y%m%d')}_sales.csv", type: :csv)
   end
 
   def new
@@ -51,12 +51,12 @@ class SalesController < ApplicationController
 
   def destroy
     @user.sales.find(params[:id]).destroy
-    flash[:success] = "削除しました。"
+    flash[:success] = '削除しました。'
     redirect_to user_sales_path(@user), status: :see_other
   end
-  
 
   private
+
   # ストロングパラメータ
   def sale_params
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id, :created_at, :create_on)

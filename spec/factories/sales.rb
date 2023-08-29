@@ -20,7 +20,7 @@ FactoryBot.define do
     end
     trait :yearly_last_year do
       amount_sold { 500 }
-      sequence(:created_at) { |n| Time.zone.local(2020, 12, 1).next_month(n)  } 
+      sequence(:created_at) { |n| Time.zone.local(2020, 12, 1).next_month(n) } 
     end
 
     # 月別集計のテストで使用するデータを用意
@@ -29,7 +29,7 @@ FactoryBot.define do
     end
     trait :monthly_last_year do
       amount_sold { 500 }
-      sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n)  } 
+      sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n) } 
     end
 
     # 日別集計のテストで使用するデータを用意
@@ -38,7 +38,7 @@ FactoryBot.define do
     end
     trait :daily_last_year do
       amount_sold { 500 }
-      sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n)  } 
+      sequence(:created_at) { |n| Time.zone.local(2020, 12, 31).next_day(n) } 
     end
   end 
 end

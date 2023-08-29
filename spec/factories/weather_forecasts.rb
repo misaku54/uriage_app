@@ -7,7 +7,7 @@ FactoryBot.define do
     rainfall_sum { rand(0..10.0).floor(1) }
 
     # 年別集計のテストで使用するデータを用意
-    trait :yearly_this_year do 
+    trait :yearly_this_year do
       sequence(:aquired_on) { |n| Time.zone.local(2021, 12, 1).next_month(n) }
     end
     trait :yearly_last_year do

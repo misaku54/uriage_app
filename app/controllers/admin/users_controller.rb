@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :if_not_admin
 
   def index
-    @q = User.order("id").ransack(params[:q])
+    @q = User.order('id').ransack(params[:q])
     @users = @q.result.page(params[:page]).per(10)
   end
 
@@ -41,15 +41,16 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "ユーザーを削除しました。"
+    flash[:success] = 'ユーザーを削除しました。'
     redirect_to admin_users_path, status: :see_other
   end
 
-  private 
+  private
+
   # ストロングパラメーター
   def user_params
-    params.require(:user).permit(:name, :email, :admin, :password, 
-                                                        :password_confirmation)
+    params.require(:user).permit(:name, :email, :admin, :password,
+                                 :password_confirmation)
   end
 
   # 管理者かどうか確認
