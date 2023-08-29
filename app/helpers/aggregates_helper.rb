@@ -1,29 +1,25 @@
 module AggregatesHelper
-  # 生SQLで取得したリレーションインスタンスをchartkickメソッドの引数に渡す用の配列に変換する。
+  # 生SQLで取得したオブジェクト配列をchartkickメソッドの引数に渡す用の配列に変換する。
   def convert_array(aggregates, pattern)
-    if aggregates.present?
-      # 引数で渡した集計結果が、
-      # ①メーカー、商品別　②メーカー別　③商品別のうち
-      # どのパターンの集計結果なのかで、変換する配列の中身を切り替える。
-      if pattern == 'maker_producttype'
-        return aggregates.map do |aggregate|
-          ["#{aggregate.maker_name} #{aggregate.producttype_name}", aggregate.sum_amount_sold] 
-        end
+    if pattern == 'maker_producttype'
+      return aggregates.map do |aggregate|
+        ["#{aggregate.maker_name} #{aggregate.producttype_name}", aggregate.sum_amount_sold] 
       end
-
-      if pattern == 'maker'
-        return aggregates.map do |aggregate|
-          [aggregate.maker_name, aggregate.sum_amount_sold] 
-        end
-      end
-
-      if pattern == 'producttype'
-        return aggregates.map do |aggregate|
-          [aggregate.producttype_name, aggregate.sum_amount_sold] 
-        end
-      end
-      raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
     end
+
+    if pattern == 'maker'
+      return aggregates.map do |aggregate|
+        [aggregate.maker_name, aggregate.sum_amount_sold] 
+      end
+    end
+
+    if pattern == 'producttype'
+      return aggregates.map do |aggregate|
+        [aggregate.producttype_name, aggregate.sum_amount_sold] 
+      end
+    end
+    # patternにif文以外の値が入るのは想定していないため、raiseする
+    raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
   
   # best_selling_cardの見出しを作成
@@ -31,27 +27,23 @@ module AggregatesHelper
     return 'メーカー×商品分類' if pattern == 'maker_producttype'
     return 'メーカー' if pattern == 'maker'
     return '商品分類' if pattern == 'producttype'
-    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
-  end
-
-  def make_class_name(pattern)
-    return 'success' if pattern == 'maker_producttype'
-    return 'warning' if pattern == 'maker'
-    return 'danger' if pattern == 'producttype'
-    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
+    # patternにif文以外の値が入るのは想定していないため、raiseする
+    raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
   # 色を決める
   def make_color(pattern = '')
+    # 引数なしでも色を取得したいために「|| pattern == ''」が条件にある。
     return '#003793' if pattern == 'maker_producttype' || pattern == ''
     return '#69AADE' if pattern == 'maker'
     return '#009E96' if pattern == 'producttype'
-    raise ArgmentError.new("無効な引数が渡されました。pattern: #{pattern}")
+    # patternにif文以外の値が入るのは想定していないため、raiseする
+    raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
 
 
   # 最も売れた項目の名前を求める。
-  def make_ranking_name(aggregate)
+  def best_selling_name(aggregate)
     if aggregate.respond_to?('maker_name') && aggregate.respond_to?('producttype_name')
       return "#{aggregate.maker_name}の#{aggregate.producttype_name}"  
     end
@@ -63,7 +55,8 @@ module AggregatesHelper
     if aggregate.respond_to?('producttype_name')
       return aggregate.producttype_name  
     end
-    raise ArgmentError.new("無効な引数が渡されました。#{aggregate}")
+    # aggregateにif文以外の値が入るのは想定していないため、raiseする
+    raise ArgumentError.new("無効な引数が渡されました。aggregate: #{aggregate}")
   end
 
 
