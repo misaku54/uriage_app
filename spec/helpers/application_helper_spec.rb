@@ -19,7 +19,7 @@ RSpec.describe ApplicationHelper, type: :helper do
   describe 'add_comma_en' do
     context '引数を渡した場合' do
       it '渡した値のカンマ区切り円の文字列が返ること' do
-        expect(add_comma_en(10_000)).to eq '10,000円'
+        expect(add_comma_en(10000)).to eq '10,000円'
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe ApplicationHelper, type: :helper do
   describe 'add_comma' do
     context '引数を渡した場合' do
       it '渡した値のカンマ区切りの文字列が返ること' do
-        expect(add_comma(10_000)).to eq '10,000'
+        expect(add_comma(10000)).to eq '10,000'
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe ApplicationHelper, type: :helper do
   describe 'add_ko_sold' do
     context '引数を渡した場合' do
       it '「個」を結合した文字列が返ること' do
-        expect(add_ko_sold(10_000)).to eq '10000個'
+        expect(add_ko_sold(10000)).to eq '10000個'
       end
     end
 
