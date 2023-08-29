@@ -22,6 +22,10 @@ class MakersController < ApplicationController
     @maker = @user.makers.build
   end
 
+  def edit
+    @maker = @user.makers.find(params[:id])
+  end
+
   def create
     @maker = @user.makers.build(maker_params)
     if @maker.save
@@ -30,10 +34,6 @@ class MakersController < ApplicationController
     else
       render 'new', status: :unprocessable_entity
     end
-  end
-
-  def edit
-    @maker = @user.makers.find(params[:id])
   end
 
   def update

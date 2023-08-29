@@ -183,7 +183,7 @@ RSpec.describe 'Aggregates', type: :request do
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
             # コントローラーよりインスタンス変数を取得
-            @no_result = controller.instance_variable_get('@no_result')
+            @no_result = controller.instance_variable_get(:@no_result)
             expect(@no_result).to eq '集計期間に該当する売上データがありません。'
           end
         end
@@ -384,7 +384,7 @@ RSpec.describe 'Aggregates', type: :request do
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
             # コントローラーよりインスタンス変数を取得
-            @no_result = controller.instance_variable_get('@no_result')
+            @no_result = controller.instance_variable_get(:@no_result)
             expect(@no_result).to eq '集計期間に該当する売上データがありません。'
           end
         end
@@ -585,7 +585,7 @@ RSpec.describe 'Aggregates', type: :request do
 
           it '集計期間に該当する売上データがない旨のメッセージが返ってくること' do
             # コントローラーよりインスタンス変数を取得
-            @no_result = controller.instance_variable_get('@no_result')
+            @no_result = controller.instance_variable_get(:@no_result)
             expect(@no_result).to eq '集計期間に該当する売上データがありません。'
           end
         end

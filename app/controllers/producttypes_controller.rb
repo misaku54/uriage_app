@@ -22,6 +22,10 @@ class ProducttypesController < ApplicationController
     @producttype = @user.producttypes.build
   end
 
+  def edit
+    @producttype = @user.producttypes.find(params[:id])
+  end
+
   def create
     @producttype = @user.producttypes.build(producttype_params)
     if @producttype.save
@@ -30,10 +34,6 @@ class ProducttypesController < ApplicationController
     else
       render 'new', status: :unprocessable_entity
     end
-  end
-
-  def edit
-    @producttype = @user.producttypes.find(params[:id])
   end
 
   def update

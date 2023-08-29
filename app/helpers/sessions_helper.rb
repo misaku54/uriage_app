@@ -22,13 +22,13 @@ module SessionsHelper
     if (user_id = session[:user_id])
       user = User.find_by(id: session[:user_id])
       if user && session[:session_token] == user.session_token
-        @current_user = user
+        user
       end
     elsif (user_id = cookies.encrypted[:user_id])
       user = User.find_by(id: user_id)
       if user&.authenticated?(cookies[:remember_token])
         log_in user
-        @current_user = user
+        user
       end
     end
   end
@@ -54,7 +54,6 @@ module SessionsHelper
   def log_out
     forget(current_user)
     reset_session
-    @current_user = nil
   end
 
   # アクセスしようとしたURLを保存する
