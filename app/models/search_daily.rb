@@ -19,7 +19,7 @@ class SearchDaily
       if end_date < start_date
         errors.add(:end_date, 'は開始日より前の日を設定することはできません。')
       end
-      if ((end_date.in_time_zone - start_date.in_time_zone) / 1.days).floor > 30
+      if ((end_date.in_time_zone - start_date.in_time_zone) / 1.day).floor > 30
         errors.add(:date, 'は１ヶ月以内の期間を指定してください。')
       end
     end

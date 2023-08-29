@@ -12,8 +12,6 @@ gem "faker",           "2.21.0"
 gem 'kaminari'
 gem "chartkick"
 gem 'groupdate'
-gem 'rubocop'
-gem 'rubocop-rails'
 gem 'ransack'
 gem 'bootstrap', '~> 5.0.2'
 gem "bootstrap_form"
@@ -77,6 +75,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'rubocop', require: false
+  gem 'rubocop-rails'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

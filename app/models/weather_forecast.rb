@@ -3,7 +3,7 @@ class WeatherForecast < ApplicationRecord
   # attribute :aquired_on, default: -> { Time.zone.now }
 
   # 関連付け
-  has_many :sales, foreign_key: "created_on"
+  has_many :sales, foreign_key: "created_on", dependent: :nullify
 
   # バリデーション
   validates :aquired_on, presence: true
@@ -16,7 +16,7 @@ class WeatherForecast < ApplicationRecord
   private 
 
   def future_day_check
-    unless aquired_on.blank?
+    if aquired_on.present?
       errors.add(:aquired_on, 'に未来日は設定できません。') if self.aquired_on > Time.zone.today
     end
   end
