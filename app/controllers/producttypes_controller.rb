@@ -1,7 +1,7 @@
 class ProducttypesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
-  before_action :set_search_query, only: [:index, :search, :export_csv]
+  before_action :set_search_query, only: %i[index search export_csv]
   MAX_DISPLAY_COUNT = 10
 
   def index
@@ -14,7 +14,8 @@ class ProducttypesController < ApplicationController
 
   def export_csv
     @producttypes = @q.result
-    send_data(CsvExport.producttype_csv_output(@producttypes), filename: "#{Time.zone.now.strftime("%Y%m%d")}_producttypes.csv", type: :csv)
+    send_data(CsvExport.producttype_csv_output(@producttypes),
+              filename: "#{Time.zone.now.strftime('%Y%m%d')}_producttypes.csv", type: :csv)
   end
 
   def new
@@ -47,11 +48,12 @@ class ProducttypesController < ApplicationController
 
   def destroy
     @user.producttypes.find(params[:id]).destroy
-    flash[:success] = "削除しました。"
+    flash[:success] = '削除しました。'
     redirect_to user_producttypes_path(@user), status: :see_other
   end
 
-  private 
+  private
+
   # ストロングパラメータ
   def producttype_params
     params.require(:producttype).permit(:name)
