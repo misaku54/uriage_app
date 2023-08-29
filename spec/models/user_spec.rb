@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
     end
     
     it 'emailが256文字以上は無効になること' do
-      user.email = "a" * 244 + "@example.com"
+      user.email = ("a" * 244) + "@example.com"
       expect(user).to_not be_valid
     end
     
