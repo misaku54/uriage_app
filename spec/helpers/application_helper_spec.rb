@@ -59,21 +59,25 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   describe 'current_page_number' do
-    context '引数で渡したオブジェクト群が最初のページの場合' do
+    let!(:users) { FactoryBot.create_list(:user, 15, :users) }
+    context '渡した引数がkaminariの1ページ目のオブジェクトの場合' do
+      let(:first_page_obj) { User.page(1).per(10) }
       it '正しいページ数を表示すること' do
-
+        expect(current_page_number(first_page_obj)).to eq "10/15件"
       end
     end
 
     context '引数で渡したオブジェクト群が最初のページ以外の場合' do
+      let(:not_first_page_obj) { User.page(2).per(10) } 
       it '正しいページ数を表示すること' do
-        
+        expect(current_page_number(not_first_page_obj)).to eq "15/15件"
       end
     end
 
-    context '引数を渡さなかった場合' do
+    context '引数が空ornilだった場合' do
       it '0件が返ってくること' do
-        
+        expect(current_page_number(nil)).to eq "0件"
+        expect(current_page_number('')).to eq "0件"
       end
     end
   end
