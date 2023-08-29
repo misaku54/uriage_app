@@ -18,6 +18,7 @@ module AggregatesHelper
         [aggregate.producttype_name, aggregate.sum_amount_sold] 
       end
     end
+    
     # patternにif文以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
@@ -27,6 +28,7 @@ module AggregatesHelper
     return 'メーカー×商品分類' if pattern == 'maker_producttype'
     return 'メーカー' if pattern == 'maker'
     return '商品分類' if pattern == 'producttype'
+
     # patternにif文以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
@@ -37,6 +39,7 @@ module AggregatesHelper
     return '#003793' if pattern == 'maker_producttype' || pattern == ''
     return '#69AADE' if pattern == 'maker'
     return '#009E96' if pattern == 'producttype'
+
     # patternにif文以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。pattern: #{pattern}")
   end
@@ -55,6 +58,7 @@ module AggregatesHelper
     if aggregate.respond_to?('producttype_name')
       return aggregate.producttype_name  
     end
+
     # aggregateにif文以外の値が入るのは想定していないため、raiseする
     raise ArgumentError.new("無効な引数が渡されました。aggregate: #{aggregate}")
   end
@@ -73,6 +77,7 @@ module AggregatesHelper
     if period == 'yearly' && params.date.present? 
       return "#{params.date.in_time_zone.year}年"
     end
+
     nil
   end
 end
