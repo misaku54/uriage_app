@@ -3,7 +3,7 @@ class WeatherForecast < ApplicationRecord
   # attribute :aquired_on, default: -> { Time.zone.now }
 
   # 関連付け
-  has_many :sales, foreign_key: "created_on", dependent: :nullify
+  has_many :sales, foreign_key: 'created_on', dependent: :nullify, inverse_of: :weather
 
   # バリデーション
   validates :aquired_on, presence: true
