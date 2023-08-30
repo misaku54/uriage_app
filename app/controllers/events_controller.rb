@@ -39,4 +39,11 @@ class EventsController < ApplicationController
     flash[:success] = '削除しました。'
     redirect_to root_url, status: :see_other
   end
+
+  private
+
+  # ストロングパラメータ
+  def event_params
+    params.require(:event).permit(:title, :content, :start_time, :end_time)
+  end
 end
