@@ -1,13 +1,13 @@
 <div class="card shadow-sm mb-3">
   <div class="card-body p-4">
     <% if @events.present? %>
-      <%= month_calendar events: @events do |date| %>
+      <%= month_calendar events: @events do |date, events| %>
         <div class="day">
           <%= date %>
         </div>
         <% events.each do |event| %>
           <div>
-            <%= link_to blog.title, events %>
+            <%= event.title %>
           </div>
         <% end %>
       <% end %>
