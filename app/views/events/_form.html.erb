@@ -1,3 +1,52 @@
 <%= form_with(model: [@user, @event], data: { turbo: false }) do |f| %>
-
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h6 class="mb-3"><%= form_name %></h6>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :title %>  <span class="badge bg-danger">必須</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 p-sm-2">
+          <%= f.text_field :title, class: "form-control form-control-sm" %>
+        </div>
+      </div>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :content %>  <span class="badge bg-danger">必須</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
+          <%= f.text_field :content, class:"form-control form-control-sm" %>
+        </div>
+      </div>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :start_time %>  <span class="badge bg-danger">必須</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
+          <%= f.datetime_select :start_time, class:"form-select form-select-sm" %>
+        </div>
+      </div>
+      <div class="form_group row mx-sm-auto">
+        <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
+          <div class="col-form-label col-form-label-sm text-sm-center">
+            <%= f.label :end_time %>  <span class="badge bg-danger">必須</span>
+          </div>
+        </div>
+        <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
+          <%= f.datetime_select :end_time, class:"form-select form-select-sm" %>
+        </div>
+      </div>
+      <div class="row mx-auto">
+        <%= f.submit yield(:button_text), class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
+        <%# <%= link_to 'ホームへ戻る', url, class: "btn btn-secondary btn-sm col-6 col-sm-2", data: { turbo: false } %> %>
+      </div>
+    </div>
+  </div>
 <% end %>
