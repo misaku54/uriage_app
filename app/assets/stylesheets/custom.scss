@@ -460,6 +460,14 @@ label.required:after {
   .next-month {
     background: #ddd;
   }
+
+  .wday-0 {
+    color: red; 
+  }
+  
+  .wday-6 {
+    color: blue; 
+  }
 }
 /* デバッグ用 */
 .debug_dump {
