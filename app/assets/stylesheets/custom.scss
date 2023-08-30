@@ -396,6 +396,15 @@ label.required:after {
   }
 }
 
+
+/* カレンダー設定 */
+.wday-0 a {
+  color: red !important;
+}
+.wday-6 a {
+   color: blue;
+} 
+
 /* デバッグ用 */
 .debug_dump {
   clear: both;
