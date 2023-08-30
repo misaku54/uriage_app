@@ -5,8 +5,8 @@
 
     <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
   </div>
-
-  <table class="table">
+  <div class="table-responsive">
+  <table class="table text-nowrap">
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
@@ -31,4 +31,5 @@
       <% end %>
     </tbody>
   </table>
+  </div>
 </div>
