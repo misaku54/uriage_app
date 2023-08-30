@@ -6,6 +6,9 @@ class CsvExportConstraint
 end
 
 Rails.application.routes.draw do
+  get 'events/new'
+  get 'events/show'
+  get 'events/edit'
   get    'sessions/new'
   root   'static_pages#home'
   get    '/login',   to: 'sessions#new'
