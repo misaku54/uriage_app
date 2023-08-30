@@ -2,8 +2,9 @@
   <div class="card-body p-4">
     <% if @events.present? %>
       <%= month_calendar events: @events do |date, events| %>
-        <%= date.day %>
-
+        <div class="day">
+          <%= date %>
+        </div>
         <% events.each do |event| %>
           <div>
             <%# <%= link_to blog.title, events %> %>
@@ -12,7 +13,9 @@
       <% end %>
     <% else %>
       <%= month_calendar do |date| %>
-        <%= date.day %>
+        <div class="day">
+          <%= date %>
+        </div>
       <% end %>
     <% end %>
   </div>
