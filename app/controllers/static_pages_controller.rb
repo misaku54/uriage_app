@@ -14,7 +14,7 @@ class StaticPagesController < ApplicationController
     # 売上合計額の取得
     @sales_total_amount = sales.sum(:amount_sold)
     # @events = user.events
-    @events = Event.where(start_time: Time.zone.now.beginning_of_month.beginning_of_week..
-    Time.zone.now.end_of_month.end_of_week)
+    @events = Event.where(start_time: Time.now.beginning_of_month.beginning_of_week..
+    Time.now.end_of_month.end_of_week)
   end
 end
