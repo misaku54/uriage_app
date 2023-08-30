@@ -10,6 +10,10 @@ class EventsController < ApplicationController
     @event = @user.events.find(params[:id])
   end
 
+  def edit
+    @event = @user.events.find(params[:id])
+  end
+
   def create
     @event = @user.events.build(event_params)
     if @event.save
@@ -20,13 +24,19 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @event = @user.events.find(params[:id])
     if @event.update(event_params)
       flash[:success] == '更新しました。'
       redirect_to root_url, status: :see_other
     else
-      
+      render 'edit', status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @user.events.find(params[:id]).destroy
+    flash[:success] = '削除しました。'
+    redirect_to root_url, status: :see_other
   end
 end
