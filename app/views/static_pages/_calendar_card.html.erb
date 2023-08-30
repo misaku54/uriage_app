@@ -1,18 +1,14 @@
 <div class="card shadow-sm mb-3">
   <div class="card-body p-4">
   <h6 class="flex-grow-1">スケジュール</h6>
+  <%= turbo_frame_tag 'calendar' do %>
     <% if @events.present? %>
       <%= week_calendar events: @events do |date, events| %>
         <div class="day">
           <%= date.day %>
         </div>
         <% events.each do |event| %>
-          <div class="card-header">
-            <small><%= event.title %></small>
-          </div>
-          <div class="card-body">
-            <small><%= event.title %></small>
-          </div>
+            <div><small><%= event.title %></small></div>
         <% end %>
       <% end %>
     <% else %>
@@ -22,5 +18,6 @@
         </div>
       <% end %>
     <% end %>
+  <% end %>
   </div>
 </div>
