@@ -6,18 +6,16 @@ class CsvExportConstraint
 end
 
 Rails.application.routes.draw do
-  get 'events/new'
-  get 'events/show'
-  get 'events/edit'
-  get    'sessions/new'
   root   'static_pages#home'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  
   namespace :admin do
     resources :users, expect: :new
     get    '/signup',  to: 'users#new'
   end
+
   resources :users, only: [:show]  do
     resources :makers, except: :show do
       collection do
@@ -25,18 +23,23 @@ Rails.application.routes.draw do
         get :search
       end
     end
+
     resources :producttypes, except: :show do
       collection do
         get :search, action: :export_csv, constraints: CsvExportConstraint
         get :search
       end
     end
+
     resources :sales do
       collection do
         get :search, action: :export_csv, constraints: CsvExportConstraint
         get :search
       end
     end
+
+    resources :events, except: :index
+
     get '/monthly_aggregate', to: 'aggregates#monthly_aggregate'
     get '/monthly_search', to: 'aggregates#monthly_search'
     get '/yearly_aggregate', to: 'aggregates#yearly_aggregate'
