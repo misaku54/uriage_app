@@ -68,6 +68,23 @@
     </div>
   </div>
 <% end %>
-<div id="date"></div>
-<div id="time"></div>
+<div class="card shadow-sm mb-3">
+  <div class="card-body p-4">
+    <% if @events.present? %>
+      <%= month_calendar events: @events do |date, events| %>
+        <%= date.day %>
+
+        <% events.each do |event| %>
+          <div>
+            <%# <%= link_to blog.title, events %> %>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= month_calendar do |date| %>
+        <%= date.day %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 

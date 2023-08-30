@@ -350,7 +350,7 @@ DEPENDENCIES
   sass-rails
   sassc-rails
   selenium-webdriver
-  simple_calendar (~> 2.0)
+  simple_calendar (~> 2.4)
   sprockets-rails
   stimulus-rails
   turbo-rails
