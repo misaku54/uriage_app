@@ -20,6 +20,7 @@ ja:
       producttype: 商品分類
       sale: 売上
       weather_forecast: 天気予報
+      event: イベント
     attributes:
       user:
         id: ユーザーID
@@ -56,6 +57,13 @@ ja:
         temp_max: 最高気温
         temp_min: 最低気温
         rainfall_sum: 降水量
+      event:
+        id: ID
+        title: タイトル
+        start_time: 開始時刻
+        end_time: 終了時刻
+        created_at: 登録日
+        updated_at: 更新日
   activemodel:
     attributes:
       search_form:
@@ -238,3 +246,6 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  simple_calendar:
+    previous: 先週
+    next: 来週
