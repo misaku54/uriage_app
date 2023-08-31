@@ -40,8 +40,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <%= button_to '削除', user_event_path(@user, event), class: "btn btn-danger btn-sm", method: :delete, data: { turbo: :false } %>
-        <%= link_to '編集', edit_user_event_path(@user, event), class: "btn btn-primary btn-sm col-6 col-sm-2", data: { turbo: false } %>
+          <%= button_to '削除', user_event_path(@user, event), class: "btn btn-danger btn-sm", method: :delete, data: { turbo: :false } %>
+          <%= link_to '編集', edit_user_event_path(@user, event), class: "btn btn-primary btn-sm", data: { turbo: false } %>
       </div>
     </div>
   </div>
