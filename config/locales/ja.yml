@@ -251,5 +251,5 @@ ja:
       cal_short: "%H:%M"
     pm: 午後
   simple_calendar:
-    previous: 先週
-    next: 来週
+    previous: "<<"
+    next: ">>"
