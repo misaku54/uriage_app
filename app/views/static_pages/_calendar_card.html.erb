@@ -4,23 +4,49 @@
   <%= turbo_frame_tag 'calendar' do %>
     <% if @events.present? %>
       <%= week_calendar events: @events do |date, events| %>
-        <div class="day d-flex justify-content-between align-items-center">
+        <div class="day-event d-flex justify-content-between align-items-center mb-1">
           <%= date.day %>
-          <%= link_to new_user_event_path(@user, default_date: date), class: "btn btn-sm btn-outline-primary fs9", data: { turbo: false }  do %>
+          <%= link_to new_user_event_path(@user, default_date: date), class: "btn btn-sm btn-outline-primary", data: { turbo: false }  do %>
             <i class="fa-solid fa-plus"></i>
           <% end %>
         </div>
         <% events.each do |event| %>
+          <div class="card-body p-2 bg-light mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div><small><%= l event.start_time, format: :cal_short %> - <%= l event.end_time, format: :cal_short %></small></div>
             <div><small><%= event.title %></small></div>
+          </div>
         <% end %>
       <% end %>
     <% else %>
       <%= week_calendar do |date| %>
-        <div class="day">
+        <div class="day-event">
           <%= date.day %>
         </div>
       <% end %>
     <% end %>
   <% end %>
+  </div>
+</div>
+<!-- Button trigger modal -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>

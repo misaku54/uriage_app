@@ -445,9 +445,9 @@ label.required:after {
     border-left-width: 1px;
   }
 
-  // .day {
-  //   margin-bottom: .5rem;
-  // }
+  .day {
+    margin-bottom: .5rem;
+  }
 
   .today {
     background: #ffffc0;
@@ -469,6 +469,11 @@ label.required:after {
     color: blue; 
   }
 }
+
+.modal-open {
+  padding-right: 0px !important;
+}
+
 /* デバッグ用 */
 .debug_dump {
   clear: both;
