@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get    '/signup',  to: 'users#new'
   end
 
-  resources :users, only: [:show]  do
+  resources :users, only: :show  do
     resources :makers, except: :show do
       collection do
         get :search, action: :export_csv, constraints: CsvExportConstraint
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :events, except: :index
+    resources :events, except: %i[index show]
 
     get '/monthly_aggregate', to: 'aggregates#monthly_aggregate'
     get '/monthly_search', to: 'aggregates#monthly_search'
