@@ -60,6 +60,7 @@ ja:
       event:
         id: ID
         title: タイトル
+        content: 内容
         start_time: 開始時刻
         end_time: 終了時刻
         created_at: 登録日
@@ -245,6 +246,8 @@ ja:
       default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
+      cal_title: "%Y年%m月%d日(%a)"
+      cal_long: "%Y年%m月%d日(%a) %H時%M分"
       cal_short: "%H:%M"
     pm: 午後
   simple_calendar:
