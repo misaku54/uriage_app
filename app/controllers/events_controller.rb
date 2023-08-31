@@ -29,7 +29,7 @@ class EventsController < ApplicationController
   def update
     @event = @user.events.find(params[:id])
     if @event.update(event_params)
-      flash[:success] == '更新しました。'
+      flash[:success] = '更新しました。'
       redirect_to root_url, status: :see_other
     else
       render 'edit', status: :unprocessable_entity
