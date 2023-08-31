@@ -4,16 +4,21 @@
   <%= turbo_frame_tag 'calendar' do %>
     <% if @events.present? %>
       <%= week_calendar events: @events do |date, events| %>
-        <div class="day-event d-flex justify-content-between align-items-center mb-1">
+        <div class="d-flex justify-content-between align-items-center mb-1">
           <%= date.day %>
           <%= link_to new_user_event_path(@user, default_date: date), class: "btn btn-sm btn-outline-primary", data: { turbo: false }  do %>
             <i class="fa-solid fa-plus"></i>
           <% end %>
         </div>
+        <% if HolidayJp.holiday?(date)  %>
+          <div class="holiday card-body text-white border p-2 mb-1">
+            <div><%= get_holiday(date) %></div>
+          </div>
+        <% end %>
         <% events.each do |event| %>
-          <div class="cal-card card-body border p-2 bg-light mb-1" data-bs-toggle="modal" data-bs-target="#eventModal-<%= event.id %>">
-            <div class="cal-time"><%= l event.start_time, format: :cal_short %> - <%= l event.end_time, format: :cal_short %></div>
-            <div class="cal-title"><%= event.title %></div>
+          <div class="event card-body border p-2 mb-1" data-bs-toggle="modal" data-bs-target="#eventModal-<%= event.id %>">
+            <div><%= l event.start_time, format: :cal_short %> - <%= l event.end_time, format: :cal_short %></div>
+            <div><%= event.title %></div>
           </div>
           <%= render 'modal', event: event, date: date %>
         <% end %>
