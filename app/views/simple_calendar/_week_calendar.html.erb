@@ -7,7 +7,7 @@
   </div>
   <div class="table-responsive">
   <table class="table text-nowrap">
-    <thead>
+    <thead class="text-white" style="background-color: <%= make_color%>;">
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
           <th><%= t('date.abbr_day_names')[day.wday] %></th>

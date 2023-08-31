@@ -4,8 +4,11 @@
   <%= turbo_frame_tag 'calendar' do %>
     <% if @events.present? %>
       <%= week_calendar events: @events do |date, events| %>
-        <div class="day">
+        <div class="day d-flex justify-content-between align-items-center">
           <%= date.day %>
+          <%= link_to new_user_event_path(@user, key: date), class: "btn btn-sm btn-outline-primary fs9", data: { turbo: false }  do %>
+            <i class="fa-solid fa-plus"></i>
+          <% end %>
         </div>
         <% events.each do |event| %>
             <div><small><%= event.title %></small></div>
