@@ -12,8 +12,8 @@
         </div>
         <% events.each do |event| %>
           <div class="card-body p-2 bg-light mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div><small><%= l event.start_time, format: :cal_short %> - <%= l event.end_time, format: :cal_short %></small></div>
-            <div><small><%= event.title %></small></div>
+            <div class="cal-time"><%= l event.start_time, format: :cal_short %> - <%= l event.end_time, format: :cal_short %></div>
+            <div class="cal-title"><%= event.title %></div>
           </div>
           <%= render 'modal', event: event, date: date %>
         <% end %>
