@@ -17,7 +17,7 @@
         <% end %>
         <% events.each do |event| %>
           <div class="event card-body border p-2 mb-1" data-bs-toggle="modal" data-bs-target="#eventModal-<%= event.id %>">
-            <div><%= l event.start_time, format: :cal_short %> - <%= l event.end_time, format: :cal_short %></div>
+            <%= create_event_tag(event) %>
             <div><%= event.title %></div>
           </div>
           <%= render 'modal', event: event, date: date %>
