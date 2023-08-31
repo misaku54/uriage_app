@@ -468,7 +468,25 @@ label.required:after {
   .wday-6 {
     color: blue; 
   }
+
+  .cal-time,.cal-title {
+    font-size: 14px;
+  }
+  .cal-card {
+    cursor: pointer;
+    &:hover {
+      background-color: #a0fffd !important;
+    }
+  }
 }
+@media (max-width: 1066px) {
+  .simple-calendar {
+    .cal-card {
+      white-space: nowrap;
+    }
+  }
+}
+
 
 .modal-open {
   padding-right: 0px !important;
