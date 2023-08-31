@@ -26,21 +26,47 @@
       <div class="form_group row mx-sm-auto">
         <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
           <div class="col-form-label col-form-label-sm text-sm-center">
-            <%= f.label :start_time %>  <span class="badge bg-secondary">任意</span>
+            <%= f.label :start_time %>  <span class="badge bg-danger">必須</span>
           </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
-          <%= f.datetime_select :start_time, default: @default_date, class:"form-select form-select-sm" %>
+          <%= raw sprintf(
+          f.datetime_select(
+            :start_time,
+            { 
+              use_month_numbers: true,
+              end_year: Time.current.year,
+              default: @default_date,
+              date_separator: '%s',
+              datetime_separator: '%s',
+              time_separator: '%s'
+            },
+            { class:"form-select-sm created-select", required: true }
+          ),
+          '年 ', '月 ', '日 ', '時 ') + '分' %>
         </div>
       </div>
       <div class="form_group row mx-sm-auto mb-2">
         <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
           <div class="col-form-label col-form-label-sm text-sm-center">
-            <%= f.label :end_time %>  <span class="badge bg-secondary">任意</span>
+            <%= f.label :end_time %>  <span class="badge bg-danger">必須</span>
           </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
-          <%= f.datetime_select :end_time, default: @default_date, class:"form-select form-select-sm" %>
+          <%= raw sprintf(
+          f.datetime_select(
+            :end_time,
+            { 
+              use_month_numbers: true,
+              end_year: Time.current.year,
+              default: @default_date,
+              date_separator: '%s',
+              datetime_separator: '%s',
+              time_separator: '%s'
+            },
+            { class:"form-select-sm created-select", required: true }
+          ),
+          '年 ', '月 ', '日 ', '時 ') + '分' %>
         </div>
       </div>
       <div class="row mx-auto">
