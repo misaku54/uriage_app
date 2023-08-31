@@ -399,6 +399,9 @@ label.required:after {
 
 /* カレンダー設定 */
 .simple-calendar {
+  .calendar-heading{
+    font-size: 1rem;
+  }
   table {
     -webkit-border-horizontal-spacing: 0px;
     -webkit-border-vertical-spacing: 0px;
