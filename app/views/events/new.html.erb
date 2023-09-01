@@ -1,0 +1,9 @@
+<% provide(:title, 'カレンダー登録') %>
+<% provide(:button_text, 'カレンダー登録')%>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'ホーム', root_path, data: { turbo: false } %></li>
+    <li class="breadcrumb-item active" aria-current="page">カレンダー編集</li>
+  </ol>
+</nav>
+<%= render 'form', form_name: '登録フォーム', url: root_path %>

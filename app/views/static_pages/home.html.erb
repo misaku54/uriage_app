@@ -3,7 +3,19 @@
     <%= javascript_import_module_tag "static_pages/timer" %>
     <%= javascript_import_module_tag "static_pages/openMeteoApi" %>
   <% end %>
-  <%= render 'today_aggregate' %>
+  <div class="row d-flex">
+    <div class="col-sm-6 col-xl-4">
+      <%= render 'today_date_card' %>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+      <%= render 'today_total_card' %>
+    </div>
+    <div class="col-sm-12 col-xl-4">
+      <%= render 'today_weather_card' %>
+    </div>
+  </div>
+  <%= render 'calendar_card' %>
+  <%= render 'today_trend_card' %>
 <% else %>
   <div class="background d-flex align-items-center">
     <div class="home-content">

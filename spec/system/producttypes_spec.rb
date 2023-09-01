@@ -189,7 +189,7 @@ RSpec.describe "商品管理機能", type: :system do
             click_button '登録'
           }.to_not change(Producttype, :count)
           # エラーメッセージが表示されていること
-          expect(page).to have_selector 'div.alert.alert-danger'
+          expect(page).to have_selector '#error_explanation'
         end
       end
     end
@@ -228,7 +228,7 @@ RSpec.describe "商品管理機能", type: :system do
           # 更新前と値が変わっていないこと
           expect(producttype).to be producttype_before
           # エラーメッセージが表示されること
-          expect(page).to have_selector 'div.alert.alert-danger'
+          expect(page).to have_selector '#error_explanation'
         end
       end
     end

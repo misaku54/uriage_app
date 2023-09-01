@@ -19,6 +19,7 @@ gem 'holiday_jp'
 gem 'pry-rails'
 gem 'pry-byebug'
 gem 'whenever', require: false
+gem "simple_calendar", "~> 2.4"
 # gem 'pry-byebug', group: :development
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

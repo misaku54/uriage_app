@@ -244,7 +244,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           # エラーメッセージが表示されていること
           # renderの挙動を確認する方法がわからなかったため、have_selectorを使用
           expect(page).to have_selector 'li', text: 'ユーザー登録'
-          expect(page).to have_selector 'div.alert.alert-danger'
+          expect(page).to have_selector '#error_explanation'
         end
       end
     end
@@ -292,7 +292,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           # 更新前と値が変わっていないこと
           expect(user_a).to be user_before
           # エラーメッセージが表示されること
-          expect(page).to have_selector 'div.alert.alert-danger'
+          expect(page).to have_selector '#error_explanation'
         end
       end
     end

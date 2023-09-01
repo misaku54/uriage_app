@@ -1,0 +1,48 @@
+<div class="modal fade" id="eventModal-<%= event.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel"><%= l date.to_s.in_time_zone, format: :cal_title %>の予定</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form_group row mx-sm-auto mb-1">
+          <div class="col-4 col-sm-3">
+            <%= Event.human_attribute_name(:start_time) %>
+          </div>
+          <div class="col-8 col-sm-9">
+            <%= l event.start_time, format: :cal_long %>
+          </div>
+        </div>
+        <div class="form_group row mx-sm-auto mb-1">
+          <div class="col-4 col-sm-3">
+            <%= Event.human_attribute_name(:end_time) %>
+          </div>
+          <div class="col-8 col-sm-9">
+            <%= l event.end_time, format: :cal_long %>
+          </div>
+        </div>
+        <div class="form_group row mx-sm-auto mb-1">
+          <div class="col-4 col-sm-3">
+            <%= Event.human_attribute_name(:title) %>
+          </div>
+          <div class="col-8 col-sm-9">
+            <%= event.title %>
+          </div>
+        </div>
+        <div class="form_group row mx-sm-auto">
+          <div class="col-4 col-sm-3">
+            <%= Event.human_attribute_name(:content) %>
+          </div>
+          <div class="col-8 col-sm-9">
+            <%= simple_format(event.content) %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <%= button_to '削除', user_event_path(@user, event), method: :delete, data: { turbo: :false } , class: "btn btn-danger btn-sm", id: "delete-event#{event.id}" %>
+          <%= link_to '編集', edit_user_event_path(@user, event), data: { turbo: false }, class: "btn btn-primary btn-sm" %>
+      </div>
+    </div>
+  </div>
+</div>
