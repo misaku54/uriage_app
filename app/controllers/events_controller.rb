@@ -4,7 +4,7 @@ class EventsController < ApplicationController
 
   def new
     @event = @user.events.build
-    @default_date = params[:default_date].to_date
+    @default_date = params[:default_date]&.to_date
   end
 
   def edit
