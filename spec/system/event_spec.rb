@@ -76,7 +76,7 @@ RSpec.describe "カレンダー管理機能", type: :system do
         # ホーム画面へ遷移する
         visit root_path
         # カレンダーからイベントを登録したい日付をクリック
-        page.find("a[href='/users/#{login_user.id}/events/new?default_date=#{date}']").click
+        find("a[href='/users/#{login_user.id}/events/new?default_date=#{date}']").click
       end
 
       context 'イベントを有効な値で登録した場合' do
@@ -115,67 +115,66 @@ RSpec.describe "カレンダー管理機能", type: :system do
     end
 
 
-    # describe '編集機能' do
-    #   let(:login_user) { user_a }
+    describe '編集機能' do
+      let(:login_user) { user_a }
 
-    #   context 'メーカー名を有効な値で更新した場合' do
-    #     it '更新に成功する' do
-    #       visit edit_user_maker_path(login_user, maker)
-    #       fill_in 'maker[name]', with: 'updateメーカー'
-    #       click_button '更新'
+      before do
+        # ホーム画面へ遷移する
+        visit root_path
+        # カレンダーから編集したいイベントをクリック
+        find("a[href='/users/#{login_user.id}/events/#{event.id}/edit']").click
+      end
 
-    #       # 正しい値に更新されているか
-    #       maker.reload
-    #       expect(maker.name).to eq 'updateメーカー'
-    #       # 一覧画面へ遷移していること
-    #       expect(page).to have_current_path user_makers_path(login_user)
-    #       # 成功時のフラッシュが表示されていること
-    #       expect(page).to have_selector 'div.alert.alert-success'
-    #       # 更新したメーカーが表示されていること
-    #       expect(page).to have_content 'updateメーカー'
+      context 'イベントを有効な値で更新した場合' do
+        it '更新に成功する' do          
+          fill_in 'event[title]', with: 'updateイベント'
+          click_button 'カレンダー更新'
 
-    #       # 売上登録画面のセレクトボックスにメーカー名が反映されていること
-    #       visit new_user_sale_path(login_user)
-    #       expect(page).to have_content 'updateメーカー'
-    #     end
-    #   end
+          # 正しい値に更新されているか
+          event.reload
+          expect(event.title).to eq 'updateイベント'
+          # ホーム画面へ遷移していること
+          expect(page).to have_current_path root_path
+          # 成功時のフラッシュが表示されていること
+          expect(page).to have_selector 'div.alert.alert-success'
+          # 更新したメーカーが表示されていること
+          expect(page).to have_content 'updateイベント'
+        end
+      end
 
-    #   context 'メーカー名を無効な値で更新した場合' do
-    #     it '更新に失敗する' do
-    #       maker_before = maker
-    #       visit edit_user_maker_path(login_user, maker)
-    #       fill_in 'maker[name]', with: ''
-    #       click_button '更新'
-    #       maker.reload
-    #       # 更新前と値が変わっていないこと
-    #       expect(maker).to be maker_before
-    #       # エラーメッセージが表示されること
-    #       expect(page).to have_selector 'div.alert.alert-danger'
-    #     end
-    #   end
-    # end
+      context 'イベントを無効な値で更新した場合' do
+        it '更新に失敗する' do
+          event_before = event
+          fill_in 'event[title]', with: ''
+          click_button 'カレンダー更新'
+          event.reload
+          # 更新前と値が変わっていないこと
+          expect(event).to be event_before
+          # エラーメッセージが表示されること
+          expect(page).to have_selector '#error_explanation'
+        end
+      end
+    end
 
     
-    # describe '削除機能' do
-    #   let(:login_user) { user_a }
+    describe '削除機能' do
+      let(:login_user) { user_a }
 
-    #   context '一覧画面で削除ボタンをクリックした場合' do
-    #     it '削除に成功する' do
-    #       visit user_makers_path(login_user)
-    #       # DB上で削除されていること
-    #       expect {
-    #         find("a[href='/users/#{maker.user.id}/makers/#{maker.id}']").click
-    #       }.to change(Maker, :count).by(-1)
-    #       # 一覧画面へ遷移していること
-    #       expect(page).to have_current_path user_makers_path(login_user)
-    #       # 削除したメーカーが表示されていないこと
-    #       expect(page).to have_no_content 'メーカーA'
+      context '一覧画面で削除ボタンをクリックした場合' do
+        it '削除に成功する' do
+          # ホーム画面へ遷移する
+          visit root_path
 
-    #       # 売上登録画面のセレクトボックスからメーカー名が削除されていること
-    #       visit new_user_sale_path(login_user)
-    #       expect(page).to have_no_content 'メーカーA'
-    #     end
-    #   end
-    # end
+          # DB上で削除されていること
+          expect {
+            find("button#delete-event#{event.id}").click
+          }.to change(Event, :count).by(-1)
+          # ホーム画面へ遷移していること
+          expect(page).to have_current_path root_path
+          # 削除したメーカーが表示されていないこと
+          expect(page).to have_no_content 'イベント'
+        end
+      end
+    end
   end
 end

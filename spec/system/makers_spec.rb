@@ -188,7 +188,7 @@ RSpec.describe "メーカー管理機能", type: :system do
             click_button '登録'
           }.to_not change(Maker, :count)
           # エラーメッセージが表示されていること
-          expect(page).to have_selector 'div.alert.alert-danger'
+          expect(page).to have_selector '#error_explanation'
         end
       end
     end
@@ -229,7 +229,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           # 更新前と値が変わっていないこと
           expect(maker).to be maker_before
           # エラーメッセージが表示されること
-          expect(page).to have_selector 'div.alert.alert-danger'
+          expect(page).to have_selector '#error_explanation'
         end
       end
     end
