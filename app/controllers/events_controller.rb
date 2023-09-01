@@ -8,10 +8,6 @@ class EventsController < ApplicationController
     @default_date = params[:default_date].to_date
   end
 
-  def show
-    @event = @user.events.find(params[:id])
-  end
-
   def edit
     @event = @user.events.find(params[:id])
   end
