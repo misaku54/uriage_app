@@ -47,22 +47,22 @@
       </div>
       <div class="form_group row mx-sm-auto mb-2">
         <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
-              <div class="col-form-label col-form-label-sm text-sm-center">登録日時  <span class="badge bg-danger">必須</span></div>
+          <div class="col-form-label col-form-label-sm text-sm-center">登録日時  <span class="badge bg-danger">必須</span></div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
-              <%= raw sprintf(
-              f.datetime_select(
-                :created_at,
-                { 
-                  use_month_numbers: true,
-                  end_year: Time.current.year,
-                  date_separator: '%s',
-                  datetime_separator: '%s',
-                  time_separator: '%s'
-                },
-                { class:"form-select-sm created-select", required: true }
-              ),
-              '年 ', '月 ', '日 ', '時 ') + '分' %>
+          <%= raw sprintf(
+          f.datetime_select(
+            :created_at,
+            { 
+              use_month_numbers: true,
+              end_year: Time.current.year,
+              date_separator: '%s',
+              datetime_separator: '%s',
+              time_separator: '%s'
+            },
+            { class:"form-select-sm created-select", required: true }
+          ),
+          '年 ', '月 ', '日 ', '時 ') + '分' %>
         </div>
       </div>  
       <div class="row mx-auto">
