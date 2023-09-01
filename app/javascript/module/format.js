@@ -11,4 +11,7 @@ export const getDateString = date =>
 export const getTimeString = date =>
   `${zeroPadding(date.getHours())}:${zeroPadding(date.getMinutes())}:${zeroPadding(date.getSeconds())}`;
 
+  // データオブジェクトを「yyyy-mm-dd」へ整形
+export const getDateStringShort = date => 
+  `${zeroPadding(date.getFullYear())}-${zeroPadding(date.getMonth() + 1)}-${zeroPadding(date.getDate())}`;
 
