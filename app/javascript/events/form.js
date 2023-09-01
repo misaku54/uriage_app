@@ -1,24 +1,24 @@
-import { showErrorMessage } from '../form/validation';
-import { checkLength } from '../form/validation';
-import { checkTime } from '../form/validation';
+import { showErrorMessage, checkLength, checkTime } from '../form/validation';
 
 document.addEventListener('turbo:load', () => {
-  // input textareaのイベント設定
   const inputs = document.querySelectorAll('#event_title,#event_content');
+  const selects = document.querySelectorAll('select');
+  
+  // input textareaのイベント設定
   inputs.forEach((input) => {
     input.addEventListener('blur', () => {
       if(input.hasAttribute('required') && input.value.trim() === '') {
         showErrorMessage(input, '※必須項目です。','input');
-      }
-    })
+      };
+    });
+    
     input.addEventListener('input', () => {
       input.name === 'event[title]' && checkLength('タイトル', 30, input);
       input.name === 'event[content]' && checkLength('内容', 1000, input);
-    })
-  })
+    });
+  });
 
   // selectのイベント設定
-  const selects = document.querySelectorAll('select');
   selects.forEach((select) => {
     select.addEventListener('change', () => {
       const startSelects = document.querySelectorAll('select[name^="event[start_time"]');
@@ -38,6 +38,6 @@ document.addEventListener('turbo:load', () => {
       const endTime = new Date(...dateAry);
 
       checkTime(startTime, endTime, parent);
-    })
-  })
-})
+    });
+  });
+});

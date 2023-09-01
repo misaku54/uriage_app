@@ -19,7 +19,7 @@ export const showErrorMessage = (target, message ,type) => {
     default:
       throw 'argument error';
   }
-}
+};
 
 // バリデーションエラーの削除
 export const removeErrorMessage = (target, type) => {
@@ -39,7 +39,7 @@ export const removeErrorMessage = (target, type) => {
     default:
       throw 'argument error';
   }
-}
+};
 
 // 桁数チェック
 export const checkLength = (labelName, maxLength, input) => {
@@ -48,7 +48,7 @@ export const checkLength = (labelName, maxLength, input) => {
   }else{
     removeErrorMessage(input, 'input');
   }
-}
+};
 
 // 数値の有効チェック
 export const checkNumber = (labelName, input) => {
@@ -59,7 +59,7 @@ export const checkNumber = (labelName, input) => {
   }else{
     removeErrorMessage(input, 'input');
   }
-}
+};
 
 // 日付の未来日チェック
 export const checkFuture = (labelName, date, input) => {
@@ -69,7 +69,7 @@ export const checkFuture = (labelName, date, input) => {
   }else{
     removeErrorMessage(input, 'select');
   }
-}
+};
 
 // 開始時刻と終了時刻の矛盾チェック
 export const checkTime = (startTime, endTime, parent) => {
@@ -78,58 +78,4 @@ export const checkTime = (startTime, endTime, parent) => {
   }else{
     removeErrorMessage(parent, 'select');
   }
-}
-
-// 実行部---------------------------------------------------------
-// input系のバリデーションイベント
-// const inputSelector = document.querySelectorAll('.input');
-// if(inputSelector.length) {
-//   for (const input of inputSelector) {
-//     input.addEventListener('blur', () => {
-//       if(input.hasAttribute('required') && input.value.trim() === ''){
-//         showErrorMessage(input, '※必須項目です。','input');
-//       }
-//     });
-
-//     input.addEventListener('input', () => {
-//       input.name === 'maker[name]' && checkLength('メーカー名', 30, input);
-//       input.name === 'producttype[name]' && checkLength('商品分類名', 30, input);
-//       input.name === 'sale[remark]' && checkLength('備考', 1000, input);
-//       input.name === 'sale[amount_sold]' && checkNumber('販売価格', input);
-//     });
-//   }
-// }
-
-// slimselectのバリデーションイベント
-const slimSelector = document.querySelectorAll('.slim-select');
-if(slimSelector.length) {
-  for (const select of slimSelector) {
-    const parent = select.parentElement;
-
-    select.addEventListener('change', () => {
-      if(select.options[0].selected === true){
-        showErrorMessage(parent, '※必須項目です。', 'select');
-      }else{
-        removeErrorMessage(parent, 'select');
-      }
-    })
-  }
-}
-
-// date_selectのバリデーションイベント
-// const createdSelector = document.querySelectorAll('.created-select')
-// if(createdSelector.length){
-//   const parent = createdSelector[0].parentElement;
-//   console.log('aasdasd')
-//   for (const select of createdSelector) {
-//     select.addEventListener('change', () => {
-//       const dateAry = [];
-
-//       createdSelector.forEach((element, index) => 
-//         (index === 1) ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value));
-
-//       const selectDate = new Date(...dateAry);
-//       checkFuture('登録日時', selectDate, parent);
-//     })
-//   }
-// }
+};
