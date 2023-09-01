@@ -1,6 +1,6 @@
-import { showErrorMessage } from '../form/validation'
-import { checkLength } from '../form/validation'
-import { checkTime } from '../form/validation'
+import { showErrorMessage } from '../form/validation';
+import { checkLength } from '../form/validation';
+import { checkTime } from '../form/validation';
 
 document.addEventListener('turbo:load', () => {
   // input textareaのイベント設定

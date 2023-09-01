@@ -82,23 +82,23 @@ export const checkTime = (startTime, endTime, parent) => {
 
 // 実行部---------------------------------------------------------
 // input系のバリデーションイベント
-const inputSelector = document.querySelectorAll('.input');
-if(inputSelector.length) {
-  for (const input of inputSelector) {
-    input.addEventListener('blur', () => {
-      if(input.hasAttribute('required') && input.value.trim() === ''){
-        showErrorMessage(input, '※必須項目です。','input');
-      }
-    });
+// const inputSelector = document.querySelectorAll('.input');
+// if(inputSelector.length) {
+//   for (const input of inputSelector) {
+//     input.addEventListener('blur', () => {
+//       if(input.hasAttribute('required') && input.value.trim() === ''){
+//         showErrorMessage(input, '※必須項目です。','input');
+//       }
+//     });
 
-    input.addEventListener('input', () => {
-      input.name === 'maker[name]' && checkLength('メーカー名', 30, input);
-      input.name === 'producttype[name]' && checkLength('商品分類名', 30, input);
-      input.name === 'sale[remark]' && checkLength('備考', 1000, input);
-      input.name === 'sale[amount_sold]' && checkNumber('販売価格', input);
-    });
-  }
-}
+//     input.addEventListener('input', () => {
+//       input.name === 'maker[name]' && checkLength('メーカー名', 30, input);
+//       input.name === 'producttype[name]' && checkLength('商品分類名', 30, input);
+//       input.name === 'sale[remark]' && checkLength('備考', 1000, input);
+//       input.name === 'sale[amount_sold]' && checkNumber('販売価格', input);
+//     });
+//   }
+// }
 
 // slimselectのバリデーションイベント
 const slimSelector = document.querySelectorAll('.slim-select');
