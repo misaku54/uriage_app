@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 p-sm-2">
-          <%= f.text_field :title, class: "form-control form-control-sm" %>
+          <%= f.text_field :title, class: "form-control form-control-sm", required: true %>
         </div>
       </div>
       <div class="form_group row mx-sm-auto">
@@ -41,7 +41,7 @@
               datetime_separator: '%s',
               time_separator: '%s'
             },
-            { class:"form-select-sm created-select", required: true }
+            { class:"form-select-sm", required: true }
           ),
           '年 ', '月 ', '日 ', '時 ') + '分' %>
         </div>
@@ -64,7 +64,7 @@
               datetime_separator: '%s',
               time_separator: '%s'
             },
-            { class:"form-select-sm created-select", required: true }
+            { class:"form-select-sm", required: true }
           ),
           '年 ', '月 ', '日 ', '時 ') + '分' %>
         </div>

@@ -1,6 +1,6 @@
 // 関数部---------------------------------------------------------
 // バリデーションエラーの表示
-const showErrorMessage = (target, message ,type) => {
+export const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('div');
   errorMessage.textContent = message;
   errorMessage.classList.add('invalid');
@@ -11,44 +11,38 @@ const showErrorMessage = (target, message ,type) => {
         target.insertAdjacentElement('afterend', errorMessage);
       }
       break;
-      
     case "select":
       if(!target.lastElementChild.classList.contains('invalid')){
         target.insertAdjacentElement('beforeend', errorMessage);
       }
       break;
-
     default:
       throw 'argument error';
   }
 }
 
 // バリデーションエラーの削除
-const removeErrorMessage = (target, type) => {
+export const removeErrorMessage = (target, type) => {
   switch(type) {
     case 'input':
       const error = target.nextElementSibling;
-
       if(error) {
         error.remove();
       }
       break;
-
     case 'select':
       const selectError = target.lastElementChild;
-      
       if(selectError.classList.contains('invalid')) {
         selectError.remove();
       }
       break;
-
     default:
       throw 'argument error';
   }
 }
 
 // 桁数チェック
-const checkLength = (labelName, maxLength, input) => {
+export const checkLength = (labelName, maxLength, input) => {
   if(input.value.length > maxLength) {
     showErrorMessage(input, `※${labelName}は、${maxLength}文字以内にしてください`, 'input')
   }else{
@@ -57,7 +51,7 @@ const checkLength = (labelName, maxLength, input) => {
 }
 
 // 数値の有効チェック
-const checkNumber = (labelName, input) => {
+export const checkNumber = (labelName, input) => {
   // const regex = /^[1-9][0-9]+/;
   // const result = input.value.match(regex)
   if(input.value && input.value <= 0){
@@ -67,8 +61,8 @@ const checkNumber = (labelName, input) => {
   }
 }
 
-// 日付の有効チェック
-const checkDate = (labelName, date, input) => {
+// 日付の未来日チェック
+export const checkFuture = (labelName, date, input) => {
   const now = new Date();
   if(date > now){
     showErrorMessage(input, `※${labelName}に、未来日は設定できません。`, 'select');
@@ -77,6 +71,14 @@ const checkDate = (labelName, date, input) => {
   }
 }
 
+// 開始時刻と終了時刻の矛盾チェック
+export const checkTime = (startTime, endTime, parent) => {
+  if(startTime > endTime){
+    showErrorMessage(parent, `※終了時刻は開始時刻より前の日を設定することはできません。`, 'select');
+  }else{
+    removeErrorMessage(parent, 'select');
+  }
+}
 
 // 実行部---------------------------------------------------------
 // input系のバリデーションイベント
@@ -115,19 +117,19 @@ if(slimSelector.length) {
 }
 
 // date_selectのバリデーションイベント
-const createdSelector = document.querySelectorAll('.created-select')
-if(createdSelector.length){
-  const parent = createdSelector[0].parentElement;
+// const createdSelector = document.querySelectorAll('.created-select')
+// if(createdSelector.length){
+//   const parent = createdSelector[0].parentElement;
+//   console.log('aasdasd')
+//   for (const select of createdSelector) {
+//     select.addEventListener('change', () => {
+//       const dateAry = [];
 
-  for (const select of createdSelector) {
-    select.addEventListener('change', () => {
-      const dateAry = [];
+//       createdSelector.forEach((element, index) => 
+//         (index === 1) ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value));
 
-      createdSelector.forEach((element, index) => 
-        (index === 1) ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value));
-
-      const selectDate = new Date(...dateAry);
-      checkDate('登録日時', selectDate, parent);
-    })
-  }
-}
+//       const selectDate = new Date(...dateAry);
+//       checkFuture('登録日時', selectDate, parent);
+//     })
+//   }
+// }

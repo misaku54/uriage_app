@@ -1,3 +1,6 @@
+<% content_for :js do %>
+  <%= javascript_import_module_tag "events/form" %>
+<% end %>
 <% provide(:title, 'カレンダー編集') %>
 <% provide(:button_text, 'カレンダー更新') %>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">
