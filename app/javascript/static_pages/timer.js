@@ -1,13 +1,4 @@
-// dateオブジェクト整形用の変数と関数
-export const zeroPadding = n => ( n < 10 ) ? '0' + n.toString() : n.toString();
-const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
-
-const getDateString = date => 
-  `${zeroPadding(date.getFullYear())}年${zeroPadding(date.getMonth() + 1)}月${zeroPadding(date.getDate())}日(${dayOfWeek[date.getDay()]})`;
-
-const getTimeString = date =>
-  `${zeroPadding(date.getHours())}:${zeroPadding(date.getMinutes())}:${zeroPadding(date.getSeconds())}`;
-
+import { getDateString, getTimeString } from '../module/format'
 document.addEventListener('turbo:load', () => {
   const dateDiv = document.getElementById('date');
   const timeDiv = document.getElementById('time');

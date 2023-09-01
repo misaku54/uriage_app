@@ -1,4 +1,4 @@
-import { showErrorMessage, checkLength } from '../form/validation';
+import { showErrorMessage, checkLength } from '../module/validation';
 
 document.addEventListener('turbo:load', () => {
   const input = document.querySelector('#maker_name');
@@ -9,7 +9,7 @@ document.addEventListener('turbo:load', () => {
       showErrorMessage(input, '※必須項目です。','input');
     };
   });
-  
+
   input.addEventListener('input', () => {
     checkLength('メーカー名', 30, input);
   });

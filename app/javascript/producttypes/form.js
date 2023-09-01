@@ -1,4 +1,4 @@
-import { showErrorMessage, checkLength } from '../form/validation';
+import { showErrorMessage, checkLength } from '../module/validation';
 
 document.addEventListener('turbo:load', () => {
   const input = document.querySelector('#producttype_name');

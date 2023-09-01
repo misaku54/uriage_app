@@ -1,4 +1,4 @@
-import  { zeroPadding } from './timer.js'
+import  { zeroPadding } from '../module/format'
 // グローバルスコープ
 const currTempDiv    = document.querySelector('#current-temperature');
 const currWeatherDiv = document.querySelector('#current-weather');

@@ -1,4 +1,3 @@
-// 関数部---------------------------------------------------------
 // バリデーションエラーの表示
 export const showErrorMessage = (target, message ,type) => {
   const errorMessage = document.createElement('div');

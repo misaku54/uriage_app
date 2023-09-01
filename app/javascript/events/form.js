@@ -1,4 +1,4 @@
-import { showErrorMessage, checkLength, checkTime } from '../form/validation';
+import { showErrorMessage, checkLength, checkTime } from '../module/validation';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('#event_title,#event_content');
@@ -11,7 +11,7 @@ document.addEventListener('turbo:load', () => {
         showErrorMessage(input, '※必須項目です。','input');
       };
     });
-    
+
     input.addEventListener('input', () => {
       input.name === 'event[title]' && checkLength('タイトル', 30, input);
       input.name === 'event[content]' && checkLength('内容', 1000, input);

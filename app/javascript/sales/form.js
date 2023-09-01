@@ -1,4 +1,4 @@
-import { showErrorMessage, removeErrorMessage, checkLength, checkNumber, checkFuture } from '../form/validation';
+import { showErrorMessage, removeErrorMessage, checkLength, checkNumber, checkFuture } from '../module/validation';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('#sale_amount_sold,#sale_remark');
