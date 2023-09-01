@@ -1,14 +1,10 @@
-import  { zeroPadding } from './timer.js'
-// グローバルスコープ
+import  { getDateStringShort } from '../module/format'
+
 const currTempDiv    = document.querySelector('#current-temperature');
 const currWeatherDiv = document.querySelector('#current-weather');
 const currRainSpan   = document.querySelector('#current-rainfall');
 const maxTempSpan    = document.querySelector('#max-temperature');
 const minTempSpan    = document.querySelector('#min-temperature');
-
-// dateオブジェクト整形用の関数
-const getDateSting = date => 
-  `${zeroPadding(date.getFullYear())}-${zeroPadding(date.getMonth() + 1)}-${zeroPadding(date.getDate())}`;
 
 // 天気情報の取得
 const getWeather = code => {
@@ -30,7 +26,7 @@ const getWeather = code => {
 // weatherAPI呼び出し 
 const callApi = async () => {
   const now = new Date()
-  const today = getDateSting(now);
+  const today = getDateStringShort(now);
   const hour = now.getHours();
   // API取得
   try {
