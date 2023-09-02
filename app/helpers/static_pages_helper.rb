@@ -7,6 +7,7 @@ module StaticPagesHelper
     start_date_time = l(obj.start_time, format: :short)
     end_date_time   = l(obj.end_time, format: :short)
 
+    # 日を跨ぐイベントの場合、日付も表示する。またがない場合は時間のみ表示する。
     return tag.div("#{start_date_time} - #{end_date_time}") unless start_date == end_date
     tag.div("#{start_time} - #{end_time}")
   end
