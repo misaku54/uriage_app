@@ -2,32 +2,24 @@
   <div class="card-body p-4">
   <h6 class="flex-grow-1">スケジュール</h6>
   <%= turbo_frame_tag 'calendar' do %>
-    <% if @events.present? %>
-      <%= week_calendar events: @events do |date, events| %>
-        <div class="d-flex justify-content-between align-items-center mb-1">
-          <%= date.day %>
-          <%= link_to new_user_event_path(@user, default_date: date), class: "btn btn-sm btn-outline-primary", data: { turbo: false }  do %>
-            <i class="fa-solid fa-plus"></i>
-          <% end %>
+    <%= week_calendar events: @events do |date, events| %>
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <%= date.day %>
+        <%= link_to new_user_event_path(@user, default_date: date), class: "btn btn-sm btn-outline-primary", data: { turbo: false }  do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
+      <% if HolidayJp.holiday?(date)  %>
+        <div class="holiday card-body text-white border p-2 mb-1">
+          <div><%= get_holiday(date) %></div>
         </div>
-        <% if HolidayJp.holiday?(date)  %>
-          <div class="holiday card-body text-white border p-2 mb-1">
-            <div><%= get_holiday(date) %></div>
-          </div>
-        <% end %>
-        <% events.each do |event| %>
-          <div class="event card-body border p-2 mb-1" data-bs-toggle="modal" data-bs-target="#eventModal-<%= event.id %>">
-            <%= create_event_tag(event) %>
-            <div><%= event.title %></div>
-          </div>
-          <%= render 'modal', event: event, date: date %>
-        <% end %>
       <% end %>
-    <% else %>
-      <%= week_calendar do |date| %>
-        <div class="day-event">
-          <%= date.day %>
+      <% events.each do |event| %>
+        <div class="event card-body border p-2 mb-1" data-bs-toggle="modal" data-bs-target="#eventModal-<%= event.id %>">
+          <%= create_event_tag(event) %>
+          <div><%= event.title %></div>
         </div>
+        <%= render 'modal', event: event, date: date %>
       <% end %>
     <% end %>
   <% end %>
