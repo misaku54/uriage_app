@@ -1,6 +1,7 @@
 class ProducttypesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
+  before_action :set_producttype, only: %i[edit update destroy]
   before_action :set_search_query, only: %i[index search export_csv]
   MAX_DISPLAY_COUNT = 10
 
@@ -22,9 +23,7 @@ class ProducttypesController < ApplicationController
     @producttype = @user.producttypes.build
   end
 
-  def edit
-    @producttype = @user.producttypes.find(params[:id])
-  end
+  def edit; end
 
   def create
     @producttype = @user.producttypes.build(producttype_params)
@@ -37,7 +36,6 @@ class ProducttypesController < ApplicationController
   end
 
   def update
-    @producttype = @user.producttypes.find(params[:id])
     if @producttype.update(producttype_params)
       flash[:success] = '更新しました。'
       redirect_to user_producttypes_path(@user)
@@ -47,7 +45,7 @@ class ProducttypesController < ApplicationController
   end
 
   def destroy
-    @user.producttypes.find(params[:id]).destroy
+    @producttype.destroy
     flash[:success] = '削除しました。'
     redirect_to user_producttypes_path(@user), status: :see_other
   end
@@ -57,6 +55,10 @@ class ProducttypesController < ApplicationController
   # ストロングパラメータ
   def producttype_params
     params.require(:producttype).permit(:name)
+  end
+
+  def set_producttype
+    @producttype = @user.producttypes.find(params[:id])
   end
 
   def set_search_query
