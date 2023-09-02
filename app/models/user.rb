@@ -65,12 +65,12 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  # 1時間ごとの売上合計額の取得
+  # 受け取った日付の1時間ごとの売上合計額の取得
   def hourly_sales_sum(date)
     self.sales.group_by_hour(:created_at, range: date.all_day).sum(:amount_sold)
   end
 
-  # 売上合計額の取得
+  # 受け取った日付の売上合計額の取得
   def sales_sum(date)
     self.sales.where(created_at: date.all_day).sum(:amount_sold)
   end
