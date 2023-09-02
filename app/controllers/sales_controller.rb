@@ -61,6 +61,7 @@ class SalesController < ApplicationController
   def set_sale
     @sale = @user.sales.find(params[:id])
   end
+  
   def set_search_query
     @q = @user.sales.includes(:maker, :producttype, :weather).ransack(params[:q])
   end
