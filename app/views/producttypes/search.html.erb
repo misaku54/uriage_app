@@ -8,6 +8,7 @@
 <%= render 'shared/search', q: @q, url: search_user_producttypes_path(@user), clear_url: user_producttypes_path(@user), label: '商品名', list_name: 'producttype' %>
 <div class="card shadow-sm">
   <div class="card-body">
+    <%= turbo_frame_tag "producttypes-result-list" do %>
     <h6 class="mb-3"><%="検索結果（#{current_page_number(@producttypes)}）" %></h6>
     <div class="table-responsive text-nowrap">
       <table class="table table-sm table-striped">
@@ -32,5 +33,6 @@
     <div class="d-flex justify-content-end mt-3">
       <%= paginate @producttypes %>
     </div>
+    <% end %>
   </div>
 </div>
