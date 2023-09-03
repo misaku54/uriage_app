@@ -1,4 +1,4 @@
-import { showErrorMessage, removeErrorMessage, checkLength, checkNumber, checkFuture } from '../module/validation';
+import { showErrorMessage, removeErrorMessage, checkLength, checkNumber, checkFuture, btnDisabled } from '../module/validation';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('#sale_amount_sold,#sale_remark');
@@ -10,12 +10,14 @@ document.addEventListener('turbo:load', () => {
     input.addEventListener('blur', () => {
       if(input.hasAttribute('required') && input.value.trim() === '') {
         showErrorMessage(input, '※必須項目です。','input');
+        btnDisabled();
       }
     });
 
     input.addEventListener('input', () => {
       input.name === 'sale[remark]' && checkLength('備考', 1000, input);
       input.name === 'sale[amount_sold]' && checkNumber('販売価格', input);
+      btnDisabled();
     });
   });
 
@@ -26,8 +28,10 @@ document.addEventListener('turbo:load', () => {
     select.addEventListener('change', () => {
       if(select.options[0].selected === true){
         showErrorMessage(parent, '※必須項目です。', 'select');
+        btnDisabled();
       }else{
         removeErrorMessage(parent, 'select');
+        btnDisabled();
       }
     });
   });
@@ -44,6 +48,7 @@ document.addEventListener('turbo:load', () => {
       const createDate = new Date(...dateAry);
 
       checkFuture('登録日時', createDate, parent);
+      btnDisabled();
     });
   });
 });
