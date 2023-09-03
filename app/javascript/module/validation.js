@@ -40,6 +40,18 @@ export const removeErrorMessage = (target, type) => {
   }
 };
 
+// submitボタンの非活性
+export const btnDisabled = () => {
+  const btn = document.querySelector('input[type="submit"]');
+  const invalidDivs = document.querySelectorAll('div.invalid');
+
+  if(invalidDivs.length > 0) {
+    btn.disabled = true;
+  }else{
+    btn.disabled = false;
+  }
+};
+
 // 桁数チェック
 export const checkLength = (labelName, maxLength, input) => {
   if(input.value.length > maxLength) {
