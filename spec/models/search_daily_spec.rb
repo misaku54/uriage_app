@@ -9,7 +9,7 @@ RSpec.describe SearchDaily, type: :model do
     end
 
     it 'start_dateがなければ無効になること' do
-      search_params.start_date = nil
+      search_params.start_date = ''
       expect(search_params).to_not be_valid
     end
 

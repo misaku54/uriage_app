@@ -14,7 +14,7 @@ class Event < ApplicationRecord
   private
 
   def check_time
-    return unless self.start_time && self.end_time
+    return if self.start_time.blank? || self.end_time.blank?
     errors.add(:end_time, 'は開始時刻より前の日を設定することはできません。') if self.end_time < self.start_time
   end
 end

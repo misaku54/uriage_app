@@ -18,7 +18,7 @@ class SearchDaily
   private
 
   def date_check
-    return unless self.start_date && self.end_date
+    return if self.start_date.blank? || self.end_date.blank?
 
     if self.end_date.in_time_zone < self.start_date.in_time_zone
       errors.add(:end_date, 'は開始日より前の日を設定することはできません。')

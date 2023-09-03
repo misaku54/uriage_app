@@ -203,8 +203,8 @@ RSpec.describe "集計機能", type: :system do
 
       context 'データのある期間で集計ボタンを押下した場合' do
         it '集計結果が表示されること' do
-          fill_in 'search_daily[start_date]' , with: '002022-01-01'
-          fill_in 'search_daily[end_date]' , with: '002022-01-31'
+          fill_in 'search_daily[start_date]' , with: '2022-01-01'
+          fill_in 'search_daily[end_date]' , with: '2022-01-31'
           click_button '集計'
           expect(page).to have_content '合計純売上'
           expect(page).to have_content '最も売れたメーカー×商品分類'
@@ -218,8 +218,8 @@ RSpec.describe "集計機能", type: :system do
 
       context 'データのある期間でCSV出力ボタンを押下した場合' do
         it '正しい名前でCSVが出力されていること' do
-          fill_in 'search_daily[start_date]' , with: '002022-01-01'
-          fill_in 'search_daily[end_date]' , with: '002022-01-31'
+          fill_in 'search_daily[start_date]' , with: '2022-01-01'
+          fill_in 'search_daily[end_date]' , with: '2022-01-31'
           click_button 'CSV出力'
           expect(page.response_headers["Content-Type"]).to include "text/csv"
           expect(page.response_headers['Content-Disposition']).to include("#{Time.zone.now.strftime('%Y%m%d')}_shukei.csv")
@@ -228,8 +228,8 @@ RSpec.describe "集計機能", type: :system do
 
       context 'データのない期間で集計ボタンを押下した場合' do
         it '集計結果が表示されないこと' do
-          fill_in 'search_daily[start_date]' , with: '002022-02-01'
-          fill_in 'search_daily[end_date]' , with: '002022-02-28'
+          fill_in 'search_daily[start_date]' , with: '2022-02-01'
+          fill_in 'search_daily[end_date]' , with: '2022-02-28'
           click_button '集計'
           expect(page).to have_no_content '合計純売上'
           expect(page).to have_no_content '最も売れたメーカー×商品分類'

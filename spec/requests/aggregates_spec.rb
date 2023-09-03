@@ -441,7 +441,7 @@ RSpec.describe 'Aggregates', type: :request do
     
     context 'パラメータのバリデーションが' do
       context '成功した場合' do
-        let(:params) { { search_daily: { start_date: '2022-1-1', end_date: '2022-1-15' } } }
+        let(:params) { { search_daily: { start_date: '2022-01-01', end_date: '2022-01-15' } } }
 
         context '売上データがある場合' do
           it 'レスポンスが正常であること' do
@@ -573,7 +573,7 @@ RSpec.describe 'Aggregates', type: :request do
           end
         end
         context '売上データがない場合' do
-          let(:params) { { search_daily: { start_date: '2022-1-16', end_date: '2022-1-31' } } }
+          let(:params) { { search_daily: { start_date: '2022-01-16', end_date: '2022-01-31' } } }
           
           it 'レスポンスが正常であること' do
             expect(response).to have_http_status(:success)
