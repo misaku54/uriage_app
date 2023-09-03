@@ -6,8 +6,12 @@
         <div class="form_group row mb-2">
           <div class="col-sm-2 col-xl-1 col-form-label col-form-label-sm">集計年度</div>
           <div class="col-sm-6 col-md-5 col-xl-3 d-flex">
-            <%= f.date_select(:date, { use_month_numbers: true, start_year: 2022, end_year: Time.now.year,
-                                      discard_month: true, discard_day: true }, class:"form-select form-select-sm") %>
+            <%= f.date_select(:date,  { use_month_numbers: true,
+                                        start_year: 2021, 
+                                        end_year: Time.now.year,
+                                        discard_month: true, 
+                                        discard_day: true 
+                                      }, class:"form-select form-select-sm") %>
             <div class="col-form-label col-form-label-sm center">年</div>
           </div>
         </div>
@@ -29,7 +33,7 @@
           <div class="col-sm-2 col-lg-1 col-form-label col-form-label-sm">集計月</div>
           <div class="col-sm-6 col-xl-4 col-xxl-3 d-flex align-items-center">
             <%== sprintf(f.date_select(:date, { use_month_numbers: true, 
-                                                start_year: 2022, 
+                                                start_year: 2021, 
                                                 end_year: Time.now.year, 
                                                 discard_day: true, 
                                                 date_separator: '%s', 
