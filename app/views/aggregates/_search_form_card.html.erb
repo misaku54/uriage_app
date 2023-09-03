@@ -11,7 +11,7 @@
                                         end_year: Time.now.year,
                                         discard_month: true, 
                                         discard_day: true 
-                                      }, class:"form-select form-select-sm") %>
+                                      }, class:"form-select form-select-sm", required: true)  %>
             <div class="col-form-label col-form-label-sm center">年</div>
           </div>
         </div>
@@ -38,7 +38,7 @@
                                                 discard_day: true, 
                                                 date_separator: '%s', 
                                                 selected: Date.today 
-                                              }, class:'form-select form-select-sm'),'年') + '月' %>
+                                              }, class:'form-select form-select-sm', required: true),'年') + '月' %>
           </div>
         </div>
         <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
@@ -58,9 +58,9 @@
         <div class="form_group row mb-2">
           <div class="col-sm-2 col-xl-1 col-form-label col-form-label-sm">集計期間</div>
           <div class="col-sm-8 col-md-7 col-xl-6 col-xxl-4 d-flex">
-            <%= f.date_field :start_date, class:'form-control form-control-sm' %>
+            <%= f.date_field :start_date, class:'form-control form-control-sm', required: true %>
             <div class="col-form-label col-form-label-sm center">〜</div>
-            <%= f.date_field :end_date, class:'form-control form-control-sm me-1' %>
+            <%= f.date_field :end_date, class:'form-control form-control-sm me-1', required: true %>
           </div>
         </div>
         <div class="form_group row mx-auto justify-content-end justify-content-sm-start">
