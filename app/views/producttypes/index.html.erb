@@ -8,13 +8,14 @@
 <%= render 'shared/search', q: @q, url: search_user_producttypes_path(@user), clear_url: user_producttypes_path(@user), label: '商品名', list_name: 'producttype' %>
 <div class="card shadow-sm">
   <div class="card-body">
-    <h6 class="mb-3"><%="一覧（#{current_page_number(@producttypes)}）" %></h6>
+    <%= turbo_frame_tag "producttypes-list" do %>
+    <h6 class="mb-3"><%="一覧 #{current_page_number(@producttypes)}" %></h6>
     <div class="table-responsive text-nowrap">
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <td><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></td>
             <td><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
+            <td><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></td>
             <td>
               <div class="d-flex justify-content-end" >
                 <%= link_to new_user_producttype_path(@user), data: { turbo: false } do %>
@@ -32,5 +33,6 @@
     <div class="d-flex justify-content-end mt-3">
       <%= paginate @producttypes %>
     </div>
+    <% end %>
   </div>
 </div>

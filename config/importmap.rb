@@ -20,6 +20,7 @@ pin "slim-select", to: "https://ga.jspm.io/npm:slim-select@2.6.0/dist/slimselect
 pin "static_pages/timer"
 pin "static_pages/openMeteoApi"
 pin "aggregates/tabMenu"
+pin "aggregates/form"
 pin "events/form"
 pin "makers/form"
 pin "producttypes/form"

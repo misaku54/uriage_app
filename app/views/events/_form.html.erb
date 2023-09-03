@@ -35,13 +35,14 @@
             :start_time,
             { 
               use_month_numbers: true,
+              start_year: 2021,
               end_year: Time.current.year,
               default: @default_date,
               date_separator: '%s',
               datetime_separator: '%s',
               time_separator: '%s'
             },
-            { class:"form-select-sm", required: true }
+            { class:"form-select-sm created-select", required: true }
           ),
           '年 ', '月 ', '日 ', '時 ') + '分' %>
         </div>
@@ -58,13 +59,14 @@
             :end_time,
             { 
               use_month_numbers: true,
+              start_year: 2021,
               end_year: Time.current.year,
               default: @default_date,
               date_separator: '%s',
               datetime_separator: '%s',
               time_separator: '%s'
             },
-            { class:"form-select-sm", required: true }
+            { class:"form-select-sm created-select", required: true }
           ),
           '年 ', '月 ', '日 ', '時 ') + '分' %>
         </div>

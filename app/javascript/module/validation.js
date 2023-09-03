@@ -1,18 +1,18 @@
 // バリデーションエラーの表示
-export const showErrorMessage = (target, message ,type) => {
+export const showErrorMessage = (element, message ,type) => {
   const errorMessage = document.createElement('div');
   errorMessage.textContent = message;
   errorMessage.classList.add('invalid');
 
   switch(type) {
     case "input":
-      if(!target.nextElementSibling) {
-        target.insertAdjacentElement('afterend', errorMessage);
+      if(!element.nextElementSibling) {
+        element.insertAdjacentElement('afterend', errorMessage);
       }
       break;
     case "select":
-      if(!target.lastElementChild.classList.contains('invalid')){
-        target.insertAdjacentElement('beforeend', errorMessage);
+      if(!element.lastElementChild.classList.contains('invalid')){
+        element.insertAdjacentElement('beforeend', errorMessage);
       }
       break;
     default:
@@ -21,16 +21,16 @@ export const showErrorMessage = (target, message ,type) => {
 };
 
 // バリデーションエラーの削除
-export const removeErrorMessage = (target, type) => {
+export const removeErrorMessage = (element, type) => {
   switch(type) {
     case 'input':
-      const error = target.nextElementSibling;
+      const error = element.nextElementSibling;
       if(error) {
         error.remove();
       }
       break;
     case 'select':
-      const selectError = target.lastElementChild;
+      const selectError = element.lastElementChild;
       if(selectError.classList.contains('invalid')) {
         selectError.remove();
       }
@@ -40,41 +40,53 @@ export const removeErrorMessage = (target, type) => {
   }
 };
 
-// 桁数チェック
-export const checkLength = (labelName, maxLength, input) => {
-  if(input.value.length > maxLength) {
-    showErrorMessage(input, `※${labelName}は、${maxLength}文字以内にしてください`, 'input')
+// submitボタンの非活性
+export const btnDisabled = () => {
+  const btn = document.querySelector('input[type="submit"]');
+  const invalidDivs = document.querySelectorAll('div.invalid');
+
+  if(invalidDivs.length > 0) {
+    btn.disabled = true;
   }else{
-    removeErrorMessage(input, 'input');
+    btn.disabled = false;
+  }
+};
+
+// 桁数チェック
+export const checkLength = (labelName, maxLength, element) => {
+  if(element.value.length > maxLength) {
+    showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`, 'input')
+  }else{
+    removeErrorMessage(element, 'input');
   }
 };
 
 // 数値の有効チェック
-export const checkNumber = (labelName, input) => {
+export const checkNumber = (labelName, element) => {
   // const regex = /^[1-9][0-9]+/;
   // const result = input.value.match(regex)
-  if(input.value && input.value <= 0){
-    showErrorMessage(input, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
+  if(element.value && element.value <= 0){
+    showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
   }else{
-    removeErrorMessage(input, 'input');
+    removeErrorMessage(element, 'input');
   }
 };
 
 // 日付の未来日チェック
-export const checkFuture = (labelName, date, input) => {
+export const checkFuture = (labelName, date, element) => {
   const now = new Date();
   if(date > now){
-    showErrorMessage(input, `※${labelName}に、未来日は設定できません。`, 'select');
+    showErrorMessage(element, `※${labelName}に、未来日は設定できません。`, 'select');
   }else{
-    removeErrorMessage(input, 'select');
+    removeErrorMessage(element, 'select');
   }
 };
 
 // 開始時刻と終了時刻の矛盾チェック
-export const checkTime = (startTime, endTime, parent) => {
-  if(startTime > endTime){
-    showErrorMessage(parent, `※終了時刻は開始時刻より前の日を設定することはできません。`, 'select');
+export const checkTime = (start, end, element) => {
+  if(start > end){
+    showErrorMessage(element, `※終了時刻は開始時刻より前の日を設定することはできません。`, 'select');
   }else{
-    removeErrorMessage(parent, 'select');
+    removeErrorMessage(element, 'select');
   }
 };

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+
   # アクセサメソッド
   attr_accessor :remember_token
 
@@ -13,13 +15,13 @@ class User < ApplicationRecord
 
   # バリデーション
   validates :name,  presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format:   { with: VALID_EMAIL_REGEX },
                     uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
+  # ransackの設定
   def self.ransackable_attributes(auth_object = nil)
     ["admin", "created_at", "email", "id", "name", "password_digest", "remember_digest", "updated_at"]
   end
@@ -65,4 +67,13 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  # 受け取った日付の1時間ごとの売上合計額の取得
+  def hourly_sales_sum(date)
+    self.sales.group_by_hour(:created_at, range: date.all_day).sum(:amount_sold)
+  end
+
+  # 受け取った日付の売上合計額の取得
+  def sales_sum(date)
+    self.sales.where(created_at: date.all_day).sum(:amount_sold)
+  end
 end

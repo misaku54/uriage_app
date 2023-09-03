@@ -1,6 +1,7 @@
 class SalesController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
+  before_action :set_sale, only: %i[show edit update destroy]
   before_action :set_search_query, only: %i[index search export_csv]
   MAX_DISPLAY_COUNT = 10
 
@@ -8,26 +9,22 @@ class SalesController < ApplicationController
     @sales = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
   end
 
-  def show
-    @sale = @user.sales.find(params[:id])
-  end
-
   def search
     @sales = @q.result.page(params[:page]).per(MAX_DISPLAY_COUNT)
   end
-
+  
   def export_csv
     @sales = @q.result
     send_data(CsvExport.sale_csv_output(@sales), filename: "#{Time.zone.now.strftime('%Y%m%d')}_sales.csv", type: :csv)
   end
+  
+  def show; end
 
   def new
     @sale = @user.sales.build
   end
 
-  def edit
-    @sale = @user.sales.find(params[:id])
-  end
+  def edit; end
 
   def create
     @sale = @user.sales.build(sale_params)
@@ -40,7 +37,6 @@ class SalesController < ApplicationController
   end
 
   def update
-    @sale = @user.sales.find(params[:id])
     if @sale.update(sale_params)
       flash[:success] = '更新しました。'
       redirect_to user_sales_path(@user)
@@ -50,7 +46,7 @@ class SalesController < ApplicationController
   end
 
   def destroy
-    @user.sales.find(params[:id]).destroy
+    @sale.destroy
     flash[:success] = '削除しました。'
     redirect_to user_sales_path(@user), status: :see_other
   end
@@ -62,7 +58,12 @@ class SalesController < ApplicationController
     params.require(:sale).permit(:amount_sold, :remark, :maker_id, :producttype_id, :created_at, :create_on)
   end
 
+  def set_sale
+    @sale = @user.sales.find(params[:id])
+  end
+  
   def set_search_query
-    @q = @user.sales.ransack(params[:q])
+    @q = @user.sales.includes(:maker, :producttype, :weather).ransack(params[:q])
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
   end
 end

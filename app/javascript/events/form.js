@@ -1,4 +1,4 @@
-import { showErrorMessage, checkLength, checkTime } from '../module/validation';
+import { showErrorMessage, checkLength, checkTime, btnDisabled } from '../module/validation';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('#event_title,#event_content');
@@ -9,12 +9,14 @@ document.addEventListener('turbo:load', () => {
     input.addEventListener('blur', () => {
       if(input.hasAttribute('required') && input.value.trim() === '') {
         showErrorMessage(input, '※必須項目です。','input');
+        btnDisabled();
       };
     });
 
     input.addEventListener('input', () => {
       input.name === 'event[title]' && checkLength('タイトル', 30, input);
       input.name === 'event[content]' && checkLength('内容', 1000, input);
+      btnDisabled();
     });
   });
 
@@ -38,6 +40,7 @@ document.addEventListener('turbo:load', () => {
       const endTime = new Date(...dateAry);
 
       checkTime(startTime, endTime, parent);
+      btnDisabled();
     });
   });
 });
