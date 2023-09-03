@@ -63,5 +63,6 @@ class MakersController < ApplicationController
 
   def set_search_query
     @q = @user.makers.ransack(params[:q])
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
   end
 end

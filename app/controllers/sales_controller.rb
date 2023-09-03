@@ -64,5 +64,6 @@ class SalesController < ApplicationController
   
   def set_search_query
     @q = @user.sales.includes(:maker, :producttype, :weather).ransack(params[:q])
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
   end
 end
