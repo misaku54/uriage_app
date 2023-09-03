@@ -8,7 +8,7 @@
 <%= render 'shared/search', q: @q, url: search_user_makers_path(@user), clear_url: user_makers_path(@user), label: 'メーカー名' %>
 <div class="card shadow-sm">
   <div class="card-body">
-    <%= turbo_frame_tag "makers-result-list" do %>
+    <%= turbo_frame_tag "makers-list" do %>
     <h6 class="mb-3"><%="検索結果（#{current_page_number(@makers)}）" %></h6>
     <div class="table-responsive text-nowrap">
       <table class="table table-sm table-striped">
