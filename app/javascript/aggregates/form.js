@@ -6,13 +6,6 @@ document.addEventListener('turbo:load', () => {
 
   // inputのイベント設定
   inputs.forEach((input) => {
-    input.addEventListener('blur', () => {
-      if(input.hasAttribute('required') && input.value.trim() === '') {
-        showErrorMessage(parent, '※必須項目です。','input');
-        btnDisabled();
-      };
-    });
-
     input.addEventListener('input', () => {
       const startInput = document.querySelector('input[name="search_daily[start_date]"]');
       const endInput   = document.querySelector('input[name="search_daily[end_date]"]');
