@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+
   # アクセサメソッド
   attr_accessor :remember_token
 
@@ -13,13 +15,13 @@ class User < ApplicationRecord
 
   # バリデーション
   validates :name,  presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format:   { with: VALID_EMAIL_REGEX },
                     uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
+  # ransackの設定
   def self.ransackable_attributes(auth_object = nil)
     ["admin", "created_at", "email", "id", "name", "password_digest", "remember_digest", "updated_at"]
   end
