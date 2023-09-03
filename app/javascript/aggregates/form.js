@@ -3,7 +3,6 @@ import { showErrorMessage, checkTime, btnDisabled } from '../module/validation';
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('input[name^="search_daily["]');
   const parent = inputs[0].closest('.form_group');
-  console.log(parent)
 
   // inputのイベント設定
   inputs.forEach((input) => {
@@ -19,7 +18,7 @@ document.addEventListener('turbo:load', () => {
       const endInput   = document.querySelector('input[name="search_daily[end_date]"]');
       const startDate = new Date(startInput.value);
       const endDate   = new Date(endInput.value);
-      
+
       checkTime(startDate, endDate, parent);
       btnDisabled();
     });
