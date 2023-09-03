@@ -18,14 +18,14 @@ class SearchDaily
   private
 
   def date_check
-    if self.start_date.present? && self.end_date.present?
-      if self.end_date.in_time_zone < self.start_date.in_time_zone
-        errors.add(:end_date, 'は開始日より前の日を設定することはできません。')
-      end
+    return unless self.start_date && self.end_date
 
-      if ((self.end_date.in_time_zone - self.start_date.in_time_zone) / 1.day).floor > 30
-        errors.add(:date, 'は１ヶ月以内の期間を指定してください。')
-      end
+    if self.end_date.in_time_zone < self.start_date.in_time_zone
+      errors.add(:end_date, 'は開始日より前の日を設定することはできません。')
+    end
+
+    if ((self.end_date.in_time_zone - self.start_date.in_time_zone) / 1.day).floor > 30
+      errors.add(:date, 'は１ヶ月以内の期間を指定してください。')
     end
   end
 end
