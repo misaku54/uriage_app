@@ -16,9 +16,17 @@ RSpec.describe "売上管理機能", type: :system do
         end
       end
 
+      context '売上詳細画面へアクセス' do
+        it 'ログイン画面へ遷移し、フラッシュが表示されること' do
+          visit user_sale_path(user_a, sale)
+          expect(page).to have_current_path login_path
+          expect(page).to have_selector 'div.alert.alert-danger'
+        end
+      end
+
       context '売上新規登録画面へアクセス' do
         it 'ログイン画面へ遷移し、フラッシュが表示されること' do
-          visit user_sales_path(user_a)
+          visit new_user_sale_path(user_a)
           expect(page).to have_current_path login_path
           expect(page).to have_selector 'div.alert.alert-danger'
         end
@@ -44,21 +52,28 @@ RSpec.describe "売上管理機能", type: :system do
       context 'ユーザーAでログインしている場合' do
         let(:login_user) { user_a }
 
-        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+        context 'ユーザーAに紐づく売上一覧画面へアクセス' do
           it '正常に遷移すること' do
             visit user_sales_path(login_user)
             expect(page).to have_current_path user_sales_path(login_user)
           end
         end
 
-        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+        context 'ユーザーAに紐づく売上詳細画面へアクセス' do
+          it '正常に遷移すること' do
+            visit user_sale_path(login_user, sale)
+            expect(page).to have_current_path user_sale_path(login_user, sale)
+          end
+        end
+
+        context 'ユーザーAに紐づく売上新規登録画面へアクセス' do
           it '正常に遷移すること' do
             visit new_user_sale_path(login_user)
             expect(page).to have_current_path new_user_sale_path(login_user)
           end
         end
 
-        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+        context 'ユーザーAに紐づく売上編集画面へアクセス' do
           it '正常に遷移すること' do
             visit edit_user_sale_path(login_user, sale)
             expect(page).to have_current_path edit_user_sale_path(login_user, sale)
@@ -69,21 +84,21 @@ RSpec.describe "売上管理機能", type: :system do
       context 'ユーザーBでログインしている場合' do
         let(:login_user) { user_b }
 
-        context 'ユーザーAに紐づくメーカーの一覧画面へアクセス' do
+        context 'ユーザーAに紐づく売上一覧画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             visit user_sales_path(user_a)
             expect(page).to have_current_path root_path
           end
         end
 
-        context 'ユーザーAに紐づくメーカーの新規登録画面へアクセス' do
+        context 'ユーザーAに紐づく売上新規登録画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             visit new_user_sale_path(user_a)
             expect(page).to have_current_path root_path
           end
         end
 
-        context 'ユーザーAに紐づくメーカーの編集画面へアクセス' do
+        context 'ユーザーAに紐づく売上編集画面へアクセス' do
           it 'ホーム画面へ遷移すること' do
             visit edit_user_sale_path(user_a, sale)
             expect(page).to have_current_path root_path
@@ -201,6 +216,22 @@ RSpec.describe "売上管理機能", type: :system do
       end
     end
 
+    describe '詳細表示機能' do
+      let(:login_user) { user_a }
+
+      context 'ユーザーAの詳細画面へアクセス' do
+        it 'ユーザーAの情報が表示されていること' do
+          visit user_sale_path(user_a, sale)
+          expect(page).to have_selector 'td', text: sale.created_at.strftime('%Y/%m/%d %H:%M') 
+          expect(page).to have_selector 'td', text: sale.maker.name
+          expect(page).to have_selector 'td', text: sale.producttype.name
+          expect(page).to have_selector 'td', text: "#{sale.amount_sold.to_s.chars.insert(2,',').join}円"
+          expect(page).to have_selector 'td', text: sale.remark
+          expect(page).to have_selector 'td', text: get_holiday(sale.created_at)
+          expect(page).to have_selector 'td', text: get_weather(sale.weather.weather_id)
+        end
+      end
+    end
 
     describe '新規登録機能' do
       let(:login_user) { user_a }
