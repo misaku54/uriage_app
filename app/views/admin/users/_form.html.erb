@@ -68,7 +68,7 @@
       </div>
       <div class="row mx-auto">
         <%= f.submit yield(:button_text), class: "btn btn-primary btn-sm col-6 col-sm-2 me-sm-1" %>
-        <%= link_to '一覧へ戻る', url, class: "btn btn-secondary btn-sm col-6 col-sm-2", data: { turbo: false } %>
+        <%= link_to "戻る", :back, data: { turbo: false }, class: "btn btn-secondary btn-sm col-6 col-sm-2" %>
       </div>
     </div>
   </div>
