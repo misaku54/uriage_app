@@ -279,24 +279,25 @@ label.required:after {
 /* ransack設定 */
 .Editlink {
   text-decoration: none;
+  display: block;
   &:link {
-    text-decoration: none;
-    color: $black;
+    // text-decoration: none;
+    color: $white;
   }
 
   &:visited {
-    text-decoration: none;
-    color: $black;
+    // text-decoration: none;
+    color: $white;
   }
 
   &:hover {
-    text-decoration: none;
-    color: $black;
+    text-decoration: underline;
+    color: $white;
   }
 
   &:active {
-    text-decoration: none;
-    color: $black;
+    // text-decoration: none;
+    color: $white;
   }
 }
 

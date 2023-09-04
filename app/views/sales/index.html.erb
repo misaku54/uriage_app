@@ -66,25 +66,24 @@
 <div class="card shadow-sm">
   <div class="card-body">
     <%= turbo_frame_tag "sales-list" do %>
-    <h6 class="mb-3"><%="一覧 #{current_page_number(@sales)}" %></h6>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6><%="一覧 #{current_page_number(@sales)}" %></h6>
+      <%= link_to new_user_sale_path(@user), data: { turbo: false }, class: "btn btn-sm btn-outline-primary" do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
     <div class="table-responsive text-nowrap">
-      <table class="table table-sm table-striped">
-        <thead>
+      <table class="table table-sm table-striped table-hover table-bordered">
+        <thead class="text-white" style="background-color: <%= make_color %>;">
           <tr>
             <td style="width: 15.5%"><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
             <td style="width: 15.5%"><%= sort_link(@q, :maker_name, "メーカー名", default_order: :desc, class: "Editlink") %></td>
             <td style="width: 15.5%"><%= sort_link(@q, :producttype_name, "商品分類名", default_order: :desc, class: "Editlink") %></td>
-            <td style="width: 15.5%"><%= sort_link(@q, :amount_sold, default_order: :desc, class: "Editlink") %></td>
+            <td style="width: 11.5%"><%= sort_link(@q, :amount_sold, default_order: :desc, class: "Editlink") %></td>
             <td style="width: 15.5%"><%= sort_link(@q, :remark, default_order: :desc, class: "Editlink") %></td>
-            <td style="width: 7.5%">祝日</td>
-            <td style="width: 7.5%"><%= WeatherForecast.human_attribute_name(:weather_id) %>（宮崎市）</td>
-            <td style="width: 7.5%">
-              <div class="d-flex justify-content-end" >
-                <%= link_to new_user_sale_path(@user), data: { turbo: false } do %>
-                  <i class="fa-solid fa-plus"></i>
-                <% end %>
-              </div>
-            </th>
+            <td style="width: 11.5%">祝日</td>
+            <td style="width: 7.5%"><%= WeatherForecast.human_attribute_name(:weather_id) %></td>
+            <td style="width: 7.5%">操作</td>
           </tr>
         </thead>
         <tbody>
@@ -93,12 +92,12 @@
               <td><%= l sale.created_at, format: :long  %></td>
               <td><%= sale.maker.present? ? sale.maker.name : '未登録' %></td>
               <td><%= sale.producttype.present? ? sale.producttype.name : "未登録" %></td>
-              <td class="text-right"><%= add_comma_en(sale.amount_sold) %></td>
-              <td><%= truncate(sale.remark, length: 20) %></td>
+              <td class="text-end"><%= add_comma_en(sale.amount_sold) %></td>
+              <td><%= truncate(sale.remark, length: 30) %></td>
               <td><%= get_holiday(sale.created_at)  %></td>
               <td><%= get_weather(sale.weather.weather_id)  %></td>
               <td>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-center">
                   <%= link_to user_sale_path(@user, sale), data: { turbo: false } do %>
                     <i class="fa-solid fa-magnifying-glass fa-fw"></i>
                   <% end %>
