@@ -77,7 +77,7 @@
             <td style="width: 15.5%"><%= sort_link(@q, :amount_sold, default_order: :desc, class: "Editlink") %></td>
             <td style="width: 15.5%"><%= sort_link(@q, :remark, default_order: :desc, class: "Editlink") %></td>
             <td style="width: 7.5%">祝日</td>
-            <td style="width: 7.5%"><%= WeatherForecast.human_attribute_name(:weather_id) %></td>
+            <td style="width: 7.5%"><%= WeatherForecast.human_attribute_name(:weather_id) %>（宮崎市）</td>
             <td style="width: 7.5%">
               <div class="d-flex justify-content-end" >
                 <%= link_to new_user_sale_path(@user), data: { turbo: false } do %>

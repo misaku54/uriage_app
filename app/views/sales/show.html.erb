@@ -37,7 +37,7 @@
               <td><%= get_holiday(@sale.created_at)  %></td>
             </tr>
             <tr>
-              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:weather_id) %></th>
+              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:weather_id) %>（宮崎市）</th>
               <td><%= get_weather(@sale.weather.weather_id) %></td>
             </tr>
             <tr>
@@ -50,7 +50,7 @@
             </tr>
             <tr>
               <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:rainfall_sum) %></th>
-              <td><%= @sale.weather.rainfall_sum %></td>
+              <td><%= "#{@sale.weather.rainfall_sum}mm" %></td>
             </tr>
           </tbody>
         </table>
