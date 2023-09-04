@@ -397,6 +397,28 @@ label.required:after {
   }
 }
 
+/* 集計画面設定 */
+// テーブルレイアウト
+.overflow {
+  overflow: auto;
+  max-height: 500px;
+  table{ 
+    thead{
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+@media (max-width: 1066px) {
+  .overflow {
+    overflow: auto;
+    max-height: 500px;
+    table{ 
+      white-space: nowrap;
+    }
+  }
+}
 
 /* カレンダー設定 */
 .simple-calendar {

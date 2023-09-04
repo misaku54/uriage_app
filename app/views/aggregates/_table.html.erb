@@ -1,27 +1,27 @@
-<div class="table-responsive text-nowrap">
-  <table class="table table-sm table-striped mb-0">
-    <thead class="text-white" style="background-color: <%= make_color(card_pattern)%>;">
+<div class="overflow table-responsive">
+  <table class="table table-sm table-striped table-hover table-bordered">
+    <thead class="text-white align-middle" style="background-color: <%= make_color(card_pattern)%>;">
       <tr>
-        <td>No.</td>
+        <td>順位</td>
         <% if card_pattern == "maker_producttype" %>
-          <td><%= Sale.human_attribute_name(:maker_id) %></td>
-          <td><%= Sale.human_attribute_name(:producttype_id) %></td>
+          <td style="width: 15.5%;"><%= Sale.human_attribute_name(:maker_id) %></td>
+          <td style="width: 15.5%;"><%= Sale.human_attribute_name(:producttype_id) %></td>
         <% elsif card_pattern == "maker" %>
-          <td><%= Sale.human_attribute_name(:maker_id) %></td>
+          <td style="width: 21.5%;"><%= Sale.human_attribute_name(:maker_id) %></td>
         <% elsif card_pattern == "producttype" %>
-          <td><%= Sale.human_attribute_name(:producttype_id) %></td>
+          <td style="width: 21.5%;"><%= Sale.human_attribute_name(:producttype_id) %></td>
         <% end %>
         <td>純売上</td>
         <td>販売数量</td>
         <td>昨年の純売上</td>
         <td>昨年の販売数量</td>
-        <td>成長率（前年比較）</td>
+        <td>売上前年比</td>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="kotei-body align-middle">
       <% aggregates.each.with_index(1) do |aggregate, index| %>
         <tr>
-          <td><%= index %></td>
+          <td class="text-center"><%= index %>位</td>
           <% if card_pattern == "maker_producttype" %>
             <td><%= aggregate.maker_name %></td>
             <td><%= aggregate.producttype_name %></td>
