@@ -102,7 +102,7 @@ RSpec.describe "商品管理機能", type: :system do
           it 'ユーザーAが登録した商品が表示されていること' do
             expect(page).to have_content '商品A'
             expect(page).to have_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
-            expect(page).to have_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
+            expect(page).to have_selector "form[action='/users/#{producttype.user.id}/producttypes/#{producttype.id}']"
           end
         end
 
@@ -112,7 +112,7 @@ RSpec.describe "商品管理機能", type: :system do
           it 'ユーザーAが登録した商品が表示されていないこと' do
             expect(page).to have_no_content '商品A'
             expect(page).to have_no_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}/edit"
-            expect(page).to have_no_link nil, href: "/users/#{producttype.user.id}/producttypes/#{producttype.id}"
+            expect(page).to have_no_selector "form[action='/users/#{producttype.user.id}/producttypes/#{producttype.id}']"
           end
         end
       end
@@ -241,7 +241,7 @@ RSpec.describe "商品管理機能", type: :system do
         it '削除に成功する' do
           visit user_producttypes_path(login_user)
           expect {
-            find("a[href='/users/#{producttype.user.id}/producttypes/#{producttype.id}']").click
+            find("form[action='/users/#{producttype.user.id}/producttypes/#{producttype.id}']").find('button').click
           }.to change(Producttype, :count).by(-1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_producttypes_path(login_user)

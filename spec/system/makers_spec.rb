@@ -101,8 +101,8 @@ RSpec.describe "メーカー管理機能", type: :system do
 
           it 'ユーザーAが作成したメーカーが表示されていること' do
             expect(page).to have_content 'メーカーA'
-            expect(page).to have_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
-            expect(page).to have_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}"
+            expect(page).to have_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit" 
+            expect(page).to have_selector "form[action='/users/#{maker.user.id}/makers/#{maker.id}']"
           end
         end
 
@@ -112,7 +112,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           it 'ユーザーAが作成したメーカーが表示されていないこと' do
             expect(page).to have_no_content 'メーカーA'
             expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}/edit"
-            expect(page).to have_no_link nil, href: "/users/#{maker.user.id}/makers/#{maker.id}"
+            expect(page).to have_no_selector "form[action='/users/#{maker.user.id}/makers/#{maker.id}']"
           end
         end
       end
@@ -243,7 +243,7 @@ RSpec.describe "メーカー管理機能", type: :system do
           visit user_makers_path(login_user)
           # DB上で削除されていること
           expect {
-            find("a[href='/users/#{maker.user.id}/makers/#{maker.id}']").click
+            find("form[action='/users/#{maker.user.id}/makers/#{maker.id}']").find('button').click
           }.to change(Maker, :count).by(-1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path user_makers_path(login_user)
