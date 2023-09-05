@@ -9,20 +9,19 @@
 <div class="card shadow-sm">
   <div class="card-body">
     <%= turbo_frame_tag "makers-list" do %>
-    <h6 class="mb-3"><%="検索結果（#{current_page_number(@makers)}）" %></h6>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6><%="検索結果 #{current_page_number(@makers)}" %></h6>
+      <%= link_to new_user_maker_path(@user), data: { turbo: false }, class: "btn btn-sm btn-outline-primary" do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
     <div class="table-responsive text-nowrap">
-      <table class="table table-sm table-striped">
-        <thead>
+      <table class="table table-striped table-hover table-bordered align-middle">
+        <thead class="text-white" style="background-color: <%= make_color('maker') %>;">
           <tr>
+            <td style="width: 15.5%;"><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
             <td><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></td>
-            <td><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
-            <td>
-              <div class="d-flex justify-content-end" >
-                <%= link_to new_user_maker_path(@user), data: { turbo: false } do %>
-                  <i class="fa-solid fa-plus"></i>
-                <% end %>
-              </div>
-            </td>
+            <td style="width: 7.5%;">操作</td>
           </tr>
         </thead>
         <tbody>
