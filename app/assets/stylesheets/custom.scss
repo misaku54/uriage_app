@@ -141,13 +141,6 @@ h6:after {
   font-family: 'Caveat', cursive;
 }
 
-
-/* アイコン */
-.fa-trash-can {
-  color: rgb(255, 82, 82);
-}
-
-
 /* フォーム */
 input, textarea, select, .uneditable-input {
   @include box_sizing;
@@ -275,6 +268,32 @@ label.required:after {
   }
 }
 
+/* テーブルレイアウト設定 */
+.overflow {
+  overflow: auto;
+  max-height: 500px;
+  table{ 
+    thead{
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+@media (max-width: 1066px) {
+  .overflow {
+    overflow: auto;
+    max-height: 500px;
+    table{ 
+      white-space: nowrap;
+    }
+  }
+}
+
+.ope-td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
 
 /* ransack設定 */
 .Editlink {
@@ -394,29 +413,6 @@ label.required:after {
   }
   100%{
     opacity: 1;
-  }
-}
-
-/* 集計画面設定 */
-// テーブルレイアウト
-.overflow {
-  overflow: auto;
-  max-height: 500px;
-  table{ 
-    thead{
-      position: sticky;
-      top: 0;
-      left: 0;
-    }
-  }
-}
-@media (max-width: 1066px) {
-  .overflow {
-    overflow: auto;
-    max-height: 500px;
-    table{ 
-      white-space: nowrap;
-    }
   }
 }
 

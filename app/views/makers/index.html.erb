@@ -16,12 +16,12 @@
       <% end %>
     </div>
     <div class="table-responsive text-nowrap">
-      <table class="table table-sm table-striped table-hover table-bordered">
+      <table class="table table-striped table-hover table-bordered align-middle">
         <thead class="text-white" style="background-color: <%= make_color('maker') %>;">
           <tr>
-            <td><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
+            <td style="width: 15.5%;"><%= sort_link(@q, :created_at, default_order: :desc, class: "Editlink") %></td>
             <td><%= sort_link(@q, :name, default_order: :desc, class: "Editlink") %></td>
-            <td>操作</td>
+            <td style="width: 7.5%;">操作</td>
           </tr>
         </thead>
         <tbody>
