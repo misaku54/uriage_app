@@ -18,10 +18,10 @@
         <td>売上前年比</td>
       </tr>
     </thead>
-    <tbody class="kotei-body align-middle">
+    <tbody>
       <% aggregates.each.with_index(1) do |aggregate, index| %>
         <tr>
-          <td class="text-center"><%= index %>位</td>
+          <td class="text-center"><%= "#{index}位" %></td>
           <% if card_pattern == "maker_producttype" %>
             <td><%= aggregate.maker_name %></td>
             <td><%= aggregate.producttype_name %></td>
