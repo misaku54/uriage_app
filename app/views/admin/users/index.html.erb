@@ -105,13 +105,13 @@
               <td class="ope-td">
                 <% if current_user.admin? && !current_user?(user) %>
                   <div class="d-flex justify-content-center align-items-center">
-                    <%= link_to admin_user_path(user), data: { turbo: false }, class: "btn btn-sm btn-primary" do %>
+                    <%= link_to admin_user_path(user), data: { turbo: false }, class: "btn btn-sm btn-info" do %>
                       <i class="fa-solid fa-magnifying-glass"></i>
                     <% end %>
                     <%= link_to edit_admin_user_path(user), data: { turbo: false }, class: "btn btn-sm btn-primary" do %>
                       <i class="fa-solid fa-pen"></i>
                     <% end %>
-                    <%= link_to admin_user_path(user), method: :delete, data: { turbo: :false }, form: { onSubmit: "return check()" }, class: "btn btn-sm btn-secondary" do %>
+                    <%= button_to admin_user_path(user), method: :delete, data: { turbo: :false }, form: { onSubmit: "return check()" }, class: "btn btn-sm btn-secondary" do %>
                       <i class="far fa-trash-alt"></i>
                     <% end %>                
                   </div>
