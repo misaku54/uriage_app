@@ -108,23 +108,33 @@ h6:after {
 }
 
 .toggle-menu {
-  // position: relative;
   .acordion {
     position:absolute;
+    transition: all .5s;
     top: 56px;
     left: 0;
     z-index: 2;
     width: 100%;
-    height: calc(100vh - 50px);
-    display: none;
+    height: 0px;
+    // display: none;
     overflow-y: auto; 
-    background-color: rgb(77, 77, 77);
+    background-color: rgb(2, 3, 12);
     font-weight: bold;
-    opacity: 0.8;
+    opacity: 0.9;
+      &__ttl {
+        cursor: pointer;
+        padding: 10px;
+      }
+      &__cnt {
+        li {
+          padding: 10px 10px 10px 50px;
+        }
+      }
   }
 }
 .open .acordion {
   display: block;
+  height: calc(100vh - 56px);
 }
 
 .humbager {
@@ -132,7 +142,8 @@ h6:after {
   width: 40px;
   height: 40px;
   cursor: pointer;
-  border: 1px solid;
+  // border: 1px solid;
+  display: block;
 }
 .humbager span {
   position: absolute;
@@ -294,6 +305,15 @@ label.required:after {
   #hyde {
     display: none;
   }
+  .humbager {
+    display: none;
+  }
+  .toggle-menu {
+    // position: relative;
+    .acordion {
+      display: none;
+    }
+  } 
 }
 
 

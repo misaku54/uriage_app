@@ -1,7 +1,7 @@
-document.addEventListener('turbo: load', () => {
+document.addEventListener('turbo:load', () => {
+  const humbager   = document.querySelector('.humbager');
   const toggleMenu = document.querySelector('.toggle-menu');
-  console.log('aa')
-  toggleMenu.addEventListener('click', () => {
+  humbager.addEventListener('click', () => {
     toggleMenu.classList.toggle('open');
   })
 })
