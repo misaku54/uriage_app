@@ -107,6 +107,7 @@ h6:after {
   font-size: .8rem;
 }
 
+
 /* ヘッダー */
 .logo {
   font-family: 'Caveat', cursive;
@@ -239,15 +240,6 @@ label.required:after {
   #hyde {
     display: none;
   }
-  .humbager {
-    display: none;
-  }
-  .toggle-menu {
-    // position: relative;
-    .acordion {
-      display: none;
-    }
-  } 
 }
 
 
@@ -388,6 +380,7 @@ label.required:after {
     }
   }
 }
+
 // ハンバーガーメニュー
 .toggle-menu {
   .acordion {
@@ -414,7 +407,6 @@ label.required:after {
       }
   }
 }
-
 .humbager {
   position: relative;
   width: 40px;
@@ -431,7 +423,6 @@ label.required:after {
     transition: all .3s;
   }
 }
-
 .humbager span:nth-child(1) {
   top: 10px;
 }
@@ -453,6 +444,18 @@ label.required:after {
 .open .acordion {
   display: block;
   height: calc(100vh - 56px);
+}
+
+@media (min-width: 768px) {
+  .humbager {
+    display: none;
+  }
+  .toggle-menu {
+    // position: relative;
+    .acordion {
+      display: none;
+    }
+  } 
 }
 
 // タブメニュー
