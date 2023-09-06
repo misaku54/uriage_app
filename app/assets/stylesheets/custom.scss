@@ -443,7 +443,8 @@ label.required:after {
   transform: translateY(-8px)rotate(-45deg);
 }
 .open .acordion {
-  display: block;
+  // display: block;
+  visibility: visible; 
   height: calc(100vh - 56px);
 }
 
