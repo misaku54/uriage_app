@@ -117,11 +117,16 @@ h6:after {
   display: block;
 }
 
-
 /* メインコンテンツ */
 .main {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+/* フッター */
+footer {
+  margin-top: 2rem;
+  padding: 2rem;
 }
 
 // ホーム画面
