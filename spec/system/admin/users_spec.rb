@@ -305,7 +305,7 @@ RSpec.describe "ユーザー管理機能（管理者）", type: :system do
           visit admin_users_path
           # DB上で削除されていること
           expect {
-            page.all("a[href='/admin/users/#{user_a.id}']")[1].click
+            find("form[action='/admin/users/#{user_a.id}']").find('button').click
           }.to change(User, :count).by(-1)
           # 一覧画面へ遷移していること
           expect(page).to have_current_path admin_users_path

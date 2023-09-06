@@ -43,7 +43,8 @@ RSpec.describe "セッション機能", type: :system do
       end
 
       it 'ログアウトできること' do
-        click_link 'ログアウト'
+        find('a[href="/logout"]', class:"dropdown-item").click
+        # click_link 'ログアウト', class: '.dropdown-item'
         # ページに適切な項目が表示されていること
         expect(page).to have_content 'ログイン'
         expect(page).to have_no_content "#{user.name}さん"

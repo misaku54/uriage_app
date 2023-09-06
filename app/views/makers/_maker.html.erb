@@ -5,13 +5,12 @@
   <td>
     <%= maker.name %>
   </td>
-  <td>
-    <div class="d-flex justify-content-center">
-      <%= link_to edit_user_maker_path(@user, maker), data: { turbo: false } do %>
-        <i class="fa-solid fa-pen fa-fw"></i>
+  <td class="ope-td">
+    <div class="d-flex justify-content-center align-items-center">
+      <%= link_to edit_user_maker_path(@user, maker), data: { turbo: false }, class: "btn btn-sm btn-primary" do %>
+        <i class="fa-solid fa-pen"></i>
       <% end %>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <%= link_to user_maker_path(@user, maker), data: { turbo_method: :delete, turbo_confirm: '本当によろしいですか？'} do %>
+      <%= button_to user_maker_path(@user, maker), method: :delete, data: { turbo: :false }, form: { onSubmit: "return check()" }, class: "btn btn-sm btn-secondary" do %>
         <i class="far fa-trash-alt"></i>
       <% end %>
     </div>

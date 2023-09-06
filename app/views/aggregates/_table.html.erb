@@ -1,6 +1,6 @@
 <div class="overflow table-responsive">
-  <table class="table table-sm table-striped table-hover table-bordered">
-    <thead class="text-white align-middle" style="background-color: <%= make_color(card_pattern)%>;">
+  <table class="table table-striped table-hover table-bordered align-middle">
+    <thead class="text-white" style="background-color: <%= make_color(card_pattern)%>;">
       <tr>
         <td>順位</td>
         <% if card_pattern == "maker_producttype" %>
@@ -18,10 +18,10 @@
         <td>売上前年比</td>
       </tr>
     </thead>
-    <tbody class="kotei-body align-middle">
+    <tbody>
       <% aggregates.each.with_index(1) do |aggregate, index| %>
         <tr>
-          <td class="text-center"><%= index %>位</td>
+          <td class="text-center"><%= "#{index}位" %></td>
           <% if card_pattern == "maker_producttype" %>
             <td><%= aggregate.maker_name %></td>
             <td><%= aggregate.producttype_name %></td>

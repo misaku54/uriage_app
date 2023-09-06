@@ -117,11 +117,16 @@ h6:after {
   display: block;
 }
 
-
 /* メインコンテンツ */
 .main {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+/* フッター */
+footer {
+  margin-top: 2rem;
+  padding: 2rem;
 }
 
 // ホーム画面
@@ -140,13 +145,6 @@ h6:after {
   margin-bottom: 10rem;
   font-family: 'Caveat', cursive;
 }
-
-
-/* アイコン */
-.fa-trash-can {
-  color: rgb(255, 82, 82);
-}
-
 
 /* フォーム */
 input, textarea, select, .uneditable-input {
@@ -275,6 +273,32 @@ label.required:after {
   }
 }
 
+/* テーブルレイアウト設定 */
+.overflow {
+  overflow: auto;
+  max-height: 500px;
+  table{ 
+    thead{
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+@media (max-width: 1066px) {
+  .overflow {
+    overflow: auto;
+    max-height: 500px;
+    table{ 
+      white-space: nowrap;
+    }
+  }
+}
+
+.ope-td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
 
 /* ransack設定 */
 .Editlink {
@@ -357,6 +381,85 @@ label.required:after {
   }
 }
 
+// ハンバーガーメニュー
+.toggle-menu {
+  .acordion {
+    position:absolute;
+    transition: all .5s;
+    top: 56px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 0px;
+    visibility: hidden; 
+    // display: none;
+    overflow-y: auto; 
+    background-color: $side-bar-color;
+    font-weight: bold;
+    opacity: 0.9;
+      &__ttl {
+        cursor: pointer;
+        padding: 10px;
+      }
+      &__cnt {
+        li {
+          padding: 10px 10px 10px 50px;
+        }
+      }
+  }
+}
+.humbager {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: block;
+  span {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 50%;
+    height: 2px;
+    background-color: rgb(1, 1, 1);
+    transition: all .3s;
+  }
+}
+.humbager span:nth-child(1) {
+  top: 10px;
+}
+.humbager span:nth-child(2) {
+  top: 18px;
+}
+.humbager span:nth-child(3) {
+  top: 26px;
+}
+.open .humbager span:nth-child(1) {
+  transform: translateY(8px)rotate(45deg);
+}
+.open .humbager span:nth-child(2) {
+  opacity: 0;
+}
+.open .humbager span:nth-child(3) {
+  transform: translateY(-8px)rotate(-45deg);
+}
+.open .acordion {
+  // display: block;
+  visibility: visible; 
+  height: calc(100vh - 56px);
+}
+
+@media (min-width: 768px) {
+  .humbager {
+    display: none;
+  }
+  .toggle-menu {
+    // position: relative;
+    .acordion {
+      display: none;
+    }
+  } 
+}
+
 // タブメニュー
 .tabs {
   #tab {
@@ -394,29 +497,6 @@ label.required:after {
   }
   100%{
     opacity: 1;
-  }
-}
-
-/* 集計画面設定 */
-// テーブルレイアウト
-.overflow {
-  overflow: auto;
-  max-height: 500px;
-  table{ 
-    thead{
-      position: sticky;
-      top: 0;
-      left: 0;
-    }
-  }
-}
-@media (max-width: 1066px) {
-  .overflow {
-    overflow: auto;
-    max-height: 500px;
-    table{ 
-      white-space: nowrap;
-    }
   }
 }
 
