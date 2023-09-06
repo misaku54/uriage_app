@@ -6,6 +6,7 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "custom/accordion"
 import "custom/spiner"
+import "custom/toggle"
 import "chartkick"
 import "Chart.bundle"
 import { fas } from '@fortawesome/free-solid-svg-icons'
