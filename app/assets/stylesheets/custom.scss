@@ -107,7 +107,61 @@ h6:after {
   font-size: .8rem;
 }
 
+.toggle-menu {
+  // position: relative;
+  .acordion {
+    position:absolute;
+    top: 56px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: calc(100vh - 50px);
+    display: none;
+    overflow-y: auto; 
+    background-color: rgb(77, 77, 77);
+    font-weight: bold;
+    opacity: 0.8;
+  }
+}
+.open .acordion {
+  display: block;
+}
 
+.humbager {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border: 1px solid;
+}
+.humbager span {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 50%;
+  height: 2px;
+  // border-radius: 4px;
+  background-color: rgb(1, 1, 1);
+  transition: all .3s;
+}
+.humbager span:nth-child(1) {
+  top: 7px;
+}
+.humbager span:nth-child(2) {
+  top: 15px;
+}
+.humbager span:nth-child(3) {
+  top: 23px;
+}
+.open .humbager span:nth-child(1) {
+  transform: translateY(8px)rotate(45deg);
+}
+.open .humbager span:nth-child(2) {
+  opacity: 0;
+}
+.open .humbager span:nth-child(3) {
+  transform: translateY(-8px)rotate(-45deg);
+}
 /* ヘッダー */
 .logo {
   font-family: 'Caveat', cursive;
