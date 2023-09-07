@@ -59,18 +59,26 @@ export const btnDisabled = () => {
 // 桁数チェック
 export const checkLength = (labelName, maxLength, element) => {
   if(element.value.length > maxLength) {
-    showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`, 'input')
+    showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`, 'input');
   }else{
     removeErrorMessage(element, 'input');
   }
 };
+
+export const checkMinLength = (labelName, minLength, element) => {
+  if(element.value.length < minLength) {
+    showErrorMessage(element, `※${labelName}は、${minLength}文字以上にしてください`, 'input');
+  }else{
+    removeErrorMessage(element, 'input');
+  }
+}
 
 // 数値の有効チェック
 export const checkNumber = (labelName, element) => {
   // const regex = /^[1-9][0-9]+/;
   // const result = input.value.match(regex)
   if(element.value && element.value <= 0){
-    showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
+    showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input');
   }else{
     removeErrorMessage(element, 'input');
   }

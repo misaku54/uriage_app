@@ -1,4 +1,4 @@
-import { showErrorMessage, removeErrorMessage, checkLength, checkNumber, checkFuture, btnDisabled } from '../module/validation';
+import { showErrorMessage, removeErrorMessage, checkLength, checkMinLength, btnDisabled } from '../module/validation';
 import { toolTipAddEvent } from '../module/toolTip';
 
 document.addEventListener('turbo:load', () => {
@@ -16,6 +16,8 @@ document.addEventListener('turbo:load', () => {
     input.addEventListener('input', () => {
       input.name === 'user[name]' && checkLength('ユーザー名', 30, input);
       input.name === 'user[email]' && checkLength('アドレス', 255, input);
+      input.name === 'user[password]' && checkMinLength('パスワード', 6, input);
+      input.name === 'user[password_confirmation]' && removeErrorMessage(input, 'input');
       btnDisabled();
     });
   });
