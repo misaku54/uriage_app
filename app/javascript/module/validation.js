@@ -5,11 +5,13 @@ export const showErrorMessage = (element, message ,type) => {
   errorMessage.classList.add('invalid');
 
   switch(type) {
+    // typeがinputなら要素の真下にエラーメッセージを追加
     case "input":
       if(!element.nextElementSibling) {
         element.insertAdjacentElement('afterend', errorMessage);
       }
       break;
+    // typeがselectなら要素の内側にエラーメッセージを追加
     case "select":
       if(!element.lastElementChild.classList.contains('invalid')){
         element.insertAdjacentElement('beforeend', errorMessage);
@@ -23,12 +25,14 @@ export const showErrorMessage = (element, message ,type) => {
 // バリデーションエラーの削除
 export const removeErrorMessage = (element, type) => {
   switch(type) {
+    // typeがinputなら要素の真下にあるエラーメッセージを削除
     case 'input':
       const error = element.nextElementSibling;
       if(error) {
         error.remove();
       }
       break;
+    // typeがselectなら要素の内側にあるエラーメッセージを削除
     case 'select':
       const selectError = element.lastElementChild;
       if(selectError.classList.contains('invalid')) {
