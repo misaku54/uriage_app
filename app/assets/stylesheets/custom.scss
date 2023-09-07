@@ -106,7 +106,10 @@ h6:after {
 .read-text {
   font-size: .8rem;
 }
-
+.must-label {
+  color: #e60012!important;
+  font-weight: bold;
+}
 
 /* ヘッダー */
 .logo {
@@ -610,10 +613,11 @@ label.required:after {
   margin-top: 45px;
 }
 
-
+// ツールチップ
 .tooltip-block {
   position: relative;
 }
+
 .tooltip-text {
   position: absolute;
   display: none;
@@ -621,14 +625,16 @@ label.required:after {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  background: #545454;
+  background: $black;
   padding: 4px 12px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.8;
-  color: #FFF;
+  color: $white;
+  animation: fadeIn 0.4s;
   border-radius: 3px;
   filter: drop-shadow(0px 1px 4px #aaa);
+  white-space: nowrap;
 }
 
 .tooltip-text:before {
@@ -638,8 +644,9 @@ label.required:after {
   left: calc(50% + 10px) ;
   margin-left: -8px;
   border: 8px solid transparent;
-  border-top: 8px solid #545454;
+  border-top: 8px solid $black;
 }
+
 .tooltip-btn:after{
   position: absolute;
   content: "?";
@@ -649,6 +656,18 @@ label.required:after {
   border-radius: 50%;
   text-align: center;
   line-height: 1.1rem;
+  color: #0084CF;
   border: 1px solid;
   font-weight: bold;
+  transition: all .4s;
+}
+
+.tooltip-btn:hover:after{
+  background-color: #0084CF;
+  color: $white;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
 }
