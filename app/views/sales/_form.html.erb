@@ -6,7 +6,7 @@
       <div class="form_group row mx-sm-auto">
         <div class="table-line col-sm-3 col-lg-2 bg-light border p-sm-2">
           <div class="col-form-label col-form-label-sm text-sm-center">
-            <%= f.label :maker_id %>  <span class="badge bg-danger">必須</span>
+            <%= f.label :maker_id %><span class="must-label">*&nbsp;</span>
           </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 p-sm-2">
@@ -17,7 +17,7 @@
       <div class="form_group row mx-sm-auto">
         <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
           <div class="col-form-label col-form-label-sm text-sm-center">
-            <%= f.label :producttype_id %>  <span class="badge bg-danger">必須</span>
+            <%= f.label :producttype_id %><span class="must-label">*&nbsp;</span>
           </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
@@ -27,8 +27,12 @@
       </div>
       <div class="form_group row mx-sm-auto">
         <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
-          <div class="col-form-label col-form-label-sm text-sm-center">
-            <%= f.label :amount_sold %>  <span class="badge bg-danger">必須</span>
+          <div class="col-form-label col-form-label-sm d-flex justify-content-sm-center">
+            <%= f.label :amount_sold %><span class="must-label">*&nbsp;</span>
+            <div class="tooltip-block">
+              <p class="tooltip-text">0より大きいの数値で入力してください。</p>
+              <div class="tooltip-btn"></div>
+            </div>
           </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
@@ -37,8 +41,12 @@
       </div>
       <div class="form_group row mx-sm-auto">
         <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
-          <div class="col-form-label col-form-label-sm text-sm-center">
-            <%= f.label :remark %>  <span class="badge bg-secondary">任意</span>
+          <div class="col-form-label col-form-label-sm d-flex justify-content-sm-center">
+            <%= f.label :remark %>
+            <div class="tooltip-block">
+              <p class="tooltip-text">1000文字以内で入力してください。</p>
+              <div class="tooltip-btn"></div>
+            </div>
           </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
@@ -47,7 +55,13 @@
       </div>
       <div class="form_group row mx-sm-auto mb-2">
         <div class="table-line col-sm-3 col-lg-2 bg-light border border-top-0 p-sm-2">
-          <div class="col-form-label col-form-label-sm text-sm-center">登録日時  <span class="badge bg-danger">必須</span></div>
+          <div class="col-form-label col-form-label-sm d-flex justify-content-sm-center">
+            登録日時<span class="must-label">*&nbsp;</span>
+            <div class="tooltip-block">
+              <p class="tooltip-text">未来日または運用開始日以外の日付で入力してください。</p>
+              <div class="tooltip-btn"></div>
+            </div>
+          </div>
         </div>
         <div class="table-line col-sm-8 col-lg-6 border border-start-0 border-top-0 p-sm-2">
           <%= raw sprintf(
