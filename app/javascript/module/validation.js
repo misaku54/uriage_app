@@ -56,7 +56,7 @@ export const btnDisabled = () => {
   }
 };
 
-// 桁数チェック
+// 桁数最大値チェック
 export const checkLength = (labelName, maxLength, element) => {
   if(element.value.length > maxLength) {
     showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`, 'input');
@@ -65,6 +65,7 @@ export const checkLength = (labelName, maxLength, element) => {
   }
 };
 
+// 桁数最小値チェック
 export const checkMinLength = (labelName, minLength, element) => {
   if(element.value.length < minLength) {
     showErrorMessage(element, `※${labelName}は、${minLength}文字以上にしてください`, 'input');
@@ -102,3 +103,12 @@ export const checkTime = (start, end, element) => {
     removeErrorMessage(element, 'select');
   }
 };
+
+// 正規表現チェック
+export const checkRegExp = (message, checkVal, pattern, element) => {
+  if(!pattern.test(checkVal)){
+    showErrorMessage(element, message, 'input');
+  }else{
+    removeErrorMessage(element, 'input');
+  }
+}

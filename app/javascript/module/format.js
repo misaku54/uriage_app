@@ -1,3 +1,6 @@
+// 正規表現
+export const emailFormat = new RegExp(/^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/,'i');
+
 export const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
 
 // ゼロ埋め

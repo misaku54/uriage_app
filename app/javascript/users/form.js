@@ -1,4 +1,5 @@
-import { showErrorMessage, removeErrorMessage, checkLength, checkMinLength, btnDisabled } from '../module/validation';
+import { showErrorMessage, removeErrorMessage, checkLength, checkRegExp, checkMinLength, btnDisabled } from '../module/validation';
+import { emailFormat } from '../module/format'
 import { toolTipAddEvent } from '../module/toolTip';
 
 document.addEventListener('turbo:load', () => {
@@ -10,6 +11,8 @@ document.addEventListener('turbo:load', () => {
       if(input.hasAttribute('required') && input.value.trim() === '') {
         showErrorMessage(input, '※必須項目です。','input');
         btnDisabled();
+      }else{
+        input.name === 'user[email]' && checkRegExp('入力したアドレスは不正な値です。＠や.のつけ忘れがないか確認してください。', input.value, emailFormat ,input);
       }
     });
 
@@ -22,5 +25,5 @@ document.addEventListener('turbo:load', () => {
     });
   });
 
-  // toolTipAddEvent();
+  toolTipAddEvent();
 });
