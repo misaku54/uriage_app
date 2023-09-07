@@ -1,4 +1,5 @@
 import { showErrorMessage, checkLength, btnDisabled } from '../module/validation';
+import { toolTipAddEvent } from '../module/toolTip';
 
 document.addEventListener('turbo:load', () => {
   const input = document.querySelector('#producttype_name');
@@ -14,4 +15,6 @@ document.addEventListener('turbo:load', () => {
     checkLength('商品分類名', 30, input);
     btnDisabled();
   });
+
+  toolTipAddEvent();
 });
