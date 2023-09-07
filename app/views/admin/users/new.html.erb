@@ -1,3 +1,6 @@
+<% content_for :js do %>
+  <%= javascript_import_module_tag "users/form" %>
+<% end %>
 <% provide(:title, "ユーザー登録") %>
 <% provide(:button_text, 'ユーザー登録')%>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="パンくずリスト">

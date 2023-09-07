@@ -19,8 +19,8 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
     
-    it 'nameが51文字以上は無効になること' do
-      user.name  = "a" * 51
+    it 'nameが31文字以上は無効になること' do
+      user.name  = "a" * 31
       expect(user).to_not be_valid
     end
     
