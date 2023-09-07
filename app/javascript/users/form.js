@@ -13,6 +13,7 @@ document.addEventListener('turbo:load', () => {
         btnDisabled();
       }else{
         input.name === 'user[email]' && checkRegExp('入力したアドレスは不正な値です。＠や.のつけ忘れがないか確認してください。', input.value, emailFormat ,input);
+        btnDisabled();
       }
     });
 
