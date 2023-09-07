@@ -1,4 +1,5 @@
 import { showErrorMessage, checkLength, checkTime, btnDisabled } from '../module/validation';
+import { toolTipAddEvent } from '../module/toolTip';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('#event_title,#event_content');
@@ -43,4 +44,6 @@ document.addEventListener('turbo:load', () => {
       btnDisabled();
     });
   });
+  
+  toolTipAddEvent();
 });

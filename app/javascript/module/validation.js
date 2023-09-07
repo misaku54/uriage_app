@@ -89,7 +89,7 @@ export const checkFuture = (labelName, date, element) => {
 // 開始時刻と終了時刻の矛盾チェック
 export const checkTime = (start, end, element) => {
   if(start > end){
-    showErrorMessage(element, `※終了時刻は開始時刻より前の日を設定することはできません。`, 'select');
+    showErrorMessage(element, `※終了は開始より前の値を設定することはできません。`, 'select');
   }else{
     removeErrorMessage(element, 'select');
   }
