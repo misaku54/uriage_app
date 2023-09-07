@@ -5,11 +5,13 @@ export const showErrorMessage = (element, message ,type) => {
   errorMessage.classList.add('invalid');
 
   switch(type) {
+    // typeがinputなら要素の真下にエラーメッセージを追加
     case "input":
       if(!element.nextElementSibling) {
         element.insertAdjacentElement('afterend', errorMessage);
       }
       break;
+    // typeがselectなら要素の内側にエラーメッセージを追加
     case "select":
       if(!element.lastElementChild.classList.contains('invalid')){
         element.insertAdjacentElement('beforeend', errorMessage);
@@ -23,12 +25,14 @@ export const showErrorMessage = (element, message ,type) => {
 // バリデーションエラーの削除
 export const removeErrorMessage = (element, type) => {
   switch(type) {
+    // typeがinputなら要素の真下にあるエラーメッセージを削除
     case 'input':
       const error = element.nextElementSibling;
       if(error) {
         error.remove();
       }
       break;
+    // typeがselectなら要素の内側にあるエラーメッセージを削除
     case 'select':
       const selectError = element.lastElementChild;
       if(selectError.classList.contains('invalid')) {
@@ -52,21 +56,30 @@ export const btnDisabled = () => {
   }
 };
 
-// 桁数チェック
+// 桁数最大値チェック
 export const checkLength = (labelName, maxLength, element) => {
   if(element.value.length > maxLength) {
-    showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`, 'input')
+    showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`, 'input');
   }else{
     removeErrorMessage(element, 'input');
   }
 };
+
+// 桁数最小値チェック
+export const checkMinLength = (labelName, minLength, element) => {
+  if(element.value.length < minLength) {
+    showErrorMessage(element, `※${labelName}は、${minLength}文字以上にしてください`, 'input');
+  }else{
+    removeErrorMessage(element, 'input');
+  }
+}
 
 // 数値の有効チェック
 export const checkNumber = (labelName, element) => {
   // const regex = /^[1-9][0-9]+/;
   // const result = input.value.match(regex)
   if(element.value && element.value <= 0){
-    showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input')
+    showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input');
   }else{
     removeErrorMessage(element, 'input');
   }
@@ -85,8 +98,17 @@ export const checkFuture = (labelName, date, element) => {
 // 開始時刻と終了時刻の矛盾チェック
 export const checkTime = (start, end, element) => {
   if(start > end){
-    showErrorMessage(element, `※終了時刻は開始時刻より前の日を設定することはできません。`, 'select');
+    showErrorMessage(element, `※終了は開始より前の値を設定することはできません。`, 'select');
   }else{
     removeErrorMessage(element, 'select');
   }
 };
+
+// 正規表現チェック
+export const checkRegExp = (message, checkVal, pattern, element) => {
+  if(!pattern.test(checkVal)){
+    showErrorMessage(element, message, 'input');
+  }else{
+    removeErrorMessage(element, 'input');
+  }
+}

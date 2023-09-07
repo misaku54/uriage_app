@@ -1,4 +1,5 @@
 import { showErrorMessage, removeErrorMessage, checkLength, checkNumber, checkFuture, btnDisabled } from '../module/validation';
+import { toolTipAddEvent } from '../module/toolTip';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('#sale_amount_sold,#sale_remark');
@@ -51,4 +52,5 @@ document.addEventListener('turbo:load', () => {
       btnDisabled();
     });
   });
+  toolTipAddEvent();
 });
