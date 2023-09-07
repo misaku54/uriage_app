@@ -10,7 +10,7 @@ $gray-medium-light: #eaeaea;
 $black: #000000;
 $white: #ffffff;
 $deep-bule: rgb(93, 148, 230);
-$side-bar-color: #12639c;
+$side-bar-color: #005492;
 @import "bootstrap";
 @import "rails_bootstrap_forms";
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
@@ -356,10 +356,10 @@ label.required:after {
     transition: background-color 0.3s;
     border-bottom: 1px solid $white;
     &:hover {
-      background-color: $deep-bule;
+      background-color: #014C84;
     }
     &.is-active {
-      background-color: $deep-bule;
+      background-color: #014C84;
     }
   }
   &__cnt {
@@ -371,7 +371,7 @@ label.required:after {
       padding: 20px 20px 20px 50px;
       border-bottom: 1px solid $white;
       &:hover {
-        background-color: #1974ad;
+        background-color: #014C84;
       }
       a {
         color: $white;
