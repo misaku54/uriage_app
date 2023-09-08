@@ -19,7 +19,7 @@ class AggregatesController < ApplicationController
 
       # 集計処理はロジックモデルで行う。
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'month')
-      aggregate.call
+      aggregate.call_sql
       sales = aggregate.sales
       
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
@@ -59,7 +59,7 @@ class AggregatesController < ApplicationController
       
       # 集計処理はロジックモデルで行う。
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'year')
-      aggregate.call
+      aggregate.call_sql
       sales = aggregate.sales
 
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知
@@ -99,7 +99,7 @@ class AggregatesController < ApplicationController
       
       # 集計処理はロジックモデルで行う。
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: @user, type: 'day')
-      aggregate.call
+      aggregate.call_sql
       sales = aggregate.sales
 
       # 入力パラメータの期間で売上データがあれば集計処理をする、なければメッセージを通知

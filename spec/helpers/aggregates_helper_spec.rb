@@ -14,7 +14,7 @@ RSpec.describe AggregatesHelper, type: :helper do
   describe 'convert_array' do
     before do
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: user, type: 'day')
-      aggregate.call
+      aggregate.call_sql
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
       @aggregates_of_producttype       = aggregate.aggregates_of_producttype
@@ -109,7 +109,7 @@ RSpec.describe AggregatesHelper, type: :helper do
   describe 'best_selling_name' do
     before do
       aggregate = Aggregate.new(start_date: start_date, end_date: end_date, last_year_start_date: last_year_start_date, last_year_end_date: last_year_end_date, user: user, type: 'day')
-      aggregate.call
+      aggregate.call_sql
       @aggregates_of_maker_producttype = aggregate.aggregates_of_maker_producttype
       @aggregates_of_maker             = aggregate.aggregates_of_maker
       @aggregates_of_producttype       = aggregate.aggregates_of_producttype

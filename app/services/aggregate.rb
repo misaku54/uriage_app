@@ -19,7 +19,7 @@ class Aggregate
     @sales_growth_rate  = nil
   end
 
-  def call
+  def call_sql
     set_sales
     # ①メーカー、商品別　②メーカー別　③商品別で
     # 合計販売額、合計販売数、前年合計販売額、合計販売数、売上成長率を集計した結果を取得する。
