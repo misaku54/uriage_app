@@ -6,6 +6,15 @@ const currRainSpan   = document.querySelector('#current-rainfall');
 const maxTempSpan    = document.querySelector('#max-temperature');
 const minTempSpan    = document.querySelector('#min-temperature');
 
+// 取得したJSONを各要素にセット
+const setElement = (data = null, hour = null) => {
+  currTempDiv.innerText    = data ? `${data.hourly.temperature_2m[hour]}°C` : "-°C";
+  currWeatherDiv.innerText = data ? getWeather(data.hourly.weathercode[hour]) : "-";
+  currRainSpan.innerText   = data ? `${data.hourly.precipitation_probability[hour]}%` : "-%";
+  maxTempSpan.innerText    = data ? `${data.daily.temperature_2m_max[0]}°C` : "-°C";
+  minTempSpan.innerText    = data ? `${data.daily.temperature_2m_min[0]}°C` : "-°C";
+}
+
 // 天気情報の取得
 const getWeather = code => {
   if(code !== 0 && !code){ return "不明" };
@@ -32,18 +41,10 @@ const callApi = async () => {
   try {
     const res  = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=31.9167&longitude=131.4167&hourly=temperature_2m,precipitation_probability,precipitation_probability,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia%2FTokyo&start_date=${today}&end_date=${today}`)
     const data = await res.json();
-    currTempDiv.innerText    = `${data.hourly.temperature_2m[hour]}°C`;
-    currWeatherDiv.innerText = getWeather(data.hourly.weathercode[hour]);
-    currRainSpan.innerText   = `${data.hourly.precipitation_probability[hour]}%`;
-    maxTempSpan.innerText    = `${data.daily.temperature_2m_max[0]}°C`;
-    minTempSpan.innerText    = `${data.daily.temperature_2m_min[0]}°C`;
+    setElement(data, hour);
   } catch (e) {
     console.error(e);
-    currTempDiv.innerText    = "-°C";
-    currWeatherDiv.innerText = "-";
-    currRainSpan.innerText   = "-%";
-    maxTempSpan.innerText    = "-°C";
-    minTempSpan.innerText    = "-°C";
+    setElement();
   }
 }
 
