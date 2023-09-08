@@ -76,8 +76,6 @@ export const checkMinLength = (labelName, minLength, element) => {
 
 // 数値の有効チェック
 export const checkNumber = (labelName, element) => {
-  // const regex = /^[1-9][0-9]+/;
-  // const result = input.value.match(regex)
   if(element.value && element.value <= 0){
     showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input');
   }else{
@@ -111,4 +109,13 @@ export const checkRegExp = (message, checkVal, pattern, element) => {
   }else{
     removeErrorMessage(element, 'input');
   }
+}
+
+// dateselectに設定している日付を取得する。
+export const getDateSelectVal = (elements) => {
+  let dateAry = [];
+
+  elements.forEach((element, index) => 
+    (index === 1) ? dateAry.push(`${Number(element.value) - 1}`) : dateAry.push(element.value));
+  return new Date(...dateAry);
 }
