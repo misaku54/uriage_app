@@ -6,7 +6,7 @@ document.addEventListener('turbo:load', () => {
   // inputのイベント設定
   input.addEventListener('blur', () => {
     if(input.hasAttribute('required') && input.value.trim() === '') {
-      showErrorMessage(input, '※必須項目です。','input');
+      showErrorMessage(input, '※必須項目です。');
       btnDisabled();
     }
   });
