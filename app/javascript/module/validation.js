@@ -12,7 +12,7 @@ export const showErrorMessage = (element, message) => {
 // バリデーションエラーの削除
 export const removeErrorMessage = (element) => {
   const error = element.nextElementSibling;
-  
+
   if(error) {
     error.remove();
   }
@@ -33,27 +33,27 @@ export const btnDisabled = () => {
 // 桁数最大値チェック
 export const checkLength = (labelName, maxLength, element) => {
   if(element.value.length > maxLength) {
-    showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`, 'input');
+    showErrorMessage(element, `※${labelName}は、${maxLength}文字以内にしてください`);
   }else{
-    removeErrorMessage(element, 'input');
+    removeErrorMessage(element);
   }
 };
 
 // 桁数最小値チェック
 export const checkMinLength = (labelName, minLength, element) => {
   if(element.value.length < minLength) {
-    showErrorMessage(element, `※${labelName}は、${minLength}文字以上にしてください`, 'input');
+    showErrorMessage(element, `※${labelName}は、${minLength}文字以上にしてください`);
   }else{
-    removeErrorMessage(element, 'input');
+    removeErrorMessage(element);
   }
 }
 
 // 数値の有効チェック
 export const checkNumber = (labelName, element) => {
   if(element.value && element.value <= 0){
-    showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`, 'input');
+    showErrorMessage(element, `※${labelName}は、0より大きい数値を入力をしてください。`);
   }else{
-    removeErrorMessage(element, 'input');
+    removeErrorMessage(element);
   }
 };
 
@@ -61,27 +61,27 @@ export const checkNumber = (labelName, element) => {
 export const checkFuture = (labelName, date, element) => {
   const now = new Date();
   if(date > now){
-    showErrorMessage(element, `※${labelName}に、未来日は設定できません。`, 'select');
+    showErrorMessage(element, `※${labelName}に、未来日は設定できません。`);
   }else{
-    removeErrorMessage(element, 'select');
+    removeErrorMessage(element);
   }
 };
 
 // 開始時刻と終了時刻の矛盾チェック
 export const checkTime = (start, end, element) => {
   if(start > end){
-    showErrorMessage(element, `※終了は開始より前の値を設定することはできません。`, 'select');
+    showErrorMessage(element, `※終了は開始より前の値を設定することはできません。`);
   }else{
-    removeErrorMessage(element, 'select');
+    removeErrorMessage(element);
   }
 };
 
 // 正規表現チェック
 export const checkRegExp = (message, checkVal, pattern, element) => {
   if(!pattern.test(checkVal)){
-    showErrorMessage(element, message, 'input');
+    showErrorMessage(element, message);
   }else{
-    removeErrorMessage(element, 'input');
+    removeErrorMessage(element);
   }
 }
 

@@ -1,4 +1,4 @@
-import { showErrorMessage, checkTime, btnDisabled } from '../module/validation';
+import { checkTime, btnDisabled } from '../module/validation';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('input[name^="search_daily["]');
