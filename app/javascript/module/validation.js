@@ -77,7 +77,8 @@ export const checkTime = (start, end, element) => {
 };
 
 // 正規表現チェック
-export const checkRegExp = (message, checkVal, pattern, element) => {
+export const checkRegExp = (message, pattern, element) => {
+  const checkVal = element.value
   if(!pattern.test(checkVal)){
     showErrorMessage(element, message);
   }else{

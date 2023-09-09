@@ -12,7 +12,7 @@ document.addEventListener('turbo:load', () => {
         showErrorMessage(input, '※必須項目です。');
         btnDisabled();
       }else{
-        input.name === 'user[email]' && checkRegExp('入力したアドレスは不正な値です。＠や.のつけ忘れがないか確認してください。', input.value, emailFormat ,input);
+        input.name === 'user[email]' && checkRegExp('入力したアドレスは不正な値です。＠や.のつけ忘れがないか確認してください。', emailFormat ,input);
         btnDisabled();
       }
     });
