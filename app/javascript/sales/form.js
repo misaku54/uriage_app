@@ -24,13 +24,13 @@ document.addEventListener('turbo:load', () => {
   const slimSelects = document.querySelectorAll('select[data-controller="slim"]');
   slimSelects.forEach((select) => {
     select.addEventListener('change', () => {
-      const nextDiv = select.nextElementSibling;
+      const divEl = select.nextElementSibling;
       
       if(select.options[0].selected === true){
-        showErrorMessage(nextDiv, '※必須項目です。');
+        showErrorMessage(divEl, '※必須項目です。');
         btnDisabled();
       }else{
-        removeErrorMessage(nextDiv);
+        removeErrorMessage(divEl);
         btnDisabled();
       }
     });
@@ -38,13 +38,12 @@ document.addEventListener('turbo:load', () => {
   
   // selectのイベント設定
   const selects = document.querySelectorAll('select[name^="sale[created_at"]');
-  const aaa = selects[0].parentElement.innerText
   selects.forEach((select) => {
     select.addEventListener('change', () => {
-      const span = selects[selects.length - 1].nextElementSibling
+      const spanEl = selects[selects.length - 1].nextElementSibling
       const createDate = getDateSelectVal(selects);
-      
-      checkFuture('登録日時', createDate, span);
+
+      checkFuture('登録日時', createDate, spanEl);
       btnDisabled();
     });
   });
