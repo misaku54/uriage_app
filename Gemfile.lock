@@ -195,6 +195,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.2-aarch64-linux)
       racc (~> 1.4)
+    nokogiri (1.14.2-x86_64-linux)
+      racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.0)
       ast (~> 2.4.1)
@@ -345,6 +347,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  x86_64-linux
 
 DEPENDENCIES
   bcrypt
