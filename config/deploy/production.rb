@@ -1,3 +1,10 @@
+server "52.68.8.217", user: "sei", roles: %w{app db web}
+
+set :ssh_options, {
+  keys: %w(~/.ssh/uriage_app.pem),
+  forward_agent: true,
+  auth_methods: %w(publickey),
+}
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
