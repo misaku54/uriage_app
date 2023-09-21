@@ -5,7 +5,7 @@ set :application, "uriage_app"
 set :repo_url, "git@github.com:misaku54/uriage_app.git"
 set :rbenv_ruby, '3.2.1'
 set :branch, ENV['BRANCH'] || "main"
-
+set :whenever_roles, -> { :app }
 # Nginxの設定ファイル名と置き場所を修正
 set :nginx_config_name, "#{fetch(:application)}.conf"
 set :nginx_sites_enabled_path, "/etc/nginx/conf.d"
