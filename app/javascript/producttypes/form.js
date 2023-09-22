@@ -1,5 +1,5 @@
-import { showErrorMessage, checkLength, btnDisabled } from '../module/validation';
-import { toolTipAddEvent } from '../module/toolTip';
+import { showErrorMessage, checkLength, btnDisabled } from 'module/validation';
+import { toolTipAddEvent } from 'module/toolTip';
 
 document.addEventListener('turbo:load', () => {
   const input = document.querySelector('#producttype_name');
