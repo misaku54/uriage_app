@@ -506,9 +506,9 @@ label.required:after {
 .tooltip-text {
   position: absolute;
   display: none;
-  top: -55px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: -40px;
+  // left: 50%;
+  // transform: translateX(-50%);
   z-index: 1;
   background: $black;
   padding: 4px 12px;
@@ -517,7 +517,7 @@ label.required:after {
   line-height: 1.8;
   color: $white;
   animation: fadeIn 0.4s;
-  border-radius: 3px;
+  // border-radius: 3px;
   filter: drop-shadow(0px 1px 4px #aaa);
   white-space: nowrap;
 }
@@ -526,8 +526,8 @@ label.required:after {
   content: "";
   position: absolute;
   top: 100%;
-  left: calc(50% + 10px) ;
-  margin-left: -8px;
+  // left: calc(50% + 10px) ;
+  margin-left: -12px;
   border: 8px solid transparent;
   border-top: 8px solid $black;
 }
@@ -556,7 +556,11 @@ label.required:after {
   from {opacity: 0;}
   to {opacity:1 ;}
 }
-
+@media (max-width: 576px) {
+  .tooltip-text {
+    font-size: .7rem;
+  }
+}
 
 /* カレンダー設定 */
 .simple-calendar {
