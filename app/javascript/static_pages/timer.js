@@ -1,4 +1,4 @@
-import { getDateString, getTimeString } from '../module/format'
+import { getDateString, getTimeString } from 'module/format'
 document.addEventListener('turbo:load', () => {
   const dateDiv = document.getElementById('date');
   const timeDiv = document.getElementById('time');

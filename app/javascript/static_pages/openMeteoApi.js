@@ -1,4 +1,4 @@
-import  { getDateStringShort } from '../module/format'
+import  { getDateStringShort } from 'module/format'
 
 const currTempDiv    = document.querySelector('#current-temperature');
 const currWeatherDiv = document.querySelector('#current-weather');

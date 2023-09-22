@@ -1,6 +1,6 @@
-import { showErrorMessage, removeErrorMessage, checkLength, checkRegExp, checkMinLength, btnDisabled } from '../module/validation';
-import { emailFormat } from '../module/format'
-import { toolTipAddEvent } from '../module/toolTip';
+import { showErrorMessage, removeErrorMessage, checkLength, checkRegExp, checkMinLength, btnDisabled } from 'module/validation';
+import { emailFormat } from 'module/format'
+import { toolTipAddEvent } from 'module/toolTip';
 
 document.addEventListener('turbo:load', () => {
   const inputs = document.querySelectorAll('#user_name, #user_email, #user_password, #user_password_confirmation');

@@ -1,5 +1,5 @@
-import { showErrorMessage, checkLength, getDateSelectVal, checkTime, btnDisabled } from '../module/validation';
-import { toolTipAddEvent } from '../module/toolTip';
+import { showErrorMessage, checkLength, getDateSelectVal, checkTime, btnDisabled } from 'module/validation';
+import { toolTipAddEvent } from 'module/toolTip';
 
 document.addEventListener('turbo:load', () => {
   // input textareaのイベント設定
