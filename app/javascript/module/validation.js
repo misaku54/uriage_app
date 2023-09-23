@@ -13,7 +13,7 @@ export const showErrorMessage = (element, message) => {
 export const removeErrorMessage = (element) => {
   const error = element.nextElementSibling;
 
-  if(error) {
+  if(error && error.classList.contains('invalid')) {
     error.remove();
   }
 };
