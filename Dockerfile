@@ -1,4 +1,5 @@
 FROM ruby:3.2.1
+ENV RAILS_ENV=production
 # インストール済みのパッケージ更新をおこない、新しいバージョンにアップグレードする
 RUN apt-get update -qq && apt-get install -y nodejs yarnpkg
 RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn
@@ -21,4 +22,4 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 # -bバインドするIPアドレスを指定
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
