@@ -1,0 +1,90 @@
+name: Deploy work flow for Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+env:
+  AWS_REGION: ap-northeast-1
+  ECS_WEBAPP_SERVICE: uriage-app-service
+  WEBAPP_CONTAINER_NAME: rails 
+  WEBAPP_TAG: latest
+
+jobs:
+  # rspec:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   services:
+  #     mysql:
+  #       image: mysql:8.0.31
+  #       ports:
+  #         - 3306:3306
+  #       env:
+  #         MYSQL_ALLOW_EMPTY_PASSWORD: yes
+  #       options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #     - name: Use Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '16.18.1'  
+
+  #     - name: Set up Ruby
+  #       uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: 2.7.6
+
+  #     - name: Bundler and gem install
+  #       run: |
+  #         gem install bundler
+  #         bundle install
+        
+  #     - name: Yarn install
+  #       run: yarn install --check-files
+
+  #     - run: rails tailwindcss:build
+
+  #     - name: Database create and migrate
+  #       run: |
+  #         cp config/database.yml.ci config/database.yml
+  #         bundle exec rails db:create RAILS_ENV=test
+  #         bundle exec rails db:migrate RAILS_ENV=test
+
+  #     - name: Run rspec
+  #       run: bundle exec rspec
+
+  deploy:
+    name: deploy
+    # needs: rspec
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+  
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: webapp push to ECR
+      id: build-image-webapp
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      run: |
+        docker build -t --platform linux/amd64 $WEBAPP_CONTAINER_NAME .
+        docker tag $WEBAPP_CONTAINER_NAME:$WEBAPP_TAG $ECR_REGISTRY/$WEBAPP_CONTAINER_NAME:$WEBAPP_TAG
+        docker push $ECR_REGISTRY/$WEBAPP_CONTAINER_NAME:$WEBAPP_TAG
+
+    - name: Deploy to ECS
+      run: |
+        aws ecs update-service --service $ECS_WEBAPP_SERVICE --cluster uriage-app-cluster --force-new-deployment
