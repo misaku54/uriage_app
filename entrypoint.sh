@@ -10,6 +10,7 @@ bundle exec rails assets:precompile
 bundle exec whenever --update-crontab
 service cron start
 service cron status
+whoami
 bundle exec rake open_meteo_api:set_weather_forecasts
 # bundle exec whenever --update-cron --set environment=development
 # Then exec the container's main process (what's set as CMD in the Dockerfile).
