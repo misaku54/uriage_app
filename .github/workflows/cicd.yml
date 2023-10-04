@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - main
-permissions:
-  id-token: write # required!
-  contents: read
+      
 env:
   AWS_REGION: ap-northeast-1
   ECS_WEBAPP_SERVICE: uriage-app-service
