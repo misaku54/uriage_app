@@ -13,7 +13,8 @@ job_type :rake, 'cd :path && :environment_variable=:environment bundle exec rake
 ENV.each { |k, v| env(k, v) } # これを追加
 
 # 3時間ごとに[lib/tasks/open_meteo_api.rake]を実行する
-every 3.hours do
+# every 3.hours do
+every 1.minutes do
   rake 'open_meteo_api:set_weather_forecasts'
 end
 
