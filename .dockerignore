@@ -1,2 +1,3 @@
 # /tmp/db
 log/development.log
+config/master.key
