@@ -144,6 +144,6 @@ class Sale < ApplicationRecord
 
   # 作成更新時にcreated_atと同じ日付をcreated_onに設定
   def set_created_on
-    created_on = created_at&.in_time_zone
+    self.created_on = self.created_at&.in_time_zone
   end
 end
