@@ -128,21 +128,18 @@ class Sale < ApplicationRecord
 
   def maker_id_should_be_registered
     # カスタムバリデーションでallow_nilがやりたかった。
-    if maker_id.present?
-      errors.add(:maker_id, 'はマスターに登録されていない値です') unless Maker.find_by(id: maker_id, user_id: user_id)
-    end
+    return if self.maker_id.blank?
+    errors.add(:maker_id, 'はマスターに登録されていない値です') unless Maker.find_by(id: maker_id, user_id: user_id)
   end
 
   def producttype_id_should_be_registered
-    if producttype_id.present?
-      errors.add(:producttype_id, 'はマスターに登録されていない値です') unless Producttype.find_by(id: producttype_id, user_id: user_id)
-    end
+    return if self.producttype_id.blank?
+    errors.add(:producttype_id, 'はマスターに登録されていない値です') unless Producttype.find_by(id: producttype_id, user_id: user_id)
   end
 
   def aquired_on_should_be_registered
-    if created_at.present?
-      errors.add(:created_at, 'は天気DBに登録されていない値です。未来日か運用開始日より前の日付の可能性があります。') unless WeatherForecast.find_by(aquired_on: created_at)
-    end
+    return if self.created_at.blank?
+    errors.add(:created_at, 'は天気DBに登録されていない値です。未来日か運用開始日より前の日付の可能性があります。') unless WeatherForecast.find_by(aquired_on: created_at)
   end
 
   # 作成更新時にcreated_atと同じ日付をcreated_onに設定
