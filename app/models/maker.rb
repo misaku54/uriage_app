@@ -1,7 +1,7 @@
 class Maker < ApplicationRecord
   # 関連付け
   belongs_to :user
-  has_many :sales, dependent: :nullify
+  has_many :sales, dependent: :restrict_with_error
 
   # バリデーション
   validates :name,  presence: true, length: { maximum:30 }

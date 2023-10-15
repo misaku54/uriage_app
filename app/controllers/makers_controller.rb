@@ -45,9 +45,13 @@ class MakersController < ApplicationController
   end
 
   def destroy
-    @maker.destroy
-    flash[:success] = '削除しました。'
-    redirect_to user_makers_path(@user), status: :see_other
+    if @maker.destroy
+      flash[:success] = '削除しました。'
+      redirect_to user_makers_path(@user), status: :see_other
+    else
+      flash[:danger] = @maker.errors.messages[:base].join
+      redirect_to user_makers_path(@user), status: :see_other
+    end
   end
 
   private

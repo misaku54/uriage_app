@@ -45,9 +45,13 @@ class ProducttypesController < ApplicationController
   end
 
   def destroy
-    @producttype.destroy
-    flash[:success] = '削除しました。'
-    redirect_to user_producttypes_path(@user), status: :see_other
+    if @producttype.destroy
+      flash[:success] = '削除しました。'
+      redirect_to user_producttypes_path(@user), status: :see_other
+    else
+      flash[:danger] = @producttype.errors.messages[:base].join
+      redirect_to user_producttypes_path(@user), status: :see_other
+    end
   end
 
   private

@@ -13,7 +13,7 @@ ja:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
-          has_many: "%{record}が存在しているので削除できません"
+          has_many: "削除対象で登録している%{record}が存在しているので削除できません。"
     models:
       user: ユーザー
       maker: メーカー
@@ -36,11 +36,13 @@ ja:
         name: メーカー名
         created_at: 登録日時
         updated_at: 更新日時
+        sales: 売上データ
       producttype:
         id: 商品ID
         name: 商品分類名
         created_at: 登録日時
         updated_at: 更新日時
+        sales: 売上データ
       sale:
         id: 売上ID
         amount_sold: 販売価格
