@@ -237,19 +237,45 @@ RSpec.describe "商品管理機能", type: :system do
     describe '削除機能' do
       let(:login_user) { user_a }
 
-      context '一覧画面で削除ボタンをクリックした場合' do
-        it '削除に成功する' do
+      context '一覧画面で削除ボタンをクリック' do
+        before do
           visit user_producttypes_path(login_user)
-          expect {
+        end
+
+        context '関連データがないデータの場合' do
+          it '削除に成功する' do
+            expect {
+              find("form[action='/users/#{producttype.user.id}/producttypes/#{producttype.id}']").find('button').click
+            }.to change(Producttype, :count).by(-1)
+            # 一覧画面へ遷移していること
+            expect(page).to have_current_path user_producttypes_path(login_user)
+            # 削除した商品分類が表示されていないこと
+            expect(page).to have_no_content '商品A'
+            # 売上登録画面のセレクトボックスから商品分類が削除されていること
+            visit new_user_sale_path(login_user)
+            expect(page).to have_no_content '商品A'
+          end
+        end
+        
+        context '関連データがあるデータの場合' do
+          let!(:weather) { FactoryBot.create(:weather) }
+          let!(:maker) { FactoryBot.create(:maker, name: 'メーカーA', user: user_a) }
+          let!(:sale) { FactoryBot.create(:sale, maker: maker, producttype: producttype, user: user_a) }
+
+          it '削除に失敗する' do
+            expect{
             find("form[action='/users/#{producttype.user.id}/producttypes/#{producttype.id}']").find('button').click
-          }.to change(Producttype, :count).by(-1)
-          # 一覧画面へ遷移していること
-          expect(page).to have_current_path user_producttypes_path(login_user)
-          # 削除した商品分類名が表示されていないこと
-          expect(page).to have_no_content '商品A'
-          # 売上登録画面のセレクトボックスから商品分類名が削除されていること
-          visit new_user_sale_path(login_user)
-          expect(page).to have_no_content '商品A'
+            }.to change(Producttype, :count).by(0)
+            # 一覧画面へ遷移していること
+            expect(page).to have_current_path user_producttypes_path(login_user)
+            # 削除した商品分類が表示されること
+            expect(page).to have_content '商品A'
+            # 失敗時のフラッシュが表示されること
+            expect(page).to have_selector 'div.alert.alert-danger'
+            # 売上登録画面のセレクトボックスから商品分類が削除されていないこと
+            visit new_user_sale_path(login_user)
+            expect(page).to have_content '商品A'
+          end
         end
       end
     end

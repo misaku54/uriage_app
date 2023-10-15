@@ -238,21 +238,47 @@ RSpec.describe "メーカー管理機能", type: :system do
     describe '削除機能' do
       let(:login_user) { user_a }
 
-      context '一覧画面で削除ボタンをクリックした場合' do
-        it '削除に成功する' do
+      context '一覧画面で削除ボタンをクリック' do
+        before do
           visit user_makers_path(login_user)
-          # DB上で削除されていること
-          expect {
-            find("form[action='/users/#{maker.user.id}/makers/#{maker.id}']").find('button').click
-          }.to change(Maker, :count).by(-1)
-          # 一覧画面へ遷移していること
-          expect(page).to have_current_path user_makers_path(login_user)
-          # 削除したメーカーが表示されていないこと
-          expect(page).to have_no_content 'メーカーA'
+        end
 
-          # 売上登録画面のセレクトボックスからメーカー名が削除されていること
-          visit new_user_sale_path(login_user)
-          expect(page).to have_no_content 'メーカーA'
+        context '関連データがないデータの場合' do
+          it '削除に成功する' do
+            # DB上で削除されていること
+            expect {
+              find("form[action='/users/#{maker.user.id}/makers/#{maker.id}']").find('button').click
+            }.to change(Maker, :count).by(-1)
+            # 一覧画面へ遷移していること
+            expect(page).to have_current_path user_makers_path(login_user)
+            # 削除したメーカーが表示されていないこと
+            expect(page).to have_no_content 'メーカーA'
+
+            # 売上登録画面のセレクトボックスからメーカー名が削除されていること
+            visit new_user_sale_path(login_user)
+            expect(page).to have_no_content 'メーカーA'
+          end
+        end
+        
+        context '関連データがあるデータの場合' do
+          let!(:weather) { FactoryBot.create(:weather) }
+          let!(:producttype) { FactoryBot.create(:producttype, name:'商品A', user: user_a) }
+          let!(:sale) { FactoryBot.create(:sale, maker: maker, producttype: producttype, user: user_a) }
+          
+          it '削除に失敗する' do
+            expect {
+              find("form[action='/users/#{maker.user.id}/makers/#{maker.id}']").find('button').click
+            }.to change(Maker, :count).by(0)
+            # 一覧画面へ遷移していること
+            expect(page).to have_current_path user_makers_path(login_user)
+            # 削除したメーカーが表示されること
+            expect(page).to have_content 'メーカーA'
+            # 失敗時のフラッシュが表示されること
+            expect(page).to have_selector 'div.alert.alert-danger'
+            # 売上登録画面のセレクトボックスからメーカー名が削除されていないこと
+            visit new_user_sale_path(login_user)  
+            expect(page).to have_content 'メーカーA'
+          end
         end
       end
     end
