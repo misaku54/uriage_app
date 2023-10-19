@@ -36,22 +36,41 @@
               <td class="table-light col-4 col-sm-3 col-md-2">祝日</th>
               <td><%= get_holiday(@sale.created_at)  %></td>
             </tr>
-            <tr>
-              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:weather_id) %>（宮崎市）</th>
-              <td><%= get_weather(@sale.weather.weather_id) %></td>
-            </tr>
-            <tr>
-              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_max) %></th>
-              <td><%= "#{@sale.weather.temp_max}°C" %></td>
-            </tr>
-            <tr>
-              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_min) %></th>
-              <td><%= "#{@sale.weather.temp_min}°C" %></td>
-            </tr>
-            <tr>
-              <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:rainfall_sum) %></th>
-              <td><%= "#{@sale.weather.rainfall_sum}mm" %></td>
-            </tr>
+            <% if @sale.weather %>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:weather_id) %>（宮崎市）</th>
+                <td><%= get_weather(@sale.weather.weather_id) %></td>
+              </tr>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_max) %></th>
+                <td><%= "#{@sale.weather.temp_max}°C" %></td>
+              </tr>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_min) %></th>
+                <td><%= "#{@sale.weather.temp_min}°C" %></td>
+              </tr>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:rainfall_sum) %></th>
+                <td><%= "#{@sale.weather.rainfall_sum}mm" %></td>
+              </tr>
+            <% else %>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:weather_id) %>（宮崎市）</th>
+                <td>登録日時の天気情報がありません</td>
+              </tr>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_max) %></th>
+                <td>登録日時の天気情報がありません</td>
+              </tr>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:temp_min) %></th>
+                <td>登録日時の天気情報がありません</td>
+              </tr>
+              <tr>
+                <td class="table-light col-4 col-sm-3 col-md-2"><%= WeatherForecast.human_attribute_name(:rainfall_sum) %></th>
+                <td>登録日時の天気情報がありません</td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
     </div>

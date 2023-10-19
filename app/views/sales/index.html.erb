@@ -95,7 +95,11 @@
               <td class="text-end"><%= add_comma_en(sale.amount_sold) %></td>
               <td><%= truncate(sale.remark, length: 30) %></td>
               <td><%= get_holiday(sale.created_at)  %></td>
-              <td><%= get_weather(sale.weather.weather_id)  %></td>
+              <% if sale.weather %>
+                <td><%= get_weather(sale.weather.weather_id)  %></td>
+              <% else %>
+                <td>登録日時の天気情報がありません</td>
+              <% end %>
               <td class="ope-td">
                 <div class="d-flex justify-content-center">
                   <%= link_to user_sale_path(@user, sale), data: { turbo: false }, class: "btn btn-sm btn-info" do %>

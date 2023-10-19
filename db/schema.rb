@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_30_063827) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_19_213954) do
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -81,5 +81,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_063827) do
   add_foreign_key "sales", "makers"
   add_foreign_key "sales", "producttypes"
   add_foreign_key "sales", "users"
-  add_foreign_key "sales", "weather_forecasts", column: "created_on", primary_key: "aquired_on"
 end

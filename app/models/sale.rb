@@ -19,7 +19,7 @@ class Sale < ApplicationRecord
   validates :created_at, presence: true
   validate :maker_id_should_be_registered       #売上登録できるメーカー名は、メーカーマスタに登録されているものでなければならない
   validate :producttype_id_should_be_registered #売上登録できる商品分類名は、商品分類マスタに登録されているものでなければならない
-  validate :aquired_on_should_be_registered # 売上登録できる登録日付は、天気予報DBに登録されているものでなければならない
+  # validate :aquired_on_should_be_registered # 売上登録できる登録日付は、天気予報DBに登録されているものでなければならない
 
   # scopeで使う集計用SQL（できればサービスモデルに持っていきたい。）
   sql_1 = <<-EOS
