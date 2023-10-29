@@ -1,8 +1,8 @@
+<% content_for :js do %>
+  <%= javascript_import_module_tag "static_pages/timer" %>
+  <%= javascript_import_module_tag "static_pages/openMeteoApi" %>
+<% end %>
 <% if logged_in? %>
-  <% content_for :js do %>
-    <%= javascript_import_module_tag "static_pages/timer" %>
-    <%= javascript_import_module_tag "static_pages/openMeteoApi" %>
-  <% end %>
   <div class="row d-flex">
     <div class="col-sm-6 col-xl-4">
       <%= render 'today_date_card' %>

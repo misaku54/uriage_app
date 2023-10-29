@@ -49,6 +49,7 @@ const callApi = async () => {
 }
 
 document.addEventListener('turbo:load', () => {
+  if(!currTempDiv) return false; 
   callApi();
   // 1時間ごとに実行
   setInterval(callApi, 3600000);
