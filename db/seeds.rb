@@ -8,22 +8,22 @@ ActiveRecord::Base.transaction do
   end
 
   # 参照整合性制約のため、先に天気情報を登録
-  1.upto(12) do |month|
-    1.upto(15) do |day|
-      # 2021年度分
-      WeatherForecast.create!(aquired_on: Time.zone.local(2021, month, day),
-                              weather_id: rand(0..99),
-                              temp_max: rand(25.0..30.0).floor(1),
-                              temp_min: rand(20.0..24.9).floor(1),
-                              rainfall_sum: rand(0..10.0).floor(1))
-      # 2022年度分
-      WeatherForecast.create!(aquired_on: Time.zone.local(2022, month, day),
-                              weather_id: rand(0..99),
-                              temp_max: rand(25.0..30.0).floor(1),
-                              temp_min: rand(20.0..24.9).floor(1),
-                              rainfall_sum: rand(0..10.0).floor(1))
-    end
-  end
+  # 1.upto(12) do |month|
+  #   1.upto(15) do |day|
+  #     # 2021年度分
+  #     WeatherForecast.create!(aquired_on: Time.zone.local(2021, month, day),
+  #                             weather_id: rand(0..99),
+  #                             temp_max: rand(25.0..30.0).floor(1),
+  #                             temp_min: rand(20.0..24.9).floor(1),
+  #                             rainfall_sum: rand(0..10.0).floor(1))
+  #     # 2022年度分
+  #     WeatherForecast.create!(aquired_on: Time.zone.local(2022, month, day),
+  #                             weather_id: rand(0..99),
+  #                             temp_max: rand(25.0..30.0).floor(1),
+  #                             temp_min: rand(20.0..24.9).floor(1),
+  #                             rainfall_sum: rand(0..10.0).floor(1))
+  #   end
+  # end
 
   # ユーザー一人に対して、２年度分で一ヶ月ごとに15日分の売上データを生成する。
   maker_ids   = user.makers.ids
