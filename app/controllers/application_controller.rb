@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
-  TIMEOUT = 5.minutes
+  TIMEOUT = 12.hours
 
   private
 
