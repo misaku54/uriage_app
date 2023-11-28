@@ -6,7 +6,10 @@ class ApplicationController < ActionController::Base
 
   # ログイン済みユーザーかどうか確認
   def logged_in_user
-    time_out if logged_in?
+    if logged_in?
+      time_out
+      return
+    end
 
     store_location
     flash[:danger] = 'ログインしてください。'
