@@ -26,9 +26,9 @@ class SessionsController < ApplicationController
   private
 
   def logged_in_check
-    return unless logged_in?
-
-    flash[:danger] = 'すでにログインしています。'
-    redirect_to root_url, status: :see_other
+    if logged_in?
+      flash[:danger] = 'すでにログインしています。'
+      redirect_to root_url, status: :see_other
+    end
   end
 end
