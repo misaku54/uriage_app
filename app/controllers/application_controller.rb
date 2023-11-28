@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
-
+  TIMEOUT = 5.minutes
+  
   private
 
   # ログイン済みユーザーかどうか確認
@@ -20,5 +21,15 @@ class ApplicationController < ActionController::Base
               User.find_by(id: params[:id])
             end
     redirect_to(root_url, status: :see_other) unless current_user?(@user)
+  end
+
+  def time_out
+    if session[:last_access_time] > TIMEOUT.ago
+      session[:last_access_time] = Time.current
+    else
+      log_out
+      flash[:danger] = "タイムアウトしました。"
+      redirect_to login_path, status: :see_other
+    end
   end
 end
