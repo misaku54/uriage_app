@@ -2,6 +2,8 @@ module SessionsHelper
   # 渡されたユーザーでログインする
   def log_in(user)
     session[:user_id] = user.id
+    # タイムアウト用にログイン時の時刻を保存
+    session[:last_access_time] = Time.current
     # セッションリプレイ攻撃から保護する
     session[:session_token] = user.session_token
   end
