@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
   TIMEOUT = 5.minutes
-  
+
   private
 
   # ログイン済みユーザーかどうか確認
   def logged_in_user
-    return if logged_in?
+    time_out if logged_in?
 
     store_location
     flash[:danger] = 'ログインしてください。'
