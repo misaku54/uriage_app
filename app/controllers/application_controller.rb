@@ -7,13 +7,13 @@ class ApplicationController < ActionController::Base
   # ログイン済みユーザーかどうか確認
   def logged_in_user
     if logged_in?
+      # ログインしていればタイムアウトかどうか確認
       time_out
-      return
+    else
+      store_location
+      flash[:danger] = 'ログインしてください。'
+      redirect_to login_path, status: :see_other
     end
-
-    store_location
-    flash[:danger] = 'ログインしてください。'
-    redirect_to login_path, status: :see_other
   end
 
   # 遷移したページのidがログインユーザー本人でなければ、ホーム画面へリダイレクト
