@@ -69,7 +69,8 @@
   * カレンダー機能
   ![calender](https://github.com/misaku54/uriage_app/assets/123493228/33f27b1f-232f-4f5c-8f3b-ecfaa389aace)
   * ページネーション機能(kaminari＋hotwire)
-  ![page](https://github.com/misaku54/uriage_app/assets/123493228/97220d47-1061-4f76-9e81-9d8b4350d86c)
+  ![page](https://github.com/misaku54/uriage_app/assets/123493228/0addc019-0617-433b-be54-91ef34adfde1)
+sets/123493228/97220d47-1061-4f76-9e81-9d8b4350d86c)
   * 検索機能(ransack)
   * CSV出力機能
   ![csv](https://github.com/misaku54/uriage_app/assets/123493228/12269e8d-1513-48af-b558-93a326c81665)
