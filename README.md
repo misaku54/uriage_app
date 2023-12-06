@@ -67,18 +67,18 @@
   * 3時間ごとに天気APIから当日の天気情報をDBに保存
 * その他機能
   * カレンダー機能
-  ![calender](https://github.com/misaku54/uriage_app/assets/123493228/33f27b1f-232f-4f5c-8f3b-ecfaa389aace)
+  ![calender](https://github.com/misaku54/uriage_app/assets/123493228/3c116d47-9f21-4e70-a789-f48511c4eee0)
   * ページネーション機能(kaminari＋hotwire)
   ![page](https://github.com/misaku54/uriage_app/assets/123493228/0addc019-0617-433b-be54-91ef34adfde1)
 sets/123493228/97220d47-1061-4f76-9e81-9d8b4350d86c)
   * 検索機能(ransack)
   * CSV出力機能
-  ![csv](https://github.com/misaku54/uriage_app/assets/123493228/12269e8d-1513-48af-b558-93a326c81665)
+  ![csv](https://github.com/misaku54/uriage_app/assets/123493228/541ebb41-fe16-4583-b816-ae155a361d7a)
   * リアルタイム売上表示機能
 * javascriptで実装した機能
   * 当日の天気情報を天気APIより1時間おきに取得して表示
   * リアルタイムバリデーション
-  ![validate](https://github.com/misaku54/uriage_app/assets/123493228/ad5f1bd7-d890-467f-af25-1d48b2d9d92b)
+  ![validate](https://github.com/misaku54/uriage_app/assets/123493228/fcb553a3-8df1-4c70-9863-169c304f9fa1)
   * 時計機能
   * ツールチップ
   * アコーディオンサイドバー
