@@ -71,6 +71,8 @@ class User < ApplicationRecord
   def hourly_sales_sum(date)
     today_9_hour  = Time.zone.local(date.year, date.month, date.day, 9)
     today_21_hour = Time.zone.local(date.year, date.month, date.day, 21)
+    # 最初は、aggregateクラスかsalesクラスに実装するべきか悩んだが、
+    # レシーバーがuserインスタンスになるので、こちらの方が見栄えが良いと考えuserクラスに実装した。
     self.sales.group_by_hour(:created_at, range: today_9_hour..today_21_hour).sum(:amount_sold)
   end
 
