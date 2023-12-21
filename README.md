@@ -49,7 +49,7 @@
 ## インフラ構成図
 ![aws (1)](https://github.com/misaku54/uriage_app/assets/123493228/2347a9c4-cbce-4857-ae78-f149526bfe7c)
 ## ER図
-![ER drawio (1)](https://github.com/misaku54/uriage_app/assets/123493228/3665dedc-7364-4008-a488-739106d6f175)
+![20231221_ER drawio](https://github.com/misaku54/uriage_app/assets/123493228/3f08a65d-1d73-45c4-b126-6238871fcf30)
 ## 機能一覧
 * ログイン機能（クッキー保存、フレンドリーフォワーディング）
 * ユーザー管理機能(管理者限定)（CRUD）
