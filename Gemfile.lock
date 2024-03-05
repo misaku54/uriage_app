@@ -196,7 +196,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     net-ssh (7.2.0)
-    nio4r (2.5.8)
+    nio4r (2.7.0)
     nokogiri (1.14.2-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.14.2-x86_64-linux)
@@ -214,7 +214,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (5.0.1)
-    puma (5.6.5)
+    puma (5.6.8)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.3)
@@ -380,7 +380,7 @@ DEPENDENCIES
   mysql2 (~> 0.5)
   pry-byebug
   pry-rails
-  puma (~> 5.0)
+  puma (~> 5.6)
   rails (~> 7.0.4, >= 7.0.4.2)
   rails-controller-testing
   ransack
